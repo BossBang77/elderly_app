@@ -14,25 +14,21 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<SignInBloc>(
       create: (_) => SignInBloc()..add(Initial()),
-      child: BlocConsumer<SignInBloc, SignInState>(listener: (context, state) {
-        // if (state.loading == Loading.loading) {
-        //   context.read<LoadingIndicatorBloc>().add(ShowLoadingEvent());
-        // } else {
-        //   context.read<LoadingIndicatorBloc>().add(HideLoadingEvent());
-        // }
-      }, builder: (BuildContext context, SignInState state) {
-        if (state.view == SectionView.login) {
-          return LoginPage();
-        } else if (state.view == SectionView.forgotPassword) {
-          return ForgotPasswordPage();
-        } else if (state.view == SectionView.vertifyOTP) {
-          return VertifyOTPWidget();
-        } else if (state.view == SectionView.resetPassword) {
-          return ResetPasswordWidget();
-        } else {
-          return Container();
-        }
-      }),
+      child: BlocConsumer<SignInBloc, SignInState>(
+          listener: (context, state) {},
+          builder: (BuildContext context, SignInState state) {
+            if (state.view == SectionView.login) {
+              return LoginPage();
+            } else if (state.view == SectionView.forgotPassword) {
+              return ForgotPasswordPage();
+            } else if (state.view == SectionView.vertifyOTP) {
+              return VertifyOTPWidget();
+            } else if (state.view == SectionView.resetPassword) {
+              return ResetPasswordWidget();
+            } else {
+              return Container();
+            }
+          }),
     );
   }
 }
