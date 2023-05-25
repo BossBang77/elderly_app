@@ -26,6 +26,7 @@ class ButtonGradient extends StatelessWidget {
               ColorTheme().BlueDark,
               ColorTheme().BlueDark,
               ColorTheme().BlueDark,
+              ColorTheme().BlueDark,
               ColorTheme().Blue,
             ],
           ),

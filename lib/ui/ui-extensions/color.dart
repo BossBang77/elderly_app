@@ -24,6 +24,8 @@ class ColorTheme {
 
   final Color BlueDark = HexColor("#437ECB");
   final Color Blue = HexColor("#4AB4C0");
+  final Color Blue2 = HexColor("#4F80E2");
+
   final Color BlueBackGround = HexColor("#4797C6").withOpacity(0.1);
   final Color GreyBackGround = HexColor("#343434").withOpacity(0.1);
   final Color GreyBorder = HexColor("#343434").withOpacity(0.04);

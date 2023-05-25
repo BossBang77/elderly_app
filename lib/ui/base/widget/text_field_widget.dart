@@ -203,10 +203,12 @@ class TextFieldWidget extends StatelessWidget {
                   ? ColorTheme().GreyBackGround.withOpacity(0.03)
                   : HexColor('#FBFBFB'),
               border: Border.all(
-                  color:
-                      (isEnabled) ? HexColor('#B8B8B8') : HexColor('#EFEFEF'),
+                  color: (isEnabled)
+                      ? ColorTheme().GreyBorder
+                      : HexColor('#EFEFEF'),
                   width: 1),
               borderRadius: BorderRadius.all(Radius.circular(15))),
+<<<<<<< Updated upstream
       child: TextFormField(
         enabled: isEnabled,
         obscureText: obscureText,
@@ -225,6 +227,66 @@ class TextFieldWidget extends StatelessWidget {
             ? const TextInputType.numberWithOptions(decimal: true)
             : (multiLine)
                 ? TextInputType.multiline
+=======
+      child: Center(
+        child: TextFormField(
+          enabled: isEnabled,
+          obscureText: obscureText,
+          autovalidateMode: autoValid
+              ? AutovalidateMode.always
+              : AutovalidateMode.onUserInteraction,
+          controller: textEditingController,
+          inputFormatters: <TextInputFormatter>[
+            if (hasSpecialChar)
+              FilteringTextInputFormatter.deny(RegExp(r'[!#^$%*+`~]')),
+            if (textNumberType) FilteringTextInputFormatter.digitsOnly
+          ],
+          maxLength: maxLength,
+          minLines: minLines,
+          keyboardType: (textNumberType)
+              ? const TextInputType.numberWithOptions(decimal: true)
+              : (multiLine)
+                  ? TextInputType.multiline
+                  : null,
+          readOnly: readOnly,
+          validator: validator ??
+              (String? value) {
+                if (setError) {
+                  return errorText;
+                } else {
+                  return null;
+                }
+              },
+          onChanged: isEnabled
+              ? (value) {
+                  var cursorPos = textEditingController?.selection.base.offset;
+                  onChanged?.call(value);
+                  setOffset(cursorPos ?? 0);
+                }
+              : null,
+          maxLines: multiLine ? null : 1,
+          cursorColor: ColorTheme().Primary,
+          cursorHeight: 25,
+          style: TextStyle(
+            color: ColorTheme().black87,
+            fontSize: 18.sp,
+            fontFamily: fontFamily,
+          ),
+          decoration: InputDecoration(
+            suffixIcon: (suffix)
+                ? suffixTxt != null
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 7, right: 5),
+                        child: textOverline2(
+                            suffixTxt ?? '', ColorTheme().Primary))
+                    : GestureDetector(
+                        onTap: onTap,
+                        child: Image.asset(
+                          imagePath,
+                          scale: 5,
+                        ),
+                      )
+>>>>>>> Stashed changes
                 : null,
         readOnly: readOnly,
         validator: validator ??

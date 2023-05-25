@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+<<<<<<< Updated upstream
 import 'package:health_application/ui/base/login_page/login_page.dart';
+=======
+import 'package:health_application/ui/register_profile/register_profile_page.dart';
+import 'package:health_application/ui/signIn_page/login/login_page.dart';
+>>>>>>> Stashed changes
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -43,7 +48,10 @@ class WelcomePage extends StatelessWidget {
               ),
               ButtonGradient(
                 btnName: 'เริ่มต้นใช้งาน',
-                onClick: () {},
+                onClick: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => RegisterProfilePage()));
+                },
               ),
               const SizedBox(
                 height: 20,
