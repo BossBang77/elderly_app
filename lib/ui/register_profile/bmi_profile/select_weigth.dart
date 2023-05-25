@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../base/widget/text_field_line.dart';
 
-Widget SelectNameWidget(BuildContext context, RegisterProfileState state) {
+Widget SelectWeigthWidget(BuildContext context, RegisterProfileState state) {
   return Column(
     children: [
       Column(
@@ -15,16 +15,22 @@ Widget SelectNameWidget(BuildContext context, RegisterProfileState state) {
           const SizedBox(
             height: 30,
           ),
-          Center(child: textSubtitle24('ชื่อของฉัน', ColorTheme().black87)),
+          Center(child: textSubtitle24('น้ำหนักของฉัน', ColorTheme().black87)),
           const SizedBox(
             height: 30,
           ),
           TextFieldLine(
-            hintText: 'ชื่อของฉัน',
+            textNumberType: true,
+            maxLength: 2,
+            hintText: 'น้ำหนักของฉัน',
             onChange: ((value) {
               // TODO
             }),
-          )
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          textSubtitle16Blod('กิโลกรัม (กก.)', ColorTheme().black87),
         ],
       ),
     ],

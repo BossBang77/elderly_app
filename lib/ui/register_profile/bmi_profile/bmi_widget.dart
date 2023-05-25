@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
+import 'package:health_application/ui/register_profile/bmi_profile/select_age.dart';
 import 'package:health_application/ui/register_profile/bmi_profile/select_gender.dart';
+import 'package:health_application/ui/register_profile/bmi_profile/select_height.dart';
+import 'package:health_application/ui/register_profile/bmi_profile/select_name.dart';
+import 'package:health_application/ui/register_profile/bmi_profile/select_weigth.dart';
+import 'package:health_application/ui/register_profile/bmi_profile/summary_bmi.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:provider/provider.dart';
@@ -17,22 +22,26 @@ class BMIWidget extends StatelessWidget {
         case BMIDetail.gender:
           return SelectGenderWidget(context, state);
         case BMIDetail.name:
-          return Container();
+          return SelectNameWidget(context, state);
         case BMIDetail.age:
-          return Container();
+          return SelectAgeWidget(context, state);
         case BMIDetail.weightDetail:
-          return Container();
+          return SelectWeigthWidget(context, state);
         case BMIDetail.heightDetail:
-          return Container();
+          return SelectHeightWidget(context, state);
 
         default:
-          return Container();
+          return SummaryBMIWidget(context);
       }
     }
 
     return Scaffold(
       backgroundColor: ColorTheme().white,
-      appBar: appBar(onBack: () {}, title: 'โปรไฟล์ของฉัน'),
+      appBar: appBar(
+          onBack: () {
+            context.read<RegisterProfileBloc>().add(BackwardBMIDetail());
+          },
+          title: 'โปรไฟล์ของฉัน'),
       body: SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15),
@@ -44,11 +53,12 @@ class BMIWidget extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 40,
+                    height: 30,
                   ),
-                  textSubtitle16Blod(
-                      'Step ${state.bmiDetail.index + 1}/ ${BMIDetail.values.length}',
-                      ColorTheme().grey50),
+                  if (state.bmiDetail != BMIDetail.summaryBMI)
+                    textSubtitle16Blod(
+                        'Step ${state.bmiDetail.index + 1}/ ${BMIDetail.values.length}',
+                        ColorTheme().grey50),
                   Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                     child: getView(context, state),
@@ -59,8 +69,12 @@ class BMIWidget extends StatelessWidget {
             Column(
               children: [
                 ButtonGradient(
-                  btnName: 'ถัดไป',
-                  onClick: () {},
+                  btnName: state.bmiDetail == BMIDetail.heightDetail
+                      ? 'คำนวณหาดัชนีมวลกาย'
+                      : 'ถัดไป',
+                  onClick: () {
+                    context.read<RegisterProfileBloc>().add(ForwardBMIDetail());
+                  },
                 ),
                 const SizedBox(
                   height: 10,

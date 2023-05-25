@@ -4,7 +4,7 @@ enum ProfileView { register }
 
 enum ProfileType { role, privacyProfile, bmiProfile, disease, foodAllergies }
 
-enum BMIDetail { gender, name, age, weightDetail, heightDetail }
+enum BMIDetail { gender, name, age, weightDetail, heightDetail, summaryBMI }
 
 enum RoleType { initial, elderly, volunteer }
 

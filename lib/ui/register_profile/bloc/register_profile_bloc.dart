@@ -19,5 +19,18 @@ class RegisterProfileBloc
     if (event is SelectGender) {
       yield state.copyWith(gender: event.gender);
     }
+    if (event is ForwardBMIDetail) {
+      if (state.bmiDetail.index + 1 < BMIDetail.values.length) {
+        yield state.copyWith(
+            bmiDetail: BMIDetail.values[state.bmiDetail.index + 1]);
+      } else {}
+    }
+
+    if (event is BackwardBMIDetail) {
+      if (state.bmiDetail.index - 1 >= 0) {
+        yield state.copyWith(
+            bmiDetail: BMIDetail.values[state.bmiDetail.index - 1]);
+      } else {}
+    }
   }
 }
