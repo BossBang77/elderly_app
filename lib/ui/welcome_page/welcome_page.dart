@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:health_application/ui/base/login_page/login_page.dart';
+import 'package:health_application/ui/signIn_page/login/login_page.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+
+import '../signIn_page/signIn_widget.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -34,6 +36,8 @@ class WelcomePage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
+
+              /// TODO real text
               textSubtitle2(
                   'Lorem ipsum dolor sit amet, consectetur \nadipiscing elit. Elit, ipsum sed diam amet, dui\n vitae libero viverra.',
                   ColorTheme().black87,
@@ -52,7 +56,7 @@ class WelcomePage extends StatelessWidget {
                 btnName: 'เข้าสู่ระบบ',
                 onClick: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                      MaterialPageRoute(builder: (context) => SignInPage()));
                 },
               )
             ],
