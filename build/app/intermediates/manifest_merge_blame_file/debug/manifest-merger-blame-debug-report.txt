@@ -1,0 +1,393 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.health_application"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="18"
+9        android:targetSdkVersion="31" />
+10    <!--
+11         The INTERNET permission is required for development. Specifically,
+12         the Flutter tool needs it to communicate with the running application
+13         to allow setting breakpoints, to provide hot reload, etc.
+14    -->
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->/Users/suparuchsriploy/elderly-health-app/android/app/src/debug/AndroidManifest.xml:7:5-66
+15-->/Users/suparuchsriploy/elderly-health-app/android/app/src/debug/AndroidManifest.xml:7:22-64
+16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+16-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-80
+16-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-77
+17    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+17-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-81
+17-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:10:22-78
+18    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+18-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-81
+18-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-78
+19    <uses-permission android:name="android.permission.VIBRATE" />
+19-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-66
+19-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:22-63
+20    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+20-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-81
+20-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:11:22-78
+21    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+21-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:12:5-79
+21-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:12:22-76
+22    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+22-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:13:5-77
+22-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:13:22-74
+23    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+23-->[com.google.android.exoplayer:exoplayer-core:2.17.1] /Users/suparuchsriploy/.gradle/caches/transforms-3/9c3e1c556f4536cd794cd7354f8dc080/transformed/jetified-exoplayer-core-2.17.1/AndroidManifest.xml:24:5-79
+23-->[com.google.android.exoplayer:exoplayer-core:2.17.1] /Users/suparuchsriploy/.gradle/caches/transforms-3/9c3e1c556f4536cd794cd7354f8dc080/transformed/jetified-exoplayer-core-2.17.1/AndroidManifest.xml:24:22-76
+24    <uses-permission android:name="android.permission.WAKE_LOCK" />
+24-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:25:5-68
+24-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:25:22-65
+25    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+25-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:28:5-77
+25-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:28:22-74
+26
+27    <application
+28        android:name="io.flutter.app.FlutterMultiDexApplication"
+29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+29-->[androidx.core:core:1.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/5e083c06c9925c2309f02468fc66e376/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
+30        android:debuggable="true"
+31        android:icon="@mipmap/ic_launcher"
+32        android:label="health_application" >
+33        <activity
+34            android:name="com.example.health_application.MainActivity"
+35            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+36            android:exported="true"
+37            android:hardwareAccelerated="true"
+38            android:launchMode="singleTop"
+39            android:theme="@style/LaunchTheme"
+40            android:windowSoftInputMode="adjustResize" >
+41
+42            <!--
+43                 Specifies an Android theme to apply to this Activity as soon as
+44                 the Android process has started. This theme is visible to the user
+45                 while the Flutter UI initializes. After that, this theme continues
+46                 to determine the Window background behind the Flutter UI.
+47            -->
+48            <meta-data
+49                android:name="io.flutter.embedding.android.NormalTheme"
+50                android:resource="@style/NormalTheme" />
+51            <meta-data
+52                android:name="com.google.android.geo.API_KEY"
+53                android:value="AIzaSyCqZqq4uD8ETWSORJPjFWdSMnqofjViy0A" />
+54
+55            <intent-filter>
+56                <action android:name="android.intent.action.MAIN" />
+57
+58                <category android:name="android.intent.category.LAUNCHER" />
+59            </intent-filter>
+60        </activity>
+61        <!--
+62             Don't delete the meta-data below.
+63             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+64        -->
+65        <meta-data
+66            android:name="flutterEmbedding"
+67            android:value="2" />
+68
+69        <provider
+69-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:13:9-21:20
+70            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+70-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-82
+71            android:authorities="com.example.health_application.flutter.image_provider"
+71-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-74
+72            android:exported="false"
+72-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-37
+73            android:grantUriPermissions="true" >
+73-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-47
+74            <meta-data
+74-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-20:75
+75                android:name="android.support.FILE_PROVIDER_PATHS"
+75-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:19:17-67
+76                android:resource="@xml/flutter_image_picker_file_paths" />
+76-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:20:17-72
+77        </provider>
+78
+79        <receiver
+79-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:16:9-18:40
+80            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
+80-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-97
+81            android:exported="false" />
+81-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-37
+82        <receiver
+82-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:19:9-28:20
+83            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+83-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:20:13-101
+84            android:exported="false" >
+84-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:21:13-37
+85            <intent-filter>
+85-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:22:13-27:29
+86                <action android:name="android.intent.action.BOOT_COMPLETED" />
+86-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:23:17-79
+86-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:23:25-76
+87                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+87-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:24:17-84
+87-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:24:25-81
+88                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+88-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:25:17-82
+88-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:25:25-79
+89                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+89-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:17-82
+89-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:25-79
+90            </intent-filter>
+91        </receiver>
+92
+93        <provider
+93-->[:open_file] /Users/suparuchsriploy/elderly-health-app/build/open_file/intermediates/merged_manifest/debug/AndroidManifest.xml:11:9-20:20
+94            android:name="com.crazecoder.openfile.FileProvider"
+94-->[:open_file] /Users/suparuchsriploy/elderly-health-app/build/open_file/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-64
+95            android:authorities="com.example.health_application.fileProvider.com.crazecoder.openfile"
+95-->[:open_file] /Users/suparuchsriploy/elderly-health-app/build/open_file/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-88
+96            android:exported="false"
+96-->[:open_file] /Users/suparuchsriploy/elderly-health-app/build/open_file/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-37
+97            android:grantUriPermissions="true" >
+97-->[:open_file] /Users/suparuchsriploy/elderly-health-app/build/open_file/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-47
+98            <meta-data
+98-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-20:75
+99                android:name="android.support.FILE_PROVIDER_PATHS"
+99-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:19:17-67
+100                android:resource="@xml/filepaths" />
+100-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:20:17-72
+101        </provider>
+102        <provider
+102-->[:share] /Users/suparuchsriploy/elderly-health-app/build/share/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-18:20
+103            android:name="io.flutter.plugins.share.ShareFileProvider"
+103-->[:share] /Users/suparuchsriploy/elderly-health-app/build/share/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-70
+104            android:authorities="com.example.health_application.flutter.share_provider"
+104-->[:share] /Users/suparuchsriploy/elderly-health-app/build/share/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-74
+105            android:exported="false"
+105-->[:share] /Users/suparuchsriploy/elderly-health-app/build/share/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-37
+106            android:grantUriPermissions="true" >
+106-->[:share] /Users/suparuchsriploy/elderly-health-app/build/share/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-47
+107            <meta-data
+107-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-20:75
+108                android:name="android.support.FILE_PROVIDER_PATHS"
+108-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:19:17-67
+109                android:resource="@xml/flutter_share_file_paths" />
+109-->[:image_picker] /Users/suparuchsriploy/elderly-health-app/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:20:17-72
+110        </provider>
+111
+112        <uses-library
+112-->[androidx.window:window:1.0.0-beta04] /Users/suparuchsriploy/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+113            android:name="androidx.window.extensions"
+113-->[androidx.window:window:1.0.0-beta04] /Users/suparuchsriploy/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+114            android:required="false" />
+114-->[androidx.window:window:1.0.0-beta04] /Users/suparuchsriploy/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+115        <uses-library
+115-->[androidx.window:window:1.0.0-beta04] /Users/suparuchsriploy/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+116            android:name="androidx.window.sidecar"
+116-->[androidx.window:window:1.0.0-beta04] /Users/suparuchsriploy/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+117            android:required="false" />
+117-->[androidx.window:window:1.0.0-beta04] /Users/suparuchsriploy/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+118
+119        <provider
+119-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:31:9-39:20
+120            android:name="androidx.startup.InitializationProvider"
+120-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:32:13-67
+121            android:authorities="com.example.health_application.androidx-startup"
+121-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:33:13-68
+122            android:exported="false" >
+122-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:34:13-37
+123            <meta-data
+123-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:36:13-38:52
+124                android:name="androidx.work.WorkManagerInitializer"
+124-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:37:17-68
+125                android:value="androidx.startup" />
+125-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:38:17-49
+126        </provider>
+127
+128        <service
+128-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:41:9-46:35
+129            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+129-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:42:13-88
+130            android:directBootAware="false"
+130-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:43:13-44
+131            android:enabled="@bool/enable_system_alarm_service_default"
+131-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:44:13-72
+132            android:exported="false" />
+132-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:45:13-37
+133        <service
+133-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:47:9-53:35
+134            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+134-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:48:13-84
+135            android:directBootAware="false"
+135-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:49:13-44
+136            android:enabled="@bool/enable_system_job_service_default"
+136-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:50:13-70
+137            android:exported="true"
+137-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:51:13-36
+138            android:permission="android.permission.BIND_JOB_SERVICE" />
+138-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:52:13-69
+139        <service
+139-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:54:9-59:35
+140            android:name="androidx.work.impl.foreground.SystemForegroundService"
+140-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:55:13-81
+141            android:directBootAware="false"
+141-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:56:13-44
+142            android:enabled="@bool/enable_system_foreground_service_default"
+142-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:57:13-77
+143            android:exported="false" />
+143-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:58:13-37
+144
+145        <receiver
+145-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:61:9-66:35
+146            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+146-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:62:13-88
+147            android:directBootAware="false"
+147-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:63:13-44
+148            android:enabled="true"
+148-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:64:13-35
+149            android:exported="false" />
+149-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:65:13-37
+150        <receiver
+150-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:67:9-77:20
+151            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+151-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:68:13-106
+152            android:directBootAware="false"
+152-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:69:13-44
+153            android:enabled="false"
+153-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:70:13-36
+154            android:exported="false" >
+154-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:71:13-37
+155            <intent-filter>
+155-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:73:13-76:29
+156                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+156-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:74:17-87
+156-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:74:25-84
+157                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+157-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:75:17-90
+157-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:75:25-87
+158            </intent-filter>
+159        </receiver>
+160        <receiver
+160-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:78:9-88:20
+161            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+161-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:79:13-104
+162            android:directBootAware="false"
+162-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:80:13-44
+163            android:enabled="false"
+163-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:81:13-36
+164            android:exported="false" >
+164-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:82:13-37
+165            <intent-filter>
+165-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:84:13-87:29
+166                <action android:name="android.intent.action.BATTERY_OKAY" />
+166-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:85:17-77
+166-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:85:25-74
+167                <action android:name="android.intent.action.BATTERY_LOW" />
+167-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:86:17-76
+167-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:86:25-73
+168            </intent-filter>
+169        </receiver>
+170        <receiver
+170-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:89:9-99:20
+171            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+171-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:90:13-104
+172            android:directBootAware="false"
+172-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:91:13-44
+173            android:enabled="false"
+173-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:92:13-36
+174            android:exported="false" >
+174-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:93:13-37
+175            <intent-filter>
+175-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:95:13-98:29
+176                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+176-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:96:17-83
+176-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:96:25-80
+177                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+177-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:97:17-82
+177-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:97:25-79
+178            </intent-filter>
+179        </receiver>
+180        <receiver
+180-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:100:9-109:20
+181            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+181-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:101:13-103
+182            android:directBootAware="false"
+182-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:102:13-44
+183            android:enabled="false"
+183-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:103:13-36
+184            android:exported="false" >
+184-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:104:13-37
+185            <intent-filter>
+185-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:106:13-108:29
+186                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+186-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:107:17-79
+186-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:107:25-76
+187            </intent-filter>
+188        </receiver>
+189        <receiver
+189-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:110:9-121:20
+190            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+190-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:111:13-88
+191            android:directBootAware="false"
+191-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:112:13-44
+192            android:enabled="false"
+192-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:113:13-36
+193            android:exported="false" >
+193-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:114:13-37
+194            <intent-filter>
+194-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:116:13-120:29
+195                <action android:name="android.intent.action.BOOT_COMPLETED" />
+195-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:23:17-79
+195-->[:flutter_local_notifications] /Users/suparuchsriploy/elderly-health-app/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:23:25-76
+196                <action android:name="android.intent.action.TIME_SET" />
+196-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:118:17-73
+196-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:118:25-70
+197                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+197-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:119:17-81
+197-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:119:25-78
+198            </intent-filter>
+199        </receiver>
+200        <receiver
+200-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:122:9-131:20
+201            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+201-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:123:13-99
+202            android:directBootAware="false"
+202-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:124:13-44
+203            android:enabled="@bool/enable_system_alarm_service_default"
+203-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:125:13-72
+204            android:exported="false" >
+204-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:126:13-37
+205            <intent-filter>
+205-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:128:13-130:29
+206                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+206-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:129:17-98
+206-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:129:25-95
+207            </intent-filter>
+208        </receiver>
+209        <receiver
+209-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:132:9-142:20
+210            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+210-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:133:13-78
+211            android:directBootAware="false"
+211-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:134:13-44
+212            android:enabled="true"
+212-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:135:13-35
+213            android:exported="true"
+213-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:136:13-36
+214            android:permission="android.permission.DUMP" >
+214-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:137:13-57
+215            <intent-filter>
+215-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:139:13-141:29
+216                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+216-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:140:17-88
+216-->[androidx.work:work-runtime:2.7.0] /Users/suparuchsriploy/.gradle/caches/transforms-3/7403a55938e770188805fc63e1c54396/transformed/work-runtime-2.7.0/AndroidManifest.xml:140:25-85
+217            </intent-filter>
+218        </receiver>
+219
+220        <service
+220-->[androidx.room:room-runtime:2.2.5] /Users/suparuchsriploy/.gradle/caches/transforms-3/155e0ac8599c055a84c5726d00973d3b/transformed/room-runtime-2.2.5/AndroidManifest.xml:25:9-28:40
+221            android:name="androidx.room.MultiInstanceInvalidationService"
+221-->[androidx.room:room-runtime:2.2.5] /Users/suparuchsriploy/.gradle/caches/transforms-3/155e0ac8599c055a84c5726d00973d3b/transformed/room-runtime-2.2.5/AndroidManifest.xml:26:13-74
+222            android:directBootAware="true"
+222-->[androidx.room:room-runtime:2.2.5] /Users/suparuchsriploy/.gradle/caches/transforms-3/155e0ac8599c055a84c5726d00973d3b/transformed/room-runtime-2.2.5/AndroidManifest.xml:27:13-43
+223            android:exported="false" />
+223-->[androidx.room:room-runtime:2.2.5] /Users/suparuchsriploy/.gradle/caches/transforms-3/155e0ac8599c055a84c5726d00973d3b/transformed/room-runtime-2.2.5/AndroidManifest.xml:28:13-37
+224    </application>
+225
+226</manifest>
