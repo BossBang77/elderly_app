@@ -208,26 +208,6 @@ class TextFieldWidget extends StatelessWidget {
                       : HexColor('#EFEFEF'),
                   width: 1),
               borderRadius: BorderRadius.all(Radius.circular(15))),
-<<<<<<< Updated upstream
-      child: TextFormField(
-        enabled: isEnabled,
-        obscureText: obscureText,
-        autovalidateMode: autoValid
-            ? AutovalidateMode.always
-            : AutovalidateMode.onUserInteraction,
-        controller: textEditingController,
-        inputFormatters: <TextInputFormatter>[
-          if (hasSpecialChar)
-            FilteringTextInputFormatter.deny(RegExp(r'[!#^$%*+`~]')),
-          if (textNumberType) FilteringTextInputFormatter.digitsOnly
-        ],
-        maxLength: maxLength,
-        minLines: minLines,
-        keyboardType: (textNumberType)
-            ? const TextInputType.numberWithOptions(decimal: true)
-            : (multiLine)
-                ? TextInputType.multiline
-=======
       child: Center(
         child: TextFormField(
           enabled: isEnabled,
@@ -286,92 +266,60 @@ class TextFieldWidget extends StatelessWidget {
                           scale: 5,
                         ),
                       )
->>>>>>> Stashed changes
                 : null,
-        readOnly: readOnly,
-        validator: validator ??
-            (String? value) {
-              if (setError) {
-                return errorText;
-              } else {
-                return null;
-              }
-            },
-        onChanged: isEnabled
-            ? (value) {
-                var cursorPos = textEditingController?.selection.base.offset;
-                onChanged?.call(value);
-                setOffset(cursorPos ?? 0);
-              }
-            : null,
-        maxLines: multiLine ? null : 1,
-        decoration: InputDecoration(
-          suffixIcon: (suffix)
-              ? suffixTxt != null
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: 7, right: 5),
-                      child:
-                          textOverline2(suffixTxt ?? '', ColorTheme().Primary))
-                  : GestureDetector(
-                      onTap: onTap,
-                      child: Image.asset(
-                        imagePath,
-                        scale: 5,
-                      ),
-                    )
-              : null,
-          errorBorder: (setErrorWithOuter)
-              ? OutlineInputBorder(
-                  gapPadding: 1,
-                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                  borderSide: BorderSide(color: ColorTheme().Warning),
-                )
-              : InputBorder.none,
-          counterText: counterText ? null : '',
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          hintStyle: TextStyle(
-            color: ColorTheme().grey50,
-            fontSize: 18.sp,
-            fontFamily: fontFamily,
+            errorBorder: (setErrorWithOuter)
+                ? OutlineInputBorder(
+                    gapPadding: 1,
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                    borderSide: BorderSide(color: ColorTheme().Warning),
+                  )
+                : InputBorder.none,
+            counterText: counterText ? null : '',
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            hintStyle: TextStyle(
+              color: ColorTheme().grey50,
+              fontSize: 18.sp,
+              fontFamily: fontFamily,
+            ),
+            hintText: hintText,
+            filled: setError,
+            fillColor: ColorTheme().Warning.withOpacity(0.1),
+            focusedBorder: (setErrorWithOuter)
+                ? OutlineInputBorder(
+                    gapPadding: 1,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: HexColor('#B8B8B8')),
+                  )
+                : InputBorder.none,
+            border: (setErrorWithOuter)
+                ? OutlineInputBorder(
+                    gapPadding: 1,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: HexColor('#B8B8B8')),
+                  )
+                : InputBorder.none,
+            disabledBorder: (setErrorWithOuter)
+                ? OutlineInputBorder(
+                    gapPadding: 1,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: HexColor('#B8B8B8')),
+                  )
+                : InputBorder.none,
+            focusedErrorBorder: (setErrorWithOuter)
+                ? OutlineInputBorder(
+                    gapPadding: 1,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: ColorTheme().Warning),
+                  )
+                : InputBorder.none,
+            enabledBorder: (setErrorWithOuter)
+                ? OutlineInputBorder(
+                    gapPadding: 1,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: HexColor('#B8B8B8')),
+                  )
+                : InputBorder.none,
           ),
-          hintText: hintText,
-          filled: setError,
-          fillColor: ColorTheme().Warning.withOpacity(0.1),
-          focusedBorder: (setErrorWithOuter)
-              ? OutlineInputBorder(
-                  gapPadding: 1,
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(color: HexColor('#B8B8B8')),
-                )
-              : InputBorder.none,
-          border: (setErrorWithOuter)
-              ? OutlineInputBorder(
-                  gapPadding: 1,
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(color: HexColor('#B8B8B8')),
-                )
-              : InputBorder.none,
-          disabledBorder: (setErrorWithOuter)
-              ? OutlineInputBorder(
-                  gapPadding: 1,
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(color: HexColor('#B8B8B8')),
-                )
-              : InputBorder.none,
-          focusedErrorBorder: (setErrorWithOuter)
-              ? OutlineInputBorder(
-                  gapPadding: 1,
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(color: ColorTheme().Warning),
-                )
-              : InputBorder.none,
-          enabledBorder: (setErrorWithOuter)
-              ? OutlineInputBorder(
-                  gapPadding: 1,
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(color: HexColor('#B8B8B8')),
-                )
-              : InputBorder.none,
         ),
       ),
     );

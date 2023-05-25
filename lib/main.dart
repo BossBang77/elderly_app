@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:health_application/ui/base/data_provider.dart';
-import 'package:health_application/ui/base/login_page/login_page.dart';
+import 'package:health_application/ui/signIn_page/login/login_page.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
 
 void main() {

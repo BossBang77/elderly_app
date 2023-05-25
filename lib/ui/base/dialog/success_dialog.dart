@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 import '../../ui-extensions/color.dart';
 
 ///errordialog
-class ErrorTryDialogWidget extends StatelessWidget {
+class SuccessDialog extends StatelessWidget {
   ///constructor
-  const ErrorTryDialogWidget(
+  const SuccessDialog(
       {Key? key,
       required this.header,
       required this.subtitle,
       this.time,
-      this.onTap})
+      this.onTap,
+      this.buttonName})
       : super(key: key);
 
   ///header
@@ -20,6 +22,8 @@ class ErrorTryDialogWidget extends StatelessWidget {
 
   ///subtitle
   final String subtitle;
+
+  final buttonName;
 
   ///onTap
   final Function()? onTap;
@@ -29,26 +33,7 @@ class ErrorTryDialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ColorTheme colors = new ColorTheme();
-    final Widget backToHomeButton = SizedBox(
-      width: 120.w,
-      height: 25.h,
-      child: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor:
-              MaterialStateProperty.all<Color>(ColorTheme().Primary),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-              side: BorderSide(
-                color: ColorTheme().Primary,
-              ),
-            ),
-          ),
-        ),
-        onPressed: onTap,
-        child: textButton1("ตกลง", colors.Surface),
-      ),
-    );
+
     return Stack(
       children: <Widget>[
         const Opacity(
@@ -57,41 +42,46 @@ class ErrorTryDialogWidget extends StatelessWidget {
         ),
         AlertDialog(
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
           title: Padding(
-            padding: const EdgeInsets.only(top: 15, left: 75, right: 75),
+            padding: const EdgeInsets.only(top: 15, left: 0, right: 0),
             child: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   SizedBox(
                       child: Image.asset(
-                    'assets/images/Icon_expiredtoken.png',
-                    width: 75,
-                    height: 75,
+                    'assets/images/success_icon.png',
+                    scale: 3,
                   )),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
-                  textH6(header, colors.PrimaryVariant, true),
+                  textSubtitle24W700(header, colors.black87),
                   const SizedBox(
                     height: 10,
                   ),
-                  textSubtitle2(subtitle, colors.SecondaryVariant, true),
+                  textSubtitle18Blod(subtitle, colors.black87),
                 ],
               ),
             ),
           ),
           actions: <Widget>[
-            Center(
+            Container(
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: Column(
-              children: <Widget>[
-                backToHomeButton,
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
-            )),
+                  children: <Widget>[
+                    ButtonGradient(
+                      btnName: buttonName,
+                      onClick: () {
+                        onTap!();
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                )),
           ],
         )
       ],

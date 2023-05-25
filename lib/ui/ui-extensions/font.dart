@@ -200,3 +200,30 @@ Widget textSubtitle18Blod(String text, Color color) {
           fontFamily: fontFamily,
           fontWeight: FontWeight.w700));
 }
+
+Widget textSubtitle18W800(String text, Color color) {
+  return Text(text,
+      style: TextStyle(
+          color: color,
+          fontSize: 18.sp,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w800));
+}
+
+Widget textSubtitle24W700(String text, Color color) {
+  return Text(text,
+      style: TextStyle(
+          color: color,
+          fontSize: 24.sp,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w700));
+}
+
+Widget textSubtitle16Blod(String text, Color color) {
+  return Text(text,
+      style: TextStyle(
+          color: color,
+          fontSize: 16.sp,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w700));
+}
