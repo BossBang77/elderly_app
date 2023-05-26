@@ -10,8 +10,8 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:provider/provider.dart';
 
-class DiseaseWidget extends StatelessWidget {
-  const DiseaseWidget({super.key, required this.state});
+class FoodAllergiesWidget extends StatelessWidget {
+  const FoodAllergiesWidget({super.key, required this.state});
   final RegisterProfileState state;
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class DiseaseWidget extends StatelessWidget {
                 .read<RegisterProfileBloc>()
                 .add(ChangeProfileView(profileType: ProfileType.bmiProfile));
           },
-          title: 'โรคประจำตัว'),
+          title: 'การแพ้อาหาร'),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -37,7 +37,7 @@ class DiseaseWidget extends StatelessWidget {
                 ),
                 TextFieldWidget.enable(
                   text: '',
-                  hintText: 'ค้นหาโรคประจำตัว',
+                  hintText: 'ค้นหาการแพ้อาหาร',
                   prefix: true,
                   prefixTxt: null,
                   imagePathPrefix: 'assets/images/search_icon.png',
@@ -66,7 +66,8 @@ class DiseaseWidget extends StatelessWidget {
                             const SizedBox(
                               width: 10,
                             ),
-                            textSubtitle1('โรคหัวใจ', color.black87),
+                            //TODO
+                            textSubtitle1('เม็ดมะม่วงหิมพานต์', color.black87),
                           ],
                         ),
                       ),
@@ -106,6 +107,7 @@ class DiseaseWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          //TODO
                           textSubtitle16Blod('เลือก 1 รายการ', color.black87),
                           textSubtitle2('ล้างทั้งหมด', color.Primary, false),
                         ],
@@ -119,7 +121,8 @@ class DiseaseWidget extends StatelessWidget {
                           Container(
                               width: sized.width,
                               child: Text(
-                                  'โรคความดันโลหิตสูง, โรคเบาหวาน,โรคภูมิคุ้มกันบกพร่อง , โรคอ้วน',
+                                  //TODO
+                                  'เม็ดมะม่วงหิมพานต์',
                                   softWrap: true,
                                   style: TextStyle(
                                       color: color.black87,
@@ -134,7 +137,7 @@ class DiseaseWidget extends StatelessWidget {
                       onClick: () {
                         context.read<RegisterProfileBloc>().add(
                             ChangeProfileView(
-                                profileType: ProfileType.foodAllergies));
+                                profileType: ProfileType.success));
                       },
                     ),
                   ],

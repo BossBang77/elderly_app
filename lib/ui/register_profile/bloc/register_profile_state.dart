@@ -2,7 +2,14 @@ part of 'register_profile_bloc.dart';
 
 enum ProfileView { register }
 
-enum ProfileType { role, privacyProfile, bmiProfile, disease, foodAllergies }
+enum ProfileType {
+  role,
+  privacyProfile,
+  bmiProfile,
+  disease,
+  foodAllergies,
+  success
+}
 
 enum BMIDetail { gender, name, age, weightDetail, heightDetail, summaryBMI }
 

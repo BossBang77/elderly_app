@@ -18,7 +18,7 @@ class SelectRoleWidget extends StatelessWidget {
       backgroundColor: ColorTheme().white,
       appBar: appBar(onBack: () {}),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+        padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -63,7 +63,7 @@ class SelectRoleWidget extends StatelessWidget {
                   context.read<RegisterProfileBloc>().add(ChangeProfileView(
                       profileType: ProfileType.privacyProfile));
               },
-            )
+            ),
           ],
         ),
       ),

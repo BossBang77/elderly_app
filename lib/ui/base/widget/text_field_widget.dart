@@ -33,7 +33,10 @@ class TextFieldWidget extends StatelessWidget {
       this.suffixTxt = null,
       this.minLines,
       this.validator,
-      this.readOnly = false})
+      this.readOnly = false,
+      this.imagePathPrefix = '',
+      this.prefix = false,
+      this.prefixTxt})
       : super(key: key);
 
   ///create text field with disable
@@ -84,6 +87,9 @@ class TextFieldWidget extends StatelessWidget {
       bool readOnly = false,
       String? suffixTxt,
       int? minLines,
+      String? prefixTxt,
+      bool prefix = false,
+      String imagePathPrefix = '',
       FormFieldValidator<String>? validator,
       ValueChanged<String>? onChanged})
       : this(
@@ -109,7 +115,10 @@ class TextFieldWidget extends StatelessWidget {
             suffixTxt: suffixTxt,
             validator: validator,
             textEditingController: TextEditingController(text: text),
-            minLines: minLines);
+            minLines: minLines,
+            prefix: prefix,
+            prefixTxt: prefixTxt,
+            imagePathPrefix: imagePathPrefix);
 
   ///error text
   final String errorText;
@@ -174,6 +183,9 @@ class TextFieldWidget extends StatelessWidget {
 
   final String? suffixTxt;
   final int? minLines;
+  final bool prefix;
+  final String? prefixTxt;
+  final String imagePathPrefix;
 
   static int _offset = 0;
   int get offset => _offset;
@@ -253,6 +265,20 @@ class TextFieldWidget extends StatelessWidget {
             fontFamily: fontFamily,
           ),
           decoration: InputDecoration(
+            prefixIcon: (prefix)
+                ? prefixTxt != null
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 7, right: 5),
+                        child: textOverline2(
+                            prefixTxt ?? '', ColorTheme().Primary))
+                    : GestureDetector(
+                        onTap: onTap,
+                        child: Image.asset(
+                          imagePathPrefix,
+                          scale: 5,
+                        ),
+                      )
+                : null,
             suffixIcon: (suffix)
                 ? suffixTxt != null
                     ? Padding(

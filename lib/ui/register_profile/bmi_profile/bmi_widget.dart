@@ -73,7 +73,14 @@ class BMIWidget extends StatelessWidget {
                       ? 'คำนวณหาดัชนีมวลกาย'
                       : 'ถัดไป',
                   onClick: () {
-                    context.read<RegisterProfileBloc>().add(ForwardBMIDetail());
+                    if (state.bmiDetail == BMIDetail.summaryBMI) {
+                      context.read<RegisterProfileBloc>().add(
+                          ChangeProfileView(profileType: ProfileType.disease));
+                    } else {
+                      context
+                          .read<RegisterProfileBloc>()
+                          .add(ForwardBMIDetail());
+                    }
                   },
                 ),
                 const SizedBox(

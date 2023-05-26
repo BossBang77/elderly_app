@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/text_field_widget.dart';
+import 'package:health_application/ui/register_profile/register_profile_page.dart';
 import 'package:health_application/ui/signIn_page/bloc/sign_in_bloc.dart';
 
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -93,7 +94,12 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     textButton2('ยังไม่มีบัญชี?  ', ColorTheme().black87),
-                    textButton1('ลงทะเบียน', ColorTheme().Primary),
+                    InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => RegisterProfilePage()));
+                        },
+                        child: textButton1('ลงทะเบียน', ColorTheme().Primary)),
                   ],
                 ),
                 const SizedBox(
