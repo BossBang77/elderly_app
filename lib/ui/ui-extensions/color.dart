@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+var color = ColorTheme();
+
 class ColorTheme {
   final Color Primary = HexColor("#479DC5").withOpacity(1.0);
   final Color PrimaryVariant = HexColor("#394EBA").withOpacity(1.0);
@@ -33,6 +35,7 @@ class ColorTheme {
   final Color BlueFade = HexColor("#4797C6").withOpacity(1.0);
   final Color black87 = Colors.black87;
   final Color white = Colors.white;
+  final Color whiteBackground = HexColor("#FCFCFC").withOpacity(1.0);
   final Color grey50 = Colors.grey.withOpacity(0.5);
   final Color grey10 = Colors.grey.withOpacity(0.1);
 }
