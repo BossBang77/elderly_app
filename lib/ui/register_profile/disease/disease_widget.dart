@@ -40,7 +40,7 @@ class DiseaseWidget extends StatelessWidget {
 
     // _modalBottomSheetMenu();
     return Scaffold(
-      backgroundColor: ColorTheme().whiteBackground,
+      // backgroundColor: ColorTheme().whiteBackground,
       appBar: appBar(
           onBack: () {
             //TODO
@@ -57,14 +57,14 @@ class DiseaseWidget extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                TextFieldWidget.enable(
-                  text: '',
-                  hintText: 'ค้นหาโรคประจำตัว',
-                  prefix: true,
-                  prefixTxt: null,
-                  imagePathPrefix: 'assets/images/search_icon.png',
-                  maxLength: 100,
-                ),
+                // TextFieldWidget.enable(
+                //   text: '',
+                //   hintText: 'ค้นหาโรคประจำตัว',
+                //   prefix: true,
+                //   prefixTxt: null,
+                //   imagePathPrefix: 'assets/images/search_icon.png',
+                //   maxLength: 100,
+                // ),
                 // Expanded(child: Container(ch)),
               ]),
             ),
