@@ -227,3 +227,15 @@ Widget textSubtitle16Blod(String text, Color color) {
           fontFamily: fontFamily,
           fontWeight: FontWeight.w700));
 }
+
+Widget text12Bold(String text, Color color,
+    {TextAlign align = TextAlign.center}) {
+  return Text(text,
+      textAlign: align,
+      overflow: TextOverflow.fade,
+      style: TextStyle(
+          color: color,
+          fontSize: 12.sp,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w700));
+}
