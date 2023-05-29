@@ -33,7 +33,6 @@ void addWaterIntake(BuildContext ctx,
         borderRadius: BorderRadius.circular(30),
       ),
       backgroundColor: ColorTheme().white,
-      isScrollControlled: true,
       context: ctx,
       builder: (context) {
         return StatefulBuilder(builder: (context, setState) {

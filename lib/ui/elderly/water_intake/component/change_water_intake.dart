@@ -14,7 +14,6 @@ void changeWaterIntake(BuildContext ctx) {
       ),
       backgroundColor: ColorTheme().white,
       context: ctx,
-      isScrollControlled: true,
       builder: (ctx) => Container(
           padding: MediaQuery.of(ctx).viewInsets,
           height: MediaQuery.of(ctx).size.height / 1.5,
