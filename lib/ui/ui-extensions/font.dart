@@ -110,7 +110,6 @@ Widget textBody2(String text, Color color, bool underline) {
         color: color,
         fontSize: 14.sp,
         fontFamily: fontFamily,
-        fontWeight: FontWeight.w300,
         decoration:
             (underline) ? TextDecoration.underline : TextDecoration.none,
       ));

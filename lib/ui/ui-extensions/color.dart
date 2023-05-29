@@ -36,4 +36,5 @@ class ColorTheme {
   final Color BlueFade2 = HexColor('#0C81E4');
   final Color BackgroundWhite = HexColor('#FCFCFC');
   final Color BlueDark2 = HexColor('#3E54D3');
+  final Color Orange1 = HexColor('#F8763E');
 }
