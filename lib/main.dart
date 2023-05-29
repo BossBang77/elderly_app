@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:health_application/ui/base/data_provider.dart';
 import 'package:health_application/ui/signIn_page/login/login_page.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   Bloc.observer = CounterObserver();
@@ -25,6 +26,7 @@ class CounterObserver extends BlocObserver {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('th');
     return MultiRepositoryProvider(
         providers: <RepositoryProvider<dynamic>>[
           RepositoryProvider<DataProvider>(

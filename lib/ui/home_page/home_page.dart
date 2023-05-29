@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/elderly/water_intake/water_intake_page.dart';
 import 'package:health_application/ui/home_page/bloc/home_page_bloc.dart';
 import 'package:health_application/ui/home_page/component/menu_item.dart';
 import 'package:health_application/ui/home_page/home_widget.dart';
@@ -105,6 +106,8 @@ class HomePage extends StatelessWidget {
               switch (state.menus) {
                 case menuType.mainPage:
                   return HomeWidget();
+                case menuType.drinkingPage:
+                  return WaterIntakePage();
                 // TODO case next page
 
                 default:
