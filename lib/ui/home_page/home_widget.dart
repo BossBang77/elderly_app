@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:health_application/ui/base/widget/button_dark_bule.dart';
+import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/home_page/component/menu_card.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+import 'package:provider/provider.dart';
 
 import '../base/liquid_linear_grap/liquid_linear_grap.dart';
+import 'bloc/home_page_bloc.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({super.key});
@@ -56,7 +59,8 @@ class HomeWidget extends StatelessWidget {
                               textSubtitle24(
                                   'สวัสดี, นางทองใบ', ColorTheme().white),
                               textSubtitle18Blod(
-                                  'วันนี้, 17 ตุลาคม 2565', ColorTheme().white),
+                                  'วันนี้, ${DateTime.now().toDisplayFullBuddishDate(locale: 'th')}',
+                                  ColorTheme().white),
                             ],
                           ),
                         ],
@@ -293,7 +297,10 @@ class HomeWidget extends StatelessWidget {
                                 context,
                                 background: 'assets/images/water_intake.png',
                                 title: 'ดื่มน้ำ',
-                                onClick: () {},
+                                onClick: () {
+                                  context.read<HomePageBloc>().add(
+                                      ChangeMenu(menus: menuType.drinkingPage));
+                                },
                                 subTitle: 'บันทึกการดื่มน้ำ',
                                 icon: 'assets/images/water_intake_icon.png',
                               ),
