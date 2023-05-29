@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:health_application/ui/register_profile/register_profile_page.dart';
 import 'package:health_application/ui/signIn_page/login/login_page.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
@@ -14,8 +15,7 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       backgroundColor: ColorTheme().white,
       body: Container(
         padding: EdgeInsets.fromLTRB(15, 30, 15, 20),
@@ -47,7 +47,10 @@ class WelcomePage extends StatelessWidget {
               ),
               ButtonGradient(
                 btnName: 'เริ่มต้นใช้งาน',
-                onClick: () {},
+                onClick: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => RegisterProfilePage()));
+                },
               ),
               const SizedBox(
                 height: 20,
@@ -63,6 +66,6 @@ class WelcomePage extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    );
   }
 }
