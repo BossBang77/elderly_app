@@ -20,16 +20,32 @@ class TextFieldLine extends StatelessWidget {
   final ValueChanged<String>? onChange;
   final bool textNumberType;
   final int maxLength;
+  static int _offset = 0;
+  int get offset => _offset;
+  void setOffset(int offset) {
+    _offset = offset;
+  }
+
   @override
   Widget build(BuildContext context) {
+    try {
+      controller?.selection = TextSelection.fromPosition(
+          TextPosition(offset: controller!.text.isNotEmpty ? offset : 0));
+    } catch (e) {
+      controller?.selection = TextSelection.fromPosition(
+          TextPosition(offset: controller!.text.length));
+    }
     return TextFormField(
-      controller: TextEditingController(),
+      controller: controller,
       maxLength: maxLength,
       onChanged: (String? value) {
-        onChange!.call(value ?? '');
+        var cursorPos = controller?.selection.base.offset;
+        onChange?.call(value ?? '');
+        setOffset(cursorPos ?? 0);
       },
       cursorColor: ColorTheme().Primary,
       cursorHeight: 30,
+      textAlign: TextAlign.center,
       keyboardType: textNumberType ? TextInputType.number : null,
       inputFormatters: <TextInputFormatter>[
         if (textNumberType) FilteringTextInputFormatter.digitsOnly

@@ -110,7 +110,6 @@ Widget textBody2(String text, Color color, bool underline) {
         color: color,
         fontSize: 14.sp,
         fontFamily: fontFamily,
-        fontWeight: FontWeight.w300,
         decoration:
             (underline) ? TextDecoration.underline : TextDecoration.none,
       ));
@@ -224,6 +223,18 @@ Widget textSubtitle16Blod(String text, Color color) {
       style: TextStyle(
           color: color,
           fontSize: 16.sp,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w700));
+}
+
+Widget text12Bold(String text, Color color,
+    {TextAlign align = TextAlign.center}) {
+  return Text(text,
+      textAlign: align,
+      overflow: TextOverflow.fade,
+      style: TextStyle(
+          color: color,
+          fontSize: 12.sp,
           fontFamily: fontFamily,
           fontWeight: FontWeight.w700));
 }

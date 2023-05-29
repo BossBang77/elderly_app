@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/text_field_widget.dart';
+import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/register_profile/register_profile_page.dart';
 import 'package:health_application/ui/signIn_page/bloc/sign_in_bloc.dart';
 
@@ -72,7 +73,10 @@ class LoginPage extends StatelessWidget {
                 ),
                 ButtonGradient(
                   btnName: 'เข้าสู่ระบบ',
-                  onClick: () {},
+                  onClick: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  },
                 ),
                 const SizedBox(
                   height: 30,
