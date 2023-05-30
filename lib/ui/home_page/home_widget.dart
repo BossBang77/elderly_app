@@ -279,7 +279,10 @@ class HomeWidget extends StatelessWidget {
                                 context,
                                 background: 'assets/images/exercise.png',
                                 title: 'ออกกำลังกาย',
-                                onClick: () {},
+                                onClick: () {
+                                  context.read<HomePageBloc>().add(
+                                      ChangeMenu(menus: menuType.exercisePage));
+                                },
                                 subTitle: 'บันทึกการ\nออกกำลังกาย',
                                 icon: 'assets/images/exercise_icon.png',
                               )
