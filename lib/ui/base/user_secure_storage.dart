@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:health_application/ui/signIn_page/model/login_model.dart';
 
 class UserSecureStorage {
   static final _storage = new FlutterSecureStorage();
 
-  Future setUserData(var data) async {
+  Future setUserData(LoginModel data) async {
     final value = json.encode(data);
-
     await _storage.write(key: UserKey.userData, value: value);
   }
 
@@ -16,7 +16,7 @@ class UserSecureStorage {
     value = await _storage.read(key: UserKey.userData);
 
     var data = (value == null) ? null : json.decode(value);
-    // return data != null ? LoginADFSModel.fromJson(data) : LoginADFSModel.empty;
+    return data != null ? LoginModel.fromJson(data) : LoginModel();
   }
 
   Future<bool> setAccessToken(String token) async {
