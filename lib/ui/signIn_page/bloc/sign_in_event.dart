@@ -16,3 +16,25 @@ class ChangeSection extends SignInEvent {
 class Initial extends SignInEvent {
   const Initial();
 }
+
+class UpdateUsername extends SignInEvent {
+  final String username;
+  const UpdateUsername({required this.username});
+  @override
+  List<Object> get props => [username];
+}
+
+class UpdatePassword extends SignInEvent {
+  final String password;
+  const UpdatePassword({required this.password});
+  @override
+  List<Object> get props => [password];
+}
+
+class SubmitLogin extends SignInEvent {
+  const SubmitLogin();
+}
+
+class ObscurePassword extends SignInEvent {
+  const ObscurePassword();
+}
