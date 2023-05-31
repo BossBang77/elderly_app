@@ -49,7 +49,8 @@ class DiseaseWidget extends StatelessWidget {
                 Expanded(
                     child: ListView.separated(
                   padding: const EdgeInsets.all(8),
-                  itemCount: 39,
+                  // TODO Integrte master data
+                  itemCount: 0,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {},
@@ -101,7 +102,8 @@ class DiseaseWidget extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    if (true) ...{
+                    // TODO Integrte master data
+                    if (false) ...{
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

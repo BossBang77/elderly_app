@@ -49,7 +49,8 @@ class FoodAllergiesWidget extends StatelessWidget {
                 Expanded(
                     child: ListView.separated(
                   padding: const EdgeInsets.all(8),
-                  itemCount: 39,
+                  // TODO Integrte master data
+                  itemCount: 0,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {},
@@ -102,7 +103,9 @@ class FoodAllergiesWidget extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    if (true) ...{
+
+                    // TODO Integrte master data
+                    if (false) ...{
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,9 +138,9 @@ class FoodAllergiesWidget extends StatelessWidget {
                     ButtonGradient(
                       btnName: 'ยืนยัน',
                       onClick: () {
-                        context.read<RegisterProfileBloc>().add(
-                            ChangeProfileView(
-                                profileType: ProfileType.success));
+                        context
+                            .read<RegisterProfileBloc>()
+                            .add(SubmitRegister());
                       },
                     ),
                   ],

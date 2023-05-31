@@ -6,6 +6,7 @@ import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
 import 'package:health_application/ui/register_profile/component/role_card.dart';
+import 'package:health_application/ui/signIn_page/signIn_widget.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
@@ -16,7 +17,10 @@ class SelectRoleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorTheme().white,
-      appBar: appBar(onBack: () {}),
+      appBar: appBar(onBack: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => SignInPage()));
+      }),
       body: Padding(
         padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
         child: Column(
@@ -38,10 +42,11 @@ class SelectRoleWidget extends StatelessWidget {
                   title: 'ผู้สูงอายุ',
                   subTitle: 'ผู้รับการดูแลจากเจ้าหน้าที่',
                   imgPath: 'assets/images/role_icon.png',
-                  isSelect: state.roleType == RoleType.elderly, onTap: () {
+                  isSelect: state.roleType == RoleType.ROLE_USER_ELDERLY,
+                  onTap: () {
                 context
                     .read<RegisterProfileBloc>()
-                    .add(SelectRole(roleType: RoleType.elderly));
+                    .add(SelectRole(roleType: RoleType.ROLE_USER_ELDERLY));
               }),
               const SizedBox(
                 height: 20,
@@ -60,8 +65,12 @@ class SelectRoleWidget extends StatelessWidget {
               btnName: 'ยืนยัน',
               onClick: () {
                 if (state.roleType != RoleType.initial)
-                  context.read<RegisterProfileBloc>().add(ChangeProfileView(
-                      profileType: ProfileType.privacyProfile));
+                  context.read<RegisterProfileBloc>().add(FormFillType(
+                        type: FillType.role,
+                        value: state.roleType.name,
+                      ));
+                context.read<RegisterProfileBloc>().add(
+                    ChangeProfileView(profileType: ProfileType.privacyProfile));
               },
             ),
           ],

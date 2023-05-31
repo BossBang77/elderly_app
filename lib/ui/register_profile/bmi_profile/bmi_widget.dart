@@ -31,7 +31,25 @@ class BMIWidget extends StatelessWidget {
           return SelectHeightWidget(context, state);
 
         default:
-          return SummaryBMIWidget(context);
+          return SummaryBMIWidget(context, state);
+      }
+    }
+
+    bool getMadatory(BuildContext context, RegisterProfileState state) {
+      var profile = state.registerModel.profile;
+      switch (state.bmiDetail) {
+        case BMIDetail.gender:
+          return state.gender != Gender.initial;
+        case BMIDetail.name:
+          return profile.name.isNotEmpty;
+        case BMIDetail.age:
+          return profile.age != 0;
+        case BMIDetail.weightDetail:
+          return profile.weight != 0;
+        case BMIDetail.heightDetail:
+          return profile.height != 0;
+        default:
+          return false;
       }
     }
 
@@ -39,7 +57,12 @@ class BMIWidget extends StatelessWidget {
       backgroundColor: ColorTheme().white,
       appBar: appBar(
           onBack: () {
-            context.read<RegisterProfileBloc>().add(BackwardBMIDetail());
+            if (state.bmiDetail == BMIDetail.gender) {
+              context.read<RegisterProfileBloc>().add(
+                  ChangeProfileView(profileType: ProfileType.privacyProfile));
+            } else {
+              context.read<RegisterProfileBloc>().add(BackwardBMIDetail());
+            }
           },
           title: 'โปรไฟล์ของฉัน'),
       body: SingleChildScrollView(
@@ -73,13 +96,19 @@ class BMIWidget extends StatelessWidget {
                       ? 'คำนวณหาดัชนีมวลกาย'
                       : 'ถัดไป',
                   onClick: () {
+                    if (state.bmiDetail == BMIDetail.heightDetail) {
+                      // คำนวณหาดัชนีมวลกาย
+                      context.read<RegisterProfileBloc>().add(CalculateBMI());
+                    }
                     if (state.bmiDetail == BMIDetail.summaryBMI) {
                       context.read<RegisterProfileBloc>().add(
                           ChangeProfileView(profileType: ProfileType.disease));
                     } else {
-                      context
-                          .read<RegisterProfileBloc>()
-                          .add(ForwardBMIDetail());
+                      if (getMadatory(context, state)) {
+                        context
+                            .read<RegisterProfileBloc>()
+                            .add(ForwardBMIDetail());
+                      }
                     }
                   },
                 ),
