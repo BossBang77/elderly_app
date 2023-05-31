@@ -296,7 +296,7 @@ class TextFieldWidget extends StatelessWidget {
             errorBorder: (setErrorWithOuter)
                 ? OutlineInputBorder(
                     gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(15.0)),
                     borderSide: BorderSide(color: ColorTheme().Warning),
                   )
                 : InputBorder.none,
@@ -313,35 +313,35 @@ class TextFieldWidget extends StatelessWidget {
             focusedBorder: (setErrorWithOuter)
                 ? OutlineInputBorder(
                     gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
                     borderSide: BorderSide(color: HexColor('#B8B8B8')),
                   )
                 : InputBorder.none,
             border: (setErrorWithOuter)
                 ? OutlineInputBorder(
                     gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
                     borderSide: BorderSide(color: HexColor('#B8B8B8')),
                   )
                 : InputBorder.none,
             disabledBorder: (setErrorWithOuter)
                 ? OutlineInputBorder(
                     gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
                     borderSide: BorderSide(color: HexColor('#B8B8B8')),
                   )
                 : InputBorder.none,
             focusedErrorBorder: (setErrorWithOuter)
                 ? OutlineInputBorder(
                     gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
                     borderSide: BorderSide(color: ColorTheme().Warning),
                   )
                 : InputBorder.none,
             enabledBorder: (setErrorWithOuter)
                 ? OutlineInputBorder(
                     gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
                     borderSide: BorderSide(color: HexColor('#B8B8B8')),
                   )
                 : InputBorder.none,
