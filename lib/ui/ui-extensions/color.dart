@@ -21,7 +21,7 @@ class ColorTheme {
   final Color Background6 = HexColor("#FFFFFF").withOpacity(0);
   final Color OnPrimary = HexColor("#FFFFFF").withOpacity(1.0);
   final Color Complete = HexColor("#01D116").withOpacity(1.0);
-  final Color Warning = HexColor("#FAC507").withOpacity(1.0);
+  final Color Warning = HexColor("#FF4040").withOpacity(1.0);
   final Color ButtonBackground1 = HexColor("#E5F1FF").withOpacity(1.0);
 
   final Color BlueDark = HexColor("#437ECB");
