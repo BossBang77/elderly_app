@@ -146,8 +146,11 @@ class DeadlineExceededException extends DioError {
 class PlublicRequest {
   static String get registerUrl => '/api/v1/user/register';
   static String get loginUrl => '/api/v1/authentication';
+  static String get masterData => '/api/v1/common/master/';
 
   bool isPlublicRequest(String url) {
-    return url.contains(loginUrl) || url.contains(registerUrl);
+    return url.contains(loginUrl) ||
+        url.contains(registerUrl) ||
+        url.contains(masterData);
   }
 }
