@@ -1,30 +1,25 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:health_application/repository/service/logout_client.dart';
-import 'package:health_application/repository/service/register_client.dart';
-import 'package:health_application/ui/register_profile/model/register_model.dart';
+import 'package:health_application/repository/service/master_data_client.dart';
+import 'package:health_application/ui/base/model/master_data.dart';
 import 'package:retrofit/dio.dart';
-
 import '../ui/base/model/failure.dart';
 import '../ui/base/model/status_code.dart';
 import '../ui/base/network_provider.dart';
 
-class RegisterRepository {
-  RegisterRepository();
+class MasterDataRepository {
+  MasterDataRepository();
 
   final NetworkProvider networkProvider = NetworkProvider();
-  late final RegisterService _registerService =
-      RegisterService(networkProvider.dioClient());
+  late final MasterDataService _masterDataService =
+      MasterDataService(networkProvider.dioClient());
 
-  Future<Either<Failure, int>> registerProfile(RegisterModel body) async {
+  Future<Either<Failure, MasterData>> loadMasterData(String category) async {
     try {
-      final HttpResponse req =
-          await _registerService.registerProfile(body.toJson());
-
+      final HttpResponse req = await _masterDataService.getMasterData(category);
+      final Map<String, dynamic> data = req.data;
       if (req.response.statusCode == StatusCode.success) {
-        return Right(req.response.statusCode ?? 0);
+        return Right(MasterData.fromJson(data));
       }
     } on DioError catch (error) {
       if (error.response?.statusCode == StatusCode.notFound) {
