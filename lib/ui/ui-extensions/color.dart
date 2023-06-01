@@ -38,6 +38,9 @@ class ColorTheme {
   final Color whiteBackground = HexColor("#FCFCFC").withOpacity(1.0);
   final Color grey50 = Colors.grey.withOpacity(0.5);
   final Color grey10 = Colors.grey.withOpacity(0.1);
+
+  final Color greybackground5 = HexColor("#343434").withOpacity(0.05);
+  final Color blueText = HexColor("#0267D0");
   final Color BlueFade2 = HexColor('#0C81E4');
   final Color BackgroundWhite = HexColor('#FCFCFC');
   final Color BlueDark2 = HexColor('#3E54D3');
