@@ -63,13 +63,16 @@ class RegisterProfileBloc
     if (event is ObscurePassword) {
       yield state.copyWith(obscurePassword: !state.obscurePassword);
     }
+    if (event is InitialStatus) {
+      yield state.copyWith(status: SubmitStatus.initial);
+    }
   }
 
   RegisterProfileState setFillInformation(FormFillType event) {
     var regisMol = state.registerModel;
     var profileMol = regisMol.profile;
-    var congenitalMol = regisMol.congenitalDisease;
-    var allergicFoodsMol = regisMol.allergicFoods;
+    var congenitalMol = [...regisMol.congenitalDisease];
+    var allergicFoodsMol = [...regisMol.allergicFoods];
     switch (event.type) {
       case FillType.role:
         regisMol = regisMol.copyWith(role: event.value);
@@ -111,6 +114,41 @@ class RegisterProfileBloc
         regisMol = regisMol.copyWith(profile: profileMol);
         return state.copyWith(registerModel: regisMol);
 
+      case FillType.addDisease:
+        congenitalMol.add(event.value);
+        regisMol = regisMol.copyWith(congenitalDisease: congenitalMol);
+        return state.copyWith(registerModel: regisMol);
+
+      case FillType.delDisease:
+        congenitalMol
+            .removeWhere((element) => element.code == event.value.code);
+        regisMol = regisMol.copyWith(congenitalDisease: congenitalMol);
+        return state.copyWith(registerModel: regisMol);
+      case FillType.delAllDisease:
+        congenitalMol = [];
+        regisMol = regisMol.copyWith(congenitalDisease: congenitalMol);
+        return state.copyWith(registerModel: regisMol, textFilterDisease: '');
+
+      case FillType.searchDisease:
+        return state.copyWith(textFilterDisease: event.value);
+
+      case FillType.addAllergies:
+        allergicFoodsMol.add(event.value);
+        regisMol = regisMol.copyWith(allergicFoods: allergicFoodsMol);
+        return state.copyWith(registerModel: regisMol);
+
+      case FillType.delAllergies:
+        allergicFoodsMol
+            .removeWhere((element) => element.code == event.value.code);
+        regisMol = regisMol.copyWith(allergicFoods: allergicFoodsMol);
+        return state.copyWith(registerModel: regisMol);
+      case FillType.delAllAllergies:
+        allergicFoodsMol = [];
+        regisMol = regisMol.copyWith(allergicFoods: allergicFoodsMol);
+        return state.copyWith(registerModel: regisMol, textFilterAllergies: '');
+
+      case FillType.searchAllergies:
+        return state.copyWith(textFilterAllergies: event.value);
       default:
         return state;
     }

@@ -27,8 +27,12 @@ class RegisterProfilePage extends StatelessWidget {
               builder: (BuildContext context) => ErrorAlertWidget(
                     title: 'เกิดข้อผิดพลาด',
                     subTitle:
-                        "มีบางอย่างผิดพลาดในการสร้างบัญชี\nกรุณากรอกใหม่อีกครั้ง",
+                        "มีบางอย่างผิดพลาดในการสร้างบัญชี\nกรุณาลองใหม่อีกครั้ง",
                   )) as bool;
+
+          if (acceptClose) {
+            context.read<RegisterProfileBloc>().add(InitialStatus());
+          }
         }
       }, builder: (BuildContext context, RegisterProfileState state) {
         var profileType = state.profileType;

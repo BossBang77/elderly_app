@@ -23,6 +23,14 @@ enum FillType {
   age,
   weightDetail,
   heightDetail,
+  addDisease,
+  delDisease,
+  delAllDisease,
+  searchDisease,
+  addAllergies,
+  delAllergies,
+  delAllAllergies,
+  searchAllergies
 }
 
 enum RoleType { initial, ROLE_USER_ELDERLY, volunteer }
@@ -41,7 +49,9 @@ class RegisterProfileState extends Equatable {
       this.registerModel = const RegisterModel(),
       this.bmiValue = 0,
       this.status = SubmitStatus.initial,
-      this.obscurePassword = true});
+      this.obscurePassword = true,
+      this.textFilterDisease = '',
+      this.textFilterAllergies = ''});
   final ProfileView profileView;
   final ProfileType profileType;
   final BMIDetail bmiDetail;
@@ -51,6 +61,9 @@ class RegisterProfileState extends Equatable {
   final double bmiValue;
   final SubmitStatus status;
   final bool obscurePassword;
+  final String textFilterDisease;
+  final String textFilterAllergies;
+
   RegisterProfileState copyWith(
       {ProfileView? profileView,
       ProfileType? profileType,
@@ -60,7 +73,9 @@ class RegisterProfileState extends Equatable {
       RegisterModel? registerModel,
       double? bmiValue,
       SubmitStatus? status,
-      bool? obscurePassword}) {
+      bool? obscurePassword,
+      String? textFilterDisease,
+      String? textFilterAllergies}) {
     return RegisterProfileState(
         profileView: profileView ?? this.profileView,
         profileType: profileType ?? this.profileType,
@@ -70,7 +85,9 @@ class RegisterProfileState extends Equatable {
         registerModel: registerModel ?? this.registerModel,
         bmiValue: bmiValue ?? this.bmiValue,
         status: status ?? this.status,
-        obscurePassword: obscurePassword ?? this.obscurePassword);
+        obscurePassword: obscurePassword ?? this.obscurePassword,
+        textFilterDisease: textFilterDisease ?? this.textFilterDisease,
+        textFilterAllergies: textFilterAllergies ?? this.textFilterAllergies);
   }
 
   @override
@@ -83,7 +100,9 @@ class RegisterProfileState extends Equatable {
         registerModel,
         bmiValue,
         status,
-        obscurePassword
+        obscurePassword,
+        textFilterDisease,
+        textFilterAllergies
       ];
 }
 

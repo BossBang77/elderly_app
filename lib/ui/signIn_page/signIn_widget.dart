@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
@@ -24,6 +25,7 @@ class SignInPage extends StatelessWidget {
           var loginRes = state.loginRes;
           await UserSecureStorage().setAccessToken(loginRes.accessToken);
           await UserSecureStorage().setUserData(loginRes);
+
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => HomePage()));
         } else if (state.signInStatus == SignInStatus.fail) {

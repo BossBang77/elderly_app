@@ -1,12 +1,13 @@
 import 'package:health_application/ui/register_profile/model/profile_register.dart';
+import 'package:health_application/ui/register_profile/model/sub_menu_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'register_model.g.dart';
 
 @JsonSerializable()
 class RegisterModel {
   const RegisterModel(
-      {this.allergicFoods = const <String>[],
-      this.congenitalDisease = const <String>[],
+      {this.allergicFoods = const <SubMenuModel>[],
+      this.congenitalDisease = const <SubMenuModel>[],
       this.elderlyCareCode = '',
       this.password = '',
       this.username = '',
@@ -45,11 +46,11 @@ class RegisterModel {
   @JsonKey(
     name: 'congenitalDisease',
   )
-  final List<String> congenitalDisease;
+  final List<SubMenuModel> congenitalDisease;
   @JsonKey(
     name: 'allergicFoods',
   )
-  final List<String> allergicFoods;
+  final List<SubMenuModel> allergicFoods;
 
   RegisterModel copyWith(
           {String? role,
@@ -57,8 +58,8 @@ class RegisterModel {
           String? password,
           String? elderlyCareCode,
           ProfileRegisterModel? profile,
-          List<String>? congenitalDisease,
-          List<String>? allergicFoods}) =>
+          List<SubMenuModel>? congenitalDisease,
+          List<SubMenuModel>? allergicFoods}) =>
       RegisterModel(
           role: role ?? this.role,
           username: username ?? this.username,

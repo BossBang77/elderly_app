@@ -64,3 +64,7 @@ class SubmitRegister extends RegisterProfileEvent {
 class ObscurePassword extends RegisterProfileEvent {
   const ObscurePassword();
 }
+
+class InitialStatus extends RegisterProfileEvent {
+  const InitialStatus();
+}
