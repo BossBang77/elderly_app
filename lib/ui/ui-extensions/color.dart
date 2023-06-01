@@ -42,4 +42,7 @@ class ColorTheme {
   final Color BackgroundWhite = HexColor('#FCFCFC');
   final Color BlueDark2 = HexColor('#3E54D3');
   final Color Orange1 = HexColor('#F8763E');
+
+  final Color greyText = Colors.grey.withOpacity(0.7);
+  final Color DartBlue = HexColor('#0267D0');
 }

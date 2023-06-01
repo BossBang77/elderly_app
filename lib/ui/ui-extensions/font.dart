@@ -126,6 +126,8 @@ Widget textBody3(String text, Color color) {
 
 Widget textButton1(String text, Color color) {
   return Text(text,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
           color: color,
           fontSize: 15.sp,
