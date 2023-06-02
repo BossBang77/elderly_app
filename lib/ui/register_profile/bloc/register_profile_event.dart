@@ -39,3 +39,32 @@ class BackwardBMIDetail extends RegisterProfileEvent {
   @override
   List<Object> get props => [];
 }
+
+class FormFillType extends RegisterProfileEvent {
+  final dynamic value;
+  final int index;
+  final FillType type;
+  const FormFillType({this.value = null, this.index = 0, required this.type});
+  @override
+  List<Object> get props => [value, index, type];
+}
+
+class CalculateBMI extends RegisterProfileEvent {
+  const CalculateBMI();
+  @override
+  List<Object> get props => [];
+}
+
+class SubmitRegister extends RegisterProfileEvent {
+  const SubmitRegister();
+  @override
+  List<Object> get props => [];
+}
+
+class ObscurePassword extends RegisterProfileEvent {
+  const ObscurePassword();
+}
+
+class InitialStatus extends RegisterProfileEvent {
+  const InitialStatus();
+}

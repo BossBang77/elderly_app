@@ -27,6 +27,10 @@ Widget SelectGenderWidget(BuildContext context, RegisterProfileState state) {
                       context
                           .read<RegisterProfileBloc>()
                           .add(SelectGender(gender: Gender.male));
+                      context.read<RegisterProfileBloc>().add(FormFillType(
+                            type: FillType.gender,
+                            value: Gender.male.name.toUpperCase(),
+                          ));
                     },
                     child: Image.asset(
                       state.gender == Gender.male
@@ -52,6 +56,10 @@ Widget SelectGenderWidget(BuildContext context, RegisterProfileState state) {
                       context
                           .read<RegisterProfileBloc>()
                           .add(SelectGender(gender: Gender.female));
+                      context.read<RegisterProfileBloc>().add(FormFillType(
+                            type: FillType.gender,
+                            value: Gender.female.name.toUpperCase(),
+                          ));
                     },
                     child: Image.asset(
                       state.gender == Gender.female
