@@ -63,15 +63,7 @@ class WelcomePage extends StatelessWidget {
                 btnName: 'เข้าสู่ระบบ',
                 onClick: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => FoodDetailPage(
-                        food: Food(
-                          name: 'name', 
-                          calories: Calories(value: 300),
-                          energy: Calories(value: 300)
-                        ),
-                      ), 
-                      settings: RouteSettings(name: 'FoodLogPage')
-                  ));
+                      MaterialPageRoute(builder: (context) => SignInPage()));
                 },
               )
             ],
