@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:health_application/ui/base/appoint_detail_card/appoint_detail_card.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
 import 'package:health_application/ui/elderly/search_volunteer/component/last_volunteer.dart';
@@ -95,6 +96,21 @@ class VolunteerWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      if (true)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            textSubtitle18Blod(
+                                'การนัดหมายของคุณ', ColorTheme().black87),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            AppointDetailCard(),
+                          ],
+                        ),
                       const SizedBox(
                         height: 20,
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:health_application/ui/base/appoint_detail_card/appoint_detail_card.dart';
 import 'package:health_application/ui/base/widget/button_dark_bule.dart';
 import 'package:health_application/ui/elderly/search_volunteer/volunteer_page.dart';
 import 'package:health_application/ui/extension/extension.dart';
@@ -266,6 +267,15 @@ class HomeWidget extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
+                      if (true)
+                        Column(
+                          children: [
+                            AppointDetailCard(),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
                       textSubtitle18Blod('บันทึกกิจกรรม', ColorTheme().black87),
                       const SizedBox(
                         height: 10,
