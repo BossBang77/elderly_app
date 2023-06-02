@@ -125,9 +125,9 @@ Widget textBody3(String text, Color color) {
 }
 
 Widget textButton1(String text, Color color,
-    {TextAlign align = TextAlign.start}) {
+    {TextAlign align = TextAlign.start, int maxLines = 1}) {
   return Text(text,
-      maxLines: 1,
+      maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
       textAlign: align,
       style: TextStyle(
@@ -195,8 +195,10 @@ Widget textSubtitle24(String text, Color color) {
           fontWeight: FontWeight.w800));
 }
 
-Widget textSubtitle18Blod(String text, Color color) {
+Widget textSubtitle18Blod(String text, Color color,
+    {TextAlign align = TextAlign.start}) {
   return Text(text,
+      textAlign: align,
       style: TextStyle(
           color: color,
           fontSize: 18.sp,
