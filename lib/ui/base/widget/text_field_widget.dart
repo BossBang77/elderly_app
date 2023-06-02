@@ -282,9 +282,8 @@ class TextFieldWidget extends StatelessWidget {
             suffixIcon: (suffix)
                 ? suffixTxt != null
                     ? Padding(
-                        padding: const EdgeInsets.only(top: 7, right: 5),
-                        child: textOverline2(
-                            suffixTxt ?? '', ColorTheme().Primary))
+                        padding: const EdgeInsets.only(top: 10, right: 5),
+                        child: textSubtitle16Blod(suffixTxt ?? '', Colors.grey))
                     : GestureDetector(
                         onTap: onTap,
                         child: Image.asset(

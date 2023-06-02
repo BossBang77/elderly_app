@@ -25,7 +25,8 @@ class WaterIntakePage extends StatelessWidget {
           onBack: () {
             Navigator.pop(context, true);
           },
-          title: 'ดื่มน้ำ'),
+          title: 'ดื่มน้ำ',
+          showNotification: true),
       backgroundColor: ColorTheme().white,
       body: BlocProvider<WaterIntakeBloc>(
         create: (_) => WaterIntakeBloc(),

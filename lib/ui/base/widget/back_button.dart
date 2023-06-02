@@ -3,8 +3,12 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class BackButtonWidget extends StatelessWidget {
-  const BackButtonWidget({super.key, required this.onClick});
+  const BackButtonWidget(
+      {super.key,
+      required this.onClick,
+      this.imgPath = 'assets/images/back_arrow.png'});
   final VoidCallback? onClick;
+  final String imgPath;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -12,7 +16,7 @@ class BackButtonWidget extends StatelessWidget {
           onClick!();
         },
         child: Image.asset(
-          'assets/images/back_arrow.png',
+          imgPath,
           scale: 4,
         ));
   }
