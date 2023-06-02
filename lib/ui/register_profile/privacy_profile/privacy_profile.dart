@@ -3,19 +3,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
+import 'package:health_application/ui/signIn_page/signIn_widget.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 import '../../base/widget/text_field_widget.dart';
 
 class PrivacyProfile extends StatelessWidget {
-  const PrivacyProfile({super.key});
-
+  const PrivacyProfile({super.key, required this.state});
+  final RegisterProfileState state;
   @override
   Widget build(BuildContext context) {
+    var user = state.registerModel;
     return Scaffold(
       backgroundColor: ColorTheme().white,
-      appBar: appBar(onBack: () {}),
+      appBar: appBar(onBack: () {
+        context
+            .read<RegisterProfileBloc>()
+            .add(ChangeProfileView(profileType: ProfileType.role));
+      }),
       body: Padding(
         padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
         child: SingleChildScrollView(
@@ -37,10 +43,16 @@ class PrivacyProfile extends StatelessWidget {
                 height: 10,
               ),
               TextFieldWidget.enable(
-                text: '',
+                text: user.username,
                 maxLength: 10,
                 textNumberType: true,
                 hintText: '081 234 5678',
+                onChanged: (value) {
+                  context.read<RegisterProfileBloc>().add(FormFillType(
+                        type: FillType.username,
+                        value: value,
+                      ));
+                },
               ),
               const SizedBox(
                 height: 20,
@@ -50,13 +62,21 @@ class PrivacyProfile extends StatelessWidget {
                 height: 10,
               ),
               TextFieldWidget.enable(
-                text: '',
+                text: user.password,
                 suffix: true,
-                onTap: () {},
-                obscureText: true,
+                onTap: () {
+                  context.read<RegisterProfileBloc>().add(ObscurePassword());
+                },
+                obscureText: state.obscurePassword,
                 imagePath: 'assets/images/obseure_password.png',
                 maxLength: 50,
                 hintText: 'รหัสผ่าน',
+                onChanged: ((value) {
+                  context.read<RegisterProfileBloc>().add(FormFillType(
+                        type: FillType.password,
+                        value: value,
+                      ));
+                }),
               ),
               const SizedBox(
                 height: 20,
@@ -67,10 +87,16 @@ class PrivacyProfile extends StatelessWidget {
                 height: 10,
               ),
               TextFieldWidget.enable(
-                text: '',
+                text: user.elderlyCareCode,
                 textNumberType: true,
                 maxLength: 4,
                 hintText: 'รหัสเครือข่าย',
+                onChanged: (value) {
+                  context.read<RegisterProfileBloc>().add(FormFillType(
+                        type: FillType.elderlyCareCode,
+                        value: value,
+                      ));
+                },
               ),
               const SizedBox(
                 height: 40,
@@ -78,8 +104,10 @@ class PrivacyProfile extends StatelessWidget {
               ButtonGradient(
                 btnName: 'ลงทะเบียน',
                 onClick: () {
-                  context.read<RegisterProfileBloc>().add(
-                      ChangeProfileView(profileType: ProfileType.bmiProfile));
+                  if (user.username.isNotEmpty && user.password.isNotEmpty) {
+                    context.read<RegisterProfileBloc>().add(
+                        ChangeProfileView(profileType: ProfileType.bmiProfile));
+                  }
                 },
               ),
               const SizedBox(
@@ -89,7 +117,12 @@ class PrivacyProfile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   textButton2('มีบัญชี?  ', ColorTheme().black87),
-                  textButton1('เข้าสู่ระบบ', ColorTheme().Primary),
+                  InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SignInPage()));
+                      },
+                      child: textButton1('เข้าสู่ระบบ', ColorTheme().Primary)),
                 ],
               ),
               const SizedBox(

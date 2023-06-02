@@ -46,7 +46,7 @@ class TextFieldLine extends StatelessWidget {
       cursorColor: ColorTheme().Primary,
       cursorHeight: 30,
       textAlign: TextAlign.center,
-      keyboardType: textNumberType ? TextInputType.number : null,
+      textInputAction: TextInputAction.done,
       inputFormatters: <TextInputFormatter>[
         if (textNumberType) FilteringTextInputFormatter.digitsOnly
       ],

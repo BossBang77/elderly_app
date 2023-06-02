@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../base/widget/text_field_line.dart';
 
 Widget SelectAgeWidget(BuildContext context, RegisterProfileState state) {
+  var profile = state.registerModel.profile;
   return Column(
     children: [
       Column(
@@ -20,12 +21,16 @@ Widget SelectAgeWidget(BuildContext context, RegisterProfileState state) {
             height: 30,
           ),
           TextFieldLine(
-            controller: TextEditingController(),
+            controller: TextEditingController(
+                text: profile.age == 0 ? '' : profile.age.toString()),
             textNumberType: true,
             maxLength: 3,
             hintText: 'อายุของฉัน',
             onChange: ((value) {
-              // TODO
+              context.read<RegisterProfileBloc>().add(FormFillType(
+                    type: FillType.age,
+                    value: int.tryParse(value) ?? 0,
+                  ));
             }),
           ),
           const SizedBox(

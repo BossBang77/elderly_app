@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
 import 'package:health_application/ui/base/data_provider.dart';
 import 'package:health_application/ui/signIn_page/login/login_page.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
@@ -39,15 +40,19 @@ class MyApp extends StatelessWidget {
             providers: [
               BlocProvider(create: (context) => HomePageBloc()),
               BlocProvider(create: (context) => ExerciseBloc()),
+              BlocProvider(create: (context) => MasterDataBloc()),
             ],
-            child: ScreenUtilInit(
-                designSize: Size(375, 812),
-                builder: (context, child) => MaterialApp(
-                      title: 'Health Application',
-                      theme: ThemeData(
-                        primarySwatch: Colors.blue,
-                      ),
-                      home: WelcomePage(),
-                    ))));
+            child: Builder(builder: (context) {
+              context.read<MasterDataBloc>().add(LoadMasterData());
+              return ScreenUtilInit(
+                  designSize: Size(375, 812),
+                  builder: (context, child) => MaterialApp(
+                        title: 'Health Application',
+                        theme: ThemeData(
+                          primarySwatch: Colors.blue,
+                        ),
+                        home: WelcomePage(),
+                      ));
+            })));
   }
 }

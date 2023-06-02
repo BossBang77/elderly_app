@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../base/widget/text_field_line.dart';
 
 Widget SelectWeigthWidget(BuildContext context, RegisterProfileState state) {
+  var profile = state.registerModel.profile;
   return Column(
     children: [
       Column(
@@ -20,11 +21,16 @@ Widget SelectWeigthWidget(BuildContext context, RegisterProfileState state) {
             height: 30,
           ),
           TextFieldLine(
+            controller: TextEditingController(
+                text: profile.weight != 0 ? profile.weight.toString() : ''),
             textNumberType: true,
             maxLength: 2,
             hintText: 'น้ำหนักของฉัน',
             onChange: ((value) {
-              // TODO
+              context.read<RegisterProfileBloc>().add(FormFillType(
+                    type: FillType.weightDetail,
+                    value: int.tryParse(value) ?? 0,
+                  ));
             }),
           ),
           const SizedBox(

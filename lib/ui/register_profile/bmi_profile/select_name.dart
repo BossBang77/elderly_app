@@ -20,9 +20,14 @@ Widget SelectNameWidget(BuildContext context, RegisterProfileState state) {
             height: 30,
           ),
           TextFieldLine(
+            controller:
+                TextEditingController(text: state.registerModel.profile.name),
             hintText: 'ชื่อของฉัน',
             onChange: ((value) {
-              // TODO
+              context.read<RegisterProfileBloc>().add(FormFillType(
+                    type: FillType.name,
+                    value: value,
+                  ));
             }),
           )
         ],
