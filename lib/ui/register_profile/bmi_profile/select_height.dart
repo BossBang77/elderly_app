@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../base/widget/text_field_line.dart';
 
 Widget SelectHeightWidget(BuildContext context, RegisterProfileState state) {
+  var profile = state.registerModel.profile;
   return Column(
     children: [
       Column(
@@ -20,11 +21,16 @@ Widget SelectHeightWidget(BuildContext context, RegisterProfileState state) {
             height: 30,
           ),
           TextFieldLine(
+            controller: TextEditingController(
+                text: profile.height != 0 ? profile.height.toString() : ''),
             textNumberType: true,
             maxLength: 3,
             hintText: 'ส่วนสูงของฉัน',
             onChange: ((value) {
-              // TODO
+              context.read<RegisterProfileBloc>().add(FormFillType(
+                    type: FillType.heightDetail,
+                    value: int.tryParse(value) ?? 0,
+                  ));
             }),
           ),
           const SizedBox(

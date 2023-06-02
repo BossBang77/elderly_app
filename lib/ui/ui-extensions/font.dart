@@ -124,10 +124,12 @@ Widget textBody3(String text, Color color) {
           fontWeight: FontWeight.w300));
 }
 
-Widget textButton1(String text, Color color) {
+Widget textButton1(String text, Color color,
+    {TextAlign align = TextAlign.start}) {
   return Text(text,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
+      textAlign: align,
       style: TextStyle(
           color: color,
           fontSize: 15.sp,

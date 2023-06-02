@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
-Widget SummaryBMIWidget(BuildContext context) {
+Widget SummaryBMIWidget(BuildContext context, RegisterProfileState state) {
+  String checkBMI(double bmiValue) {
+    double value = bmiValue;
+    if (value < 18.5) {
+      // ต่ำกว่าเกณฑ์
+      return 'assets/images/bmi_low.png';
+    } else if (value > 24.9) {
+      // สูงกว่าเกณฑ์
+      return 'assets/images/bmi_height.png';
+    } else {
+      //ปกติ
+      return 'assets/images/bmi_medium.png';
+    }
+  }
+
   return SingleChildScrollView(
     child: Column(
       children: [
@@ -12,13 +27,15 @@ Widget SummaryBMIWidget(BuildContext context) {
           height: 10,
         ),
         Image.asset(
-          'assets/images/bmi_height.png',
+          checkBMI(state.bmiValue),
           scale: 5,
         ),
         const SizedBox(
           height: 10,
         ),
-        Center(child: textSubtitle24('31.0', ColorTheme().Primary)),
+        Center(
+            child: textSubtitle24(
+                state.bmiValue.toStringAsFixed(1), ColorTheme().Primary)),
         textSubtitle18Blod('น้ำหนักตรงตามเกณฑ์', ColorTheme().black87),
         const SizedBox(
           height: 20,

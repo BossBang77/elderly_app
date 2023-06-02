@@ -13,10 +13,12 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 import '../../base/widget/app_bar_widget.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  const LoginPage({super.key, required this.state});
+  final SignInState state;
 
   @override
   Widget build(BuildContext context) {
+    var _signIn = state.signIn;
     return Scaffold(
       appBar: appBar(onBack: () {
         Navigator.pop(context, true);
@@ -48,9 +50,14 @@ class LoginPage extends StatelessWidget {
                   height: 10,
                 ),
                 TextFieldWidget.enable(
-                  text: '',
-                  maxLength: 50,
+                  text: _signIn.username,
+                  maxLength: 10,
                   hintText: '081 234 5678',
+                  onChanged: (value) {
+                    context
+                        .read<SignInBloc>()
+                        .add(UpdateUsername(username: value));
+                  },
                 ),
                 const SizedBox(
                   height: 20,
@@ -60,13 +67,20 @@ class LoginPage extends StatelessWidget {
                   height: 10,
                 ),
                 TextFieldWidget.enable(
-                  text: '',
+                  text: _signIn.password,
                   suffix: true,
-                  onTap: () {},
-                  obscureText: true,
+                  onTap: () {
+                    context.read<SignInBloc>().add(ObscurePassword());
+                  },
+                  obscureText: state.obscurePassword,
                   imagePath: 'assets/images/obseure_password.png',
                   maxLength: 50,
                   hintText: 'รหัสผ่าน',
+                  onChanged: (value) {
+                    context
+                        .read<SignInBloc>()
+                        .add(UpdatePassword(password: value));
+                  },
                 ),
                 const SizedBox(
                   height: 30,
@@ -74,8 +88,10 @@ class LoginPage extends StatelessWidget {
                 ButtonGradient(
                   btnName: 'เข้าสู่ระบบ',
                   onClick: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                    if (_signIn.username.isNotEmpty &&
+                        _signIn.password.isNotEmpty) {
+                      context.read<SignInBloc>().add(SubmitLogin());
+                    }
                   },
                 ),
                 const SizedBox(
