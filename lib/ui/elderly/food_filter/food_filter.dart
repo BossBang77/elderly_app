@@ -5,7 +5,6 @@ import 'package:health_application/ui/base/widget/close_button.dart';
 import 'package:health_application/ui/elderly/food_filter/bloc/food_filter/food_filter_bloc.dart';
 import 'package:health_application/ui/elderly/food_filter/bloc/food_filter/food_filter_event.dart';
 import 'package:health_application/ui/elderly/food_filter/bloc/food_filter/food_filter_state.dart';
-
 import 'package:health_application/ui/elderly/food_filter/view/food_filter_calories_widget.dart';
 import 'package:health_application/ui/elderly/food_filter/view/food_filter_type_widget.dart';
 import 'package:health_application/ui/elderly/food_filter/view/toggle_filter_item_widget.dart';

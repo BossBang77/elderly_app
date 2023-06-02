@@ -16,6 +16,14 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 class FoodSearchView extends StatefulWidget {
+  const FoodSearchView({
+    this.onFoodSelected,
+    this.onItemTrailingIconTap
+  });
+
+  final Function(Food)? onFoodSelected;
+  final Function(Food)? onItemTrailingIconTap;
+
   @override
   State<StatefulWidget> createState()=> _FoodSearchViewState();
 }
@@ -122,18 +130,24 @@ class _FoodSearchViewState extends State<FoodSearchView> {
                   sectionHeaderTitle: 'รายการอาหารทั้งหมด',
                   children: [
                     //TODO: Display real search item list
-                    SearchResultItemView(
+                    FoodListItemView(
                       food: Food(
                         name: 'SDPFISJPDIFS',
                         categories: [],
                         calories: Calories(value: 375.8),
-                        nutrients: [],
+                        energy: Calories(value: 375.8),
                         durationMin: '',
                         durationMax: '',
                         description: 'description',
                         ingredients: [],
                         methods: []
                       ),
+                      onTap: (food) {
+                        widget.onFoodSelected?.call(food);
+                      },
+                      onTrailingIconTap: (food) {
+                        widget.onItemTrailingIconTap?.call(food);
+                      },
                     )
                   ],
                 )

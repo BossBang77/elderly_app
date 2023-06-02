@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:health_application/ui/elderly/food/model/food/food.dart';
+import 'package:health_application/ui/elderly/food/model/nutritions/calories.dart';
+import 'package:health_application/ui/elderly/food_detail/food_detail_page.dart';
+import 'package:health_application/ui/elderly/food_log/food_log_page.dart';
 import 'package:health_application/ui/register_profile/register_profile_page.dart';
 import 'package:health_application/ui/signIn_page/login/login_page.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
@@ -59,7 +63,15 @@ class WelcomePage extends StatelessWidget {
                 btnName: 'เข้าสู่ระบบ',
                 onClick: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SignInPage()));
+                      MaterialPageRoute(builder: (context) => FoodDetailPage(
+                        food: Food(
+                          name: 'name', 
+                          calories: Calories(value: 300),
+                          energy: Calories(value: 300)
+                        ),
+                      ), 
+                      settings: RouteSettings(name: 'FoodLogPage')
+                  ));
                 },
               )
             ],

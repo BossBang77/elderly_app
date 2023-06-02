@@ -234,6 +234,24 @@ Widget textSubtitle16Blod(String text, Color color) {
           fontWeight: FontWeight.w700));
 }
 
+Widget textSubtitle16W500(String text, Color color) {
+  return Text(text,
+      style: TextStyle(
+          color: color,
+          fontSize: 16.sp,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w500));
+}
+
+Widget textSubtitle16W200(String text, Color color) {
+  return Text(text,
+      style: TextStyle(
+          color: color,
+          fontSize: 16.sp,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w200));
+}
+
 Widget text12Bold(String text, Color color,
     {TextAlign align = TextAlign.center}) {
   return Text(text,
