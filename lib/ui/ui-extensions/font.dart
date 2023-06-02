@@ -32,10 +32,10 @@ Widget textH3(String text, Color color) {
 Widget textH4(String text, Color color) {
   return Text(text,
       style: TextStyle(
-        color: color,
-        fontSize: 38.sp,
-        fontFamily: fontFamily,
-      ));
+          color: color,
+          fontSize: 38.sp,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w800));
 }
 
 Widget textH5(String text, Color color, bool shadow) {
@@ -88,6 +88,7 @@ Widget textSubtitle1(String text, Color color) {
 Widget textSubtitle2(String text, Color color, bool center) {
   return Text(text,
       textAlign: (center) ? TextAlign.center : TextAlign.start,
+      softWrap: true,
       style: TextStyle(
           color: color,
           fontSize: 15.sp,
@@ -243,4 +244,13 @@ Widget text12Bold(String text, Color color,
           fontSize: 12.sp,
           fontFamily: fontFamily,
           fontWeight: FontWeight.w700));
+}
+
+Widget textSubtitle15w400(String text, Color color) {
+  return Text(text,
+      style: TextStyle(
+          color: color,
+          fontSize: 15.sp,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w300));
 }

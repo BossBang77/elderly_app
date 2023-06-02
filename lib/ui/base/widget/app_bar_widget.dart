@@ -17,6 +17,6 @@ PreferredSizeWidget appBar(
     leading: BackButtonWidget(onClick: () {
       onBack();
     }),
-    actions: [true ? NotificationAlert() : Container()],
+    actions: [showNotification ? NotificationAlert() : Container()],
   );
 }
