@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:health_application/ui/base/widget/button_dark_bule.dart';
+import 'package:health_application/ui/elderly/search_volunteer/volunteer_page.dart';
 import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/home_page/component/menu_card.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -244,7 +245,13 @@ class HomeWidget extends StatelessWidget {
                                       ColorTheme().black87),
                                   ButtonDatkBule(
                                     btnName: 'หาจิตอาสา',
-                                    onClick: () {},
+                                    onClick: () {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  VolunteerPage()),
+                                          (Route route) => false);
+                                    },
                                   )
                                 ],
                               ),
@@ -323,9 +330,9 @@ class HomeWidget extends StatelessWidget {
                       menuCard(
                         context,
                         background: 'assets/images/sos.png',
-                        title: 'ดื่มน้ำ',
+                        title: 'ฉุกเฉิน',
                         onClick: () {},
-                        subTitle: 'บันทึกการดื่มน้ำ',
+                        subTitle: 'ขอความช่วยเหลือ',
                         icon: 'assets/images/sos_icon.png',
                       ),
                       const SizedBox(
