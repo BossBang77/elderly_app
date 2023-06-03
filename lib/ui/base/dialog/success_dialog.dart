@@ -61,7 +61,8 @@ class SuccessDialog extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  textSubtitle18Blod(subtitle, colors.black87),
+                  textButton1(subtitle, colors.black87,
+                      align: TextAlign.center, maxLines: 5),
                 ],
               ),
             ),

@@ -49,3 +49,26 @@ class ColorTheme {
   final Color greyText = Colors.grey.withOpacity(0.7);
   final Color DartBlue = HexColor('#0267D0');
 }
+
+class StyleBorder {
+  BoxDecoration greyDecoration({double radius = 20}) {
+    return BoxDecoration(
+        color: color.grey10,
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        border: Border.all(color: color.GreyBorder));
+  }
+
+  BoxDecoration blueDecoration({double radius = 20}) {
+    return BoxDecoration(
+        color: color.blueText.withOpacity(0.12),
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        border: Border.all(color: color.blueText));
+  }
+
+  BoxDecoration buttomSheet({double radius = 20}) {
+    return BoxDecoration(
+      color: color.whiteBackground,
+      borderRadius: BorderRadius.all(Radius.circular(radius)),
+    );
+  }
+}

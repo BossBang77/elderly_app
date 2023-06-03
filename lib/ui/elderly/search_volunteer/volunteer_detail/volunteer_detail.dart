@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:health_application/ui/base/linear_percent_indicator/linear_percent_indicator.dart';
+import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/slider_widget.dart';
 import 'package:health_application/ui/base/widget/star_rateing.dart';
 import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
@@ -306,7 +307,7 @@ class VolunteerDetailWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 textButton1('ปภาวดี ปัทมเดชา', color.black87),
-                                textButton1('17 ม.ค. 65', color.greyText),
+                                textButton2('17 ม.ค. 65', color.greyText),
                               ],
                             ),
                             StarRate(context, 1),
@@ -316,6 +317,16 @@ class VolunteerDetailWidget extends StatelessWidget {
                             Divider(),
                           ],
                         ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ButtonGradient(
+                        btnName: 'นัดหมาย',
+                        onClick: () {
+                          context.read<SearchVolunteerBloc>().add(Changeview(
+                              view: SearchVolunteerView.AppointVolunteer));
+                        },
+                      ),
                       const SizedBox(
                         height: 60,
                       ),

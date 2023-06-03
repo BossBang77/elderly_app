@@ -1,6 +1,7 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/elderly/search_volunteer/appoint_volunteer/appoint_volunteer_widget.dart';
 import 'package:health_application/ui/elderly/search_volunteer/search/search_volunteer_widget.dart';
 import 'package:health_application/ui/elderly/search_volunteer/volunteer_detail/volunteer_detail.dart';
 import 'package:health_application/ui/elderly/search_volunteer/volunteer_widget.dart';
@@ -26,6 +27,9 @@ class VolunteerPage extends StatelessWidget {
             } else if (state.searchVolunteerView ==
                 SearchVolunteerView.volunteerDetail) {
               return VolunteerDetailWidget();
+            } else if (state.searchVolunteerView ==
+                SearchVolunteerView.AppointVolunteer) {
+              return AppointVolunteerWidget();
             } else {
               return Container();
             }

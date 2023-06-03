@@ -10,6 +10,7 @@ import 'package:health_application/ui/elderly/water_intake/component/change_wate
 import 'package:health_application/ui/elderly/water_intake/component/piechart_water_intake.dart';
 import 'package:health_application/ui/elderly/water_intake/model/volumn_type.dart';
 import 'package:health_application/ui/extension/extension.dart';
+import 'package:health_application/ui/home_page/bloc/home_page_bloc.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import '../../base/widget/app_bar_widget.dart';
@@ -23,7 +24,9 @@ class WaterIntakePage extends StatelessWidget {
     return Scaffold(
       appBar: appBar(
           onBack: () {
-            Navigator.pop(context, true);
+            context
+                .read<HomePageBloc>()
+                .add(ChangeMenu(menus: menuType.mainPage));
           },
           title: 'ดื่มน้ำ',
           showNotification: true),
