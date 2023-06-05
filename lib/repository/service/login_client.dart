@@ -12,4 +12,11 @@ abstract class LoginService {
     "Content-Type": "application/json",
   })
   Future<HttpResponse> login(@Body() Map<String, dynamic> body);
+
+  @GET('/api/v1/user/profile')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> getProfile();
 }
