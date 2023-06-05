@@ -9,6 +9,7 @@ import 'package:health_application/ui/home_page/bloc/home_page_bloc.dart';
 import 'package:health_application/ui/home_page/component/menu_item.dart';
 import 'package:health_application/ui/home_page/home_widget.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
+import 'package:health_application/ui/user_profile/user_profile_page.dart';
 
 import '../ui-extensions/font.dart';
 
@@ -112,6 +113,8 @@ class HomePage extends StatelessWidget {
               return ExercisePage();
             case menuType.foodPage:
               return FoodPage();
+            case menuType.profilePage:
+              return UserProfilePage();
             // TODO case next page
 
             default:
