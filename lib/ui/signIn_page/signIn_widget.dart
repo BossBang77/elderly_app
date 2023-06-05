@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/error_alert.dart';
+import 'package:health_application/ui/home_page/bloc/home_page_bloc.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/signIn_page/bloc/sign_in_bloc.dart';
 import 'package:health_application/ui/signIn_page/forgot_password/forgot_password_page.dart';
@@ -25,7 +26,9 @@ class SignInPage extends StatelessWidget {
           var loginRes = state.loginRes;
           await UserSecureStorage().setAccessToken(loginRes.accessToken);
           await UserSecureStorage().setUserData(loginRes);
-
+          context
+              .read<HomePageBloc>()
+              .add(ChangeMenu(menus: menuType.mainPage));
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => HomePage()));
         } else if (state.signInStatus == SignInStatus.fail) {

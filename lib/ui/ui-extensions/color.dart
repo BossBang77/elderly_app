@@ -48,6 +48,7 @@ class ColorTheme {
 
   final Color greyText = Colors.grey.withOpacity(0.7);
   final Color DartBlue = HexColor('#0267D0');
+  final Color DarkRed = HexColor('#C84032');
 }
 
 class StyleBorder {
