@@ -1,11 +1,24 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/base/model/failure.dart';
 import 'package:health_application/ui/elderly/food_search/bloc/food_search/food_search_event.dart';
 import 'package:health_application/ui/elderly/food_search/bloc/food_search/food_search_state.dart';
+import 'package:health_application/ui/elderly/food_search/model/request/food_search_request.dart';
+import 'package:health_application/ui/elderly/food_search/model/request/food_search_sort.dart';
+import 'package:health_application/ui/elderly/food_search/model/response/food_search_response.dart';
+import 'package:health_application/ui/elderly/food_search/repository/food_search_history_provider.dart';
+import 'package:health_application/ui/elderly/food_search/repository/food_search_repository.dart';
 
 class FoodSearchBloc extends Bloc<FoodSearchEvent, FoodSearchState> {
-  FoodSearchBloc() : super(const FoodSearchState()) {
+  FoodSearchBloc(
+    FoodSearchRepositoryProtocol foodSearchRepository,
+    SearchHistoryProvider<String> historyProvider,
+  ) : 
+  _searchHistoryProvider = historyProvider,
+  _foodSearchRepository = foodSearchRepository,
+  super(const FoodSearchState().copyWith(recentSearchValues: historyProvider.history)) {
     on<FoodSearchTextFieldValueChanged>(_onSearchTextFieldValueChanged);
     on<FoodSearchFilterButtonTapped>(_onFilterButtonTapped);
     on<FoodSearchFilterApplied>(_onFilterApplied);
@@ -13,6 +26,9 @@ class FoodSearchBloc extends Bloc<FoodSearchEvent, FoodSearchState> {
     on<FoodSearchResultSelected>(_onSearchResultSelected);
     on<FoodSearchSubmitted>(_onFoodSearchSubmitted);
   } 
+
+  FoodSearchRepositoryProtocol _foodSearchRepository;
+  SearchHistoryProvider<String> _searchHistoryProvider;
 
   void _onSearchTextFieldValueChanged(
     FoodSearchTextFieldValueChanged event,
@@ -39,22 +55,12 @@ class FoodSearchBloc extends Bloc<FoodSearchEvent, FoodSearchState> {
     FoodSearchRecentSearchSelected event,
     Emitter<FoodSearchState> emit
   ) {
-    List<String> recentSearchValues = _handleRecentSearchValueAppend(state.recentSearchValues, event.value);
-
+    _searchHistoryProvider.pushEntry(event.value);
+    List<String> recenSearchValues = _searchHistoryProvider.history;
     emit(state.copyWith(
-      recentSearchValues: recentSearchValues,
+      recentSearchValues: recenSearchValues,
       searchValue: event.value
     ));
-  }
-
-  List<String> _handleRecentSearchValueAppend(List<String> recentSearchValues, String newValue) {
-    List<String> recentValues = List.from(recentSearchValues);
-    if (recentValues.contains(newValue)) {
-      recentValues.remove(newValue);
-    } 
-
-    recentValues = [newValue, ...recentValues];
-    return recentValues;
   }
 
   void _onSearchResultSelected(
@@ -67,9 +73,31 @@ class FoodSearchBloc extends Bloc<FoodSearchEvent, FoodSearchState> {
   void _onFoodSearchSubmitted(
     FoodSearchSubmitted event,
     Emitter<FoodSearchState> emit
-  ) {
+  ) async {
     if (event.value.isEmpty) { return; }
-    List<String> recentSearchs = _handleRecentSearchValueAppend(state.recentSearchValues, event.value);
-    emit(state.copyWith(recentSearchValues: recentSearchs));
+     _searchHistoryProvider.pushEntry(event.value);
+      List<String> recenSearchValues = _searchHistoryProvider.history;
+
+    final request = FoodSearchRequest(
+      keyword: event.value,
+      limit: 20,
+      offset: 0,
+      sort: FoodSearchSort(
+        by: "",
+        order: ""
+      )
+    );
+    final response = await _foodSearchRepository.searchFoodWith(request);
+
+    response.fold(
+      (error) {
+        //TODO handle error
+        emit(state.copyWith(recentSearchValues: recenSearchValues));
+      }, 
+      (response) {
+        emit(state.copyWith(searchResults: response.data, recentSearchValues: recenSearchValues));
+        return;
+      }
+    );
   } 
 }

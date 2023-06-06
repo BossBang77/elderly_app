@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:health_application/ui/elderly/food/model/food/ingredient.dart';
 import 'package:health_application/ui/elderly/food_detail/view/collapsable_section.dart';
+import 'package:health_application/ui/elderly/food_detail/view/grid_view_layout.dart';
 import 'package:health_application/ui/elderly/food_detail/view/ingredient_widget.dart';
+import 'package:health_application/ui/elderly/food_detail/view/multichild_layout_delegate.dart';
+import 'package:health_application/ui/elderly/food_search/model/response/food_detail_ingredient.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+import 'package:collection/collection.dart';
+
 
 class IngredientsList extends StatelessWidget {
   const IngredientsList({
@@ -14,12 +19,20 @@ class IngredientsList extends StatelessWidget {
   });
 
   final int numberOfPlates;
-  final List<Ingredient> ingredients;
+  final List<FoodDetailIngredient> ingredients;
   final Function? onAddButtonTap;
   final Function? onMinusButtonTap;
 
   @override 
   Widget build(BuildContext context) {
+    final gridViewLayout = GridViewLayout(
+      context: context,
+      dataSource: ingredients,
+      spacing: 10,
+      numberOfItemsPerRow: 3,
+      padding: 32
+    );
+
     return CollapsableSection(
       sectionHeaderTitle: 'วัตถุดิบ',
       iconImagePath: 'assets/images/nutrition_fact_icon.png',
@@ -61,12 +74,21 @@ class IngredientsList extends StatelessWidget {
               )
             ],
           ),
+          SizedBox(height: 16),
           Container(
-            height: (((ingredients.length - 1) / 3).floor() + 1) * 110,
-            child: GridView.count(
-              crossAxisCount: 3,
-              children: ingredients.map((ingredient) => IngredientWidget(name: ingredient.name, imagePath: ingredient.image)).toList(),
-            )
+            height: gridViewLayout.gridViewHeight,
+            child: CustomMultiChildLayout(
+              delegate: GridMultiChildLayoutDelegate(layout: gridViewLayout),
+              children: ingredients.mapIndexed((index, ingredient) => 
+              LayoutId(
+                id: index, 
+                child: IngredientWidget(
+                  ingredient: ingredient,
+                  width: gridViewLayout.gridItemWidth,
+                  height: gridViewLayout.heightForItemAt(index),
+                )
+              )).toList(),
+            ),
           )
         ],
       )

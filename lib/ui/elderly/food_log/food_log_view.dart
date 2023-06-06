@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/button_orange.dart';
+import 'package:health_application/ui/elderly/food/model/nutritions/calories.dart';
 import 'package:health_application/ui/elderly/food_log/bloc/food_log_bloc.dart';
 import 'package:health_application/ui/elderly/food_log/bloc/food_log_event.dart';
 import 'package:health_application/ui/elderly/food_log/bloc/food_log_state.dart';
+import 'package:health_application/ui/elderly/food_log/repository/meal_record_item.dart';
 import 'package:health_application/ui/elderly/food_log_detail/bloc/food_log_detail_bloc.dart';
 import 'package:health_application/ui/elderly/food_log_detail/food_log_detail_page.dart';
 import 'package:health_application/ui/elderly/food_search/food_search_page.dart';
@@ -23,6 +25,7 @@ class FoodLogView extends StatelessWidget {
         backgroundColor: ColorTheme().white,
         leading: BackButtonWidget(onClick: () {
           Navigator.pop(context, true);
+          context.read<FoodLogBloc>().add(FoodLogBackButtonTapped());
         }),
         title: textSubtitle2('ตัวกรอง', ColorTheme().black87, false),
         actions: [],
@@ -48,14 +51,15 @@ class FoodLogView extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => FoodSearchPage(
-                            onFoodSelected: (selectedFood) {
+                            onFoodSelected: (foodSearchItem) {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => FoodLogDetailPage(
-                                    food: selectedFood,
+                                    food: MealRecordItem.fromSearch(foodSearchItem),
+                                    mealType: state.mealType,
                                     onSubmitted: (food) {
-                                      print('onSubmitted');
-                                      foodLogContext.read<FoodLogBloc>().add(FoodLogListUpdated(newItem: food));
+                                      // print('onSubmitted');
+                                      // foodLogContext.read<FoodLogBloc>().add(FoodLogListUpdated(newItem: food));
                                     },
                                   )
                                 )
@@ -76,9 +80,12 @@ class FoodLogView extends StatelessWidget {
                     separatorBuilder: (context, index) => Container(height: 1, color: ColorTheme().GreyBorder),
                     itemBuilder:(context, index) => 
                       FoodListItemView(
-                        food: state.foods[index],
+                        name: state.foods[index].name,
+                        //TODO: add image
+                        image: 'state.foods[index].image',
+                        calories: Calories(value: state.foods[index].calorie * state.foods[index].unit),
                         trailingIcon: FoodListItemViewTrailingIcon.close,
-                        onTap: (food) {
+                        onTap: () {
                           //TODO: handle on food selected
                         },
                       )

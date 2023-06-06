@@ -13,3 +13,5 @@ class FoodLogDetailConsumeUnitAdded extends FoodLogDetailEvent {}
 class FoodLogDetailConsumeUnitSubstracted extends FoodLogDetailEvent {}
 
 class FoodLogDetailSubmitted extends FoodLogDetailEvent {}
+
+class FoodLogDetailPageInitialized extends FoodLogDetailEvent {}

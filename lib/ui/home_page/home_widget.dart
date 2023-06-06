@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:health_application/ui/base/appoint_detail_card/appoint_detail_card.dart';
 import 'package:health_application/ui/base/widget/button_dark_bule.dart';
 import 'package:health_application/ui/elderly/search_volunteer/volunteer_page.dart';
+import 'package:health_application/ui/elderly/food/food_page.dart';
 import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/home_page/component/menu_card.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -288,7 +289,11 @@ class HomeWidget extends StatelessWidget {
                                 context,
                                 background: 'assets/images/food.png',
                                 title: 'อาหาร',
-                                onClick: () {},
+                                onClick: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) => FoodPage()
+                                  ));
+                                },
                                 subTitle: 'บันทึกมื้ออาหาร',
                                 icon: 'assets/images/food_icon.png',
                               ),

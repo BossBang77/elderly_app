@@ -95,7 +95,10 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget> {
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: ColorTheme().GreyBackGround)
                           ),
-                          prefixIcon: Image.asset('assets/images/search_icon.png')
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.all(12),
+                            child: Image.asset('assets/images/search_icon.png')
+                          )
                         ),
                         onChanged: (value) {
                           if (!widget.isEditable) { return; }

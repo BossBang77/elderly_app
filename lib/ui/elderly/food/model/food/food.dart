@@ -7,7 +7,9 @@ import 'package:health_application/ui/elderly/food/model/nutritions/nutrient.dar
 import 'package:health_application/ui/elderly/food_log_detail/model/food_log_detail_representable.dart';
 
 class Food implements FoodLogDetailRepresentable {
+  final String code;
   final String name;
+  final int unit;
   final List<FoodCategory> categories;
   final NutritionFact nutritionFact;
   final Nutrient calories;
@@ -20,7 +22,9 @@ class Food implements FoodLogDetailRepresentable {
   final String image;
 
   Food({
+    required this.code,
     required this.name,
+    this.unit = 0,
     this.categories = const [],
     this.nutritionFact = const NutritionFact.zero(),
     required this.calories, 
@@ -41,7 +45,9 @@ class Food implements FoodLogDetailRepresentable {
   int consumedUnit = 0;
 
   Food copyWith({
+    String? code,
     String? name,
+    int? unit,
     List<FoodCategory>? categories,
     NutritionFact? nutritionFact,
     Nutrient? calories,
@@ -55,7 +61,9 @@ class Food implements FoodLogDetailRepresentable {
     int? consumedUnit,
   }) {
     return Food(
+      code: code ?? this.code,
       name: name ?? this.name,
+      unit: unit ?? this.unit,
       categories: categories ?? this.categories,
       nutritionFact: nutritionFact ?? this.nutritionFact,
       calories: calories ?? this.calories,

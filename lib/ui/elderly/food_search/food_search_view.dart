@@ -11,6 +11,7 @@ import 'package:health_application/ui/elderly/food/model/food/food.dart';
 import 'package:health_application/ui/elderly/food/model/nutritions/calories.dart';
 import 'package:health_application/ui/elderly/food/views/list_section/list_section.dart';
 import 'package:health_application/ui/elderly/food/views/search_box/search_box.dart';
+import 'package:health_application/ui/elderly/food_search/model/response/food_search_item.dart';
 import 'package:health_application/ui/elderly/food_search/view/search_result_view.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
@@ -21,8 +22,8 @@ class FoodSearchView extends StatefulWidget {
     this.onItemTrailingIconTap
   });
 
-  final Function(Food)? onFoodSelected;
-  final Function(Food)? onItemTrailingIconTap;
+  final Function(FoodSearchItem)? onFoodSelected;
+  final Function(FoodSearchItem)? onItemTrailingIconTap;
 
   @override
   State<StatefulWidget> createState()=> _FoodSearchViewState();
@@ -128,28 +129,43 @@ class _FoodSearchViewState extends State<FoodSearchView> {
 
                 ListSection(
                   sectionHeaderTitle: 'รายการอาหารทั้งหมด',
-                  children: [
-                    //TODO: Display real search item list
+                  children: state.searchResults.map((result) => 
                     FoodListItemView(
-                      food: Food(
-                        name: 'SDPFISJPDIFS',
-                        categories: [],
-                        calories: Calories(value: 375.8),
-                        energy: Calories(value: 375.8),
-                        durationMin: '',
-                        durationMax: '',
-                        description: 'description',
-                        ingredients: [],
-                        methods: []
-                      ),
-                      onTap: (food) {
-                        widget.onFoodSelected?.call(food);
+                      image: 'result.image', 
+                      name: result.name, 
+                      calories: Calories(value: result.calorie),
+                      onTap: () {
+                        widget.onFoodSelected?.call(result);
                       },
-                      onTrailingIconTap: (food) {
-                        widget.onItemTrailingIconTap?.call(food);
+                      onTrailingIconTap: () {
+                        widget.onItemTrailingIconTap?.call(result);
                       },
                     )
-                  ],
+                  ).toList()
+                  // children: [
+                    //TODO: Display real search item list
+                    // FoodListItemView(
+                    //   food: Food(
+                    //     code: '',
+                    //     name: 'SDPFISJPDIFS',
+                    //     unit: 0,
+                    //     categories: [],
+                    //     calories: Calories(value: 375.8),
+                    //     energy: Calories(value: 375.8),
+                    //     durationMin: '',
+                    //     durationMax: '',
+                    //     description: 'description',
+                    //     ingredients: [],
+                    //     methods: []
+                    //   ),
+                    //   onTap: (food) {
+                    //     widget.onFoodSelected?.call(food);
+                    //   },
+                    //   onTrailingIconTap: (food) {
+                    //     widget.onItemTrailingIconTap?.call(food);
+                    //   },
+                    // )
+                  // ],
                 )
               ],
             )

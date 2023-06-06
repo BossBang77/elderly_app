@@ -6,6 +6,7 @@ import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/elderly/food/model/food/food.dart';
 import 'package:health_application/ui/elderly/food/model/nutrition_unit/nutrient_unit.dart';
 import 'package:health_application/ui/elderly/food/views/list_section/list_section.dart';
+import 'package:health_application/ui/elderly/food_log/repository/meal_record_item.dart';
 import 'package:health_application/ui/elderly/food_log_detail/bloc/food_log_detail_bloc.dart';
 import 'package:health_application/ui/elderly/food_log_detail/bloc/food_log_detail_event.dart';
 import 'package:health_application/ui/elderly/food_log_detail/bloc/food_log_detail_state.dart';
@@ -15,7 +16,7 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 class FoodLogDetailView extends StatelessWidget {
   const FoodLogDetailView({this.onSubmitted});
 
-  final Function(Food)? onSubmitted;
+  final Function(MealRecordItem)? onSubmitted;
 
   @override 
   Widget build(BuildContext context) {
@@ -32,10 +33,10 @@ class FoodLogDetailView extends StatelessWidget {
       ),
       body: BlocListener<FoodLogDetailBloc, FoodLogDetailState>(
         listenWhen: (previous, current) {
-          print(current.food.consumedUnit);
+          print(current.food.unit);
           if (previous.food != current.food) {
             onSubmitted?.call(current.food);
-            print(current.food.consumedUnit);
+            print(current.food.unit);
             Navigator.of(context).popUntil(((route) {
               return (route.settings.name == 'FoodLogPage');
             }));
@@ -78,7 +79,7 @@ class FoodLogDetailView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   textH6(state.food.name, ColorTheme().black87, false),
-                                  textSubtitle16Blod(state.food.categories.join(','), ColorTheme().grey10),
+                                  // textSubtitle16Blod(state.foodDetail.categories.join(','), ColorTheme().grey10),
                                   SizedBox(height: 40),
                                   ListSection(
                                     sectionHeaderTitle: 'จำนวนหน่วยบริโภค :',

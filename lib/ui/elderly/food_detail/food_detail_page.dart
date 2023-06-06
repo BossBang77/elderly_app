@@ -4,16 +4,18 @@ import 'package:health_application/ui/elderly/food/model/food/food.dart';
 import 'package:health_application/ui/elderly/food_detail/bloc/food_detail_bloc.dart';
 import 'package:health_application/ui/elderly/food_detail/food_detail_view.dart';
 import 'package:health_application/ui/elderly/food_log/food_log_view.dart';
+import 'package:health_application/ui/elderly/food_search/model/response/food_detail.dart';
+import 'package:health_application/ui/elderly/food_search/repository/food_detail_repository.dart';
 
 class FoodDetailPage extends StatelessWidget {
-  const FoodDetailPage({required this.food});
+  const FoodDetailPage({required this.foodCode});
   
-  final Food food;
+  final String foodCode;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FoodDetailBloc(food),
+      create: (context) => FoodDetailBloc(foodCode, FoodDetailRepository()),
       child: FoodDetailView()
     );
   }

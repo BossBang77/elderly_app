@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_application/ui/elderly/food/model/food/food.dart';
+import 'package:health_application/ui/elderly/food/model/nutrition_unit/nutrient_unit.dart';
+import 'package:health_application/ui/elderly/food/model/nutritions/nutrient.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
@@ -13,15 +15,19 @@ enum FoodListItemViewTrailingIcon {
 
 class FoodListItemView extends StatelessWidget {
   const FoodListItemView({
-    required this.food, 
+    required this.image,
+    required this.name,
+    required this.calories, 
     this.onTap, 
     this.onTrailingIconTap,
     this.trailingIcon = FoodListItemViewTrailingIcon.next
   });
 
-  final Function(Food)? onTap;
-  final Function(Food)? onTrailingIconTap;
-  final Food food;
+  final Function()? onTap;
+  final Function()? onTrailingIconTap;
+  final String image;
+  final String name;
+  final Nutrient calories;
   final FoodListItemViewTrailingIcon trailingIcon;
 
   @override 
@@ -29,7 +35,7 @@ class FoodListItemView extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        onTap?.call(food);
+        onTap?.call();
       },
       child: Container(
         height: 88,
@@ -40,7 +46,7 @@ class FoodListItemView extends StatelessWidget {
             SizedBox(
               width: 80,
               height: 80,
-              child: Image.asset(food.image.isEmpty ? food.image : '', width: 50, height: 50),
+              child: Image.asset(image.isEmpty ? image : '', width: 50, height: 50),
             ),
             SizedBox(width: 25),
             Expanded(
@@ -48,8 +54,8 @@ class FoodListItemView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  textSubtitle2(food.name, ColorTheme().black87, false),
-                  textBody2(food.calories.value.toString() + ' ' + food.calories.unit.symbol, ColorTheme().black87, false),
+                  textSubtitle2(name, ColorTheme().black87, false),
+                  textBody2(calories.value.toString() + ' ' + calories.unit.symbol, ColorTheme().black87, false),
                 ],
               ),
             ),
@@ -59,7 +65,7 @@ class FoodListItemView extends StatelessWidget {
               width: 20,
               child: GestureDetector(
                 onTap: () {
-                  onTrailingIconTap?.call(food);
+                  onTrailingIconTap?.call();
                 },
                 child: Image.asset(trailingIcon.trailingIconPath),
               )
