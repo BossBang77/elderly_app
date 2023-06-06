@@ -36,3 +36,12 @@ class FoodLogFoodSelected extends FoodLogEvent {
   @override
   List<Object> get props => [food];
 }
+
+class FoodLogMealItemRemoved extends FoodLogEvent {
+  const FoodLogMealItemRemoved({required this.index});
+
+  final int index;
+
+  @override
+  List<Object> get props => [index];
+}

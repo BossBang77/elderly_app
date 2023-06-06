@@ -22,6 +22,7 @@ class FoodLogBloc extends Bloc<FoodLogEvent, FoodLogState> {
     on<FoodLogFoodSelected>(_onFoodSelected);
     on<FoodLogListUpdated>(_onFoodLogListUpdated);
     on<FoodLogBackButtonTapped>(_onBackButtonTapped);
+    on<FoodLogMealItemRemoved>(_onFoodLogMealItemRemoved);
 
     MealType.values.forEach((element) {
       mealRecordRepository.mealRecordStreamFor(element).listen((event) => {
@@ -98,5 +99,12 @@ class FoodLogBloc extends Bloc<FoodLogEvent, FoodLogState> {
     Emitter<FoodLogState> emit
   ) {
     _mealRecordRepository.mealRecordStreamFor(_mealType).restoreState();
+  }
+
+  void _onFoodLogMealItemRemoved(
+    FoodLogMealItemRemoved event,
+    Emitter<FoodLogState> emit
+  ) {
+    _mealRecordRepository.removeMeal(_mealType, event.index);
   }
 }

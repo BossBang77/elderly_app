@@ -26,6 +26,7 @@ abstract class MealRecordRepositoryProtocol {
   List<MealRecordItem> getCurrentMealListFrom(MealType mealType);
   void setMealListWith(MealType mealType, List<MealRecordItem> meals);
   void addMeal(MealRecordItem meal, MealType toMealType);
+  void removeMeal(MealType mealType, int atIndex);
   SaveMealRecordRequest createRequestFromMealStream();
 }
 
@@ -115,5 +116,12 @@ class MealRecordRepository implements MealRecordRepositoryProtocol {
       snack: snack.value.map((meal) => MealRecordRequestItem.fromMealRecordItem(meal)).toList(),
       dinner: dinner.value.map((meal) => MealRecordRequestItem.fromMealRecordItem(meal)).toList(),
     );
+  }
+
+  @override 
+  void removeMeal(MealType mealType, int atIndex) {
+    List<MealRecordItem> mealRecordList = List.from(mealRecordStreamFor(mealType).value);
+    mealRecordList.removeAt(atIndex);
+    mealRecordStreamFor(mealType).updateItemList(mealRecordList);
   }
 }

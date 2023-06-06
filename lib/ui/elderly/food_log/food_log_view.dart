@@ -88,6 +88,10 @@ class FoodLogView extends StatelessWidget {
                         onTap: () {
                           //TODO: handle on food selected
                         },
+                        onTrailingIconTap: () {
+                          print('tapped');
+                          context.read<FoodLogBloc>().add(FoodLogMealItemRemoved(index: index));
+                        },
                       )
                   ),
                 ),
