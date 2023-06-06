@@ -39,9 +39,12 @@ class SummaryExerciseWidget extends StatelessWidget {
             children: [
               InkWell(
                 onTap: (() {
+                  context.read<ExerciseBloc>().add(SearchExercise());
+
                   context
                       .read<ExerciseBloc>()
                       .add(ChangeView(exerciseView: ExerciseView.search));
+
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => ExerciseWidget()),
                       (Route<dynamic> route) => false);
@@ -138,6 +141,7 @@ class SummaryExerciseWidget extends StatelessWidget {
               ButtonOrange(
                 btnName: 'เพิ่มรายการใหม่',
                 onClick: () {
+                  context.read<ExerciseBloc>().add(SearchExercise());
                   context
                       .read<ExerciseBloc>()
                       .add(ChangeView(exerciseView: ExerciseView.search));
