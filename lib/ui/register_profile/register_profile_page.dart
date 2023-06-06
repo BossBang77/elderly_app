@@ -28,6 +28,7 @@ class RegisterProfilePage extends StatelessWidget {
                     title: 'เกิดข้อผิดพลาด',
                     subTitle:
                         "มีบางอย่างผิดพลาดในการสร้างบัญชี\nกรุณาลองใหม่อีกครั้ง",
+                    btnName: 'ตกลง',
                   )) as bool;
 
           if (acceptClose) {

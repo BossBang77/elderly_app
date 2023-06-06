@@ -6,11 +6,15 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 
 class ErrorAlertWidget extends StatelessWidget {
   const ErrorAlertWidget(
-      {Key? key, required this.title, required this.subTitle})
+      {Key? key,
+      required this.title,
+      required this.subTitle,
+      required this.btnName})
       : super(key: key);
 
   final String title;
   final String subTitle;
+  final String btnName;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class ErrorAlertWidget extends StatelessWidget {
         width: 210,
         height: 50,
         child: ButtonGradient(
-          btnName: 'ตกลง',
+          btnName: btnName,
           onClick: () {
             Navigator.pop(context, true);
           },
@@ -44,10 +48,9 @@ class ErrorAlertWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Icon(
-                    Icons.error,
-                    color: color.Error,
-                    size: 80,
+                  Image.asset(
+                    'assets/images/un_success.png',
+                    scale: 3,
                   ),
                   const SizedBox(
                     height: 20,
@@ -57,8 +60,8 @@ class ErrorAlertWidget extends StatelessWidget {
                     height: 10,
                   ),
                   Center(
-                      child: textButton1(subTitle, Colors.grey,
-                          align: TextAlign.center)),
+                      child: textButton1(subTitle, color.black87,
+                          align: TextAlign.center, maxLines: 3)),
                   const SizedBox(
                     height: 10,
                   ),
@@ -69,7 +72,7 @@ class ErrorAlertWidget extends StatelessWidget {
           actions: <Widget>[
             Center(
                 child: Padding(
-              padding: const EdgeInsets.only(bottom: 50),
+              padding: const EdgeInsets.only(bottom: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[acceptButton],

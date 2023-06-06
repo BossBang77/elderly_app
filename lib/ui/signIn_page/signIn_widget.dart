@@ -35,9 +35,9 @@ class SignInPage extends StatelessWidget {
           final bool acceptClose = await showDialog(
               context: context,
               builder: (BuildContext context) => ErrorAlertWidget(
-                    title: 'เกิดข้อผิดพลาด',
-                    subTitle:
-                        "อีเมล หรือรหัสผ่านของคุณไม่ถูกต้อง\nกรุณากรอกใหม่อีกครั้ง",
+                    title: 'ไม่สำเร็จ!',
+                    subTitle: "ล็อกอินไม่สำเร็จ\nกรุณาลองใหม่อีกครั้ง",
+                    btnName: 'เข้าสู่ระบบ',
                   )) as bool;
 
           if (acceptClose) {
