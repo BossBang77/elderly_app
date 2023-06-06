@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         child: MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) => HomePageBloc()),
-              BlocProvider(create: (context) => ExerciseBloc()),
+              BlocProvider(create: (context) => ExerciseBloc()..add(Initial())),
               BlocProvider(create: (context) => MasterDataBloc()),
             ],
             child: Builder(builder: (context) {
