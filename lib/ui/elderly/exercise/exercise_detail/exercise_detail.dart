@@ -201,7 +201,5 @@ class ExerciseDetail extends StatelessWidget {
         ],
       )),
     );
-    //   },
-    // );
   }
 }
