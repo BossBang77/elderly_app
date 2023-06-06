@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
+import 'package:health_application/ui/elderly/exercise/component/not_found_exercise.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +13,15 @@ class AllEvent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<ExerciseBloc, ExerciseState>(
+        listener: (context, state) {},
+        builder: (BuildContext parent, ExerciseState state) {
+          return initialWidget(context, state);
+        });
+  }
+
+  Widget initialWidget(BuildContext context, ExerciseState state) {
+    var exList = state.searchRes.data;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -18,13 +29,15 @@ class AllEvent extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
+        if (exList.isEmpty) ...{NotFoundExceriseList()},
         Column(
           children: [
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < exList.length; i++)
               InkWell(
                 onTap: () {
-                  context.read<ExerciseBloc>().add(
-                      ChangeView(exerciseView: ExerciseView.exerciseDetail));
+                  context
+                      .read<ExerciseBloc>()
+                      .add(SearchExInformation(exCode: exList[i].code));
                 },
                 child: Container(
                   child: Column(
@@ -35,13 +48,12 @@ class AllEvent extends StatelessWidget {
                           Row(
                             children: [
                               ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset(
-                                  'assets/images/example_person_exercise.png',
-                                  width: 75,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.network(
+                                    exList[i].image,
+                                    width: 75,
+                                    fit: BoxFit.cover,
+                                  )),
                               const SizedBox(
                                 width: 20,
                               ),
@@ -50,8 +62,10 @@ class AllEvent extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   textSubtitle16Blod(
-                                      'กายบริหาร ${i + 1}', color.black87),
-                                  textButton1('30.01 นาที', color.black87)
+                                      exList[i].name, color.black87),
+                                  textButton1(
+                                      '${exList[i].burnCalorie.toString()} kcal (${exList[i].time} นาที)',
+                                      color.black87)
                                 ],
                               ),
                             ],

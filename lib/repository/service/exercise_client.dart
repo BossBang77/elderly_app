@@ -12,4 +12,11 @@ abstract class ExerciseService {
     "Content-Type": "application/json",
   })
   Future<HttpResponse> searchExcerise(@Body() Map<String, dynamic> body);
+
+  @GET('/api/v1/exercise/information/{exerciseCode}')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> getExerciseInformation(@Path() String exerciseCode);
 }

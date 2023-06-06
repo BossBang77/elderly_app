@@ -24,3 +24,28 @@ class NotFoundExcerise extends StatelessWidget {
     );
   }
 }
+
+class NotFoundExceriseList extends StatelessWidget {
+  const NotFoundExceriseList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 90,
+        ),
+        Center(
+          child: Image.asset(
+            'assets/images/person_exercise_icon.png',
+            scale: 3,
+          ),
+        ),
+        Center(
+          child: textButton1('ไม่พบข้อมูลการออกกำลังกาย', color.grey50,
+              align: TextAlign.center),
+        )
+      ],
+    );
+  }
+}

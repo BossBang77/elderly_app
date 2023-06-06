@@ -13,21 +13,34 @@ class ExerciseWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ExerciseBloc, ExerciseState>(
-        listener: (context, state) {},
-        builder: (BuildContext parent, ExerciseState state) {
-          if (state.exerciseView == ExerciseView.search) {
-            return SearchExerciseWidget();
-          } else if (state.exerciseView == ExerciseView.exerciseDetail) {
-            return ExerciseDetail();
-          } else if (state.exerciseView == ExerciseView.calculate) {
-            return ExerciseCalculate(
-              timeExercise: state.timeExercise,
-            );
-          } else if (state.exerciseView == ExerciseView.vdoExercise) {
-            return ExerciseVdoPlayer();
-          } else {
-            return Container();
-          }
-        });
+        listener: (context, state) {
+      if (state.statusSubmit == StatusSubmit.getInformationFail) {
+        ///dialog
+      }
+
+      if (state.statusSubmit == StatusSubmit.getInformationSuccess) {
+        context
+            .read<ExerciseBloc>()
+            .add(ChangeView(exerciseView: ExerciseView.exerciseDetail));
+      }
+    }, builder: (BuildContext parent, ExerciseState state) {
+      if (state.exerciseView == ExerciseView.search) {
+        return SearchExerciseWidget(
+          state: state,
+        );
+      } else if (state.exerciseView == ExerciseView.exerciseDetail) {
+        return ExerciseDetail(
+          state: state,
+        );
+      } else if (state.exerciseView == ExerciseView.calculate) {
+        return ExerciseCalculate(
+          timeExercise: state.timeExercise,
+        );
+      } else if (state.exerciseView == ExerciseView.vdoExercise) {
+        return ExerciseVdoPlayer();
+      } else {
+        return Container();
+      }
+    });
   }
 }
