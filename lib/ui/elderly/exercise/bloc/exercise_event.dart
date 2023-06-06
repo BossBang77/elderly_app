@@ -53,3 +53,7 @@ class UpdateSubmitStatus extends ExerciseEvent {
   @override
   List<Object> get props => [status];
 }
+
+class GetExerciseDaily extends ExerciseEvent {
+  const GetExerciseDaily();
+}

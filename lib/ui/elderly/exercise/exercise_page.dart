@@ -14,7 +14,9 @@ class ExercisePage extends StatelessWidget {
     return BlocConsumer<ExerciseBloc, ExerciseState>(
         listener: (context, state) async {},
         builder: (BuildContext parent, ExerciseState state) {
-          return SummaryExerciseWidget();
+          return SummaryExerciseWidget(
+            state: state,
+          );
         });
   }
 }

@@ -17,10 +17,11 @@ import '../component/exercise_doing_list.dart';
 import '../component/not_found_exercise.dart';
 
 class SummaryExerciseWidget extends StatelessWidget {
-  const SummaryExerciseWidget({super.key});
-
+  const SummaryExerciseWidget({super.key, required this.state});
+  final ExerciseState state;
   @override
   Widget build(BuildContext context) {
+    var exerciseDaily = state.exerciseDaily;
     return Scaffold(
       backgroundColor: color.whiteBackground,
       appBar: appBar(
@@ -97,7 +98,9 @@ class SummaryExerciseWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     textButton1('เผาผลาญ ', color.white),
-                                    textSubtitle18Blod('0 kcal', color.white)
+                                    textSubtitle18Blod(
+                                        '${exerciseDaily.burnCaloriePoint.toString()} kcal',
+                                        color.white)
                                   ],
                                 )
                               ],
@@ -119,7 +122,9 @@ class SummaryExerciseWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     textButton1('ระยะเวลา', color.white),
-                                    textSubtitle18Blod('0 ชั่วโมง', color.white)
+                                    textSubtitle18Blod(
+                                        '${exerciseDaily.timePoint.toString()} นาที',
+                                        color.white)
                                   ],
                                 )
                               ],

@@ -8,6 +8,8 @@ import 'package:health_application/ui/elderly/exercise/model/search_res_list.dar
 import 'package:health_application/ui/elderly/exercise/model/search_res_model.dart';
 import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
 
+import '../model/exerise_daily_model.dart';
+
 part 'exercise_event.dart';
 part 'exercise_state.dart';
 
@@ -19,6 +21,7 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
   Stream<ExerciseState> mapEventToState(ExerciseEvent event) async* {
     if (event is Initial) {
       yield ExerciseState.initial();
+      add(GetExerciseDaily());
     }
     if (event is ChangeView) {
       yield state.copyWith(exerciseView: event.exerciseView);
@@ -59,6 +62,15 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
 
     if (event is UpdateSubmitStatus) {
       yield state.copyWith(statusSubmit: event.status);
+    }
+
+    if (event is GetExerciseDaily) {
+      var res = await _exerciseRepository.getExerciseDaily();
+      yield* res.fold((Failure err) async* {
+        yield state.copyWith(exerciseDaily: ExerciseDailyModel());
+      }, (ExerciseDailyModel res) async* {
+        yield state.copyWith(exerciseDaily: res);
+      });
     }
   }
 
