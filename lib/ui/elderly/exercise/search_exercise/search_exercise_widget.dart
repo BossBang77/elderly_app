@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
-import 'package:health_application/ui/elderly/exercise/model/search_exercise_model.dart';
 import 'package:health_application/ui/elderly/exercise/search_exercise/all_events.dart';
 import 'package:health_application/ui/elderly/exercise/search_exercise/filter_event.dart';
 import 'package:health_application/ui/elderly/exercise/search_exercise/recently_searched.dart';
@@ -95,7 +92,7 @@ class SearchExerciseWidget extends StatelessWidget {
                   ),
                 ],
               ),
-            AllEvent(),
+            AllEvent(context, state),
             const SizedBox(
               height: 100,
             ),

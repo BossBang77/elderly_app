@@ -12,7 +12,7 @@ class ExercisePage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<ExerciseBloc>().add(Initial());
     return BlocConsumer<ExerciseBloc, ExerciseState>(
-        listener: (context, state) {},
+        listener: (context, state) async {},
         builder: (BuildContext parent, ExerciseState state) {
           return SummaryExerciseWidget();
         });

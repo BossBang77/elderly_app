@@ -15,7 +15,6 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 import '../../../base/model/master_data.dart';
 
 void onFiter(BuildContext context) {
-  bool filterDisease = true;
   MasterData exerciseType =
       BlocProvider.of<MasterDataBloc>(context).state.exerciseTypeMaster;
 
@@ -27,9 +26,8 @@ void onFiter(BuildContext context) {
       backgroundColor: ColorTheme().white,
       isScrollControlled: true,
       context: context,
-      builder: (ctx) => BlocConsumer<ExerciseBloc, ExerciseState>(
-          listener: (context, state) {},
-          builder: (BuildContext parent, ExerciseState state) {
+      builder: (ctx) => BlocBuilder<ExerciseBloc, ExerciseState>(
+              builder: (BuildContext parent, ExerciseState state) {
             var search = state.searchEx;
             var listType = search.type;
 
@@ -63,11 +61,11 @@ void onFiter(BuildContext context) {
                   actions: [
                     InkWell(
                       onTap: () {
-                        context.read<ExerciseBloc>()
+                        parent.read<ExerciseBloc>()
                           ..add(OnFilter(
                             type: FilterType.resetFilter,
                           ));
-                        context.read<ExerciseBloc>()..add(SearchExercise());
+                        parent.read<ExerciseBloc>()..add(SearchExercise());
                       },
                       child: Container(
                           alignment: Alignment.center,
@@ -163,7 +161,7 @@ void onFiter(BuildContext context) {
                                       setErrorWithOuter: true,
                                       errorText: 'โปรดระบุ',
                                       onChanged: (value) {
-                                        context.read<ExerciseBloc>()
+                                        parent.read<ExerciseBloc>()
                                           ..add(OnFilter(
                                               type: FilterType.minKcal,
                                               value: value));
@@ -193,7 +191,7 @@ void onFiter(BuildContext context) {
                                       textNumberType: true,
                                       maxLength: 100,
                                       onChanged: (value) {
-                                        context.read<ExerciseBloc>()
+                                        parent.read<ExerciseBloc>()
                                           ..add(OnFilter(
                                               type: FilterType.maxKcal,
                                               value: value));
@@ -245,7 +243,7 @@ void onFiter(BuildContext context) {
                                             type = FilterType.delTypeExcercise;
                                           }
 
-                                          context.read<ExerciseBloc>()
+                                          parent.read<ExerciseBloc>()
                                             ..add(OnFilter(
                                                 type: type, value: code));
                                         },
@@ -316,12 +314,12 @@ void onFiter(BuildContext context) {
                                     (search.burnCalorieMin <
                                         search.burnCalorieMax)) {
                                   Navigator.of(context).pop(true);
-                                  context.read<ExerciseBloc>()
+                                  parent.read<ExerciseBloc>()
                                     ..add(SearchExercise());
                                 }
                               } else {
                                 Navigator.of(context).pop(true);
-                                context.read<ExerciseBloc>()
+                                parent.read<ExerciseBloc>()
                                   ..add(SearchExercise());
                               }
                             },

@@ -46,3 +46,10 @@ class SearchExInformation extends ExerciseEvent {
   @override
   List<Object> get props => [exCode];
 }
+
+class UpdateSubmitStatus extends ExerciseEvent {
+  final StatusSubmit status;
+  const UpdateSubmitStatus({this.status = StatusSubmit.initial});
+  @override
+  List<Object> get props => [status];
+}

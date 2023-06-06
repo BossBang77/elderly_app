@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
@@ -13,7 +14,6 @@ import 'package:provider/provider.dart';
 class ExerciseDetail extends StatelessWidget {
   const ExerciseDetail({super.key, required this.state});
   final ExerciseState state;
-
   @override
   Widget build(BuildContext context) {
     var sized = MediaQuery.of(context).size;
@@ -41,6 +41,7 @@ class ExerciseDetail extends StatelessWidget {
               left: 30,
               child: InkWell(
                 onTap: () {
+                  print('tap');
                   context
                       .read<ExerciseBloc>()
                       .add(ChangeView(exerciseView: ExerciseView.search));
@@ -201,5 +202,7 @@ class ExerciseDetail extends StatelessWidget {
         ],
       )),
     );
+    //   },
+    // );
   }
 }

@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
 import 'package:health_application/ui/elderly/exercise/exercise_detail/exercise_calculate.dart';
 import 'package:health_application/ui/elderly/exercise/exercise_detail/exercise_detail.dart';
@@ -13,15 +15,22 @@ class ExerciseWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ExerciseBloc, ExerciseState>(
-        listener: (context, state) {
+        listener: (context, state) async {
       if (state.statusSubmit == StatusSubmit.getInformationFail) {
-        ///dialog
-      }
+        final bool acceptClose = await showDialog(
+            context: context,
+            builder: (BuildContext context) => ErrorAlertWidget(
+                  title: 'เกิดข้อผิดพลาด',
+                  subTitle:
+                      "มีบางอย่างผิดพลาดในการดึงข้อมูล\nกรุณาลองใหม่อีกครั้ง",
+                  btnName: 'ตกลง',
+                )) as bool;
 
-      if (state.statusSubmit == StatusSubmit.getInformationSuccess) {
-        context
-            .read<ExerciseBloc>()
-            .add(ChangeView(exerciseView: ExerciseView.exerciseDetail));
+        if (acceptClose) {
+          context
+              .read<ExerciseBloc>()
+              .add(UpdateSubmitStatus(status: StatusSubmit.initial));
+        }
       }
     }, builder: (BuildContext parent, ExerciseState state) {
       if (state.exerciseView == ExerciseView.search) {

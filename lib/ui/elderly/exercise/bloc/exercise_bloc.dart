@@ -6,6 +6,7 @@ import 'package:health_application/ui/elderly/exercise/model/search_exercise_mod
 import 'package:health_application/ui/elderly/exercise/model/search_information.dart';
 import 'package:health_application/ui/elderly/exercise/model/search_res_list.dart';
 import 'package:health_application/ui/elderly/exercise/model/search_res_model.dart';
+import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
 
 part 'exercise_event.dart';
 part 'exercise_state.dart';
@@ -20,6 +21,7 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
       yield ExerciseState.initial();
     }
     if (event is ChangeView) {
+      print('change view');
       yield state.copyWith(exerciseView: event.exerciseView);
     }
 
@@ -49,9 +51,15 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
             statusSubmit: StatusSubmit.getInformationFail);
       }, (SearchInformationModel res) async* {
         yield state.copyWith(
-            currentInformation: res,
-            statusSubmit: StatusSubmit.getInformationSuccess);
+          exerciseView: ExerciseView.exerciseDetail,
+          currentInformation: res,
+          statusSubmit: StatusSubmit.getInformationSuccess,
+        );
       });
+    }
+
+    if (event is UpdateSubmitStatus) {
+      yield state.copyWith(statusSubmit: event.status);
     }
   }
 
