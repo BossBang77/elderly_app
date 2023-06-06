@@ -12,6 +12,7 @@ import 'package:health_application/ui/signIn_page/forgot_password/forgot_passwor
 import 'package:health_application/ui/signIn_page/forgot_password/reset_password_widget.dart';
 import 'package:health_application/ui/signIn_page/forgot_password/vertify_otp.dart';
 import 'package:health_application/ui/signIn_page/login/login_page.dart';
+import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -26,6 +27,7 @@ class SignInPage extends StatelessWidget {
           var loginRes = state.loginRes;
           await UserSecureStorage().setAccessToken(loginRes.accessToken);
           await UserSecureStorage().setUserData(loginRes);
+          context.read<UserProfileBloc>()..add(GetUserProfile());
           context
               .read<HomePageBloc>()
               .add(ChangeMenu(menus: menuType.mainPage));
