@@ -105,17 +105,6 @@ class _FoodViewState extends State<FoodView> {
                                 onFoodSelected: (food) {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(builder:(context) => FoodDetailPage(foodCode: food.code))
-                                    // PageRouteBuilder(
-                                    //   pageBuilder: ((context, animation, secondaryAnimation) => FoodDetailPage(foodCode: food.code)),
-                                    //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                    //     return CupertinoPageTransition(
-                                    //       linearTransition: true,
-                                    //       primaryRouteAnimation: animation,
-                                    //       secondaryRouteAnimation: secondaryAnimation,
-                                    //       child: child
-                                    //     );
-                                    //   }
-                                    // )
                                   );
                                 },
                               )),
@@ -123,12 +112,6 @@ class _FoodViewState extends State<FoodView> {
                               transitionsBuilder:(context, animation, secondaryAnimation, child) {
                                 animation = CurvedAnimation(parent: animation, curve: Curves.easeInOut);
                                 return FadeTransition(opacity: animation, child: child);
-                                // return CupertinoPageTransition(
-                                //   linearTransition: true,
-                                //   primaryRouteAnimation: animation,
-                                //   secondaryRouteAnimation: secondaryAnimation,
-                                //   child: child
-                                // );
                               },
                               // reverseTransitionDuration: Duration(milliseconds: 100)
                             )
