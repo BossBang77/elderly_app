@@ -149,6 +149,9 @@ class RegisterProfileBloc
 
       case FillType.searchAllergies:
         return state.copyWith(textFilterAllergies: event.value);
+
+      case FillType.volunteerCode:
+        return state.copyWith(volunteerCode: event.value);
       default:
         return state;
     }

@@ -30,7 +30,8 @@ enum FillType {
   addAllergies,
   delAllergies,
   delAllAllergies,
-  searchAllergies
+  searchAllergies,
+  volunteerCode
 }
 
 enum RoleType { initial, ROLE_USER_ELDERLY, volunteer }
@@ -51,7 +52,8 @@ class RegisterProfileState extends Equatable {
       this.status = SubmitStatus.initial,
       this.obscurePassword = true,
       this.textFilterDisease = '',
-      this.textFilterAllergies = ''});
+      this.textFilterAllergies = '',
+      this.volunteerCode = ''});
   final ProfileView profileView;
   final ProfileType profileType;
   final BMIDetail bmiDetail;
@@ -63,6 +65,7 @@ class RegisterProfileState extends Equatable {
   final bool obscurePassword;
   final String textFilterDisease;
   final String textFilterAllergies;
+  final String volunteerCode;
 
   RegisterProfileState copyWith(
       {ProfileView? profileView,
@@ -75,7 +78,8 @@ class RegisterProfileState extends Equatable {
       SubmitStatus? status,
       bool? obscurePassword,
       String? textFilterDisease,
-      String? textFilterAllergies}) {
+      String? textFilterAllergies,
+      String? volunteerCode}) {
     return RegisterProfileState(
         profileView: profileView ?? this.profileView,
         profileType: profileType ?? this.profileType,
@@ -87,7 +91,8 @@ class RegisterProfileState extends Equatable {
         status: status ?? this.status,
         obscurePassword: obscurePassword ?? this.obscurePassword,
         textFilterDisease: textFilterDisease ?? this.textFilterDisease,
-        textFilterAllergies: textFilterAllergies ?? this.textFilterAllergies);
+        textFilterAllergies: textFilterAllergies ?? this.textFilterAllergies,
+        volunteerCode: volunteerCode ?? this.volunteerCode);
   }
 
   @override
