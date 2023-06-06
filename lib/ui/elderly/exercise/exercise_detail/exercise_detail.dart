@@ -41,7 +41,6 @@ class ExerciseDetail extends StatelessWidget {
               left: 30,
               child: InkWell(
                 onTap: () {
-                  print('tap');
                   context
                       .read<ExerciseBloc>()
                       .add(ChangeView(exerciseView: ExerciseView.search));

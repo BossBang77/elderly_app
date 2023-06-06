@@ -21,7 +21,6 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
       yield ExerciseState.initial();
     }
     if (event is ChangeView) {
-      print('change view');
       yield state.copyWith(exerciseView: event.exerciseView);
     }
 
