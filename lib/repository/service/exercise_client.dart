@@ -19,4 +19,11 @@ abstract class ExerciseService {
     "Content-Type": "application/json",
   })
   Future<HttpResponse> getExerciseInformation(@Path() String exerciseCode);
+
+  @GET('/api/v1/exercise/daily-activity')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> getDailyActivity();
 }
