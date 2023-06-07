@@ -20,9 +20,6 @@ class NetworkProvider {
   AppConfig setting = ConfigEnv.appConfig;
   // Dio
   Dio? _dio;
-
-  String proxy = Platform.isAndroid ? '172.24.216.22:9090' : 'localhost:9090';
-
   Dio dioClient() {
     var dio = Dio(BaseOptions(
         baseUrl: setting.envPath,
@@ -36,18 +33,6 @@ class NetworkProvider {
       // TODO: set interceptor after can call service
       ApiInterceptors(dio),
     });
-
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) { 
-      // Hook into the findProxy callback to set the client's proxy.
-      client.findProxy = (url) {
-        return "PROXY $proxy;";
-      };
-      
-      // This is a workaround to allow Proxyman to receive
-      // SSL payloads when your app is running on Android.
-      client.badCertificateCallback = (X509Certificate cert, String host, int port) => Platform.isAndroid;
-    };
-    
     return dio;
   }
 }
