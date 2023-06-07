@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:health_application/repository/exercise_repos.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/base/model/failure.dart';
+import 'package:health_application/ui/elderly/exercise/model/daily_activity_req_model.dart';
+import 'package:health_application/ui/elderly/exercise/model/exercise_model.dart';
 import 'package:health_application/ui/elderly/exercise/model/search_exercise_model.dart';
 import 'package:health_application/ui/elderly/exercise/model/search_information.dart';
 import 'package:health_application/ui/elderly/exercise/model/search_res_list.dart';
@@ -22,6 +25,7 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
     if (event is Initial) {
       yield ExerciseState.initial();
       add(GetExerciseDaily());
+      add(GetExerciseRecord());
     }
     if (event is ChangeView) {
       yield state.copyWith(exerciseView: event.exerciseView);
@@ -50,13 +54,14 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
       yield* res.fold((Failure err) async* {
         yield state.copyWith(
             currentInformation: SearchInformationModel(),
-            statusSubmit: StatusSubmit.getInformationFail);
+            statusSubmit: StatusSubmit.getInformationFail,
+            statusView: event.statusViewExercise);
       }, (SearchInformationModel res) async* {
         yield state.copyWith(
-          exerciseView: ExerciseView.exerciseDetail,
-          currentInformation: res,
-          statusSubmit: StatusSubmit.getInformationSuccess,
-        );
+            exerciseView: ExerciseView.exerciseDetail,
+            currentInformation: res,
+            statusSubmit: StatusSubmit.getInformationSuccess,
+            statusView: event.statusViewExercise);
       });
     }
 
@@ -70,6 +75,81 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
         yield state.copyWith(exerciseDaily: ExerciseDailyModel());
       }, (ExerciseDailyModel res) async* {
         yield state.copyWith(exerciseDaily: res);
+      });
+    }
+
+    if (event is RemoveExerciseRecord) {
+      var res = await _exerciseRepository.removeExerciseRecord(event.id);
+      yield* res.fold((Failure err) async* {
+        yield state.copyWith(
+            statusSubmit: StatusSubmit.removeExerciseRecordFail);
+      }, (int res) async* {
+        yield state.copyWith(
+            statusSubmit: StatusSubmit.removeExerciseRecordSuccess);
+        add(GetExerciseRecord());
+      });
+    }
+
+    if (event is GetExerciseRecord) {
+      var res = await _exerciseRepository.getExerciseRecord();
+      yield* res.fold((Failure err) async* {
+        yield state.copyWith(recordList: SearchResListModel());
+      }, (SearchResListModel res) async* {
+        yield state.copyWith(recordList: res);
+      });
+    }
+
+    if (event is SaveExerciseRecord) {
+      ExerciseModel newActivity =
+          ExerciseModel(name: event.name, code: event.code);
+      List<SearchResModel> reccordList = state.recordList.data;
+      List<ExerciseModel> bodyReq = [];
+      reccordList.forEach((recorded) {
+        bodyReq.add(ExerciseModel(code: recorded.code, name: recorded.name));
+      });
+      bodyReq.add(newActivity);
+      var res = await _exerciseRepository.saveExerciseRecord(bodyReq);
+      yield* res.fold((Failure err) async* {
+        yield state.copyWith(statusSubmit: StatusSubmit.saveRecordFail);
+      }, (String res) async* {
+        yield state.copyWith(
+          statusSubmit: StatusSubmit.saveRecordSuccess,
+        );
+      });
+    }
+
+    if (event is SaveExerciseRecordBeforeExerise) {
+      ExerciseModel newActivity =
+          ExerciseModel(name: event.name, code: event.code);
+      List<SearchResModel> reccordList = state.recordList.data;
+      List<ExerciseModel> bodyReq = [];
+      reccordList.forEach((recorded) {
+        bodyReq.add(ExerciseModel(code: recorded.code, name: recorded.name));
+      });
+      bodyReq.add(newActivity);
+      var res = await _exerciseRepository.saveExerciseRecord(bodyReq);
+      yield* res.fold((Failure err) async* {
+        yield state.copyWith(statusSubmit: StatusSubmit.saveRecordFail);
+      }, (String res) async* {
+        yield state.copyWith(exerciseView: ExerciseView.vdoExercise);
+      });
+    }
+
+    if (event is SaveExerciseDaily) {
+      num burnCalorie =
+          calBurnCalorie(event.timePoint, state.currentInformation);
+
+      DailyActivityModel dailyMol = DailyActivityModel(
+          burnCaloriePoint: burnCalorie,
+          timePoint: (double.tryParse(event.timePoint) ?? 0).ceil());
+
+      var res = await _exerciseRepository.saveExerciseDaily(dailyMol);
+      yield* res.fold((Failure err) async* {
+        yield state.copyWith(statusSubmit: StatusSubmit.saveExerciseDailyFail);
+      }, (int res) async* {
+        yield state.copyWith(
+          statusSubmit: StatusSubmit.saveExerciseDailySuccess,
+        );
       });
     }
   }
@@ -123,4 +203,27 @@ bool checkIsFilter(SearchExerciseModel currentSearch) {
   }
 
   return filter;
+}
+
+bool checkIsSaveRecord(SearchResListModel recordList, String code) {
+  var isSelect = recordList.data.firstWhere(
+    (element) => element.code == code,
+    orElse: () => SearchResModel(),
+  );
+
+  /// check has select this exercise
+  return isSelect.code.isNotEmpty;
+}
+
+int calBurnCalorie(
+    String timePointEx, SearchInformationModel currentInformation) {
+  int burnCalorie = 0;
+  int timePoint = (double.tryParse(timePointEx) ?? 0).ceil();
+  var exCurrent = currentInformation;
+  print(exCurrent.time);
+  if (exCurrent.time != 0) {
+    double oneMinBurn = (exCurrent.burnCalorie / exCurrent.time);
+    burnCalorie = (oneMinBurn * timePoint).ceil().toInt();
+  }
+  return burnCalorie;
 }

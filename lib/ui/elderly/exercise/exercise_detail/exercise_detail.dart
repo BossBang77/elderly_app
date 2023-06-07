@@ -41,9 +41,15 @@ class ExerciseDetail extends StatelessWidget {
               left: 30,
               child: InkWell(
                 onTap: () {
-                  context
-                      .read<ExerciseBloc>()
-                      .add(ChangeView(exerciseView: ExerciseView.search));
+                  if (state.statusView == StatusViewExercise.caseNew) {
+                    context
+                        .read<ExerciseBloc>()
+                        .add(ChangeView(exerciseView: ExerciseView.search));
+                  } else {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                        (Route<dynamic> route) => false);
+                  }
                 },
                 child: Image.asset(
                   'assets/images/back_icon_outline.png',
@@ -171,6 +177,14 @@ class ExerciseDetail extends StatelessWidget {
                             child: ButtonGradient(
                               btnName: 'เริ่มต้นออกกำลังกาย',
                               onClick: () {
+                                if (!checkIsSaveRecord(state.recordList,
+                                    state.currentInformation.code)) {
+                                  context.read<ExerciseBloc>().add(
+                                      SaveExerciseRecordBeforeExerise(
+                                          code: state.currentInformation.code,
+                                          name: state.currentInformation.name));
+                                }
+
                                 context.read<ExerciseBloc>().add(ChangeView(
                                     exerciseView: ExerciseView.vdoExercise));
                               },
@@ -178,16 +192,18 @@ class ExerciseDetail extends StatelessWidget {
                         const SizedBox(
                           width: 20,
                         ),
-                        Flexible(
-                            child: ButtonBlueFade(
-                          btnName: 'บันทึก',
-                          onClick: () {
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) => HomePage()),
-                                (Route<dynamic> route) => false);
-                          },
-                        ))
+                        if (!checkIsSaveRecord(
+                            state.recordList, state.currentInformation.code))
+                          Flexible(
+                              child: ButtonBlueFade(
+                            btnName: 'บันทึก',
+                            onClick: () {
+                              context.read<ExerciseBloc>().add(
+                                  SaveExerciseRecord(
+                                      code: state.currentInformation.code,
+                                      name: state.currentInformation.name));
+                            },
+                          ))
                       ],
                     ),
                     const SizedBox(

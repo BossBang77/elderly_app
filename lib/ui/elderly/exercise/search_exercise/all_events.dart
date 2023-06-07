@@ -24,9 +24,14 @@ Widget AllEvent(BuildContext context, ExerciseState state) {
           for (int i = 0; i < exList.length; i++)
             InkWell(
               onTap: () {
-                context
-                    .read<ExerciseBloc>()
-                    .add(SearchExInformation(exCode: exList[i].code));
+                StatusViewExercise statusViewExercise =
+                    StatusViewExercise.caseNew;
+                if (checkIsSaveRecord(state.recordList, exList[i].code)) {
+                  statusViewExercise = StatusViewExercise.caseResume;
+                }
+                context.read<ExerciseBloc>().add(SearchExInformation(
+                    exCode: exList[i].code,
+                    statusViewExercise: statusViewExercise));
               },
               child: Container(
                 child: Column(

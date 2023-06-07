@@ -9,7 +9,9 @@ class ExerciseState extends Equatable {
       this.searchRes = const SearchResListModel(),
       this.currentInformation = const SearchInformationModel(),
       this.statusSubmit = StatusSubmit.initial,
-      this.exerciseDaily = const ExerciseDailyModel()});
+      this.exerciseDaily = const ExerciseDailyModel(),
+      this.recordList = const SearchResListModel(),
+      this.statusView = StatusViewExercise.caseNew});
   final ExerciseView exerciseView;
   final String timeExercise;
   final SearchExerciseModel searchEx;
@@ -18,6 +20,8 @@ class ExerciseState extends Equatable {
   final SearchInformationModel currentInformation;
   final StatusSubmit statusSubmit;
   final ExerciseDailyModel exerciseDaily;
+  final SearchResListModel recordList;
+  final StatusViewExercise statusView;
 
   ExerciseState.initial(
       {this.exerciseView = ExerciseView.summary,
@@ -27,7 +31,9 @@ class ExerciseState extends Equatable {
       this.searchRes = const SearchResListModel(),
       this.currentInformation = const SearchInformationModel(),
       this.statusSubmit = StatusSubmit.initial,
-      this.exerciseDaily = const ExerciseDailyModel()});
+      this.exerciseDaily = const ExerciseDailyModel(),
+      this.recordList = const SearchResListModel(),
+      this.statusView = StatusViewExercise.caseNew});
 
   ExerciseState copyWith(
       {ExerciseView? exerciseView,
@@ -37,7 +43,9 @@ class ExerciseState extends Equatable {
       SearchExerciseModel? searchExSubmit,
       SearchInformationModel? currentInformation,
       StatusSubmit? statusSubmit,
-      ExerciseDailyModel? exerciseDaily}) {
+      ExerciseDailyModel? exerciseDaily,
+      SearchResListModel? recordList,
+      StatusViewExercise? statusView}) {
     return ExerciseState(
         searchExSubmit: searchExSubmit ?? this.searchExSubmit,
         exerciseView: exerciseView ?? this.exerciseView,
@@ -46,7 +54,9 @@ class ExerciseState extends Equatable {
         searchRes: searchRes ?? this.searchRes,
         currentInformation: currentInformation ?? this.currentInformation,
         statusSubmit: statusSubmit ?? this.statusSubmit,
-        exerciseDaily: exerciseDaily ?? this.exerciseDaily);
+        exerciseDaily: exerciseDaily ?? this.exerciseDaily,
+        recordList: recordList ?? this.recordList,
+        statusView: statusView ?? this.statusView);
   }
 
   @override
@@ -58,7 +68,9 @@ class ExerciseState extends Equatable {
         searchExSubmit,
         currentInformation,
         statusSubmit,
-        exerciseDaily
+        exerciseDaily,
+        recordList,
+        statusView
       ];
 }
 
@@ -89,8 +101,16 @@ enum StatusSubmit {
   searchExSuccess,
   searchExFail,
   getInformationSuccess,
-  getInformationFail
+  getInformationFail,
+  removeExerciseRecordSuccess,
+  removeExerciseRecordFail,
+  saveRecordSuccess,
+  saveRecordFail,
+  saveExerciseDailySuccess,
+  saveExerciseDailyFail
 }
+
+enum StatusViewExercise { caseResume, caseNew }
 
 var typeOfExerciseList = [
   'แบบเกร็งกล้ามเนื้ออยู่กับที่ไม่มีการเคลื่อนไหว',

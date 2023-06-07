@@ -22,6 +22,7 @@ class SummaryExerciseWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var exerciseDaily = state.exerciseDaily;
+    var exerciseRecord = state.recordList;
     return Scaffold(
       backgroundColor: color.whiteBackground,
       appBar: appBar(
@@ -158,7 +159,11 @@ class SummaryExerciseWidget extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              if (!true) ...{NotFoundExcerise()} else ...{ExerciseDoingList()}
+              if (exerciseRecord.data.isEmpty) ...{
+                NotFoundExcerise()
+              } else ...{
+                ExerciseDoingList(context, exerciseRecord)
+              }
             ],
           ),
         ),
