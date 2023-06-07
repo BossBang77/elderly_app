@@ -54,7 +54,6 @@ class ExerciseRepository {
         return Right(SearchInformationModel.fromJson(data['data']));
       }
     } on DioError catch (error) {
-      print(error);
       if (error.response?.statusCode == StatusCode.notFound) {
         print('Error 400 $error');
         return const Left(Failure(''));
@@ -74,8 +73,6 @@ class ExerciseRepository {
         return Right(ExerciseDailyModel.fromJson(data['data']));
       }
     } on DioError catch (error) {
-      print(error);
-
       if (error.response?.statusCode == StatusCode.notFound) {
         print('Error 400 $error');
         return const Left(Failure(''));
@@ -96,8 +93,6 @@ class ExerciseRepository {
         return Right(req.response.statusCode ?? 200);
       }
     } on DioError catch (error) {
-      print(body.toJson());
-      print(error.response);
       if (error.response?.statusCode == StatusCode.notFound) {
         print('Error 400 $error');
         return const Left(Failure(''));

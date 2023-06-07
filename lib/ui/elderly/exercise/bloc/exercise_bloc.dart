@@ -220,7 +220,6 @@ int calBurnCalorie(
   int burnCalorie = 0;
   int timePoint = (double.tryParse(timePointEx) ?? 0).ceil();
   var exCurrent = currentInformation;
-  print(exCurrent.time);
   if (exCurrent.time != 0) {
     double oneMinBurn = (exCurrent.burnCalorie / exCurrent.time);
     burnCalorie = (oneMinBurn * timePoint).ceil().toInt();
