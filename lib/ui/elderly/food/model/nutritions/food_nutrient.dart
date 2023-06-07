@@ -12,4 +12,6 @@ class FoodNutrient implements Nutrient {
   final NutrientUnit unit;
 
   const FoodNutrient({required this.name, required this.value, required this.unit});
+
+  const FoodNutrient.empty({this.name = '', this.value = 0, this.unit = UnitMass.gram});
 }

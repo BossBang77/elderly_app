@@ -1,4 +1,5 @@
-import 'package:health_application/ui/elderly/food/model/food/food.dart';
+import 'package:health_application/ui/elderly/food_log/model/response/meal_record_item.dart';
+import 'package:health_application/ui/elderly/food_log/repository/meal_record_item.dart';
 
 abstract class MealLogWidgetIconImageProvider {
   const MealLogWidgetIconImageProvider({required this.iconImage});
@@ -20,9 +21,20 @@ enum MealType implements MealLogWidgetIconImageProvider {
 
 class Meal {
   final MealType mealType;
-  final List<Food> foods;
-  final double calories;
+  final List<MealRecordItem> foods;
+  double get calories => foods.fold(0, (value, element) => value +  element.unit * element.calorie);
   
-  const Meal({required this.mealType, this.foods = const[], this.calories = 0});
+  const Meal({required this.mealType, this.foods = const[]});
+
+  Meal copyWith({
+    MealType? mealType,
+    List<MealRecordItem>? foods,
+    double? calories
+  }) {
+    return Meal(
+      mealType: mealType ?? this.mealType,
+      foods: foods ?? this.foods
+    );
+  }
 }
 

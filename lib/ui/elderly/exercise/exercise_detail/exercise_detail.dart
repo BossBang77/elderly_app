@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
@@ -11,31 +12,44 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:provider/provider.dart';
 
 class ExerciseDetail extends StatelessWidget {
-  const ExerciseDetail({super.key});
-
+  const ExerciseDetail({super.key, required this.state});
+  final ExerciseState state;
   @override
   Widget build(BuildContext context) {
     var sized = MediaQuery.of(context).size;
+    var currentDetail = state.currentInformation;
     return Scaffold(
       body: Container(
           child: Stack(
         children: [
           Stack(children: <Widget>[
             Positioned.fill(
-              child: Image(
-                image: AssetImage('assets/images/example_vdo_bg.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
+                child: currentDetail.image.isNotEmpty
+                    ? Image.network(
+                        currentDetail.image,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(
+                        alignment: Alignment.topCenter,
+                        margin: EdgeInsets.only(top: 150),
+                        child: textSubtitle2(
+                            'Image NotFound', color.greyText, false),
+                      )),
           ]),
           Positioned(
               top: 60,
               left: 30,
               child: InkWell(
                 onTap: () {
-                  context
-                      .read<ExerciseBloc>()
-                      .add(ChangeView(exerciseView: ExerciseView.search));
+                  if (state.statusView == StatusViewExercise.caseNew) {
+                    context
+                        .read<ExerciseBloc>()
+                        .add(ChangeView(exerciseView: ExerciseView.search));
+                  } else {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                        (Route<dynamic> route) => false);
+                  }
                 },
                 child: Image.asset(
                   'assets/images/back_icon_outline.png',
@@ -60,18 +74,17 @@ class ExerciseDetail extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    textSubtitle18Blod('กายบริหาร', ColorTheme().black87),
+                    textSubtitle18Blod(
+                        currentDetail.name, ColorTheme().black87),
                     textH7(
-                      'แบบมีการยืด-หดตัวของกล้ามเนื้อ ',
+                      currentDetail.type,
                       color.grey50,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     textSubtitle2(
-                        'ทางเลือกสำหรับผู้ที่ต้องการออกกำลังกายที่ บ้าน โดยสามารถออกกำลังกายได้ทุกสัดส่วน พร้อมทั้งฝึกความอดทน การทรงตัว และ ความยืดหยุ่นของร่างกาย ซึ่งกายบริหารมีหลาย ท่าให้เลือกตามความเหมาะสม เช่น เหยียดน่อง เขย่งปลายเท้า ย่อเข่า โยกลำตัว เป็นต้น',
-                        color.black87,
-                        false),
+                        currentDetail.description, color.black87, false),
                     const SizedBox(
                       height: 20,
                     ),
@@ -117,8 +130,8 @@ class ExerciseDetail extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15))),
                             child: Center(
-                                child:
-                                    textSubtitle16Blod('15 นาที', color.Blue2)),
+                                child: textSubtitle16Blod(
+                                    '${currentDetail.time} นาที', color.Blue2)),
                           ),
                           const SizedBox(
                             height: 20,
@@ -144,7 +157,9 @@ class ExerciseDetail extends StatelessWidget {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  textSubtitle16Blod('15 นาที', color.Blue2)
+                                  textSubtitle16Blod(
+                                      currentDetail.burnCalorie.toString(),
+                                      color.Blue2)
                                 ],
                               )
                             ],
@@ -162,6 +177,14 @@ class ExerciseDetail extends StatelessWidget {
                             child: ButtonGradient(
                               btnName: 'เริ่มต้นออกกำลังกาย',
                               onClick: () {
+                                if (!checkIsSaveRecord(state.recordList,
+                                    state.currentInformation.code)) {
+                                  context.read<ExerciseBloc>().add(
+                                      SaveExerciseRecordBeforeExerise(
+                                          code: state.currentInformation.code,
+                                          name: state.currentInformation.name));
+                                }
+
                                 context.read<ExerciseBloc>().add(ChangeView(
                                     exerciseView: ExerciseView.vdoExercise));
                               },
@@ -169,16 +192,18 @@ class ExerciseDetail extends StatelessWidget {
                         const SizedBox(
                           width: 20,
                         ),
-                        Flexible(
-                            child: ButtonBlueFade(
-                          btnName: 'บันทึก',
-                          onClick: () {
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) => HomePage()),
-                                (Route<dynamic> route) => false);
-                          },
-                        ))
+                        if (!checkIsSaveRecord(
+                            state.recordList, state.currentInformation.code))
+                          Flexible(
+                              child: ButtonBlueFade(
+                            btnName: 'บันทึก',
+                            onClick: () {
+                              context.read<ExerciseBloc>().add(
+                                  SaveExerciseRecord(
+                                      code: state.currentInformation.code,
+                                      name: state.currentInformation.name));
+                            },
+                          ))
                       ],
                     ),
                     const SizedBox(

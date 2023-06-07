@@ -2,20 +2,89 @@ part of 'exercise_bloc.dart';
 
 class ExerciseState extends Equatable {
   const ExerciseState(
-      {this.exerciseView = ExerciseView.summary, this.timeExercise = ''});
+      {this.exerciseView = ExerciseView.summary,
+      this.timeExercise = '',
+      this.searchExSubmit = const SearchExerciseModel(),
+      this.searchEx = const SearchExerciseModel(),
+      this.searchRes = const SearchResListModel(),
+      this.currentInformation = const SearchInformationModel(),
+      this.statusSubmit = StatusSubmit.initial,
+      this.exerciseDaily = const ExerciseDailyModel(),
+      this.recordList = const SearchResListModel(),
+      this.statusView = StatusViewExercise.caseNew});
   final ExerciseView exerciseView;
   final String timeExercise;
-  ExerciseState copyWith({ExerciseView? exerciseView, String? timeExercise}) {
+  final SearchExerciseModel searchEx;
+  final SearchExerciseModel searchExSubmit;
+  final SearchResListModel searchRes;
+  final SearchInformationModel currentInformation;
+  final StatusSubmit statusSubmit;
+  final ExerciseDailyModel exerciseDaily;
+  final SearchResListModel recordList;
+  final StatusViewExercise statusView;
+
+  ExerciseState.initial(
+      {this.exerciseView = ExerciseView.summary,
+      this.timeExercise = '',
+      this.searchExSubmit = const SearchExerciseModel(),
+      this.searchEx = const SearchExerciseModel(),
+      this.searchRes = const SearchResListModel(),
+      this.currentInformation = const SearchInformationModel(),
+      this.statusSubmit = StatusSubmit.initial,
+      this.exerciseDaily = const ExerciseDailyModel(),
+      this.recordList = const SearchResListModel(),
+      this.statusView = StatusViewExercise.caseNew});
+
+  ExerciseState copyWith(
+      {ExerciseView? exerciseView,
+      String? timeExercise,
+      SearchExerciseModel? searchEx,
+      SearchResListModel? searchRes,
+      SearchExerciseModel? searchExSubmit,
+      SearchInformationModel? currentInformation,
+      StatusSubmit? statusSubmit,
+      ExerciseDailyModel? exerciseDaily,
+      SearchResListModel? recordList,
+      StatusViewExercise? statusView}) {
     return ExerciseState(
+        searchExSubmit: searchExSubmit ?? this.searchExSubmit,
         exerciseView: exerciseView ?? this.exerciseView,
-        timeExercise: timeExercise ?? this.timeExercise);
+        timeExercise: timeExercise ?? this.timeExercise,
+        searchEx: searchEx ?? this.searchEx,
+        searchRes: searchRes ?? this.searchRes,
+        currentInformation: currentInformation ?? this.currentInformation,
+        statusSubmit: statusSubmit ?? this.statusSubmit,
+        exerciseDaily: exerciseDaily ?? this.exerciseDaily,
+        recordList: recordList ?? this.recordList,
+        statusView: statusView ?? this.statusView);
   }
 
   @override
-  List<Object> get props => [exerciseView, timeExercise];
+  List<Object> get props => [
+        exerciseView,
+        timeExercise,
+        searchEx,
+        searchRes,
+        searchExSubmit,
+        currentInformation,
+        statusSubmit,
+        exerciseDaily,
+        recordList,
+        statusView
+      ];
 }
 
 class ExerciseInitial extends ExerciseState {}
+
+enum FilterType {
+  keyWord,
+  discrease,
+  minKcal,
+  maxKcal,
+  addTypeExcercise,
+  delTypeExcercise,
+  resetFilter
+}
 
 enum ExerciseView {
   summary,
@@ -25,6 +94,23 @@ enum ExerciseView {
   calculate,
   vdoExercise
 }
+
+enum StatusSubmit {
+  initial,
+  loading,
+  searchExSuccess,
+  searchExFail,
+  getInformationSuccess,
+  getInformationFail,
+  removeExerciseRecordSuccess,
+  removeExerciseRecordFail,
+  saveRecordSuccess,
+  saveRecordFail,
+  saveExerciseDailySuccess,
+  saveExerciseDailyFail
+}
+
+enum StatusViewExercise { caseResume, caseNew }
 
 var typeOfExerciseList = [
   'แบบเกร็งกล้ามเนื้ออยู่กับที่ไม่มีการเคลื่อนไหว',

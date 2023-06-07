@@ -9,7 +9,14 @@ import 'package:health_application/ui/elderly/food/model/nutritions/protein.dart
 import 'package:health_application/ui/elderly/food/model/nutritions/sugar.dart';
 
 class FoodPageState extends Equatable {
-  FoodPageState();
+  FoodPageState({
+    this.meals = const [
+      Meal(mealType: MealType.breakfast),
+      Meal(mealType: MealType.lunch),
+      Meal(mealType: MealType.snack),
+      Meal(mealType: MealType.dinner),
+    ]
+  });
 
   final List<Nutrient> nutrients = [
     Calories(value: 0),
@@ -20,16 +27,21 @@ class FoodPageState extends Equatable {
     Cholesterol(value: 0)
   ];
 
-  final List<Meal> meals = [
-    Meal(mealType: MealType.breakfast),
-    Meal(mealType: MealType.lunch),
-    Meal(mealType: MealType.snack),
-    Meal(mealType: MealType.dinner),
-  ];
+  final List<Meal> meals;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [meals, nutrients];
 
   @override 
   bool? get stringify => true;
+
+  FoodPageState copyWith({
+    List<Nutrient>? nutrients,
+    List<Meal>? meals
+  }) {
+    print('${meals?.first.calories} ${meals?.first.mealType}');
+    return FoodPageState(
+      meals: meals ?? this.meals
+    );
+  }
 }

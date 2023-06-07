@@ -9,13 +9,10 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<UserProfileBloc>(
-      create: (_) => UserProfileBloc()..add(GetUserProfile()),
-      child: BlocConsumer<UserProfileBloc, UserProfileState>(
-          listener: (context, state) async {},
-          builder: (BuildContext context, UserProfileState state) {
-            return ElderProfileWidget(state: state);
-          }),
-    );
+    return BlocConsumer<UserProfileBloc, UserProfileState>(
+        listener: (context, state) async {},
+        builder: (BuildContext context, UserProfileState state) {
+          return ElderProfileWidget(state: state);
+        });
   }
 }

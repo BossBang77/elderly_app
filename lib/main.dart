@@ -43,8 +43,7 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => HomePageBloc()),
               BlocProvider(create: (context) => ExerciseBloc()),
               BlocProvider(create: (context) => MasterDataBloc()),
-              BlocProvider(
-                  create: (context) => WaterIntakeBloc()..add(Initial())),
+              BlocProvider(create: (context) => WaterIntakeBloc()),
               BlocProvider(create: (context) => UserProfileBloc()),
             ],
             child: Builder(builder: (context) {

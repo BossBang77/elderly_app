@@ -11,8 +11,10 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:provider/provider.dart';
 
 class ExerciseCalculate extends StatelessWidget {
-  const ExerciseCalculate({super.key, required this.timeExercise});
+  const ExerciseCalculate(
+      {super.key, required this.timeExercise, required this.state});
   final String timeExercise;
+  final ExerciseState state;
   @override
   Widget build(BuildContext context) {
     var sized = MediaQuery.of(context).size;
@@ -22,11 +24,10 @@ class ExerciseCalculate extends StatelessWidget {
         children: [
           Stack(children: <Widget>[
             Positioned.fill(
-              child: Image(
-                image: AssetImage('assets/images/example_vdo_bg.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
+                child: Image.network(
+              state.currentInformation.image,
+              fit: BoxFit.cover,
+            )),
           ]),
           Align(
             alignment: Alignment.bottomCenter,
@@ -80,7 +81,11 @@ class ExerciseCalculate extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           textH6('แคลอรี่ (kcal)', color.black87, true),
-                          textH4('649', color.Primary),
+                          textH4(
+                              calBurnCalorie(
+                                      timeExercise, state.currentInformation)
+                                  .toString(),
+                              color.Primary),
                         ],
                       ),
                     ),
@@ -90,9 +95,9 @@ class ExerciseCalculate extends StatelessWidget {
                     ButtonGradient(
                       btnName: 'บันทึกรายการ',
                       onClick: () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) => HomePage()),
-                            (Route<dynamic> route) => false);
+                        context
+                            .read<ExerciseBloc>()
+                            .add(SaveExerciseDaily(timePoint: timeExercise));
                       },
                     ),
                     const SizedBox(

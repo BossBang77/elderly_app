@@ -1,17 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/switch_toggle.dart';
 import 'package:health_application/ui/base/widget/text_field_widget.dart';
 import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
+import 'package:health_application/ui/elderly/exercise/model/search_exercise_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
+import '../../../base/model/master_data.dart';
+
 void onFiter(BuildContext context) {
-  bool filterDisease = true;
+  MasterData exerciseType =
+      BlocProvider.of<MasterDataBloc>(context).state.exerciseTypeMaster;
+
   showModalBottomSheet(
       elevation: 10,
       shape: RoundedRectangleBorder(
@@ -20,7 +26,19 @@ void onFiter(BuildContext context) {
       backgroundColor: ColorTheme().white,
       isScrollControlled: true,
       context: context,
-      builder: (ctx) => StatefulBuilder(builder: (context, setState) {
+      builder: (ctx) => BlocBuilder<ExerciseBloc, ExerciseState>(
+              builder: (BuildContext parent, ExerciseState state) {
+            var search = state.searchEx;
+            var listType = search.type;
+
+            bool checkIsSelect(String code) {
+              String isSelect = listType.firstWhere(
+                (element) => element == code,
+                orElse: () => '',
+              );
+              return isSelect.isNotEmpty;
+            }
+
             return Container(
               padding: EdgeInsets.only(
                   top: MediaQueryData.fromWindow(WidgetsBinding.instance.window)
@@ -42,7 +60,13 @@ void onFiter(BuildContext context) {
                   ),
                   actions: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        parent.read<ExerciseBloc>()
+                          ..add(OnFilter(
+                            type: FilterType.resetFilter,
+                          ));
+                        parent.read<ExerciseBloc>()..add(SearchExercise());
+                      },
                       child: Container(
                           alignment: Alignment.center,
                           padding: EdgeInsets.only(right: 10),
@@ -59,48 +83,49 @@ void onFiter(BuildContext context) {
                       child: Column(
                         children: [
                           //โรคประจำตัว
-                          Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    textSubtitle1('โรคประจำตัว', color.black87),
-                                    SwitchToggle(
-                                      onChange: (value) {
-                                        setState(
-                                          () {
-                                            filterDisease = value;
-                                          },
-                                        );
-                                      },
-                                      value: filterDisease,
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: textH7(
-                                    'โรคความดันโลหิตสูง, โรคเบาหวาน ,โรคภูมิคุ้มกันบกพร่อง , โรคอ้วน',
-                                    color.black87,
+                          // TODO  API Pending this filter
+                          /*   Container(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      textSubtitle1('โรคประจำตัว', color.black87),
+                                      SwitchToggle(
+                                        onChange: (value) {
+                                          setState(
+                                            () {
+                                              filterDisease = value;
+                                            },
+                                          );
+                                        },
+                                        value: filterDisease,
+                                      )
+                                    ],
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Divider(
-                                  color: color.grey50,
-                                )
-                              ],
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: textH7(
+                                      'โรคความดันโลหิตสูง, โรคเบาหวาน ,โรคภูมิคุ้มกันบกพร่อง , โรคอ้วน',
+                                      color.black87,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Divider(
+                                    color: color.grey50,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                            const SizedBox(
+                              height: 10,
+                            ), */
                           //แคลอรี่
                           Container(
                             alignment: Alignment.centerLeft,
@@ -115,28 +140,64 @@ void onFiter(BuildContext context) {
                                 const SizedBox(
                                   height: 20,
                                 ),
+
+                                /// Min
                                 Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Flexible(
                                         child: TextFieldWidget.enable(
-                                            suffix: true,
-                                            suffixTxt: 'kcal',
-                                            text: '',
-                                            textNumberType: true,
-                                            maxLength: 100)),
+                                      suffix: true,
+                                      suffixTxt: 'kcal',
+                                      text: search.burnCalorieMin != 0
+                                          ? search.burnCalorieMin.toString()
+                                          : '',
+                                      textNumberType: true,
+                                      maxLength: 100,
+                                      setError: (search.burnCalorieMax != 0 &&
+                                              search.burnCalorieMin == 0) ||
+                                          (search.burnCalorieMin >
+                                              search.burnCalorieMax),
+                                      setErrorWithOuter: true,
+                                      errorText: 'โปรดระบุ',
+                                      onChanged: (value) {
+                                        parent.read<ExerciseBloc>()
+                                          ..add(OnFilter(
+                                              type: FilterType.minKcal,
+                                              value: value));
+                                      },
+                                      onFieldSubmitted: () {},
+                                    )),
                                     Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 20, right: 20),
+                                      padding: EdgeInsets.only(
+                                          left: 20, right: 20, top: 20),
                                       child: textSubtitle16Blod(
                                           '-', color.black87),
                                     ),
+                                    //Max
                                     Flexible(
                                         child: TextFieldWidget.enable(
-                                            suffix: true,
-                                            suffixTxt: 'kcal',
-                                            text: '',
-                                            textNumberType: true,
-                                            maxLength: 100)),
+                                      suffix: true,
+                                      suffixTxt: 'kcal',
+                                      text: search.burnCalorieMax != 0
+                                          ? search.burnCalorieMax.toString()
+                                          : '',
+                                      setError: (search.burnCalorieMin != 0 &&
+                                              search.burnCalorieMax == 0) ||
+                                          (search.burnCalorieMin >
+                                              search.burnCalorieMax),
+                                      setErrorWithOuter: true,
+                                      errorText: 'โปรดระบุ',
+                                      textNumberType: true,
+                                      maxLength: 100,
+                                      onChanged: (value) {
+                                        parent.read<ExerciseBloc>()
+                                          ..add(OnFilter(
+                                              type: FilterType.maxKcal,
+                                              value: value));
+                                      },
+                                      onFieldSubmitted: () {},
+                                    )),
                                   ],
                                 ),
                                 const SizedBox(
@@ -164,56 +225,73 @@ void onFiter(BuildContext context) {
                                   color.grey50,
                                 ),
                                 for (var i = 0;
-                                    i < typeOfExerciseList.length;
+                                    i < exerciseType.data.length;
                                     i++) ...{
                                   Column(
                                     children: [
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        padding: EdgeInsets.only(
-                                            left: 15,
-                                            right: 15,
-                                            top: 10,
-                                            bottom: 10),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                          border: Border.all(
-                                              color: color.GreyBorder),
-                                          color: color.grey10,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              constraints:
-                                                  BoxConstraints(minHeight: 50),
-                                              child: Image.asset(
-                                                i % 2 == 0
-                                                    ? 'assets/images/check_box_check.png'
-                                                    : 'assets/images/check_box_uncheck.png',
-                                                scale: 4,
+                                      InkWell(
+                                        onTap: () {
+                                          String code =
+                                              exerciseType.data[i].keyCode;
+
+                                          FilterType type =
+                                              FilterType.addTypeExcercise;
+                                          if (checkIsSelect(code)) {
+                                            type = FilterType.delTypeExcercise;
+                                          }
+
+                                          parent.read<ExerciseBloc>()
+                                            ..add(OnFilter(
+                                                type: type, value: code));
+                                        },
+                                        child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          padding: EdgeInsets.only(
+                                              left: 15,
+                                              right: 15,
+                                              top: 10,
+                                              bottom: 10),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            border: Border.all(
+                                                color: color.GreyBorder),
+                                            color: color.grey10,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                constraints: BoxConstraints(
+                                                    minHeight: 50),
+                                                child: Image.asset(
+                                                  checkIsSelect(exerciseType
+                                                          .data[i].keyCode)
+                                                      ? 'assets/images/check_box_check.png'
+                                                      : 'assets/images/check_box_uncheck.png',
+                                                  scale: 4,
+                                                ),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              width: 20,
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.6,
-                                              child: textH7(
-                                                typeOfExerciseList[i],
-                                                color.black87,
+                                              const SizedBox(
+                                                width: 20,
                                               ),
-                                            ),
-                                          ],
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.6,
+                                                child: textH7(
+                                                  exerciseType.data[i].keyName,
+                                                  color.black87,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       )
                                     ],
@@ -229,7 +307,21 @@ void onFiter(BuildContext context) {
                           ButtonGradient(
                             btnName: 'ค้นหา',
                             onClick: () {
-                              Navigator.of(context).pop(true);
+                              if (search.burnCalorieMax != 0 ||
+                                  search.burnCalorieMin != 0) {
+                                if ((search.burnCalorieMax != 0 &&
+                                        search.burnCalorieMin != 0) &&
+                                    (search.burnCalorieMin <
+                                        search.burnCalorieMax)) {
+                                  Navigator.of(context).pop(true);
+                                  parent.read<ExerciseBloc>()
+                                    ..add(SearchExercise());
+                                }
+                              } else {
+                                Navigator.of(context).pop(true);
+                                parent.read<ExerciseBloc>()
+                                  ..add(SearchExercise());
+                              }
                             },
                           )
                         ],
