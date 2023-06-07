@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:chopper/chopper.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/exercise_client.dart';
+import 'package:health_application/ui/elderly/exercise/model/daily_activity_req_model.dart';
+import 'package:health_application/ui/elderly/exercise/model/exercise_model.dart';
 import 'package:health_application/ui/elderly/exercise/model/exerise_daily_model.dart';
 import 'package:health_application/ui/elderly/exercise/model/search_exercise_model.dart';
 import 'package:health_application/ui/elderly/exercise/model/search_res_list.dart';
@@ -70,6 +75,91 @@ class ExerciseRepository {
       }
     } on DioError catch (error) {
       print(error);
+
+      if (error.response?.statusCode == StatusCode.notFound) {
+        print('Error 400 $error');
+        return const Left(Failure(''));
+      } else if (error.response?.statusCode == StatusCode.failure) {
+        print('Error 500 $error');
+        return const Left(Failure(''));
+      }
+    }
+    return const Left(Failure(''));
+  }
+
+  Future<Either<Failure, int>> saveExerciseDaily(
+      DailyActivityModel body) async {
+    try {
+      final HttpResponse req =
+          await _exerciseService.saveExerciseDaily(body.toJson());
+      if (req.response.statusCode == StatusCode.success) {
+        return Right(req.response.statusCode ?? 200);
+      }
+    } on DioError catch (error) {
+      print(body.toJson());
+      print(error.response);
+      if (error.response?.statusCode == StatusCode.notFound) {
+        print('Error 400 $error');
+        return const Left(Failure(''));
+      } else if (error.response?.statusCode == StatusCode.failure) {
+        print('Error 500 $error');
+        return const Left(Failure(''));
+      }
+    }
+    return const Left(Failure(''));
+  }
+
+  Future<Either<Failure, int>> removeExerciseRecord(String id) async {
+    try {
+      final HttpResponse req = await _exerciseService.removeExerciseRecord(id);
+      if (req.response.statusCode == StatusCode.success) {
+        return Right(req.response.statusCode ?? 200);
+      }
+    } on DioError catch (error) {
+      print(error);
+      if (error.response?.statusCode == StatusCode.notFound) {
+        print('Error 400 $error');
+        return const Left(Failure(''));
+      } else if (error.response?.statusCode == StatusCode.failure) {
+        print('Error 500 $error');
+        return const Left(Failure(''));
+      }
+    }
+    return const Left(Failure(''));
+  }
+
+  Future<Either<Failure, String>> saveExerciseRecord(
+      List<ExerciseModel> body) async {
+    try {
+      var bodyReq = jsonEncode(body);
+      final HttpResponse req =
+          await _exerciseService.saveExerciseRecord(bodyReq);
+      if (req.response.statusCode == StatusCode.success) {
+        return Right('Success');
+      } else {
+        return Right(req.response.statusCode.toString());
+      }
+    } on DioError catch (error) {
+      if (error.response?.statusCode == StatusCode.notFound) {
+        return Left(Failure('Error 400 $error'));
+      } else if (error.response?.statusCode == StatusCode.failure) {
+        return Left(Failure('Error 500 $error'));
+      }
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+    return const Left(Failure(''));
+  }
+
+  Future<Either<Failure, SearchResListModel>> getExerciseRecord() async {
+    try {
+      final HttpResponse req = await _exerciseService.getExerciseRecord();
+      final Map<String, dynamic> data = req.data;
+
+      if (req.response.statusCode == StatusCode.success) {
+        return Right(SearchResListModel.fromJson(data));
+      }
+    } on DioError catch (error) {
       if (error.response?.statusCode == StatusCode.notFound) {
         print('Error 400 $error');
         return const Left(Failure(''));
