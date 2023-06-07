@@ -4,9 +4,13 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 class AppointmentItem extends StatelessWidget {
-  const AppointmentItem({this.onTap});
+  const AppointmentItem({
+    this.onTap,
+    this.onApply
+  });
 
   final Function? onTap;
+  final Function? onApply;
 
   @override 
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class AppointmentItem extends StatelessWidget {
         onTap?.call();
       },
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
         decoration:  BoxDecoration(
           color: ColorTheme().grey10,
           border: Border.all(color: Colors.black.withAlpha(7)),
@@ -39,23 +43,47 @@ class AppointmentItem extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                textSubtitle2('${DateTime.now().toDisplayFullBuddishDate(locale: 'th')}', ColorTheme().black87, false),
-                Row(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Image.asset('assets/images/appointment_clock.png', width: 12, height: 12),
-                    SizedBox(width: 6),
-                    textSubtitle2('08:00-12:00น.', ColorTheme().black87, false),
-                    Spacer(),
-                    Image.asset('assets/images/appointment_check.png', width: 14, height: 14),
-                    SizedBox(width: 6),
-                    textSubtitle2('เริ่มงาน',ColorTheme().black87, false)
+                    textSubtitle2('${DateTime.now().toDisplayFullBuddishDate(locale: 'th')}', ColorTheme().black87, false),
+                    Row(
+                      children: [
+                        Image.asset('assets/images/appointment_clock.png', width: 12, height: 12),
+                        SizedBox(width: 6),
+                        textSubtitle2('08:00-12:00น.', ColorTheme().black87, false),
+                      ],
+                    ),
                   ],
+                ),
+                Spacer(),
+                //TODO: find condition to display between status and button
+                // Row(
+                //   children: [
+                //     Image.asset('assets/images/appointment_check.png', width: 14, height: 14),
+                //     SizedBox(width: 6),
+                //     textSubtitle2('เริ่มงาน',ColorTheme().black87, false),
+                //   ]
+                // )
+                GestureDetector(
+                  onTap: (){
+                    onApply?.call();
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 8),
+                    padding: EdgeInsets.fromLTRB(16, 4, 16, 4),
+                    decoration: BoxDecoration(
+                      color: ColorTheme().blueText,
+                      borderRadius: BorderRadius.circular(6)
+                    ),
+                    child: textSubtitle2('ยืนยันการนัดหมาย', ColorTheme().white, true),
+                  )
                 )
               ],
-            )
+            ),
           ],
         ),
       )
