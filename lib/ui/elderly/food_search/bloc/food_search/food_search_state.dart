@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:health_application/ui/elderly/food/model/food/food.dart';
+import 'package:health_application/ui/elderly/food_search/model/response/food_search_item.dart';
+import 'package:health_application/ui/elderly/food_search/model/response/food_search_response.dart';
 
 class FoodSearchState extends Equatable {
   const FoodSearchState({
@@ -11,7 +13,7 @@ class FoodSearchState extends Equatable {
 
   final String searchValue;
 
-  final List<Food> searchResults;
+  final List<FoodSearchItem> searchResults;
 
   final List<String> recentSearchValues;
 
@@ -22,7 +24,7 @@ class FoodSearchState extends Equatable {
 
   FoodSearchState copyWith({
     String? searchValue,
-    List<Food>? searchResults,
+    List<FoodSearchItem>? searchResults,
     List<String>? recentSearchValues,
     Map<String, dynamic>? searchFilter
   }) {

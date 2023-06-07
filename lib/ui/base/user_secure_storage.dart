@@ -42,6 +42,14 @@ class UserSecureStorage {
     bool isClear = true;
     await _storage.deleteAll().catchError((_) => isClear = false);
   }
+
+  Future<void> setValue({required String value, required String forKey}) async {
+    return await _storage.write(key: forKey, value: value);
+  }
+
+  Future<String> getValueForKey({required String forKey}) async {
+    return await _storage.read(key: forKey) ?? '';
+  }
 }
 
 class UserKey {
@@ -50,4 +58,5 @@ class UserKey {
   static String get token => 'access_token';
   static String get roleName => 'role';
   static String get roleCode => 'roleCode';
+  static String get foodSearchHistory => 'foodSearchHistory';
 }

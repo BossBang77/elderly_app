@@ -1,10 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
+import 'package:health_application/ui/elderly/food/food_page.dart';
+import 'package:health_application/ui/elderly/food/model/food/food.dart';
+import 'package:health_application/ui/elderly/food/model/nutritions/calories.dart';
+import 'package:health_application/ui/elderly/food_detail/food_detail_page.dart';
 import 'package:health_application/ui/elderly/food_filter/bloc/food_filter/food_filter_bloc.dart';
 import 'package:health_application/ui/elderly/food_filter/bloc/food_filter/food_filter_state.dart';
 import 'package:health_application/ui/elderly/food/bloc/food_page/food_page_bloc.dart';
 import 'package:health_application/ui/elderly/food/bloc/food_page/food_page_state.dart';
+import 'package:health_application/ui/elderly/food_log/food_log_page.dart';
 import 'package:health_application/ui/elderly/food_search/bloc/food_search/food_search_bloc.dart';
 import 'package:health_application/ui/elderly/food_search/bloc/food_search/food_search_event.dart';
 import 'package:health_application/ui/elderly/food_filter/food_filter.dart';
@@ -59,7 +65,8 @@ class _FoodViewState extends State<FoodView> {
       body: MultiBlocListener(
         listeners: [
           BlocListener<FoodPageBloc, FoodPageState>(
-            listener: (context, state) {},
+            listener: (context, state) {
+            },
           )
         ],
         child: BlocBuilder<FoodPageBloc, FoodPageState>(
@@ -94,17 +101,21 @@ class _FoodViewState extends State<FoodView> {
                         onSearchBarTapped: () {
                           Navigator.of(context).push(
                             PageRouteBuilder(
-                              pageBuilder: ((context, animation, secondaryAnimation) => FoodSearchPage()),
-                              transitionDuration: Duration(milliseconds: 100),
+                              pageBuilder: ((context, animation, secondaryAnimation) => FoodSearchPage(
+                                onFoodSelected: (food) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder:(context) => FoodDetailPage(foodCode: food.code))
+                                  );
+                                },
+                              )),
+                              // transitionDuration: Duration(milliseconds: 100),
                               transitionsBuilder:(context, animation, secondaryAnimation, child) {
                                 animation = CurvedAnimation(parent: animation, curve: Curves.easeInOut);
                                 return FadeTransition(opacity: animation, child: child);
                               },
-                              reverseTransitionDuration: Duration(milliseconds: 100)
+                              // reverseTransitionDuration: Duration(milliseconds: 100)
                             )
                           );
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(builder: (context) => FoodSearchPage()));
                         },
                       ),
                       ListSection(
@@ -118,7 +129,16 @@ class _FoodViewState extends State<FoodView> {
                           MealLogWidget(
                             meal: meal, 
                             onAddButtonTapped: (mealType){
-                              //TODO: navigate to Meal Log screen
+                              meal.foods.map((food) => Food(
+                                code: food.code, 
+                                name: food.name, 
+                                calories: Calories(value: food.calorie), 
+                                energy: Calories(value: 0)
+                              )).toList();
+                              Navigator.of(context).push(MaterialPageRoute(builder:(context) => 
+                                FoodLogPage(mealType: meal.mealType),
+                                settings: RouteSettings(name: 'FoodLogPage')
+                              ));
                             })
                           ).toList()),
                     ]
