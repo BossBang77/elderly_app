@@ -16,6 +16,8 @@ class MasterDataBloc extends Bloc<MasterDataEvent, MasterDataState> {
           .loadMasterData(MasterCategory().congenitalDisease);
       var masterAllergies = await _masterDataRepository
           .loadMasterData(MasterCategory().allergies);
+      var masterExerciseType = await _masterDataRepository
+          .loadMasterData(MasterCategory().exerciseType);
 
       yield* masterDisease.fold((error) async* {
         // case fail
@@ -31,6 +33,14 @@ class MasterDataBloc extends Bloc<MasterDataEvent, MasterDataState> {
         yield state.copyWith(allergiesMaster: const MasterData());
       }, (MasterData master) async* {
         yield state.copyWith(allergiesMaster: master);
+      });
+
+      yield* masterExerciseType.fold((error) async* {
+        // case fail
+
+        yield state.copyWith(exerciseTypeMaster: const MasterData());
+      }, (MasterData master) async* {
+        yield state.copyWith(exerciseTypeMaster: master);
       });
     }
   }

@@ -17,10 +17,12 @@ import '../component/exercise_doing_list.dart';
 import '../component/not_found_exercise.dart';
 
 class SummaryExerciseWidget extends StatelessWidget {
-  const SummaryExerciseWidget({super.key});
-
+  const SummaryExerciseWidget({super.key, required this.state});
+  final ExerciseState state;
   @override
   Widget build(BuildContext context) {
+    var exerciseDaily = state.exerciseDaily;
+    var exerciseRecord = state.recordList;
     return Scaffold(
       backgroundColor: color.whiteBackground,
       appBar: appBar(
@@ -39,9 +41,12 @@ class SummaryExerciseWidget extends StatelessWidget {
             children: [
               InkWell(
                 onTap: (() {
+                  context.read<ExerciseBloc>().add(SearchExercise());
+
                   context
                       .read<ExerciseBloc>()
                       .add(ChangeView(exerciseView: ExerciseView.search));
+
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => ExerciseWidget()),
                       (Route<dynamic> route) => false);
@@ -94,7 +99,9 @@ class SummaryExerciseWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     textButton1('เผาผลาญ ', color.white),
-                                    textSubtitle18Blod('0 kcal', color.white)
+                                    textSubtitle18Blod(
+                                        '${exerciseDaily.burnCaloriePoint.toString()} kcal',
+                                        color.white)
                                   ],
                                 )
                               ],
@@ -116,7 +123,9 @@ class SummaryExerciseWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     textButton1('ระยะเวลา', color.white),
-                                    textSubtitle18Blod('0 ชั่วโมง', color.white)
+                                    textSubtitle18Blod(
+                                        '${exerciseDaily.timePoint.toString()} นาที',
+                                        color.white)
                                   ],
                                 )
                               ],
@@ -138,6 +147,7 @@ class SummaryExerciseWidget extends StatelessWidget {
               ButtonOrange(
                 btnName: 'เพิ่มรายการใหม่',
                 onClick: () {
+                  context.read<ExerciseBloc>().add(SearchExercise());
                   context
                       .read<ExerciseBloc>()
                       .add(ChangeView(exerciseView: ExerciseView.search));
@@ -149,7 +159,11 @@ class SummaryExerciseWidget extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              if (!true) ...{NotFoundExcerise()} else ...{ExerciseDoingList()}
+              if (exerciseRecord.data.isEmpty) ...{
+                NotFoundExcerise()
+              } else ...{
+                ExerciseDoingList(context, exerciseRecord)
+              }
             ],
           ),
         ),

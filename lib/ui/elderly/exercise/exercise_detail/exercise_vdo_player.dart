@@ -8,7 +8,8 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:video_player/video_player.dart';
 
 class ExerciseVdoPlayer extends StatefulWidget {
-  const ExerciseVdoPlayer({super.key});
+  const ExerciseVdoPlayer({super.key, required this.videoLink});
+  final String videoLink;
 
   @override
   State<ExerciseVdoPlayer> createState() => _ExerciseVdoPlayerState();
@@ -22,9 +23,7 @@ class _ExerciseVdoPlayerState extends State<ExerciseVdoPlayer> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-    );
+    _controller = VideoPlayerController.network(widget.videoLink);
 
     _initializeVideoPlayerFuture = _controller.initialize();
 
@@ -59,16 +58,23 @@ class _ExerciseVdoPlayerState extends State<ExerciseVdoPlayer> {
           if (snapshot.connectionState == ConnectionState.done) {
             return Stack(
               children: [
-                Stack(
-                  children: [
-                    Positioned.fill(
-                      child: AspectRatio(
-                        aspectRatio: _controller.value.aspectRatio,
-                        child: VideoPlayer(_controller),
+                if (widget.videoLink.isNotEmpty) ...{
+                  Stack(
+                    children: [
+                      Positioned.fill(
+                        child: AspectRatio(
+                          aspectRatio: _controller.value.aspectRatio,
+                          child: VideoPlayer(_controller),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  )
+                } else ...{
+                  Container(
+                    child:
+                        Center(child: textH7('Video NotFound', color.greyText)),
+                  )
+                },
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -147,7 +153,7 @@ class _ExerciseVdoPlayerState extends State<ExerciseVdoPlayer> {
                                           .remainder(60)
                                           .toString()
                                           .padLeft(2, '0'))
-                                      .join(':');
+                                      .join('.');
 
                                   context
                                       .read<ExerciseBloc>()

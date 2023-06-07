@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
 import 'package:health_application/ui/base/data_provider.dart';
 import 'package:health_application/ui/signIn_page/login/login_page.dart';
+import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -39,8 +40,9 @@ class MyApp extends StatelessWidget {
         child: MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) => HomePageBloc()),
-              BlocProvider(create: (context) => ExerciseBloc()),
+              BlocProvider(create: (context) => ExerciseBloc()..add(Initial())),
               BlocProvider(create: (context) => MasterDataBloc()),
+              BlocProvider(create: (context) => UserProfileBloc()),
             ],
             child: Builder(builder: (context) {
               context.read<MasterDataBloc>().add(LoadMasterData());

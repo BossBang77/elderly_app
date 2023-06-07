@@ -36,7 +36,9 @@ class TextFieldWidget extends StatelessWidget {
       this.readOnly = false,
       this.imagePathPrefix = '',
       this.prefix = false,
-      this.prefixTxt})
+      this.prefixTxt,
+      this.textInputAction = null,
+      this.onFieldSubmitted})
       : super(key: key);
 
   ///create text field with disable
@@ -91,7 +93,9 @@ class TextFieldWidget extends StatelessWidget {
       bool prefix = false,
       String imagePathPrefix = '',
       FormFieldValidator<String>? validator,
-      ValueChanged<String>? onChanged})
+      ValueChanged<String>? onChanged,
+      TextInputAction? textInputAction,
+      VoidCallback? onFieldSubmitted})
       : this(
             readOnly: readOnly,
             onChanged: onChanged,
@@ -118,7 +122,9 @@ class TextFieldWidget extends StatelessWidget {
             minLines: minLines,
             prefix: prefix,
             prefixTxt: prefixTxt,
-            imagePathPrefix: imagePathPrefix);
+            imagePathPrefix: imagePathPrefix,
+            textInputAction: textInputAction,
+            onFieldSubmitted: onFieldSubmitted);
 
   ///error text
   final String errorText;
@@ -186,6 +192,8 @@ class TextFieldWidget extends StatelessWidget {
   final bool prefix;
   final String? prefixTxt;
   final String imagePathPrefix;
+  final TextInputAction? textInputAction;
+  final VoidCallback? onFieldSubmitted;
 
   static int _offset = 0;
   int get offset => _offset;
@@ -235,11 +243,7 @@ class TextFieldWidget extends StatelessWidget {
           ],
           maxLength: maxLength,
           minLines: minLines,
-          keyboardType: (textNumberType)
-              ? const TextInputType.numberWithOptions(decimal: true)
-              : (multiLine)
-                  ? TextInputType.multiline
-                  : null,
+          keyboardType: (multiLine) ? TextInputType.multiline : null,
           readOnly: readOnly,
           validator: validator ??
               (String? value) {
@@ -249,6 +253,7 @@ class TextFieldWidget extends StatelessWidget {
                   return null;
                 }
               },
+          textInputAction: textInputAction ?? TextInputAction.done,
           onChanged: isEnabled
               ? (value) {
                   var cursorPos = textEditingController?.selection.base.offset;
@@ -256,6 +261,9 @@ class TextFieldWidget extends StatelessWidget {
                   setOffset(cursorPos ?? 0);
                 }
               : null,
+          onFieldSubmitted: (value) {
+            if (onFieldSubmitted != null) onFieldSubmitted!();
+          },
           maxLines: multiLine ? null : 1,
           cursorColor: ColorTheme().Primary,
           cursorHeight: 25,

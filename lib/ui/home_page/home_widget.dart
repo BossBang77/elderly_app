@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/appoint_detail_card/appoint_detail_card.dart';
 import 'package:health_application/ui/base/widget/button_dark_bule.dart';
 import 'package:health_application/ui/elderly/search_volunteer/volunteer_page.dart';
@@ -9,8 +10,10 @@ import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/home_page/component/menu_card.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:provider/provider.dart';
 
+import '../base/constant/gender_const.dart';
 import '../base/liquid_linear_grap/liquid_linear_grap.dart';
 import 'bloc/home_page_bloc.dart';
 
@@ -33,51 +36,56 @@ class HomeWidget extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                 ),
               ),
-              Positioned(
-                top: 90,
-                left: 20,
-                right: 20,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(
-                            true
-                                ? 'assets/images/profile_man.png'
-                                : 'assets/images/profile_woman.png',
-                            fit: BoxFit.cover,
-                            width: 60,
-                            height: 60,
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              textSubtitle24(
-                                  'สวัสดี, นางทองใบ', ColorTheme().white),
-                              textSubtitle18Blod(
-                                  'วันนี้, ${DateTime.now().toDisplayFullBuddishDate(locale: 'th')}',
-                                  ColorTheme().white),
-                            ],
-                          ),
-                        ],
+              BlocConsumer<UserProfileBloc, UserProfileState>(
+                  listener: (context, state) async {},
+                  builder: (BuildContext context, UserProfileState state) {
+                    var userProfile = state.userProfile;
+                    return Positioned(
+                      top: 90,
+                      left: 20,
+                      right: 20,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/${Gender.isWoman(userProfile.profile.gender) ? 'woman' : 'man'}_active.png',
+                                  fit: BoxFit.cover,
+                                  width: 60,
+                                  height: 60,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    textSubtitle24(
+                                        'สวัสดี, ${state.status == UserProfileStatus.success ? userProfile.profile.name : ''}',
+                                        ColorTheme().white),
+                                    textSubtitle18Blod(
+                                        'วันนี้, ${DateTime.now().toDisplayFullBuddishDate(locale: 'th')}',
+                                        ColorTheme().white),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Image.asset(
+                              true
+                                  ? 'assets/images/notify_alert.png'
+                                  : 'assets/images/notify.png',
+                              scale: 4,
+                            )
+                          ],
+                        ),
                       ),
-                      Image.asset(
-                        true
-                            ? 'assets/images/notify_alert.png'
-                            : 'assets/images/notify.png',
-                        scale: 4,
-                      )
-                    ],
-                  ),
-                ),
-              ),
+                    );
+                  }),
               Container(
                 margin: EdgeInsets.only(top: 160),
                 width: MediaQuery.of(context).size.width,

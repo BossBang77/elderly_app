@@ -15,11 +15,14 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   @override
   Stream<UserProfileState> mapEventToState(UserProfileEvent event) async* {
     if (event is GetUserProfile) {
+      yield state.copyWith(status: UserProfileStatus.loading);
       var userProfile = await _loginRepository.getPfofile();
       yield* userProfile.fold((Failure error) async* {
-        yield state.copyWith(userProfile: RegisterModel());
+        yield state.copyWith(
+            userProfile: RegisterModel(), status: UserProfileStatus.fail);
       }, (RegisterModel res) async* {
-        yield state.copyWith(userProfile: res);
+        yield state.copyWith(
+            userProfile: res, status: UserProfileStatus.success);
       });
     }
   }
