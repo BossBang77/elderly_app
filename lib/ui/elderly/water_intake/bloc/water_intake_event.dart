@@ -8,17 +8,60 @@ abstract class WaterIntakeEvent extends Equatable {
 }
 
 class AddIntakeWater extends WaterIntakeEvent {
-  final IntakeWaterModel intakeWater;
+  final DailyWaterModel intakeWater;
   const AddIntakeWater({required this.intakeWater});
 }
 
 class EditIntakeWater extends WaterIntakeEvent {
-  final IntakeWaterModel intakeWater;
-  final int index;
-  const EditIntakeWater({required this.intakeWater, required this.index});
+  final DailyWaterModel intakeWater;
+
+  const EditIntakeWater({
+    required this.intakeWater,
+  });
 }
 
 class RemoveIntakeWater extends WaterIntakeEvent {
-  final int index;
-  const RemoveIntakeWater({required this.index});
+  final String id;
+  const RemoveIntakeWater({required this.id});
+}
+
+class GetDrinkingWaterGoal extends WaterIntakeEvent {
+  const GetDrinkingWaterGoal();
+}
+
+class Initial extends WaterIntakeEvent {
+  const Initial();
+}
+
+class ChangeGoalDrinking extends WaterIntakeEvent {
+  final int newGoal;
+  const ChangeGoalDrinking({required this.newGoal});
+  @override
+  List<Object> get props => [newGoal];
+}
+
+class SubmitUpdateGoalDrinking extends WaterIntakeEvent {
+  const SubmitUpdateGoalDrinking();
+  @override
+  List<Object> get props => [];
+}
+
+class SetStatusSubmit extends WaterIntakeEvent {
+  final StatusSubmitIntake statusSubmitIntake;
+  const SetStatusSubmit({required this.statusSubmitIntake});
+  @override
+  List<Object> get props => [statusSubmitIntake];
+}
+
+class ResetGoalToMaster extends WaterIntakeEvent {
+  const ResetGoalToMaster();
+}
+
+class GetDailyDrinkingList extends WaterIntakeEvent {
+  const GetDailyDrinkingList();
+}
+
+class CalculateDrinking extends WaterIntakeEvent {
+  final double weight;
+  const CalculateDrinking({required this.weight});
 }

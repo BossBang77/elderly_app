@@ -1,16 +1,41 @@
 part of 'water_intake_bloc.dart';
 
 class WaterIntakeState extends Equatable {
-  const WaterIntakeState({this.intakeWaterModel = const <IntakeWaterModel>[]});
+  const WaterIntakeState(
+      {this.intakeWaterModel = const <IntakeWaterModel>[],
+      this.waterIntakeGoal = const WaterIntakeGoalModel(),
+      this.statusSubmit = StatusSubmitIntake.initial,
+      this.masterWaterIntakeGoal = const WaterIntakeGoalModel(),
+      this.dailyWaterList = const DailyWaterListModel()});
   final List<IntakeWaterModel> intakeWaterModel;
+  final WaterIntakeGoalModel waterIntakeGoal;
+  final WaterIntakeGoalModel masterWaterIntakeGoal;
+  final StatusSubmitIntake statusSubmit;
+  final DailyWaterListModel dailyWaterList;
 
-  WaterIntakeState copyWith({List<IntakeWaterModel>? intakeWaterModel}) {
+  WaterIntakeState copyWith(
+      {List<IntakeWaterModel>? intakeWaterModel,
+      WaterIntakeGoalModel? waterIntakeGoal,
+      WaterIntakeGoalModel? masterWaterIntakeGoal,
+      StatusSubmitIntake? statusSubmit,
+      DailyWaterListModel? dailyWaterList}) {
     return WaterIntakeState(
-        intakeWaterModel: intakeWaterModel ?? this.intakeWaterModel);
+        intakeWaterModel: intakeWaterModel ?? this.intakeWaterModel,
+        waterIntakeGoal: waterIntakeGoal ?? this.waterIntakeGoal,
+        statusSubmit: statusSubmit ?? this.statusSubmit,
+        masterWaterIntakeGoal:
+            masterWaterIntakeGoal ?? this.masterWaterIntakeGoal,
+        dailyWaterList: dailyWaterList ?? this.dailyWaterList);
   }
 
   @override
-  List<Object> get props => [intakeWaterModel];
+  List<Object> get props => [
+        intakeWaterModel,
+        waterIntakeGoal,
+        statusSubmit,
+        masterWaterIntakeGoal,
+        dailyWaterList
+      ];
 }
 
 class WaterIntakeInitial extends WaterIntakeState {}
@@ -30,3 +55,13 @@ var volumnTypeList = [
       volumeQuantity: 1500),
   VolumnTypeModel(code: 'custom', volumePic: 'assets/images/customize.png')
 ];
+
+enum StatusSubmitIntake {
+  initial,
+  updateGoalSuccess,
+  updateGoalFail,
+  addDailyWaterSuccess,
+  addDailyWaterFail,
+  removeFail,
+  removeSuccess
+}

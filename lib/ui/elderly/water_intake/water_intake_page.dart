@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/button_orange.dart';
+import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/base/widget/text_field_line.dart';
 import 'package:health_application/ui/elderly/water_intake/bloc/water_intake_bloc.dart';
 import 'package:health_application/ui/elderly/water_intake/component/add_water_intake.dart';
 import 'package:health_application/ui/elderly/water_intake/component/change_water_intake.dart';
 import 'package:health_application/ui/elderly/water_intake/component/piechart_water_intake.dart';
+import 'package:health_application/ui/elderly/water_intake/model/daily_drinking.dart';
 import 'package:health_application/ui/elderly/water_intake/model/volumn_type.dart';
 import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/home_page/bloc/home_page_bloc.dart';
@@ -21,6 +23,7 @@ class WaterIntakePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<WaterIntakeBloc>().add(Initial());
     return Scaffold(
       appBar: appBar(
           onBack: () {
@@ -31,18 +34,46 @@ class WaterIntakePage extends StatelessWidget {
           title: 'ดื่มน้ำ',
           showNotification: true),
       backgroundColor: ColorTheme().white,
-      body: BlocProvider<WaterIntakeBloc>(
-        create: (_) => WaterIntakeBloc(),
-        child: BlocConsumer<WaterIntakeBloc, WaterIntakeState>(
-            listener: (context, state) {},
-            builder: (BuildContext parent, WaterIntakeState state) {
-              return initialWidget(parent, state);
-            }),
-      ),
+      body: BlocConsumer<WaterIntakeBloc, WaterIntakeState>(
+          listener: (context, state) async {
+        if (state.statusSubmit == StatusSubmitIntake.addDailyWaterFail) {
+          final bool acceptClose = await showDialog(
+              context: context,
+              builder: (BuildContext context) => ErrorAlertWidget(
+                    title: 'เกิดข้อผิดพลาด!',
+                    subTitle: "บันทึกข้อมูลไม่สำเร็จ\nกรุณาลองใหม่อีกครั้ง",
+                    btnName: 'ตกลง',
+                  )) as bool;
+
+          if (acceptClose) {
+            context.read<WaterIntakeBloc>().add(SetStatusSubmit(
+                statusSubmitIntake: StatusSubmitIntake.initial));
+          }
+        }
+
+        if (state.statusSubmit == StatusSubmitIntake.removeFail) {
+          final bool acceptClose = await showDialog(
+              context: context,
+              builder: (BuildContext context) => ErrorAlertWidget(
+                    title: 'เกิดข้อผิดพลาด!',
+                    subTitle: "ลบข้อมูลไม่สำเร็จ\nกรุณาลองใหม่อีกครั้ง",
+                    btnName: 'ตกลง',
+                  )) as bool;
+
+          if (acceptClose) {
+            context.read<WaterIntakeBloc>().add(SetStatusSubmit(
+                statusSubmitIntake: StatusSubmitIntake.initial));
+          }
+        }
+      }, builder: (BuildContext parent, WaterIntakeState state) {
+        return initialWidget(parent, state);
+      }),
     );
   }
 
   Widget initialWidget(BuildContext context, WaterIntakeState state) {
+    var goalDrinking = state.masterWaterIntakeGoal;
+    var waterDailyList = [...state.dailyWaterList.data];
     return Padding(
       padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
       child: SingleChildScrollView(
@@ -60,8 +91,8 @@ class WaterIntakePage extends StatelessWidget {
               height: 30,
             ),
             WaterIntakeChart(
-              total: 100,
-              isDrink: 60,
+              total: goalDrinking.target.toDouble(),
+              isDrink: goalDrinking.achievable.toDouble(),
             ),
             const SizedBox(
               height: 30,
@@ -98,7 +129,8 @@ class WaterIntakePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        textBody1('2000 มล.', ColorTheme().black87)
+                        textBody1(
+                            '${goalDrinking.target} มล.', ColorTheme().black87)
                       ],
                     ),
                     VerticalDivider(
@@ -109,7 +141,8 @@ class WaterIntakePage extends StatelessWidget {
                       children: [
                         textSubtitle2(
                             'ปริมาณที่เหลือ', ColorTheme().black87, true),
-                        textBody1('1500 มล.', ColorTheme().black87)
+                        textBody1('${goalDrinking.remaining} มล.',
+                            ColorTheme().black87)
                       ],
                     )
                   ],
@@ -131,19 +164,18 @@ class WaterIntakePage extends StatelessWidget {
               crossAxisCount: 4,
               childAspectRatio: 1,
               children: List.generate(
-                  state.intakeWaterModel.length < 8
-                      ? 8
-                      : state.intakeWaterModel.length, (index) {
+                  waterDailyList.length < 8 ? 8 : waterDailyList.length,
+                  (index) {
                 String textTitle = '';
-                IntakeWaterModel currentIntake = IntakeWaterModel();
-                if (index <= state.intakeWaterModel.length - 1) {
-                  currentIntake = state.intakeWaterModel[index];
+                DailyWaterModel currentIntake = DailyWaterModel();
+                if (index <= waterDailyList.length - 1) {
+                  currentIntake = waterDailyList[index];
                   textTitle =
-                      '${currentIntake.volumeValue} มล. x${currentIntake.volumeQuantity}';
+                      '${currentIntake.volume} มล. x${currentIntake.numberOfDrink}';
                 }
                 return InkWell(
                   onTap: () {
-                    if (index <= state.intakeWaterModel.length - 1) {
+                    if (index <= waterDailyList.length - 1) {
                       addWaterIntake(context,
                           isCreate: false,
                           indexEdit: index,
@@ -158,7 +190,8 @@ class WaterIntakePage extends StatelessWidget {
                             : volumnTypeList
                                 .firstWhere(
                                   (element) =>
-                                      element.code == currentIntake.volumeName,
+                                      element.code ==
+                                      currentIntake.containerCode,
                                   orElse: () => VolumnTypeModel(
                                       volumePic:
                                           'assets/images/empty_water.png'),
