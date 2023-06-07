@@ -60,3 +60,8 @@ class ResetGoalToMaster extends WaterIntakeEvent {
 class GetDailyDrinkingList extends WaterIntakeEvent {
   const GetDailyDrinkingList();
 }
+
+class CalculateDrinking extends WaterIntakeEvent {
+  final double weight;
+  const CalculateDrinking({required this.weight});
+}

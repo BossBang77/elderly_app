@@ -114,5 +114,15 @@ class WaterIntakeBloc extends Bloc<WaterIntakeEvent, WaterIntakeState> {
         yield state.copyWith(dailyWaterList: res);
       });
     }
+
+    if (event is CalculateDrinking) {
+      //  '[น้ำหนัก x 2.2 x 30/2] /1000 = ปริมาณน้ำ (ลิตร)',
+      double weight = event.weight;
+      int water = (((weight * 2.2 * (30 / 2)) / 1000) * 1000).ceil();
+      print(water.toString());
+      var masterWaterGoal = state.waterIntakeGoal;
+      masterWaterGoal = masterWaterGoal.copyWith(target: water);
+      yield state.copyWith(waterIntakeGoal: masterWaterGoal);
+    }
   }
 }

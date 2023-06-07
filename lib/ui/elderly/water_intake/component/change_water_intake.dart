@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/elderly/water_intake/bloc/water_intake_bloc.dart';
+import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 
 import '../../../base/widget/back_button.dart';
 import '../../../base/widget/button_gradient.dart';
@@ -9,6 +10,8 @@ import '../../../ui-extensions/color.dart';
 import '../../../ui-extensions/font.dart';
 
 void changeWaterIntake(BuildContext ctx) {
+  var userProfile =
+      BlocProvider.of<UserProfileBloc>(ctx).state.userProfile.profile;
   initialValue() {
     ctx.read<WaterIntakeBloc>().add(ResetGoalToMaster());
   }
@@ -83,8 +86,16 @@ void changeWaterIntake(BuildContext ctx) {
                                   textH7(
                                       '[น้ำหนัก x 2.2 x 30/2] /1000 = ปริมาณน้ำ (ลิตร)',
                                       ColorTheme().black87),
-                                  textBody2(
-                                      'คำนวณ', ColorTheme().BlueDark2, true)
+                                  InkWell(
+                                    onTap: () {
+                                      context.read<WaterIntakeBloc>().add(
+                                          CalculateDrinking(
+                                              weight: userProfile.weight
+                                                  .toDouble()));
+                                    },
+                                    child: textBody2(
+                                        'คำนวณ', ColorTheme().BlueDark2, true),
+                                  )
                                 ],
                               ),
                             ],
