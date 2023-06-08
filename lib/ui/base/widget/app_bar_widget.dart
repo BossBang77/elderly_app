@@ -8,7 +8,8 @@ PreferredSizeWidget appBar(
     {required VoidCallback onBack,
     String title = '',
     bool showNotification = false,
-    bool showBackbutton = true}) {
+    bool showBackbutton = true,
+    Widget suffixAction = const SizedBox()}) {
   return AppBar(
     elevation: 0,
     shadowColor: ColorTheme().white,
@@ -20,6 +21,9 @@ PreferredSizeWidget appBar(
             onBack();
           })
         : null,
-    actions: [showNotification ? NotificationAlert() : Container()],
+    actions: [
+      showNotification ? NotificationAlert() : Container(),
+      suffixAction
+    ],
   );
 }

@@ -10,7 +10,7 @@ class UserSecureStorage {
     await _storage.write(key: UserKey.userData, value: value);
   }
 
-  Future<dynamic> getUserData() async {
+  Future<LoginModel> getUserData() async {
     final value;
 
     value = await _storage.read(key: UserKey.userData);
@@ -49,6 +49,11 @@ class UserSecureStorage {
 
   Future<String> getValueForKey({required String forKey}) async {
     return await _storage.read(key: forKey) ?? '';
+  }
+
+  Future getUUID() async {
+    LoginModel user = await getUserData();
+    return user.username;
   }
 }
 
