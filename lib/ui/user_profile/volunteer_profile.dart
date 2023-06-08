@@ -39,7 +39,7 @@ class VolunteerProfileWidget extends StatelessWidget {
                 height: 20,
               ),
               textSubtitle16Blod(user.profile.name, color.black87),
-              textCaption1('จิตอาสา (9045)', color.greyText),
+              textCaption1('จิตอาสา(9045)', color.greyText),
               const SizedBox(
                 height: 20,
               ),
