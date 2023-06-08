@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
               return ScreenUtilInit(
                   designSize: Size(375, 812),
                   builder: (context, child) => MaterialApp(
-                        title: 'Health Application',
+                        title: 'Elderly Health',
                         theme: ThemeData(
                           primarySwatch: Colors.blue,
                         ),
