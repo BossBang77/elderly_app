@@ -29,7 +29,7 @@ class ElderProfileWidget extends StatelessWidget {
           onBack: () {},
           suffixAction: InkWell(
             onTap: () async {
-              String uuid = await UserSecureStorage().getUUID();
+              String uuid = await UserSecureStorage().getUID();
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => QrCodeElderlyPage(
                         uuid: uuid,
