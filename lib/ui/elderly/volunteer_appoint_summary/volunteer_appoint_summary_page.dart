@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/timeline_process.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -11,6 +14,15 @@ class VolunteerAppointSummaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Completer<GoogleMapController> _controller = Completer();
+    Set<Marker> markers = {};
+
+    markers.add(Marker(
+        markerId: MarkerId("Home"),
+        position: LatLng(13.8087293, 100.5582612),
+        onTap: () {
+          //TODO
+        }));
     var sized = MediaQuery.of(context).size;
     Widget carddetail(
         {required String img, required String title, required String detail}) {
@@ -254,7 +266,23 @@ class VolunteerAppointSummaryPage extends StatelessWidget {
                               height: 20,
                             ),
                             //TODO map
-                            Image.asset('assets/images/maps.png'),
+                            Container(
+                                height: 200,
+                                width: sized.width * 0.93,
+                                alignment: Alignment.center,
+                                child: GoogleMap(
+                                  initialCameraPosition: CameraPosition(
+                                    //TODO
+                                    target: LatLng(13.8087293, 100.5582612),
+                                    zoom: 15,
+                                  ),
+                                  compassEnabled: true,
+                                  tiltGesturesEnabled: false,
+                                  myLocationEnabled: true,
+                                  myLocationButtonEnabled: false,
+                                  mapType: MapType.normal,
+                                  markers: markers,
+                                )),
                             const SizedBox(
                               height: 20,
                             ),
