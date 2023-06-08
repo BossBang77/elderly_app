@@ -64,7 +64,7 @@ class WelcomePage extends StatelessWidget {
                 btnName: 'เข้าสู่ระบบ',
                 onClick: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AppointmentListView()));
+                      MaterialPageRoute(builder: (context) => SignInPage()));
                 },
               )
             ],
