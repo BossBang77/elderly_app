@@ -9,7 +9,8 @@ PreferredSizeWidget appBar(
     String title = '',
     bool showNotification = false,
     bool showBackbutton = true,
-    Widget suffixAction = const SizedBox()}) {
+    Widget suffixAction = const SizedBox(),
+    String images = 'assets/images/back_arrow.png'}) {
   return AppBar(
     elevation: 0,
     shadowColor: ColorTheme().white,
@@ -17,9 +18,12 @@ PreferredSizeWidget appBar(
     centerTitle: true,
     title: textSubtitle18W800(title, ColorTheme().black87),
     leading: showBackbutton
-        ? BackButtonWidget(onClick: () {
-            onBack();
-          })
+        ? BackButtonWidget(
+            onClick: () {
+              onBack();
+            },
+            imgPath: images,
+          )
         : null,
     actions: [
       showNotification ? NotificationAlert() : Container(),

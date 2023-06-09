@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:health_application/ui/signIn_page/model/login_model.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:health_application/ui/signIn_page/model/role_model.dart';
 
 class UserSecureStorage {
   static final _storage = new FlutterSecureStorage();
@@ -32,6 +33,11 @@ class UserSecureStorage {
 
   Future getAccessToken() async {
     return await _storage.read(key: UserKey.token) ?? '';
+  }
+
+  Future<List<RoleModel>> getRole() async {
+    var user = await getUserData();
+    return user.role;
   }
 
   Future<bool> hasToken() async {

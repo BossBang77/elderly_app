@@ -65,9 +65,13 @@ class HomeWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    textSubtitle24(
-                                        'สวัสดี, ${state.status == UserProfileStatus.success ? userProfile.profile.name : ''}',
-                                        ColorTheme().white),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width /
+                                          1.8,
+                                      child: textSubtitle24(
+                                          'สวัสดี, ${state.status == UserProfileStatus.success ? userProfile.profile.name : ''}',
+                                          ColorTheme().white),
+                                    ),
                                     textSubtitle18Blod(
                                         'วันนี้, ${DateTime.now().toDisplayFullBuddishDate(locale: 'th')}',
                                         ColorTheme().white),
@@ -298,9 +302,8 @@ class HomeWidget extends StatelessWidget {
                                 background: 'assets/images/food.png',
                                 title: 'อาหาร',
                                 onClick: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context) => FoodPage()
-                                  ));
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => FoodPage()));
                                 },
                                 subTitle: 'บันทึกมื้ออาหาร',
                                 icon: 'assets/images/food_icon.png',
