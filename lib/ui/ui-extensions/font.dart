@@ -138,8 +138,9 @@ Widget textButton1(String text, Color color,
           fontWeight: FontWeight.w500));
 }
 
-Widget textButton2(String text, Color color) {
+Widget textButton2(String text, Color color, {int maxline = 1}) {
   return Text(text,
+      maxLines: maxline,
       style: TextStyle(
         color: color,
         fontSize: 13.sp,
