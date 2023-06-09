@@ -7,9 +7,10 @@ import 'package:pie_chart/pie_chart.dart';
 
 class WaterIntakeChart extends StatelessWidget {
   const WaterIntakeChart(
-      {super.key, required this.total, required this.isDrink});
+      {super.key, required this.total, required this.isDrink, this.left = 0});
   final double total;
   final double isDrink;
+  final double left;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class WaterIntakeChart extends StatelessWidget {
           ),
           Positioned(
             top: 58,
-            left: MediaQuery.of(context).size.width / 2.8,
+            left: left == 0 ? MediaQuery.of(context).size.width / 2.8 : left,
             child: Column(children: [
               textSubtitle24W700(
                   '${isDrink.toInt()} มล.', ColorTheme().black87),
