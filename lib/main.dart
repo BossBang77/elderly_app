@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
 import 'package:health_application/ui/base/data_provider.dart';
+import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
 import 'package:health_application/ui/signIn_page/login/login_page.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => MasterDataBloc()),
               BlocProvider(create: (context) => WaterIntakeBloc()),
               BlocProvider(create: (context) => UserProfileBloc()),
+              BlocProvider(
+                create: (context) => GoogleMapCubit()..initialState(),
+              ),
             ],
             child: Builder(builder: (context) {
               context.read<MasterDataBloc>().add(LoadMasterData());

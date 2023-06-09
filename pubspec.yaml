@@ -50,6 +50,9 @@ dependencies:
   retrofit: ^3.0.1+1
   dartz: ^0.10.1
   pie_chart: ^5.3.2
+  google_maps_flutter: ^2.2.0
+  geocoding: ^2.1.0
+  geolocator: ^9.0.2
   video_player:
 
 dev_dependencies:

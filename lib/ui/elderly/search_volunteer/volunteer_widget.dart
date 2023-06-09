@@ -10,10 +10,12 @@ import 'package:health_application/ui/elderly/search_volunteer/component/last_vo
 import 'package:health_application/ui/elderly/search_volunteer/component/near_volunteer.dart';
 import 'package:health_application/ui/elderly/search_volunteer/component/volunteer_card.dart';
 import 'package:health_application/ui/elderly/search_volunteer/filter/filter_volunteer.dart';
+import 'package:health_application/ui/google_map/googlemap.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/register_profile/register_profile_page.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 
+import '../../google_map/cubit/google_map_cubit.dart';
 import '../../ui-extensions/font.dart';
 
 class VolunteerWidget extends StatelessWidget {
@@ -133,32 +135,43 @@ class VolunteerWidget extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                'assets/images/icon_map_marker.png',
-                                scale: 4,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Container(
-                                width: sized.width * 0.7,
-                                child: textButton1(
-                                    'ตำแหน่ง : 3000 ถนนพหลโยธิน แขวง จอมพล เขตจตุจักร กรุงเทพฯ 10900',
-                                    color.BlueDark),
-                              ),
-                            ],
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          )
-                        ],
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GoogleMaps()),
+                          ).then((value) {
+                            // TODO integrate
+                          });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/icon_map_marker.png',
+                                  scale: 4,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  width: sized.width * 0.7,
+                                  child: textButton1(
+                                      'ตำแหน่ง : 3000 ถนนพหลโยธิน แขวง จอมพล เขตจตุจักร กรุงเทพฯ 10900',
+                                      color.BlueDark),
+                                ),
+                              ],
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            )
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
