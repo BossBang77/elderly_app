@@ -23,8 +23,6 @@ class _ScanQrPageState extends State<ScanQrPage> {
   late QRViewController control;
   @override
   void initState() {
-    // TODO: implement initState
-    print('Result' + result.toString());
     super.initState();
   }
 
@@ -53,7 +51,6 @@ class _ScanQrPageState extends State<ScanQrPage> {
           MaterialPageRoute(builder: (context) => ElderlySearchDetailPage()));
       controller!.dispose();
     } catch (e) {
-      print('exception');
       print(e);
     }
   }
