@@ -187,8 +187,9 @@ Widget textOverline2(String text, Color color,
           fontWeight: FontWeight.w300));
 }
 
-Widget textSubtitle24(String text, Color color) {
+Widget textSubtitle24(String text, Color color, {int maxLine = 1}) {
   return Text(text,
+      maxLines: maxLine,
       style: TextStyle(
           color: color,
           fontSize: 24.sp,
