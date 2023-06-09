@@ -8,6 +8,7 @@ class RegisterModel {
   const RegisterModel(
       {this.allergicFoods = const <SubMenuModel>[],
       this.congenitalDisease = const <SubMenuModel>[],
+      this.volunteerCode = '',
       this.elderlyCareCode = '',
       this.password = '',
       this.username = '',
@@ -34,6 +35,11 @@ class RegisterModel {
   final String password;
 
   @JsonKey(
+    name: 'volunteerCode',
+  )
+  final String volunteerCode;
+
+  @JsonKey(
     name: 'elderlyCareCode',
   )
   final String elderlyCareCode;
@@ -56,6 +62,7 @@ class RegisterModel {
           {String? role,
           String? username,
           String? password,
+          String? volunteerCode,
           String? elderlyCareCode,
           ProfileRegisterModel? profile,
           List<SubMenuModel>? congenitalDisease,
@@ -64,6 +71,7 @@ class RegisterModel {
           role: role ?? this.role,
           username: username ?? this.username,
           password: password ?? this.password,
+          volunteerCode: volunteerCode ?? this.volunteerCode,
           elderlyCareCode: elderlyCareCode ?? this.elderlyCareCode,
           profile: profile ?? this.profile,
           congenitalDisease: congenitalDisease ?? this.congenitalDisease,
