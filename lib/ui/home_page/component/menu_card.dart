@@ -16,7 +16,7 @@ Widget menuCard(BuildContext context,
       children: [
         Image.asset(
           background,
-          scale: 3.5,
+          scale: 4,
         ),
         Positioned(
           left: 15,
@@ -33,7 +33,7 @@ Widget menuCard(BuildContext context,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 textSubtitle18Blod(title, ColorTheme().white),
-                textButton1(subTitle, ColorTheme().white)
+                textButton1(subTitle, ColorTheme().white, maxLines: 2)
               ],
             ))
       ],
