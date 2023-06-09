@@ -50,6 +50,7 @@ class ColorTheme {
   final Color DartBlue = HexColor('#0267D0');
   final Color DarkRed = HexColor('#C84032');
   final Color scaffoldGreyBackground = HexColor('#F5F5F5');
+  final Color lightBlue = HexColor('#F3F7F9');
 }
 
 class StyleBorder {
