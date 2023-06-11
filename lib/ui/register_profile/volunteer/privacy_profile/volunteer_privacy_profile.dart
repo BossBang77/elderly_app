@@ -16,7 +16,9 @@ class VolunteerPrivacyProfile extends StatelessWidget {
     var user = state.registerModel;
     return Scaffold(
       backgroundColor: ColorTheme().white,
-      appBar: appBar(onBack: () {
+      appBar: appBar(
+        title: 'โปรไฟล์ของฉัน',
+        onBack: () {
         context
             .read<RegisterProfileBloc>()
             .add(ChangeProfileView(profileType: ProfileType.role));
