@@ -54,6 +54,8 @@ dependencies:
   geocoding: ^2.1.0
   geolocator: ^9.0.2
   video_player:
+  qr_code_scanner: ^1.0.1 #Scan QR from camera
+  scan: ^1.6.0
 
 dev_dependencies:
   build_runner:

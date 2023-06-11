@@ -53,11 +53,11 @@ class TimeLineProgress extends StatelessWidget {
           isChecked
               ? Image.asset(
                   'assets/images/progress_${index + 1}_enable.png',
-                  scale: 4,
+                  scale: 6.5,
                 )
               : Image.asset(
                   'assets/images/progress_${index + 1}_disable.png',
-                  scale: 4,
+                  scale: 6.5,
                 ),
         ],
       ),
