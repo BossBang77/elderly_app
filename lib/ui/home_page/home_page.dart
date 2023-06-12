@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/elderly/food/food_page.dart';
 import 'package:health_application/ui/elderly/exercise/exercise_page.dart';
 import 'package:health_application/ui/elderly/water_intake/water_intake_page.dart';
 import 'package:health_application/ui/home_page/bloc/home_page_bloc.dart';
 import 'package:health_application/ui/home_page/component/menu_item.dart';
 import 'package:health_application/ui/home_page/home_widget.dart';
+import 'package:health_application/ui/home_page/volunteer_home_widget.dart';
+import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/user_profile/user_profile_page.dart';
 
@@ -18,6 +21,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var role = UserSecureStorage().getRole();
     return Scaffold(
         body: BlocConsumer<HomePageBloc, HomePageState>(
       listener: (context, state) {},
@@ -103,10 +107,99 @@ class HomePage extends StatelessWidget {
           );
         }
 
+        Widget _volunteerButtonNavagateBar() {
+          return Align(
+            alignment: Alignment.bottomCenter,
+            child: Card(
+              margin: EdgeInsets.zero,
+              color: Colors.transparent,
+              shadowColor: Colors.grey,
+              elevation: 10,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: ColorTheme().white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))),
+                height: 90,
+                padding:
+                    EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    menuItem(
+                      context,
+                      imgIsSelect: 'assets/images/home_enable.png',
+                      imgUnSelect: 'assets/images/home_disable.png',
+                      isSelect: state.menus == menuType.mainPage,
+                      onTap: () {
+                        changemenu(menuType.mainPage);
+                      },
+                      title: 'หน้าหลัก',
+                    ),
+                    menuItem(
+                      context,
+                      imgIsSelect:
+                          'assets/images/calendar_appointment_blue.png',
+                      imgUnSelect: 'assets/images/calendar_appointment.png',
+                      isSelect: state.menus == menuType.appointment,
+                      onTap: () {
+                        changemenu(menuType.appointment);
+                      },
+                      title: 'นัดหมาย',
+                    ),
+                    menuItem(
+                      context,
+                      imgIsSelect: 'assets/images/menu_message_blue.png',
+                      imgUnSelect: 'assets/images/menu_message.png',
+                      isSelect: state.menus == menuType.message,
+                      onTap: () {
+                        changemenu(menuType.message);
+                      },
+                      title: 'ข้อความ',
+                    ),
+                    menuItem(
+                      context,
+                      imgIsSelect: 'assets/images/profile_enable.png',
+                      imgUnSelect: 'assets/images/profile_disable.png',
+                      isSelect: state.menus == menuType.profilePage,
+                      onTap: () {
+                        changemenu(menuType.profilePage);
+                      },
+                      title: 'โปรไฟล์',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+
         Widget _pageView() {
           switch (state.menus) {
             case menuType.mainPage:
               return HomeWidget();
+            case menuType.appointment:
+              return WaterIntakePage();
+            case menuType.message:
+              return ExercisePage();
+            case menuType.profilePage:
+              return UserProfilePage();
+            // TODO case next page
+
+            default:
+              return Container(
+                child: Center(
+                    child: textButton1(
+                        state.menus.name.toUpperCase(), ColorTheme().Primary)),
+              );
+          }
+        }
+
+        Widget _volunteerPageView() {
+          switch (state.menus) {
+            case menuType.mainPage:
+              return VolunteerHomeWidget();
             case menuType.drinkingPage:
               return WaterIntakePage();
             case menuType.exercisePage:
@@ -127,7 +220,15 @@ class HomePage extends StatelessWidget {
         }
 
         return Stack(
-          children: [_pageView(), _bottomNavigationBar()],
+          children: [
+            if (role == RoleType.ROLE_USER_ELDERLY.name) ...{
+              _pageView(),
+              _bottomNavigationBar()
+            } else ...{
+              _volunteerPageView(),
+              _volunteerButtonNavagateBar()
+            }
+          ],
         );
       },
     ));
