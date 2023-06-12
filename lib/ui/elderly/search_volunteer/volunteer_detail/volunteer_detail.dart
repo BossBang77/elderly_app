@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/linear_percent_indicator/linear_percent_indicator.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
+import 'package:health_application/ui/base/widget/image_notfound.dart';
 import 'package:health_application/ui/base/widget/slider_widget.dart';
 import 'package:health_application/ui/base/widget/star_rateing.dart';
 import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
@@ -67,11 +68,7 @@ class VolunteerDetailWidget extends StatelessWidget {
                   height: sized.height,
                   child: volunteer.image.isNotEmpty
                       ? Image.network(volunteer.image)
-                      : Padding(
-                          padding: EdgeInsets.only(top: 200),
-                          child: textButton2('Image Notfound', color.greyText,
-                              maxline: 2, align: TextAlign.center),
-                        ),
+                      : ImageNotFound(),
                 ),
                 Positioned(
                   top: 50,

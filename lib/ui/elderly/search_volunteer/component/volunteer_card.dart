@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_application/ui/base/widget/image_notfound.dart';
 import 'package:health_application/ui/extension/string_extension.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
@@ -17,10 +18,7 @@ Widget volunteerCard(BuildContext context, VolunteerDetailSearch item) {
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   child: item.image.isNotEmpty
                       ? Image.network(item.image)
-                      : Center(
-                          child: textButton2('image notfound', color.greyText,
-                              maxline: 2, align: TextAlign.center),
-                        )),
+                      : ImageNotFound()),
             ),
           ),
           const SizedBox(
