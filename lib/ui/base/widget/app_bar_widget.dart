@@ -9,6 +9,7 @@ PreferredSizeWidget appBar(
     String title = '',
     bool showNotification = false,
     bool showBackbutton = true,
+    Widget suffixAction = const SizedBox(),
     String images = 'assets/images/back_arrow.png'}) {
   return AppBar(
     elevation: 0,
@@ -24,6 +25,9 @@ PreferredSizeWidget appBar(
             imgPath: images,
           )
         : null,
-    actions: [showNotification ? NotificationAlert() : Container()],
+    actions: [
+      showNotification ? NotificationAlert() : Container(),
+      suffixAction
+    ],
   );
 }

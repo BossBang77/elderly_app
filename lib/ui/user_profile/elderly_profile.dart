@@ -4,12 +4,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:health_application/ui/base/dialog/log_out_dialog.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
+import 'package:health_application/ui/elderly/qr_code_elderly/qr_code_elderly_page.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/user_profile/component/card_list_menu.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
+import 'package:provider/provider.dart';
 
 import '../base/constant/gender_const.dart';
 
@@ -21,7 +23,23 @@ class ElderProfileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     RegisterModel user = state.userProfile;
     return Scaffold(
-      appBar: appBar(showBackbutton: false, title: 'โปรไฟล์', onBack: () {}),
+      appBar: appBar(
+          showBackbutton: false,
+          title: 'โปรไฟล์',
+          onBack: () {},
+          suffixAction: InkWell(
+            onTap: () async {
+              String uuid = await UserSecureStorage().getUID();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => QrCodeElderlyPage(
+                        uuid: uuid,
+                      )));
+            },
+            child: Image.asset(
+              'assets/images/qr_code_scan.png',
+              scale: 3.5,
+            ),
+          )),
       body: Padding(
         padding: EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 90),
         child: SingleChildScrollView(
