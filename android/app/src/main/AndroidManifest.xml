@@ -8,9 +8,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
    <application
-        android:label="health_application"
+        android:label="Elderly Health"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
             <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyALzfxW1mOAUlmGc9Kv4dP6btpdZ6rbLaQ"/>
         <activity
