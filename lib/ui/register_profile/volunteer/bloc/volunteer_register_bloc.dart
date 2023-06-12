@@ -46,7 +46,10 @@ class VolunteerRegisterBloc
     }
 
     if (event is InitialForm) {
-      yield state.copyWth(registerData: event.data);
+      var profile =
+          event.data.profile.copyWith(weight: 100, height: 100, age: 100);
+      var regisModel = event.data.copyWith(profile: profile);
+      yield state.copyWth(registerData: regisModel);
     }
 
     if (event is DefaultStatus) {
