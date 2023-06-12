@@ -3,7 +3,7 @@ import 'package:health_application/ui/register_profile/model/sub_menu_model.dart
 import 'package:json_annotation/json_annotation.dart';
 part 'register_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class RegisterModel {
   const RegisterModel(
       {this.allergicFoods = const <SubMenuModel>[],

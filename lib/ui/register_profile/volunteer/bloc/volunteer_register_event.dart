@@ -8,8 +8,8 @@ abstract class VolunteerRegisterEvent extends Equatable {
 }
 
 class InitialForm extends VolunteerRegisterEvent {
-  const InitialForm({required this.registerState});
-  final RegisterProfileState registerState;
+  const InitialForm({required this.data});
+  final RegisterModel data;
 }
 
 class UpdateValue extends VolunteerRegisterEvent {
@@ -25,4 +25,8 @@ class ObscurePassword extends VolunteerRegisterEvent {
 
 class RegisterProfile extends VolunteerRegisterEvent {
   const RegisterProfile();
+}
+
+class DefaultStatus extends VolunteerRegisterEvent {
+  const DefaultStatus();
 }

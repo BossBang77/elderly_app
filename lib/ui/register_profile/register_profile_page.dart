@@ -52,7 +52,7 @@ class RegisterProfilePage extends StatelessWidget {
         } else if (profileType == ProfileType.foodAllergies) {
           return FoodAllergiesWidget(state: state);
         } else if (profileType == ProfileType.personalInformation) {
-          return PersonalInformationView();
+          return PersonalInformationView(registerData: state.registerModel);
         } else {
           return ResultRegisterWidget();
         }

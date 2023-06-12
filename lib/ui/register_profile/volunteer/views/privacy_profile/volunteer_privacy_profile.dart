@@ -85,7 +85,7 @@ class VolunteerPrivacyProfile extends StatelessWidget {
                 height: 10,
               ),
               TextFieldWidget.enable(
-                text: state.volunteerCode,
+                text: user.volunteerCode,
                 textNumberType: true,
                 maxLength: 4,
                 hintText: 'ตัวเลข 4 ตัว',
