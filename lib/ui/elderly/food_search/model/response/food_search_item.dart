@@ -7,12 +7,14 @@ class FoodSearchItem {
   const FoodSearchItem({
     this.name = '',
     this.code = '',
-    this.calorie = 0
+    this.calorie = 0,
+    this.image = ''
   });
 
   final String name;
   final String code;
   final double calorie;
+  final String image;
 
   factory FoodSearchItem.fromJson(Map<String, dynamic> json) =>
       _$FoodSearchItemFromJson(json);

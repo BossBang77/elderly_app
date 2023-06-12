@@ -50,14 +50,23 @@ class _FoodDetailView extends State<FoodDetailView> {
           body: Container(
             color: ColorTheme().white,
             child: Stack(
-              children: [
+              children: [ 
+                state.food.image.isNotEmpty ?
                 Container(
-                  color: Colors.red,
-                  //TODO to integrate image with api
-                  // decoration: BoxDecoration(
-                  //   image: Image.network(src)
-                  // ),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(state.food.image)
+                    )
+                  ),
                   height: 300,
+                ) :
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                  alignment: Alignment.topCenter,
+                  child: Center(child: textOverline2(
+                    'Image NotFound', color.greyText)
+                  ),
                 ),
                 Container(
                   child: Column(
