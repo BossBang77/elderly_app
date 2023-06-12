@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/base/constant/gender_const.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
@@ -8,6 +9,8 @@ import 'package:health_application/ui/base/widget/text_field_widget.dart';
 import 'package:health_application/ui/elderly/search_volunteer/filter/component/select_gender.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+
+import '../bloc/search_volunteer_bloc.dart';
 
 void onFiter(BuildContext context) {
   bool filterVolunteer = true;
@@ -19,7 +22,9 @@ void onFiter(BuildContext context) {
       backgroundColor: ColorTheme().white,
       isScrollControlled: true,
       context: context,
-      builder: (ctx) => StatefulBuilder(builder: (context, setState) {
+      builder: (ctx) => BlocBuilder<SearchVolunteerBloc, SearchVolunteerState>(
+              builder: (context, state) {
+            var search = state.searchVolunteer;
             return Container(
               padding: EdgeInsets.only(
                   top: MediaQueryData.fromWindow(WidgetsBinding.instance.window)
@@ -37,11 +42,15 @@ void onFiter(BuildContext context) {
                     onClick: () {
                       Navigator.of(context).pop(true);
                     },
-                    //  imgPath: 'assets/images/exit_icon.png',
+                    imgPath: 'assets/images/exit_icon.png',
                   ),
                   actions: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        context
+                            .read<SearchVolunteerBloc>()
+                            .add(OnFilter(type: FilterType.reset));
+                      },
                       child: Container(
                           alignment: Alignment.center,
                           padding: EdgeInsets.only(right: 10),
@@ -58,7 +67,6 @@ void onFiter(BuildContext context) {
                       width: MediaQuery.of(context).size.width,
                       child: Column(
                         children: [
-                          //โรคประจำตัว
                           Container(
                             child: Column(
                               children: [
@@ -75,22 +83,40 @@ void onFiter(BuildContext context) {
                                 Row(
                                   children: [
                                     selectGender(context,
-                                        active: false,
+                                        active:
+                                            search.gender == Gender.femaleCode,
                                         imgActive:
                                             'assets/images/woman_volunteer_white.png',
                                         imgInactive:
                                             'assets/images/woman_volunteer_black.png',
-                                        title: 'ผู้หญิง'),
+                                        title: 'ผู้หญิง', onClick: () {
+                                      context.read<SearchVolunteerBloc>().add(
+                                          OnFilter(
+                                              type: FilterType.gender,
+                                              value: search.gender ==
+                                                      Gender.femaleCode
+                                                  ? ''
+                                                  : Gender.femaleCode));
+                                    }),
                                     const SizedBox(
                                       width: 10,
                                     ),
                                     selectGender(context,
-                                        active: true,
+                                        active:
+                                            search.gender == Gender.maleCode,
                                         imgActive:
                                             'assets/images/man_volunteer_white.png',
                                         imgInactive:
                                             'assets/images/man_volunteer_black.png',
-                                        title: 'ผู้ชาย'),
+                                        title: 'ผู้ชาย', onClick: () {
+                                      context.read<SearchVolunteerBloc>().add(
+                                          OnFilter(
+                                              type: FilterType.gender,
+                                              value: search.gender ==
+                                                      Gender.maleCode
+                                                  ? ''
+                                                  : Gender.maleCode));
+                                    }),
                                   ],
                                 ),
                                 const SizedBox(
@@ -105,7 +131,8 @@ void onFiter(BuildContext context) {
                           const SizedBox(
                             height: 10,
                           ),
-                          //ระยะทาง
+                          //TODO
+                          /*   //ระยะทาง
                           Container(
                             alignment: Alignment.centerLeft,
                             child: Column(
@@ -127,7 +154,9 @@ void onFiter(BuildContext context) {
                                   activeColor: color.DartBlue,
                                   inactiveColor: color.greyText,
                                   label: 0.round().toString(),
-                                  onChanged: (double value) {},
+                                  onChanged: (double value) {
+
+                                  },
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -148,10 +177,8 @@ void onFiter(BuildContext context) {
                                 )
                               ],
                             ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          ), */
+
                           //ประสบการฯ์การทำงาน
                           Container(
                             alignment: Alignment.centerLeft,
@@ -168,14 +195,24 @@ void onFiter(BuildContext context) {
                                   height: 20,
                                 ),
                                 Slider(
-                                  value: 0,
-                                  max: 5,
-                                  divisions: 1,
+                                  value: search.maxExperience.toDouble(),
+                                  max: 4,
+                                  divisions: 4,
+                                  min: 0,
                                   thumbColor: color.DartBlue,
                                   activeColor: color.DartBlue,
                                   inactiveColor: color.greyText,
-                                  label: 0.round().toString(),
-                                  onChanged: (double value) {},
+                                  label: search.maxExperience.round() < 1
+                                      ? '<1 ปี'
+                                      : search.maxExperience.round() > 3
+                                          ? '>3 ปี'
+                                          : '${search.maxExperience.round().toString()} ปี',
+                                  onChanged: (double value) {
+                                    context.read<SearchVolunteerBloc>().add(
+                                        OnFilter(
+                                            type: FilterType.experient,
+                                            value: value.round()));
+                                  },
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -229,11 +266,22 @@ void onFiter(BuildContext context) {
                                   children: [
                                     Flexible(
                                         child: TextFieldWidget.enable(
-                                            suffix: true,
-                                            suffixTxt: 'ปี',
-                                            text: '',
-                                            textNumberType: true,
-                                            maxLength: 100)),
+                                      suffix: true,
+                                      suffixTxt: 'ปี',
+                                      text: search.minAge != 0
+                                          ? search.minAge.toString()
+                                          : '',
+                                      textNumberType: true,
+                                      maxLength: 100,
+                                      onFieldSubmitted: () {},
+                                      onChanged: (value) {
+                                        int age = int.tryParse(value) ?? 0;
+                                        context.read<SearchVolunteerBloc>().add(
+                                            OnFilter(
+                                                type: FilterType.minAge,
+                                                value: age));
+                                      },
+                                    )),
                                     Padding(
                                       padding:
                                           EdgeInsets.only(left: 20, right: 20),
@@ -242,11 +290,22 @@ void onFiter(BuildContext context) {
                                     ),
                                     Flexible(
                                         child: TextFieldWidget.enable(
-                                            suffix: true,
-                                            suffixTxt: 'ปี',
-                                            text: '',
-                                            textNumberType: true,
-                                            maxLength: 100)),
+                                      suffix: true,
+                                      suffixTxt: 'ปี',
+                                      text: search.maxAge != 0
+                                          ? search.maxAge.toString()
+                                          : '',
+                                      textNumberType: true,
+                                      maxLength: 100,
+                                      onChanged: (value) {
+                                        int age = int.tryParse(value) ?? 0;
+                                        context.read<SearchVolunteerBloc>().add(
+                                            OnFilter(
+                                                type: FilterType.maxAge,
+                                                value: age));
+                                      },
+                                      onFieldSubmitted: () {},
+                                    )),
                                   ],
                                 ),
                                 const SizedBox(
@@ -269,47 +328,69 @@ void onFiter(BuildContext context) {
                                         children: [
                                           for (int i = 4; i >= 0; i--)
                                             Flexible(
-                                                child: Container(
-                                              padding: EdgeInsets.only(
-                                                  top: 5, bottom: 5),
-                                              margin:
-                                                  EdgeInsets.only(right: 10),
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: true
-                                                        ? color.DartBlue
-                                                        : color.GreyBorder),
-                                                color: true
-                                                    ? color.DartBlue
-                                                    : color.grey10,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20)),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  textH7(
-                                                    (i + 1).toString(),
-                                                    true
-                                                        ? color.white
-                                                        : color.black87,
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Image.asset(
-                                                    true
-                                                        ? 'assets/images/star_white.png'
-                                                        : 'assets/images/star_outline.png',
-                                                    scale: 3,
-                                                    color: true
-                                                        ? color.white
-                                                        : null,
-                                                  ),
-                                                ],
+                                                child: InkWell(
+                                              onTap: () {
+                                                FilterType type =
+                                                    FilterType.addRate;
+                                                if (search.ratings
+                                                    .contains(i + 1)) {
+                                                  type = FilterType.delRate;
+                                                }
+
+                                                context
+                                                    .read<SearchVolunteerBloc>()
+                                                    .add(OnFilter(
+                                                        type: type,
+                                                        value: i + 1));
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.only(
+                                                    top: 5, bottom: 5),
+                                                margin:
+                                                    EdgeInsets.only(right: 10),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: search.ratings
+                                                              .contains(i + 1)
+                                                          ? color.DartBlue
+                                                          : color.GreyBorder),
+                                                  color: search.ratings
+                                                          .contains(i + 1)
+                                                      ? color.DartBlue
+                                                      : color.grey10,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20)),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    textH7(
+                                                      (i + 1).toString(),
+                                                      search.ratings
+                                                              .contains(i + 1)
+                                                          ? color.white
+                                                          : color.black87,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Image.asset(
+                                                      search.ratings
+                                                              .contains(i + 1)
+                                                          ? 'assets/images/star_white.png'
+                                                          : 'assets/images/star_outline.png',
+                                                      scale: 3,
+                                                      color: search.ratings
+                                                              .contains(i + 1)
+                                                          ? color.white
+                                                          : null,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ))
                                         ],
@@ -331,6 +412,9 @@ void onFiter(BuildContext context) {
                             btnName: 'ค้นหา',
                             onClick: () {
                               Navigator.of(context).pop(true);
+                              context
+                                  .read<SearchVolunteerBloc>()
+                                  .add(SearchVolunteer(search: search));
                             },
                           )
                         ],
