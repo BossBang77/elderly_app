@@ -58,6 +58,8 @@ dependencies:
   screenshot: ^1.1.0
   document_file_save_plus: ^1.0.4
   jwt_decoder: ^2.0.1
+  qr_code_scanner: ^1.0.1
+  scan: ^1.6.0
 
 dev_dependencies:
   build_runner:

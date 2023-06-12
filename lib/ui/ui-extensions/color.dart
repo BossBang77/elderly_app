@@ -50,14 +50,15 @@ class ColorTheme {
   final Color DartBlue = HexColor('#0267D0');
   final Color DarkRed = HexColor('#C84032');
   final Color scaffoldGreyBackground = HexColor('#F5F5F5');
+  final Color lightBlue = HexColor('#F3F7F9');
 }
 
 class StyleBorder {
-  BoxDecoration greyDecoration({double radius = 20}) {
+  BoxDecoration greyDecoration({double radius = 20, bool isBorder = true}) {
     return BoxDecoration(
-        color: color.grey10,
+        color: color.grey10.withOpacity(0.05),
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        border: Border.all(color: color.GreyBorder));
+        border: isBorder ? Border.all(color: color.GreyBorder) : null);
   }
 
   BoxDecoration blueDecoration({double radius = 20}) {

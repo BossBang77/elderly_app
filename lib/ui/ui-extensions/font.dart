@@ -218,8 +218,10 @@ Widget textSubtitle18W800(String text, Color color) {
           fontWeight: FontWeight.w800));
 }
 
-Widget textSubtitle24W700(String text, Color color) {
+Widget textSubtitle24W700(String text, Color color,
+    {TextAlign align = TextAlign.start}) {
   return Text(text,
+      textAlign: align,
       style: TextStyle(
           color: color,
           fontSize: 24.sp,
@@ -227,8 +229,10 @@ Widget textSubtitle24W700(String text, Color color) {
           fontWeight: FontWeight.w700));
 }
 
-Widget textSubtitle16Blod(String text, Color color) {
+Widget textSubtitle16Blod(String text, Color color,
+    {TextAlign align = TextAlign.start}) {
   return Text(text,
+      textAlign: align,
       style: TextStyle(
           color: color,
           fontSize: 16.sp,
