@@ -7,16 +7,10 @@ part 'rating_res_model.g.dart';
 @JsonSerializable()
 class RatingResModel {
   const RatingResModel(
-      {this.totals = 10,
+      {this.totals = 0,
       this.rating = 0,
-      this.ratingCount = const [
-        RatingCountModel(count: 1, rating: 4),
-        RatingCountModel(count: 9, rating: 1)
-      ],
-      this.reviewers = const [
-        ReviewerModel(created: '01-01-2023', rating: 4, description: 'good'),
-        ReviewerModel(created: '01-01-2023', rating: 1, description: 'good1')
-      ]});
+      this.ratingCount = const <RatingCountModel>[],
+      this.reviewers = const <ReviewerModel>[]});
 
   final int totals;
   final int rating;
