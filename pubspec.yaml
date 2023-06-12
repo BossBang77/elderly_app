@@ -54,6 +54,7 @@ dependencies:
   geocoding: ^2.1.0
   geolocator: ^9.0.2
   video_player:
+  encrypt: ^5.0.1
 
 dev_dependencies:
   build_runner:
