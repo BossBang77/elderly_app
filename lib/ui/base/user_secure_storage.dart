@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:health_application/ui/signIn_page/model/login_model.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:health_application/ui/signIn_page/model/role_model.dart';
 
 class UserSecureStorage {
@@ -55,6 +56,12 @@ class UserSecureStorage {
 
   Future<String> getValueForKey({required String forKey}) async {
     return await _storage.read(key: forKey) ?? '';
+  }
+
+  Future getUID() async {
+    LoginModel user = await getUserData();
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(user.accessToken);
+    return decodedToken['uid'] ?? '';
   }
 }
 
