@@ -133,6 +133,9 @@ class VolunteerWidget extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
+
+                          //TODO  no api this part
+                          /*
                           textSubtitle18Blod(
                               'จิตอาสาใกล้คุณ', ColorTheme().black87),
                           const SizedBox(
@@ -189,7 +192,7 @@ class VolunteerWidget extends StatelessWidget {
                                   nearVolunteer(context)
                               ],
                             ),
-                          ),
+                          ), */
                           textSubtitle18Blod(
                               'จิตอาสาทั้งหมด', ColorTheme().black87),
                           const SizedBox(
