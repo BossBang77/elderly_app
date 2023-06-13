@@ -46,7 +46,17 @@ class FoodListItemView extends StatelessWidget {
             SizedBox(
               width: 80,
               height: 80,
-              child: Image.asset(image.isEmpty ? image : '', width: 50, height: 50),
+              child: image.isNotEmpty ?
+                Image.network(image.isEmpty ? image : '', width: 50, height: 50) : 
+                Container(
+                  alignment: Alignment.topCenter,
+                  width: 50,
+                  height: 50,
+                  // margin: EdgeInsets.only(top: 150),
+                  child: Center(child: textOverline2(
+                    'Image NotFound', color.greyText)
+                  ),
+                )
             ),
             SizedBox(width: 25),
             Expanded(

@@ -9,13 +9,15 @@ class MealRecordResponseItem {
     this.code = '',
     this.unit = 0,
     this.calorie = 0,
-    this.mame = ''
+    this.mame = '',
+    this.image = ''
   });
   final String id;
   final String code;
   final int unit;
   final double calorie;
   final String mame;
+  final String image;
 
   factory MealRecordResponseItem.fromJson(Map<String, dynamic> json) =>
       _$MealRecordResponseItemFromJson(json);
@@ -26,6 +28,7 @@ class MealRecordResponseItem {
     code,
     unit,
     calorie,
-    mame
+    mame,
+    image
   ];
 }

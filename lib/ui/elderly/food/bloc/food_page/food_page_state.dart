@@ -15,17 +15,18 @@ class FoodPageState extends Equatable {
       Meal(mealType: MealType.lunch),
       Meal(mealType: MealType.snack),
       Meal(mealType: MealType.dinner),
+    ],
+    this.nutrients = const [
+      Calories(value: 0),
+      Fat(value: 0),
+      Protein(value: 0),
+      Carbohydrate(value: 0),
+      Sugar(value: 0),
+      Cholesterol(value: 0)
     ]
   });
 
-  final List<Nutrient> nutrients = [
-    Calories(value: 0),
-    Fat(value: 0),
-    Protein(value: 0),
-    Carbohydrate(value: 0),
-    Sugar(value: 0),
-    Cholesterol(value: 0)
-  ];
+  final List<Nutrient> nutrients;
 
   final List<Meal> meals;
 
@@ -41,6 +42,7 @@ class FoodPageState extends Equatable {
   }) {
     print('${meals?.first.calories} ${meals?.first.mealType}');
     return FoodPageState(
+      nutrients: nutrients ?? this.nutrients,
       meals: meals ?? this.meals
     );
   }

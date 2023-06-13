@@ -73,6 +73,7 @@ class FoodLogBloc extends Bloc<FoodLogEvent, FoodLogState> {
           final snapshot = _mealRecordRepository.mealRecordStreamFor(mealType).value;
           _mealRecordRepository.mealRecordStreamFor(mealType).createSnapshot(snapshot);
         }); 
+        emit(state.copyWith(isSavedCompleted: true));
       }
     );
   }

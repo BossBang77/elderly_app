@@ -10,6 +10,7 @@ class FoodDetail {
   const FoodDetail({
     this.code = '',
     this.name = '',
+    this.image = '',
     this.description = '',
     this.cookingTime = 0,
     this.nutrition = const FoodDetailNutrition(),
@@ -18,6 +19,7 @@ class FoodDetail {
   });
   final String code;
   final String name;
+  final String image;
   final String description;
   final double cookingTime;
   final FoodDetailNutrition nutrition;
@@ -27,6 +29,7 @@ class FoodDetail {
   List<Object?> get props => <Object>[
     code,
     name,
+    image,
     description,
     cookingTime,
     cookingMethods,
