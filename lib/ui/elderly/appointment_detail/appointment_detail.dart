@@ -1,9 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/back_button_circle.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
+import 'package:health_application/ui/elderly/appointment_detail/bloc/appointment_detail_event.dart';
+import 'package:health_application/ui/elderly/appointment_detail/bloc/appointment_detail_state.dart';
+import 'package:health_application/ui/elderly/appointment_detail/bloc/appointment_detial_bloc.dart';
 import 'package:health_application/ui/elderly/appointment_detail/dialog/appointment_approve_dialog.dart';
 import 'package:health_application/ui/elderly/appointment_detail/appointment_common_widget.dart';
 import 'package:health_application/ui/elderly/appointment_detail/appointment_detail_section/appointment_detail_section.dart';
@@ -16,9 +20,9 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 class AppointmentDetailView extends StatefulWidget {
-  const AppointmentDetailView({required this.state});
+  const AppointmentDetailView();
 
-  final AppointmetnPageState state;
+  // final AppointmetnPageState state;
 
   @override
   State<StatefulWidget> createState() => _AppointmentDetailViewState();
@@ -61,7 +65,10 @@ class _AppointmentDetailViewState extends State<AppointmentDetailView> {
             color: ColorTheme().scaffoldGreyBackground,
             borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30))
           ),
-          child: widget.state.body(context)
+          child: BlocBuilder<AppointmentDetailBloc, AppointmentDetailState>(
+            builder: (context, state) => 
+              state.pageState.body(context, state),
+          )
         )
       )
     );

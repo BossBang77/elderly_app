@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
 import 'package:health_application/ui/extension/date_extension.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 class AppointmentItem extends StatelessWidget {
   const AppointmentItem({
+    required this.appointment,
     this.onTap,
     this.onApply
   });
 
+  final Appointment appointment;
   final Function? onTap;
   final Function? onApply;
 
@@ -34,8 +37,8 @@ class AppointmentItem extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    textSubtitle1('นายสมหมาย มงคลจิต', ColorTheme().black87),
-                    textSubtitle2('เพศชาย, 78 ปี', ColorTheme().greyText, false)
+                    textSubtitle1(appointment.eldery.name, ColorTheme().black87),
+                    textSubtitle2('${appointment.eldery.gender}, ${appointment.eldery.age} ปี', ColorTheme().greyText, false)
                   ],
                 ),
                 Spacer(),
@@ -49,7 +52,7 @@ class AppointmentItem extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    textSubtitle2('${DateTime.now().toDisplayFullBuddishDate(locale: 'th')}', ColorTheme().black87, false),
+                    textSubtitle2('${appointment.appointmentDate}', ColorTheme().black87, false),
                     Row(
                       children: [
                         Image.asset('assets/images/appointment_clock.png', width: 12, height: 12),
@@ -60,14 +63,15 @@ class AppointmentItem extends StatelessWidget {
                   ],
                 ),
                 Spacer(),
-                //TODO: find condition to display between status and button
-                // Row(
-                //   children: [
-                //     Image.asset('assets/images/appointment_check.png', width: 14, height: 14),
-                //     SizedBox(width: 6),
-                //     textSubtitle2('เริ่มงาน',ColorTheme().black87, false),
-                //   ]
-                // )
+
+                appointment.isAppointmentConfirm() ? 
+                Row(
+                  children: [
+                    Image.asset('assets/images/appointment_check.png', width: 14, height: 14),
+                    SizedBox(width: 6),
+                    textSubtitle2('เริ่มงาน',ColorTheme().black87, false),
+                  ]
+                ) :
                 GestureDetector(
                   onTap: (){
                     onApply?.call();
