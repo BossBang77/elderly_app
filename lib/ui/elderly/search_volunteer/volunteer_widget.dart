@@ -19,11 +19,13 @@ import '../../google_map/cubit/google_map_cubit.dart';
 import '../../ui-extensions/font.dart';
 
 class VolunteerWidget extends StatelessWidget {
-  const VolunteerWidget({super.key});
+  final String uid;
+  const VolunteerWidget({super.key, required this.uid});
 
   @override
   Widget build(BuildContext context) {
     var sized = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: appBar(
           onBack: () {
@@ -35,6 +37,7 @@ class VolunteerWidget extends StatelessWidget {
           title: 'เรียกจิตอาสา'),
       body: BlocBuilder<SearchVolunteerBloc, SearchVolunteerState>(
         builder: (context, state) {
+          var lastest = state.lastestAppointList.data;
           return Container(
             width: sized.width,
             child: SingleChildScrollView(
@@ -118,18 +121,41 @@ class VolunteerWidget extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          textSubtitle18Blod(
-                              'เรียกล่าสุด', ColorTheme().black87),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            children: [
-                              lastVolunteer(context, onClick: () {}),
-                              lastVolunteer(context, onClick: () {}),
-                              lastVolunteer(context, onClick: () {})
-                            ],
-                          ),
+                          if (lastest.isNotEmpty)
+                            Column(
+                              children: [
+                                textSubtitle18Blod(
+                                    'เรียกล่าสุด', ColorTheme().black87),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: sized.width * 0.9,
+                                      height: sized.height * 0.25,
+                                      child: ListView(
+                                        scrollDirection: Axis.horizontal,
+                                        children: <Widget>[
+                                          for (int i = 0;
+                                              i < lastest.length;
+                                              i++)
+                                            lastVolunteer(context, onClick: () {
+                                              context
+                                                  .read<SearchVolunteerBloc>()
+                                                  .add(GetDetailVolunteer(
+                                                      id: lastest[i]
+                                                          .volunteer
+                                                          .profileId));
+                                            }, detail: lastest[i])
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+
                           const SizedBox(
                             height: 20,
                           ),

@@ -9,7 +9,10 @@ class SearchVolunteerState extends Equatable {
       this.currentVolunteerDetail = const VolunteerFullDetail(),
       this.reviews = const RatingResModel(),
       this.reviewSort = 0,
-      this.status = SearchStatus.initial});
+      this.status = SearchStatus.initial,
+      this.createAppointment = const CreateAppointmentModel(),
+      this.currentVolunteerUid = '',
+      this.lastestAppointList = const AppointList()});
   final SearchVolunteerView searchVolunteerView;
   final SearchVolunteerModel searchVolunteerSubmit;
   final SearchVolunteerModel searchVolunteer;
@@ -18,6 +21,9 @@ class SearchVolunteerState extends Equatable {
   final RatingResModel reviews;
   final int reviewSort;
   final SearchStatus status;
+  final CreateAppointmentModel createAppointment;
+  final String currentVolunteerUid;
+  final AppointList lastestAppointList;
 
   SearchVolunteerState copyWith(
       {SearchVolunteerView? searchVolunteerView,
@@ -27,7 +33,10 @@ class SearchVolunteerState extends Equatable {
       VolunteerFullDetail? currentVolunteerDetail,
       RatingResModel? reviews,
       int? reviewSort,
-      SearchStatus? status}) {
+      SearchStatus? status,
+      CreateAppointmentModel? createAppointment,
+      String? currentVolunteerUid,
+      AppointList? lastestAppointList}) {
     return SearchVolunteerState(
         searchVolunteerView: searchVolunteerView ?? this.searchVolunteerView,
         searchVolunteer: searchVolunteer ?? this.searchVolunteer,
@@ -38,7 +47,10 @@ class SearchVolunteerState extends Equatable {
             currentVolunteerDetail ?? this.currentVolunteerDetail,
         reviews: reviews ?? this.reviews,
         reviewSort: reviewSort ?? this.reviewSort,
-        status: status ?? this.status);
+        status: status ?? this.status,
+        createAppointment: createAppointment ?? this.createAppointment,
+        currentVolunteerUid: currentVolunteerUid ?? this.currentVolunteerUid,
+        lastestAppointList: lastestAppointList ?? this.lastestAppointList);
   }
 
   @override
@@ -50,7 +62,10 @@ class SearchVolunteerState extends Equatable {
         currentVolunteerDetail,
         reviews,
         reviewSort,
-        status
+        status,
+        createAppointment,
+        currentVolunteerUid,
+        lastestAppointList
       ];
 }
 
@@ -63,20 +78,6 @@ enum SearchVolunteerView {
   AppointVolunteer,
 }
 
-var appointType = ['ดูแลผู้สูงอายุ', 'ทำกายภาพบำบัด', 'พาไปนอกสถานที่'];
-var timeLength = [
-  '08:00 - 09:00 น.',
-  '09:00 - 10:00 น.',
-  '10:00 - 11:00 น.',
-  '11:00 - 12:00 น.',
-  '12:00 - 13:00 น.',
-  '13:00 - 14:00 น.',
-  '14:00 - 15:00 น.',
-  '15:00 - 16:00 น.',
-  '16:00 - 17:00 น.',
-  '17:00 - 18:00 น.'
-];
-
 enum FilterType {
   keyword,
   gender,
@@ -88,4 +89,24 @@ enum FilterType {
   reset
 }
 
-enum SearchStatus { initial, getDetailFail, getDetailSuccess }
+enum CreateAppointObj {
+  addType,
+  delType,
+  appointmentDate,
+  addAppointmentTimes,
+  delAppointmentTimes,
+  note,
+  address,
+  elderlyId,
+  volunteerId
+}
+
+enum SearchStatus {
+  initial,
+  getDetailFail,
+  getDetailSuccess,
+  createAppointSuccess,
+  createAppointmentFail
+}
+
+enum AppointStatus { CREATE, WAITING_TO_START, START, COMPLETE, REJECT }

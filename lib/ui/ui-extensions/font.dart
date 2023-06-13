@@ -129,6 +129,7 @@ Widget textButton1(String text, Color color,
     {TextAlign align = TextAlign.start, int maxLines = 1}) {
   return Text(text,
       maxLines: maxLines,
+      softWrap: true,
       overflow: TextOverflow.ellipsis,
       textAlign: align,
       style: TextStyle(

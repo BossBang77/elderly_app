@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:health_application/ui/base/appoint_detail_card/bloc/appointment_card_bloc.dart';
 import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
 import 'package:health_application/ui/base/data_provider.dart';
 import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
@@ -52,6 +53,9 @@ class MyApp extends StatelessWidget {
               ),
               BlocProvider(
                 create: (context) => SearchVolunteerBloc(),
+              ),
+              BlocProvider(
+                create: (context) => AppointmentCardBloc(),
               ),
             ],
             child: Builder(builder: (context) {

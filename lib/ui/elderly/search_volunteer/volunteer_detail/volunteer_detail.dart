@@ -424,7 +424,10 @@ class VolunteerDetailWidget extends StatelessWidget {
                           ),
                           ButtonGradient(
                             btnName: 'นัดหมาย',
-                            onClick: () {
+                            onClick: () async {
+                              await context
+                                  .read<SearchVolunteerBloc>()
+                                  .initialState();
                               context.read<SearchVolunteerBloc>().add(
                                   Changeview(
                                       view: SearchVolunteerView

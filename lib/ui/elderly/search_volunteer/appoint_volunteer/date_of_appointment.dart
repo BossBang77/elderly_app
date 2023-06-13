@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/line_date_picker/line_date_picker.dart';
+import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
+import 'package:health_application/ui/extension/date_extension.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 import '../../../ui-extensions/color.dart';
@@ -70,7 +73,11 @@ class DateOfAppointment extends StatelessWidget {
             selectionColor: ColorTheme().blueText,
             deactivatedColor: ColorTheme().grey10,
             selectedTextColor: color.white,
-            onDateChange: (date) {},
+            onDateChange: (date) {
+              context.read<SearchVolunteerBloc>().add(MapCreateAppointment(
+                  createObj: CreateAppointObj.appointmentDate,
+                  value: date.toDisplayApiFormat()));
+            },
           ),
         ),
         const SizedBox(

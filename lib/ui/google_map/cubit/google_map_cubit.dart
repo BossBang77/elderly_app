@@ -25,11 +25,9 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
       "assets/images/marker_icon.png",
     );
     apiKey = await rootBundle.loadString('assets/GoogleMapApiKey.text');
-    print(apiKey);
     await _locations.getCurrentUserLocation();
     double userLati = _locations.latitude;
     double userLongti = _locations.longtitude;
-    print("Location :$userLongti, $userLongti");
     userLatiPick = userLati;
     userLongtiPick = userLongti;
 
@@ -83,7 +81,6 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
         latitude: userLatiPick,
         longitude: userLongtiPick,
         locationName: locationName));
-    emit(initialState());
   }
 
   Future<String> getAddress(LatLng latLng) async {

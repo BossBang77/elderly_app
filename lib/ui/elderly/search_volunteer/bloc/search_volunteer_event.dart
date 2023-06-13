@@ -22,7 +22,10 @@ class SearchVolunteer extends SearchVolunteerEvent {
 }
 
 class Intital extends SearchVolunteerEvent {
-  const Intital();
+  final String elderlyId;
+  const Intital({this.elderlyId = ''});
+  @override
+  List<Object> get props => [elderlyId];
 }
 
 class GetDetailVolunteer extends SearchVolunteerEvent {
@@ -53,4 +56,30 @@ class UpdateSearchStatus extends SearchVolunteerEvent {
   const UpdateSearchStatus({this.status = SearchStatus.initial});
   @override
   List<Object> get props => [status];
+}
+
+class MapCreateAppointment extends SearchVolunteerEvent {
+  final CreateAppointObj createObj;
+  final dynamic value;
+  const MapCreateAppointment({required this.createObj, this.value = ''});
+  @override
+  List<Object> get props => [createObj, value];
+}
+
+class IntialAppointment extends SearchVolunteerEvent {
+  const IntialAppointment();
+}
+
+class AcceptAppointment extends SearchVolunteerEvent {
+  final String elderltId;
+  const AcceptAppointment({required this.elderltId});
+  @override
+  List<Object> get props => [elderltId];
+}
+
+class SearchCompleteAppointment extends SearchVolunteerEvent {
+  final String elderlyId;
+  const SearchCompleteAppointment({required this.elderlyId});
+  @override
+  List<Object> get props => [elderlyId];
 }
