@@ -59,6 +59,8 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
     Set<Marker> markers = {};
     String title = await getAddress(LatLng(latitude, longitude));
     locationName = title;
+    userLatiPick = latitude;
+    userLongtiPick = longitude;
 
     markers.add(Marker(
       markerId: MarkerId("Home"),

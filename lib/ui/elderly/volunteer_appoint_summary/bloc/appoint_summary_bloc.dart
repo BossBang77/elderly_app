@@ -48,14 +48,12 @@ int getStatusNumber(String status) {
 }
 
 void launchMapsUrl(double lat, double lon) async {
-  print('click');
-  final Uri launchUri = Uri(
-    path: 'https://www.google.com/maps/search/?api=1&query=$lat,$lon',
-  );
-  try {
-    await launchUrl(launchUri);
-  } catch (e) {
-    print(e);
+  String googleUrl =
+      'https://www.google.com/maps/search/?api=1&query=$lat,$lon';
+  if (await canLaunch(googleUrl)) {
+    await launch(googleUrl);
+  } else {
+    throw 'Could not open the map.';
   }
 }
 

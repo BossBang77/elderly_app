@@ -182,8 +182,6 @@ class PersonalInformation extends StatelessWidget {
                       nameAddress: locationName);
                   context.read<SearchVolunteerBloc>().add(MapCreateAppointment(
                       createObj: CreateAppointObj.address, value: _locations));
-
-                  // TODO integrate
                 });
               },
               child: Row(
