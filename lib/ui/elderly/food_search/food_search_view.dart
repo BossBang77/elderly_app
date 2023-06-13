@@ -131,7 +131,7 @@ class _FoodSearchViewState extends State<FoodSearchView> {
                   sectionHeaderTitle: 'รายการอาหารทั้งหมด',
                   children: state.searchResults.map((result) => 
                     FoodListItemView(
-                      image: 'result.image', 
+                      image: result.image, 
                       name: result.name, 
                       calories: Calories(value: result.calorie),
                       onTap: () {

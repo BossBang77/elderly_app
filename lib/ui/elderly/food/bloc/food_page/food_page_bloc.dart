@@ -5,7 +5,12 @@ import 'package:health_application/ui/elderly/food/bloc/food_page/food_page_even
 import 'package:health_application/ui/elderly/food/bloc/food_page/food_page_state.dart';
 import 'package:health_application/ui/elderly/food/model/food/meal.dart';
 import 'package:health_application/ui/elderly/food/model/nutritions/calories.dart';
+import 'package:health_application/ui/elderly/food/model/nutritions/carbohydrate.dart';
+import 'package:health_application/ui/elderly/food/model/nutritions/cholesterol.dart';
+import 'package:health_application/ui/elderly/food/model/nutritions/fat.dart';
 import 'package:health_application/ui/elderly/food/model/nutritions/nutrient.dart';
+import 'package:health_application/ui/elderly/food/model/nutritions/protein.dart';
+import 'package:health_application/ui/elderly/food/model/nutritions/sugar.dart';
 import 'package:health_application/ui/elderly/food_log/model/response/meal_record_response.dart';
 import 'package:health_application/ui/elderly/food_log/repository/meal_record_item.dart';
 import 'package:health_application/ui/elderly/food_log/repository/meal_record_repository.dart';
@@ -57,7 +62,8 @@ class FoodPageBloc extends Bloc<FoodPageEvent, FoodPageState> {
       }, 
       (response) {
         List<Meal> newList = _mapListMealFromResponse(response);
-        emit(state.copyWith(meals: newList));
+        List<Nutrient> nutritionFact = _mapNutritionFactSummary(response);
+        emit(state.copyWith(meals: newList, nutrients: nutritionFact));
       }
     );
   }
@@ -80,6 +86,17 @@ class FoodPageBloc extends Bloc<FoodPageEvent, FoodPageState> {
         mealType: MealType.dinner, 
         foods: response.data.dinner.map((meal) => MealRecordItem.fromResponse(meal)).toList()
       )
+    ];
+  }
+
+  List<Nutrient> _mapNutritionFactSummary(MealRecordResponse response) {
+    return [
+      Calories(value: response.data.nutritionFactSummary.calorie),
+      Fat(value: response.data.nutritionFactSummary.fat),
+      Protein(value: response.data.nutritionFactSummary.protein),
+      Carbohydrate(value: response.data.nutritionFactSummary.carbohydrate),
+      Sugar(value: response.data.nutritionFactSummary.sugar),
+      Cholesterol(value: response.data.nutritionFactSummary.cholesterol)
     ];
   }
 }

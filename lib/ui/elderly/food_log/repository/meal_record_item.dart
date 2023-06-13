@@ -6,13 +6,15 @@ class MealRecordItem {
     this.code = '',
     this.unit = 0,
     this.calorie = 0,
-    this.name = ''
+    this.name = '',
+    this.image = ''
   });
 
   final String code;
   final int unit;
   final double calorie;
   final String name;
+  final String image;
 
   factory MealRecordItem.fromResponse(MealRecordResponseItem meal) {
     return MealRecordItem(
@@ -28,7 +30,8 @@ class MealRecordItem {
       code: meal.code,
       unit: 1,
       calorie: meal.calorie,
-      name: meal.name
+      name: meal.name,
+      image: meal.image
     );
   }
 }
