@@ -1,6 +1,14 @@
 part of 'home_page_bloc.dart';
 
-enum menuType { mainPage, foodPage, exercisePage, drinkingPage, profilePage }
+enum menuType {
+  mainPage,
+  foodPage,
+  exercisePage,
+  drinkingPage,
+  profilePage,
+  appointment,
+  message
+}
 
 class HomePageState extends Equatable {
   const HomePageState({this.menus = menuType.mainPage});
