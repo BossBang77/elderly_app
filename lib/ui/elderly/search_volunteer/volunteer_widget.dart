@@ -15,6 +15,7 @@ import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/register_profile/register_profile_page.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 
+import '../../base/appoint_detail_card/bloc/appointment_card_bloc.dart';
 import '../../google_map/cubit/google_map_cubit.dart';
 import '../../ui-extensions/font.dart';
 
@@ -103,7 +104,12 @@ class VolunteerWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (true)
+                          if (context
+                              .read<AppointmentCardBloc>()
+                              .state
+                              .appointList
+                              .data
+                              .isNotEmpty)
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
