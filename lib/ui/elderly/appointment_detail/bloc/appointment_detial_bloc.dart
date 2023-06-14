@@ -42,6 +42,7 @@ class AppointmentDetailBloc extends Bloc<AppointmentDetailEvent, AppointmentDeta
           appointments[index] = updatedAppointment;
           final List<Appointment> newAppointmentList = List.from(appointments);
           _appointmentRepository.incompletedListController.sink.add(newAppointmentList);
+          _appointmentRepository.currentIncompleteList = newAppointmentList;
         } else {
           final appointments = List.from(_appointmentRepository.currentIncompleteList);
           final index = appointments.indexWhere((element) => element.id == state.appointment.id);
@@ -53,7 +54,9 @@ class AppointmentDetailBloc extends Bloc<AppointmentDetailEvent, AppointmentDeta
           appointments.removeAt(index);
           final List<Appointment> newAppointmentList = List.from(appointments);
           _appointmentRepository.incompletedListController.sink.add(newAppointmentList);
+          _appointmentRepository.currentIncompleteList = newAppointmentList;
           _appointmentRepository.completedListController.sink.add(List.from(completedAppointmentList));
+          _appointmentRepository.currentCompleteList = List.from(completedAppointmentList);
         }
         emit(newState);
       }
