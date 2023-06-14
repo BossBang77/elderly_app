@@ -12,6 +12,7 @@ import 'package:health_application/ui/home_page/home_widget.dart';
 import 'package:health_application/ui/home_page/volunteer_home_widget.dart';
 import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
+import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 import 'package:health_application/ui/user_profile/user_profile_page.dart';
 
 import '../ui-extensions/font.dart';
@@ -21,11 +22,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<String> getRole() async {
-      var roleList = await UserSecureStorage().getRole();
-      return roleList[0].role;
-    }
-
+    context.read<HomePageBloc>().add(Initstate());
     return Scaffold(
         body: BlocConsumer<HomePageBloc, HomePageState>(
       listener: (context, state) {},
@@ -179,14 +176,10 @@ class HomePage extends StatelessWidget {
           );
         }
 
-        Widget _pageView() {
+        Widget _volunteerPageView() {
           switch (state.menus) {
             case menuType.mainPage:
-              return HomeWidget();
-            case menuType.appointment:
-              return WaterIntakePage();
-            case menuType.message:
-              return ExercisePage();
+              return VolunteerHomeWidget();
             case menuType.profilePage:
               return UserProfilePage();
             // TODO case next page
@@ -200,10 +193,10 @@ class HomePage extends StatelessWidget {
           }
         }
 
-        Widget _volunteerPageView() {
+        Widget _pageView() {
           switch (state.menus) {
             case menuType.mainPage:
-              return VolunteerHomeWidget();
+              return HomeWidget();
             case menuType.drinkingPage:
               return WaterIntakePage();
             case menuType.exercisePage:
@@ -225,13 +218,14 @@ class HomePage extends StatelessWidget {
 
         return Stack(
           children: [
-            if (getRole() == RoleType.ROLE_USER_ELDERLY.name) ...{
+            if (state.role == RoleType.ROLE_USER_ELDERLY.name) ...{
               _pageView(),
               _bottomNavigationBar()
             } else ...{
               _volunteerPageView(),
               _volunteerButtonNavagateBar()
-            }
+            },
+            if (state.loading) ...{Loader()}
           ],
         );
       },
