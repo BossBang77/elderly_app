@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/dialog/log_out_dialog.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
@@ -90,11 +91,7 @@ class VolunteerProfileWidget extends StatelessWidget {
                             subtitle: 'คุณต้องการออกจากระบบ\nใช่หรือไม่'));
 
                     if (res) {
-                      await UserSecureStorage().clearSession();
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => WelcomePage()),
-                          (Route<dynamic> route) => false);
+                      context.read<UserProfileBloc>().add(UserProfileLoggedOut());
                     }
                   },
                   child: textSubtitle16Blod('ออกจากระบบ', color.Error)),
