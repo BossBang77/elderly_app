@@ -23,9 +23,10 @@ class AppointmentCardBloc
       yield state.copyWith(uid: event.uid);
     }
     if (event is GetAppointList) {
-      var searchAppointList =
-          await _elderlyAppointmentRepository.getAppointList(
-              elderlyProfileId: state.uid, include: AppointStatus.CREATE.name);
+      var searchAppointList = await _elderlyAppointmentRepository.getAppointList(
+          elderlyProfileId: state.uid,
+          include:
+              '${AppointStatus.CREATE.name},${AppointStatus.WAITING_TO_START.name},${AppointStatus.START.name}');
       yield* searchAppointList.fold((Failure err) async* {
         yield state.copyWith(appointList: AppointList());
       }, (AppointList res) async* {

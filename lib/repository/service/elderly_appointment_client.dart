@@ -54,4 +54,22 @@ abstract class ElderlyAppointmentService {
     "Content-Type": "application/json",
   })
   Future<HttpResponse> getAppointById(@Path() String id);
+
+  @GET('/api/v1/volunteer/profile/{id}/get-available-time?date={date}')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> getAvaliableTime(
+    @Path() String id,
+    @Path() String date,
+  );
+
+  @PUT('/api/v1/appointment/update-appointment-status')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> updateStatusAppointment(
+      @Body() Map<String, dynamic> body);
 }

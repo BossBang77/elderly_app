@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:health_application/repository/elderly_appointment_repos.dart';
 import 'package:health_application/ui/base/model/failure.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/appointment/create_appointment.dart';
+import 'package:health_application/ui/elderly/search_volunteer/model/avaliable_time/avaliable_data.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/rating_res_model.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/search_volunteer_model.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/volunteer_detail_res.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/volunteer_full_detail.dart';
+import 'package:health_application/ui/extension/date_extension.dart';
 import 'package:health_application/ui/google_map/locationsModel.dart';
 
 import '../model/appointment/code_model.dart';
@@ -30,6 +32,7 @@ class SearchVolunteerBloc
     if (event is Intital) {
       add(SearchVolunteer(search: SearchVolunteerModel()));
       add(SearchCompleteAppointment(elderlyId: event.elderlyId));
+      add(GetAvaliableTime(date: DateTime.now()));
     }
 
     if (event is Changeview) {
@@ -117,6 +120,18 @@ class SearchVolunteerBloc
         yield state.copyWith(lastestAppointList: AppointList());
       }, (AppointList res) async* {
         yield state.copyWith(lastestAppointList: res);
+      });
+    }
+
+    if (event is GetAvaliableTime) {
+      String? date = event.date!.toDisplayApiFormat();
+      var searchAppointList = await _elderlyAppointmentRepository
+          .getAvaliableTime(state.currentVolunteerUid, date);
+
+      yield* searchAppointList.fold((Failure err) async* {
+        yield state.copyWith(avaliableTime: AvaliableData());
+      }, (AvaliableData res) async* {
+        yield state.copyWith(avaliableTime: res);
       });
     }
   }
@@ -219,6 +234,9 @@ class SearchVolunteerBloc
         nameAddress: _locations.nameAddress);
     add(MapCreateAppointment(
         createObj: CreateAppointObj.address, value: locations));
+    add(MapCreateAppointment(
+        createObj: CreateAppointObj.appointmentDate,
+        value: DateTime.now().toDisplayApiFormat()));
 
     return true;
   }

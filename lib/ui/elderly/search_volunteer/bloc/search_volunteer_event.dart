@@ -83,3 +83,11 @@ class SearchCompleteAppointment extends SearchVolunteerEvent {
   @override
   List<Object> get props => [elderlyId];
 }
+
+class GetAvaliableTime extends SearchVolunteerEvent {
+  final DateTime? date;
+
+  GetAvaliableTime({this.date = null});
+  @override
+  List<Object> get props => [date!];
+}

@@ -12,7 +12,8 @@ class SearchVolunteerState extends Equatable {
       this.status = SearchStatus.initial,
       this.createAppointment = const CreateAppointmentModel(),
       this.currentVolunteerUid = '',
-      this.lastestAppointList = const AppointList()});
+      this.lastestAppointList = const AppointList(),
+      this.avaliableTime = const AvaliableData()});
   final SearchVolunteerView searchVolunteerView;
   final SearchVolunteerModel searchVolunteerSubmit;
   final SearchVolunteerModel searchVolunteer;
@@ -24,6 +25,7 @@ class SearchVolunteerState extends Equatable {
   final CreateAppointmentModel createAppointment;
   final String currentVolunteerUid;
   final AppointList lastestAppointList;
+  final AvaliableData avaliableTime;
 
   SearchVolunteerState copyWith(
       {SearchVolunteerView? searchVolunteerView,
@@ -36,7 +38,8 @@ class SearchVolunteerState extends Equatable {
       SearchStatus? status,
       CreateAppointmentModel? createAppointment,
       String? currentVolunteerUid,
-      AppointList? lastestAppointList}) {
+      AppointList? lastestAppointList,
+      AvaliableData? avaliableTime}) {
     return SearchVolunteerState(
         searchVolunteerView: searchVolunteerView ?? this.searchVolunteerView,
         searchVolunteer: searchVolunteer ?? this.searchVolunteer,
@@ -50,7 +53,8 @@ class SearchVolunteerState extends Equatable {
         status: status ?? this.status,
         createAppointment: createAppointment ?? this.createAppointment,
         currentVolunteerUid: currentVolunteerUid ?? this.currentVolunteerUid,
-        lastestAppointList: lastestAppointList ?? this.lastestAppointList);
+        lastestAppointList: lastestAppointList ?? this.lastestAppointList,
+        avaliableTime: avaliableTime ?? this.avaliableTime);
   }
 
   @override
@@ -65,7 +69,8 @@ class SearchVolunteerState extends Equatable {
         status,
         createAppointment,
         currentVolunteerUid,
-        lastestAppointList
+        lastestAppointList,
+        avaliableTime
       ];
 }
 

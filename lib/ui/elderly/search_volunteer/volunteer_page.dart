@@ -41,7 +41,7 @@ class VolunteerPage extends StatelessWidget {
             builder: (BuildContext context) => ErrorAlertWidget(
                   title: 'เกิดข้อผิดพลาด',
                   subTitle:
-                      "มีบางอย่างผิดพลาดในการบันทึกข้อมูล\nกรุณาลองใหม่อีกครั้ง",
+                      "มีบางอย่างผิดพลาดในการบันทึกข้อมูล\nกรุณาตรวจสอบข้อมูลอีกครั้ง",
                   btnName: 'ตกลง',
                 )) as bool;
 
