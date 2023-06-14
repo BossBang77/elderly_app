@@ -48,6 +48,7 @@ class AppointmentApproveDialog extends StatelessWidget {
       actions: [
         theme.confirmButton(
           onClick: (result){
+            onConfirm?.call();
             Navigator.of(context).pop(result);
           },
         ),

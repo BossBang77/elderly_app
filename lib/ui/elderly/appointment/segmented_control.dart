@@ -11,13 +11,13 @@ class SegmentedControl<ValueType> extends StatefulWidget {
 
   final ValueType? initialValue;
   final List<SegmentedControlItem<ValueType>> items;
-  final Function(ValueType)? onSelect;
+  final void Function(ValueType)? onSelect;
 
   @override
   State<StatefulWidget> createState() => _SegmentedControlState<ValueType>(initialValue: initialValue);
 }
 
-class _SegmentedControlState<ValueType> extends State<SegmentedControl> {
+class _SegmentedControlState<ValueType> extends State<SegmentedControl<ValueType>> {
   _SegmentedControlState({this.initialValue});
   final ValueType? initialValue;
   ValueType? _selectedItem;
@@ -72,4 +72,12 @@ class SegmentedControlItem<ValueType> {
   const SegmentedControlItem({required this.title, required this.value});
   final String title;
   final ValueType value;
+}
+
+enum AppointmentListType {
+  incomplete(title: 'การนัดหมาย'),
+  completed(title: 'ประวัติ');
+
+  const AppointmentListType({required this.title});
+  final String title;
 }

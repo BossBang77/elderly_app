@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_application/ui/elderly/appointment_detail/appointment_status_section/appointment_status_section.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 
 abstract class AppointmentHistoryStatus {
@@ -14,6 +15,16 @@ abstract class AppointmentHistoryStatus {
   
   static var completed = AppointmentHistoryStatusCompleted();
   static var canceled = AppointmentHistoryStatusCanceled();
+
+  static AppointmentHistoryStatus fromString(String status) {
+    if (status == AppointmentStatus.complete.value) {
+      return completed;
+    }
+    if (status == AppointmentStatus.reject.value) {
+      return canceled;
+    }
+    return completed;
+  }
 } 
 
 class AppointmentHistoryStatusCompleted implements AppointmentHistoryStatus {

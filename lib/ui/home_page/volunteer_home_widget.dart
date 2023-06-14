@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
 import 'package:health_application/ui/extension/date_extension.dart';
 import 'package:health_application/ui/home_page/component/appointment_item.dart';
 import 'package:health_application/ui/home_page/component/volunteer_menu.dart';
@@ -154,7 +155,7 @@ class VolunteerHomeWidget extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      AppointmentItem(),
+                      AppointmentItem(appointment: Appointment()),
                       const SizedBox(
                         height: 10,
                       ),
