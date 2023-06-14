@@ -14,6 +14,7 @@ import '../ui-extensions/color.dart';
 
 double userLatiPick = 0;
 double userLongtiPick = 0;
+String locationName = '';
 
 class GoogleMaps extends StatelessWidget {
   final String titleTxt;
@@ -26,7 +27,7 @@ class GoogleMaps extends StatelessWidget {
   double userLongti = 0;
   double storeLati = 0;
   double storeLongti = 0;
-  String locationName = '';
+
   Locations _locations = Locations();
   void _onAddMarkerButtonPressed(
       LatLng latlang, BuildContext context, state) async {

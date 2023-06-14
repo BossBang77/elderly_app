@@ -51,12 +51,22 @@ class FoodLogDetailView extends StatelessWidget {
             color: ColorTheme().white,
             child: Stack(
               children: [
+                state.food.image.isNotEmpty ?
                 Container(
-                  //TODO to integrate image with api
-                  // decoration: BoxDecoration(
-                  //   image: Image.network(src)
-                  // ),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(state.food.image)
+                    )
+                  ),
                   height: 300,
+                ) :
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                  alignment: Alignment.topCenter,
+                  child: Center(child: textOverline2(
+                    'Image NotFound', color.greyText)
+                  ),
                 ),
                 Container(
                   child: Column(

@@ -98,7 +98,7 @@ class MealRecordRepository implements MealRecordRepositoryProtocol {
   Future<Either<Failure, HttpResponse>> saveMealRecord(SaveMealRecordRequest request) async {
     try {
       final response = await _mealRecordService.saveMealRecord(request.toJson());
-      if (response.response.statusCode == StatusCode.success) {
+      if (response.response.statusCode == StatusCode.success || response.response.statusCode == 201) {
         return Right(response);
       }
     } on DioError catch (error) {

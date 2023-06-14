@@ -129,6 +129,7 @@ Widget textButton1(String text, Color color,
     {TextAlign align = TextAlign.start, int maxLines = 1}) {
   return Text(text,
       maxLines: maxLines,
+      softWrap: true,
       overflow: TextOverflow.ellipsis,
       textAlign: align,
       style: TextStyle(
@@ -138,9 +139,11 @@ Widget textButton1(String text, Color color,
           fontWeight: FontWeight.w500));
 }
 
-Widget textButton2(String text, Color color, {int maxline = 1}) {
+Widget textButton2(String text, Color color,
+    {int maxline = 1, TextAlign align = TextAlign.start}) {
   return Text(text,
       maxLines: maxline,
+      textAlign: align,
       style: TextStyle(
         color: color,
         fontSize: 13.sp,
