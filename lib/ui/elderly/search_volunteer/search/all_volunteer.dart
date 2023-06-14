@@ -22,6 +22,17 @@ class AllVolunteer extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
+            if (state.searchRes.data.isEmpty) ...{
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                      child: textSubtitle16Blod('ไม่พบข้อมูล', color.greyText)),
+                ],
+              )
+            },
             Column(
               children: [
                 for (int i = 0; i < state.searchRes.data.length; i++)

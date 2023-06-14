@@ -57,7 +57,7 @@ class VolunteerWidget extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: 130,
+                        top: 100,
                         left: 20,
                         child: InkWell(
                           onTap: () {
