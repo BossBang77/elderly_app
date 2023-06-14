@@ -26,7 +26,7 @@ class VolunteerMenu extends StatelessWidget {
       child: Row(
         children: [
           Container(
-              width: width / 3,
+              width: width / 2.6,
               child: Center(
                   child: textSubtitle2(title, ColorTheme().black87, false))),
         ],
