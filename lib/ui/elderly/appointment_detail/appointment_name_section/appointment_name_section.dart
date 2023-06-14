@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
 import 'package:health_application/ui/elderly/appointment_detail/appointment_name_section/appointment_name_action.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 class AppointmentNameSection extends StatelessWidget {
-  const AppointmentNameSection({this.actions = const[]});
+  const AppointmentNameSection({
+    required this.appointment,
+    this.actions = const[]
+  });
 
+  final Appointment appointment;
   final List<AppointmentNameSectionAction> actions;
 
   @override 
@@ -23,13 +28,13 @@ class AppointmentNameSection extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset('assets/images/profile_woman.png', width: 56, height: 56),
+                  Image.asset(appointment.genderToImagePath(), width: 56, height: 56),
                   SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      textSubtitle1('นางสมร มงคลจิต', ColorTheme().black87),
-                      textSubtitle2('เพศหญิง, 78 ปี', ColorTheme().grey50, false),
+                      textSubtitle1(appointment.elderly.name, ColorTheme().black87),
+                      textSubtitle2('${appointment.genderToDisplayFormat()}, อายุ ${appointment.elderly.age} ปี', ColorTheme().grey50, false),
                       SizedBox(height: 12),
                       Row(
                         children: actions.map((action) => action.body(context)).toList()

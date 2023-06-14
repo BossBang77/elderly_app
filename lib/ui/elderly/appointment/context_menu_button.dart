@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_application/ui/elderly/appointment_detail/appointment_status_section/appointment_status_section.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
@@ -6,17 +7,19 @@ class ContextMenuButton<ValueType> extends StatefulWidget {
   const ContextMenuButton({
     Key? key,
     this.items = const[],
-    this.initialValue
+    this.initialValue,
+    this.onSelect
   }) : super(key: key);
 
   final List<ContextMenuItem<ValueType>> items;
   final ValueType? initialValue;
+  final void Function(ValueType)? onSelect;
 
   @override
   State<StatefulWidget> createState() => _ContextMenuButtonState<ValueType>();
 }
 
-class _ContextMenuButtonState<ValueType> extends State<ContextMenuButton> {
+class _ContextMenuButtonState<ValueType> extends State<ContextMenuButton<ValueType>> {
   _ContextMenuButtonState({this.initialValue});
   
   final GlobalKey key = GlobalKey();
@@ -50,6 +53,7 @@ class _ContextMenuButtonState<ValueType> extends State<ContextMenuButton> {
     setState(() {
       if (result is ValueType) {
         selectedItem = result;
+        widget.onSelect?.call(result);
       }
     });
   }
@@ -91,4 +95,15 @@ class ContextMenuItem<ValueType> {
   });
   final ValueType value;
   final String title;
+}
+
+enum AppointmentTypeFilter {
+  all(title: 'ทั้งหมด', status: null),
+  start(title: 'เริ่มงาน', status: AppointmentStatus.start),
+  waitforstart(title: 'รอเริ่มงาน', status: AppointmentStatus.waitingtostart),
+  waitforapprove(title: 'รอการยืนยัน', status: AppointmentStatus.create);
+
+  const AppointmentTypeFilter({required this.title, this.status});
+  final String title;
+  final AppointmentStatus? status;
 }

@@ -32,7 +32,6 @@ class FoodLogView extends StatelessWidget {
       ),
       body: BlocListener<FoodLogBloc, FoodLogState>(
         listener: (context, state) {
-          print(state.isSavedCompleted);
           if (state.isSavedCompleted == true) {
             Navigator.of(context).pop();
           }

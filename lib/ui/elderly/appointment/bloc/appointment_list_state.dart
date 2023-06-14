@@ -1,0 +1,38 @@
+import 'package:equatable/equatable.dart';
+import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
+import 'package:health_application/ui/elderly/appointment/model/response/elderly.dart';
+import 'package:health_application/ui/elderly/appointment/segmented_control.dart';
+import 'package:health_application/ui/elderly/appointment_detail/appointment_status_section/appointment_status_section.dart';
+
+class AppointmentListState extends Equatable {
+  const AppointmentListState({
+    required this.type,
+    this.offset = 0,
+    this.appointments = const[],
+  this.completedAppointments = const[],
+  });
+
+  final List<Appointment> appointments;
+  final List<Appointment> completedAppointments;
+  final AppointmentListType type;
+
+  final int limit = 20;
+  final int offset;
+  
+  @override
+  List<Object?> get props => [appointments, completedAppointments, type, offset];
+
+  AppointmentListState copyWith({
+    List<Appointment>? appointments,
+    List<Appointment>? completedAppointments,
+    AppointmentListType? type,
+    int? offset
+  }) {
+    return AppointmentListState(
+      appointments: appointments ?? this.appointments,
+      completedAppointments: completedAppointments ?? this.completedAppointments,
+      type: type ?? this.type,
+      offset: offset ?? this.offset
+    );
+  }
+}
