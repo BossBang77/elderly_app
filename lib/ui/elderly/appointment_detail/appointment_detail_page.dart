@@ -6,10 +6,14 @@ import 'package:health_application/ui/elderly/appointment_detail/appointment_det
 import 'package:health_application/ui/elderly/appointment_detail/bloc/appointment_detial_bloc.dart';
 
 class AppointmentDetailPage extends StatelessWidget {
+  const AppointmentDetailPage({required this.appointment});
+
+  final Appointment appointment;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:(context) => AppointmentDetailBloc(Appointment(), AppointmentRepository()),
+      create:(context) => AppointmentDetailBloc(appointment, AppointmentRepository.instance),
       child: AppointmentDetailView(),
     );
   }

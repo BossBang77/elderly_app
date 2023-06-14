@@ -17,24 +17,27 @@ abstract class AppointmentDetailState extends Equatable {
 
   static AppointmentDetailState stateFrom(Appointment appointment) {
     if (appointment.status == AppointmentStatus.create.value) {
-      return AppointmentDetailWaitForApproveState();
+      return AppointmentDetailWaitForApproveState(appointment: appointment);
     }
     if (appointment.status == AppointmentStatus.waitingtostart.value) {
-      return AppointmentDetailWaitForApproveState();
+      return AppointmentDetailApprovedState(appointment: appointment);
     }
     if (appointment.status == AppointmentStatus.start.value) {
       return AppointmentDetailApprovedState(appointment: appointment);
     }
-    if (appointment.status == AppointmentStatus.complete || appointment.status == AppointmentStatus.reject) {
+    if (appointment.status == AppointmentStatus.complete.value || appointment.status == AppointmentStatus.reject.value) {
       return AppointmentDetailHistoryState(appointment: appointment);
     }
-    return AppointmentDetailWaitForApproveState();
+    return AppointmentDetailWaitForApproveState(appointment: appointment);
   }
 }
 
 class AppointmentDetailWaitForApproveState extends AppointmentDetailState {
-  const AppointmentDetailWaitForApproveState();
+  const AppointmentDetailWaitForApproveState({
+    required this.appointment
+  });
 
+  final Appointment appointment;
   AppointmetnPageState get pageState => AppointmetnPageStateWaitForApprove();
 
   @override

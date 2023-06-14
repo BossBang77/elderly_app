@@ -29,7 +29,7 @@ class AppointmentStatusSection extends StatelessWidget {
           ),
           SizedBox(height: 24),
           AppointmentStatusStep(
-            stepValues: AppointmentStatus.values.mapIndexed((index, status) => 
+            stepValues: AppointmentStatus.values.where((element) => element != AppointmentStatus.reject).mapIndexed((index, status) => 
               AppointmentStatusItem(value: status, title: (index + 1).toString(), description: status.title)
             ).toList(), 
             width: MediaQuery.of(context).size.width - 48,

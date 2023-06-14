@@ -11,7 +11,7 @@ class Appointment {
   const Appointment({
     this.id = '',
     this.status = '',
-    this.eldery = const Elderly(),
+    this.elderly = const Elderly(),
     this.volunteer = const Volunteer(),
     this.types = const[],
     this.appointmentDate = '',
@@ -24,7 +24,7 @@ class Appointment {
 
   final String id;
   final String status;
-  final Elderly eldery;
+  final Elderly elderly;
   final Volunteer volunteer;
   final List<AppointmentGenericData> types;
   final String appointmentDate;
@@ -40,7 +40,7 @@ class Appointment {
   List<Object?> get props => <Object>[
     id,
     status,
-    eldery,
+    elderly,
     volunteer,
     types,
     appointmentDate,
@@ -55,7 +55,7 @@ class Appointment {
     return Appointment(
       id: this.id,
       status: status,
-      eldery: this.eldery,
+      elderly: this.elderly,
       volunteer: this.volunteer,
       types: this.types,
       appointmentDate: this.appointmentDate,
@@ -72,5 +72,23 @@ class Appointment {
       return false;
     }
     return true;
+  }
+
+  String genderToDisplayFormat() {
+    if (elderly.gender == 'MALE') {
+      return 'เพศชาย';
+    } else if (elderly.gender == 'FEMALE') {
+      return 'เพศหญิง';
+    }
+    return '';
+  }
+
+  String genderToImagePath() {
+    if (elderly.gender == 'MALE') {
+      return 'assets/images/profile_man.png';
+    } else if (elderly.gender == 'FEMALE') {
+      return 'assets/images/profile_woman.png';
+    }
+    return 'assets/images/profile_woman.png';
   }
 }

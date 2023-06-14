@@ -28,13 +28,13 @@ class AppointmentNameSection extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset('assets/images/profile_woman.png', width: 56, height: 56),
+                  Image.asset(appointment.genderToImagePath(), width: 56, height: 56),
                   SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      textSubtitle1(appointment.eldery.name, ColorTheme().black87),
-                      textSubtitle2('${appointment.eldery.gender}, ${appointment.eldery.age} ปี', ColorTheme().grey50, false),
+                      textSubtitle1(appointment.elderly.name, ColorTheme().black87),
+                      textSubtitle2('${appointment.genderToDisplayFormat()}, อายุ ${appointment.elderly.age} ปี', ColorTheme().grey50, false),
                       SizedBox(height: 12),
                       Row(
                         children: actions.map((action) => action.body(context)).toList()

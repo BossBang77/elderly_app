@@ -23,32 +23,32 @@ class AppointmentUserDetailSection extends StatelessWidget {
           SizedBox(height: 32),
           AppointmentDetailItem(
             title: 'ชื่อ', 
-            description: appointment.eldery.name, 
+            description: appointment.elderly.name, 
             image: 'assets/images/person_blue.png'
           ),
           SizedBox(height: 24),
           AppointmentDetailItem(
             title: 'เพศ/อายุ', 
-            description: '${appointment.eldery.gender} (${appointment.eldery.age} ปี)', 
+            description: '${appointment.elderly.gender} (${appointment.elderly.age} ปี)', 
             image: 'assets/images/person_blue.png'
           ),
           SizedBox(height: 24),
           AppointmentDetailItem(
             title: 'เบอร์ติดต่อ', 
-            description: '${appointment.eldery.mobileNumber}', 
+            description: '${appointment.elderly.mobileNumber}', 
             image: 'assets/images/phone_blue.png'
           ),
           SizedBox(height: 24),
           AppointmentDetailItem(
             title: 'โรคประจำตัว', 
-            description: appointment.eldery.congenitalDisease.map((disease) => disease.name).toList().join(', '),
+            description: appointment.elderly.congenitalDisease.map((disease) => disease.name).toList().join(', '),
             // description: 'โรคความดันโลหิตสูง, โรคเบาหวาน,โรคภูมิคุ้มกันบกพร่อง , โรคอ้วน', 
             image: 'assets/images/board_blue.png'
           ),
           SizedBox(height: 24),
           AppointmentDetailItem(
             title: 'การแพ้อาหาร', 
-            description: appointment.eldery.allergicFoods.map((allergic) => allergic.name).toList().join(', '), 
+            description: appointment.elderly.allergicFoods.map((allergic) => allergic.name).toList().join(', '), 
             image: 'assets/images/board_blue.png'
           ),
           SizedBox(height: 24),
@@ -60,7 +60,7 @@ class AppointmentUserDetailSection extends StatelessWidget {
           SizedBox(height: 24),
           AppointmentDetailItem(
             title: 'สถานที่นัดหมาย', 
-            description: '3000 ถนนพหลโยธิน แขวงจอมพล เขตจตุจักร กรุงเทพมหานคร 10900', 
+            description: appointment.addressFull,
             image: 'assets/images/location_blue.png'
           ),
         ],

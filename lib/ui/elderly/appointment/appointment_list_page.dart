@@ -8,7 +8,7 @@ class AppointmentListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AppointmentListBloc>(
-      create:(context) => AppointmentListBloc(AppointmentRepository()),
+      create:(context) => AppointmentListBloc(AppointmentRepository.instance),
       child: AppointmentListView(),
     );
   }

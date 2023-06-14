@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
 import 'package:health_application/ui/elderly/appointment_detail/appointment_detail_section/appointment_detail_item.dart';
+import 'package:health_application/ui/extension/date_extension.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
@@ -29,7 +30,7 @@ class AppointmentDetailSection extends StatelessWidget {
           SizedBox(height: 24),
           AppointmentDetailItem(
             title: 'วันที่นัดหมาย', 
-            description: appointment.appointmentDate, 
+            description: DateTime.parse(appointment.appointmentDate).toDisplayThailandDate(), 
             image: 'assets/images/calendar_blue.png'
           ),
           SizedBox(height: 24),

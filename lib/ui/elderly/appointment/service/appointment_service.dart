@@ -1,3 +1,4 @@
+// import 'package:chopper/chopper.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
@@ -7,12 +8,19 @@ part 'appointment_service.g.dart';
 abstract class AppointmentService {
   factory AppointmentService(Dio dio) = _AppointmentService;
 
-  @POST('/api/v1/appointment/get-appointment-list')
+  @GET('/api/v1/appointment/get-appointment-list')
   @Headers(<String, dynamic>{
     "Accept": "application/json",
     "Content-Type": "application/json",
   })
-  Future<HttpResponse> getAppointmentList(@Body() Map<String, dynamic> body);
+  Future<HttpResponse> getAppointmentList(
+    @Query("limit") int limit,
+    @Query("offset") int offset,
+    @Query("includeStatus") String? includeStatus,
+    @Query("elderlyProfileId") String? elderlyProfileId,
+    @Query("volunteerProfileId") String? volunteerProfileId,
+    @Query("excludeStatus") String? excludeStatus
+  );
 
   @GET('/api/v1/appointment/get-appointment/{id}')
   @Headers(<String, dynamic>{

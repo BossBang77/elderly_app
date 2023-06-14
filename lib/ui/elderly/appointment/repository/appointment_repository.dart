@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/ui/base/model/failure.dart';
@@ -5,28 +7,58 @@ import 'package:health_application/ui/base/model/status_code.dart';
 import 'package:health_application/ui/base/network_provider.dart';
 import 'package:health_application/ui/elderly/appointment/model/request/appointment_list_request.dart';
 import 'package:health_application/ui/elderly/appointment/model/request/update_appointment_request.dart';
+import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
 import 'package:health_application/ui/elderly/appointment/model/response/appointment_list_response.dart';
 import 'package:health_application/ui/elderly/appointment/model/response/appointment_response.dart';
 import 'package:health_application/ui/elderly/appointment/repository/response_handler.dart';
 import 'package:health_application/ui/elderly/appointment/service/appointment_service.dart';
+import 'package:health_application/ui/elderly/appointment_detail/appointment_status_section/appointment_status_section.dart';
 import 'package:retrofit/retrofit.dart';
 
 abstract class AppointmentRepositoryProtocol {
   Future<Either<Failure, AppointmentListResponse>> getAppointmentList(AppointmentListRequest request);
   Future<Either<Failure, AppointmentResponse>> getAppointmentById(String id);
   Future<Either<Failure, HttpResponse>> updateAppointmentStatus(UpdateAppointmentRequest request);
+  
+  late StreamController<List<Appointment>> incompletedListController;
+  late StreamController<List<Appointment>> completedListController;
+  late List<Appointment> currentIncompleteList;
+  late List<Appointment> currentCompleteList;
 }
 
 class AppointmentRepository implements AppointmentRepositoryProtocol {
   final NetworkProvider networkProvider = NetworkProvider();
   late final AppointmentService _appointmentService = AppointmentService(networkProvider.dioClient());
   ResponseHandler jsonResponseHandler = JsonResponseHandler();
+  StreamController<List<Appointment>> incompletedListController = StreamController<List<Appointment>>();
+  StreamController<List<Appointment>> completedListController = StreamController<List<Appointment>>();
+  List<Appointment> currentIncompleteList = const[];
+  List<Appointment> currentCompleteList = const[];
+
+  AppointmentRepository._();
+  static final instance = AppointmentRepository._();
 
   @override
   Future<Either<Failure, AppointmentListResponse>> getAppointmentList(AppointmentListRequest request) async {
     return jsonResponseHandler.handleResponseFrom(
-      request: _appointmentService.getAppointmentList(request.toJson()), 
-      decodeWith: (data) => AppointmentListResponse.fromJson(data));
+      request: _appointmentService.getAppointmentList(
+        request.limit, 
+        request.offset,
+        request.includeStatus,
+        request.elderlyProfileId,
+        request.volunteerProfileId,
+        request.excludeStatus
+      ), 
+      decodeWith: (data) {
+        if (request.includeStatus == AppointmentStatus.complete.value) {
+          completedListController.sink.add(AppointmentListResponse.fromJson(data).data);
+          currentCompleteList = AppointmentListResponse.fromJson(data).data;
+        } else {
+          incompletedListController.sink.add(AppointmentListResponse.fromJson(data).data);
+          currentIncompleteList = AppointmentListResponse.fromJson(data).data;
+        }
+        return AppointmentListResponse.fromJson(data);
+      });
   }
   
   @override

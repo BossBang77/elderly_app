@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
+import 'package:health_application/ui/elderly/appointment_detail/appointment_status_section/appointment_status_section.dart';
 import 'package:health_application/ui/elderly/appointment_detail/bloc/appointment_detail_event.dart';
 import 'package:health_application/ui/elderly/appointment_detail/bloc/appointment_detail_state.dart';
 import 'package:health_application/ui/elderly/appointment_detail/bloc/appointment_detial_bloc.dart';
@@ -47,8 +48,7 @@ class AppointmetnPageStateWaitForApprove implements AppointmetnPageState<Appoint
                     title: 'ยืนยันการนัดหมาย',
                     description: 'คุณยืนยันการนัดหมายนี้ใช่หรือไม่',
                     onConfirm: () {
-                      //TODO find the right status
-                      context.read<AppointmentDetailBloc>().add(AppointmentStatusChanged(status: 'status'));
+                      context.read<AppointmentDetailBloc>().add(AppointmentStatusChanged(status: AppointmentStatus.waitingtostart.value));
                     },
                   )
                 );
@@ -65,8 +65,7 @@ class AppointmetnPageStateWaitForApprove implements AppointmetnPageState<Appoint
                     description: 'คุณยืนยันการนัดหมายนี้ใช่หรือไม่',
                     theme: AppointmentApproveDialogTheme.destructive,
                     onConfirm: () {
-                      //TODO find the right status
-                      context.read<AppointmentDetailBloc>().add(AppointmentStatusChanged(status: 'status'));
+                      context.read<AppointmentDetailBloc>().add(AppointmentStatusChanged(status: AppointmentStatus.reject.value));
                     },
                   )
                 );

@@ -7,43 +7,55 @@ import 'package:health_application/ui/elderly/appointment/bloc/appointment_list_
 import 'package:health_application/ui/elderly/appointment/context_menu_button.dart';
 import 'package:health_application/ui/elderly/appointment/segmented_control.dart';
 import 'package:health_application/ui/elderly/appointment_detail/appointment_detail.dart';
+import 'package:health_application/ui/elderly/appointment_detail/appointment_detail_page.dart';
+import 'package:health_application/ui/elderly/appointment_detail/appointment_status_section/appointment_status_section.dart';
 import 'package:health_application/ui/elderly/appointment_detail/page/appointment_page_approved.dart';
 import 'package:health_application/ui/home_page/component/appointment_item.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 
 class AppointmentListView extends StatelessWidget {
-  Widget _Header() {
+  Widget _Header(BuildContext context, AppointmentListState state) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          child: SegmentedControl(
-            initialValue: 'การนัดหมาย',
-            items: ['การนัดหมาย','ประวัติ'].map((value) => 
-              SegmentedControlItem(title: value, value: value)
+          child: SegmentedControl<AppointmentListType>(
+            initialValue: AppointmentListType.incomplete,
+            items: AppointmentListType.values.map((type) => 
+              SegmentedControlItem(title: type.title, value: type)
             ).toList(),
+            onSelect: (type) {
+              context.read<AppointmentListBloc>().add(AppointmentSelectListType(type: type));
+            },
           )
         ),
         SizedBox(height: 16),
-        ContextMenuButton(
-          items: ['ทั้งหมด', 'เริ่มงาน', 'รอเริ่มงาน', 'รอการยืนยัน'].map((value) => ContextMenuItem(value: value, title: value)).toList(),
-        ),
+        state.type == AppointmentListType.incomplete ?
+        ContextMenuButton<AppointmentTypeFilter>(
+          onSelect: (status) {
+            context.read<AppointmentListBloc>().fetchAppointmentList(includeStatus: status.status?.value);
+          },
+          items: AppointmentTypeFilter.values.map((value) => ContextMenuItem(value: value, title: value.title)).toList(),
+        ) : Container()
       ]
     );
   }
 
   Widget _ItemList(BuildContext context, AppointmentListState state) {
+    final list = state.type == AppointmentListType.incomplete ? state.appointments : state.completedAppointments;
     return Column(
-      children: state.appointments.map((appointment) => 
-        AppointmentItem(
-          appointment: appointment,
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder:(context) => AppointmentDetailView()));
-          },
-          onApply: () {
-            context.read<AppointmentListBloc>().add(AppointmentApproved(appointmentId: appointment.id));
-          },
-        )
+      children: list.map((appointment) => 
+        Padding(
+          padding: EdgeInsets.only(bottom: 10),
+            child: AppointmentItem(
+              appointment: appointment,
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder:(context) => AppointmentDetailPage(appointment: appointment,)));
+              },
+              onApply: () {
+                context.read<AppointmentListBloc>().add(AppointmentApproved(appointmentId: appointment.id));
+              },
+            ))
       ).toList()
     );
   }
@@ -60,7 +72,7 @@ class AppointmentListView extends StatelessWidget {
         child: BlocBuilder<AppointmentListBloc, AppointmentListState>(
           builder: (context, state) => Column(
             children: [
-              _Header(),
+              _Header(context, state),
               _ItemList(context, state)
             ],
           ),
