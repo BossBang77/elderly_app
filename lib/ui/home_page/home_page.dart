@@ -21,7 +21,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var role = UserSecureStorage().getRole();
+    Future<String> getRole() async {
+      var roleList = await UserSecureStorage().getRole();
+      return roleList[0].role;
+    }
+
     return Scaffold(
         body: BlocConsumer<HomePageBloc, HomePageState>(
       listener: (context, state) {},
@@ -221,7 +225,7 @@ class HomePage extends StatelessWidget {
 
         return Stack(
           children: [
-            if (role == RoleType.ROLE_USER_ELDERLY.name) ...{
+            if (getRole() == RoleType.ROLE_USER_ELDERLY.name) ...{
               _pageView(),
               _bottomNavigationBar()
             } else ...{
