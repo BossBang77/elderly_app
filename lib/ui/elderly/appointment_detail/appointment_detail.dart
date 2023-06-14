@@ -22,8 +22,6 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 class AppointmentDetailView extends StatefulWidget {
   const AppointmentDetailView();
 
-  // final AppointmetnPageState state;
-
   @override
   State<StatefulWidget> createState() => _AppointmentDetailViewState();
 }
