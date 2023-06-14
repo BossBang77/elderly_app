@@ -32,7 +32,6 @@ class SearchVolunteerBloc
     if (event is Intital) {
       add(SearchVolunteer(search: SearchVolunteerModel()));
       add(SearchCompleteAppointment(elderlyId: event.elderlyId));
-      add(GetAvaliableTime(date: DateTime.now()));
     }
 
     if (event is Changeview) {
@@ -124,15 +123,20 @@ class SearchVolunteerBloc
     }
 
     if (event is GetAvaliableTime) {
+      yield state.copyWith(isLoading: true);
       String? date = event.date!.toDisplayApiFormat();
       var searchAppointList = await _elderlyAppointmentRepository
           .getAvaliableTime(state.currentVolunteerUid, date);
 
       yield* searchAppointList.fold((Failure err) async* {
-        yield state.copyWith(avaliableTime: AvaliableData());
+        yield state.copyWith(avaliableTime: AvaliableData(), isLoading: false);
       }, (AvaliableData res) async* {
-        yield state.copyWith(avaliableTime: res);
+        yield state.copyWith(avaliableTime: res, isLoading: false);
       });
+    }
+
+    if (event is UpdateSelectMonth) {
+      yield state.copyWith(currentMonth: event.date);
     }
   }
 
@@ -218,7 +222,10 @@ class SearchVolunteerBloc
         elderly = elderly.copyWith(profileId: event.value);
         createObj = createObj.copyWith(elderly: elderly);
         break;
-
+      case CreateAppointObj.clearTime:
+        time = [];
+        createObj = createObj.copyWith(appointmentTimes: time);
+        break;
       default:
     }
 
@@ -232,12 +239,12 @@ class SearchVolunteerBloc
         latitude: _locations.latitude,
         longtitude: _locations.longtitude,
         nameAddress: _locations.nameAddress);
+    String initDate = DateTime.now().toDisplayApiFormat();
     add(MapCreateAppointment(
         createObj: CreateAppointObj.address, value: locations));
     add(MapCreateAppointment(
-        createObj: CreateAppointObj.appointmentDate,
-        value: DateTime.now().toDisplayApiFormat()));
-
+        createObj: CreateAppointObj.appointmentDate, value: initDate));
+    add(GetAvaliableTime(date: DateTime.now()));
     return true;
   }
 }

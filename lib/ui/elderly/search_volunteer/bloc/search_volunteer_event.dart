@@ -91,3 +91,11 @@ class GetAvaliableTime extends SearchVolunteerEvent {
   @override
   List<Object> get props => [date!];
 }
+
+class UpdateSelectMonth extends SearchVolunteerEvent {
+  final DateTime? date;
+
+  UpdateSelectMonth({this.date = null});
+  @override
+  List<Object> get props => [date!];
+}

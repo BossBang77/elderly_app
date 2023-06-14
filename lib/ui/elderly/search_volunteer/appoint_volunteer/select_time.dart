@@ -75,7 +75,7 @@ class SelectTime extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           border: Border.all(
                               color: isBusy
-                                  ? color.greyText
+                                  ? color.GreyBorder
                                   : checkIsSelect(item.keyCode)
                                       ? color.blueText
                                       : color.GreyBorder)),

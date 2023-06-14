@@ -11,7 +11,8 @@ import 'package:health_application/ui/signIn_page/login/login_page.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
+import 'package:month_year_picker/month_year_picker.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'ui/elderly/exercise/bloc/exercise_bloc.dart';
 import 'ui/elderly/water_intake/bloc/water_intake_bloc.dart';
 import 'ui/home_page/bloc/home_page_bloc.dart';
@@ -68,6 +69,13 @@ class MyApp extends StatelessWidget {
                           primarySwatch: Colors.blue,
                         ),
                         home: WelcomePage(),
+                        localizationsDelegates: [
+                          DefaultMaterialLocalizations.delegate,
+                          DefaultWidgetsLocalizations.delegate,
+                          GlobalWidgetsLocalizations.delegate,
+                          GlobalMaterialLocalizations.delegate,
+                          MonthYearPickerLocalizations.delegate,
+                        ],
                       ));
             })));
   }

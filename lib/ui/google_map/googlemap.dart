@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:health_application/ui/base/loader/loader_screen.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
 import 'package:health_application/ui/google_map/locationsModel.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 
 import '../ui-extensions/color.dart';
 

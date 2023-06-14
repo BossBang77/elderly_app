@@ -13,7 +13,9 @@ class SearchVolunteerState extends Equatable {
       this.createAppointment = const CreateAppointmentModel(),
       this.currentVolunteerUid = '',
       this.lastestAppointList = const AppointList(),
-      this.avaliableTime = const AvaliableData()});
+      this.avaliableTime = const AvaliableData(),
+      this.isLoading = false,
+      this.currentMonth = null});
   final SearchVolunteerView searchVolunteerView;
   final SearchVolunteerModel searchVolunteerSubmit;
   final SearchVolunteerModel searchVolunteer;
@@ -26,6 +28,8 @@ class SearchVolunteerState extends Equatable {
   final String currentVolunteerUid;
   final AppointList lastestAppointList;
   final AvaliableData avaliableTime;
+  final bool isLoading;
+  final DateTime? currentMonth;
 
   SearchVolunteerState copyWith(
       {SearchVolunteerView? searchVolunteerView,
@@ -39,7 +43,9 @@ class SearchVolunteerState extends Equatable {
       CreateAppointmentModel? createAppointment,
       String? currentVolunteerUid,
       AppointList? lastestAppointList,
-      AvaliableData? avaliableTime}) {
+      AvaliableData? avaliableTime,
+      bool? isLoading,
+      DateTime? currentMonth}) {
     return SearchVolunteerState(
         searchVolunteerView: searchVolunteerView ?? this.searchVolunteerView,
         searchVolunteer: searchVolunteer ?? this.searchVolunteer,
@@ -54,7 +60,9 @@ class SearchVolunteerState extends Equatable {
         createAppointment: createAppointment ?? this.createAppointment,
         currentVolunteerUid: currentVolunteerUid ?? this.currentVolunteerUid,
         lastestAppointList: lastestAppointList ?? this.lastestAppointList,
-        avaliableTime: avaliableTime ?? this.avaliableTime);
+        avaliableTime: avaliableTime ?? this.avaliableTime,
+        isLoading: isLoading ?? this.isLoading,
+        currentMonth: currentMonth ?? this.currentMonth);
   }
 
   @override
@@ -70,7 +78,9 @@ class SearchVolunteerState extends Equatable {
         createAppointment,
         currentVolunteerUid,
         lastestAppointList,
-        avaliableTime
+        avaliableTime,
+        isLoading,
+        currentMonth ?? DateTime.now()
       ];
 }
 
@@ -103,7 +113,8 @@ enum CreateAppointObj {
   note,
   address,
   elderlyId,
-  volunteerId
+  volunteerId,
+  clearTime
 }
 
 enum SearchStatus {

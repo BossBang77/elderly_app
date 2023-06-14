@@ -14,8 +14,9 @@ import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
-
+import 'package:collection/collection.dart';
 import '../../base/constant/gender_const.dart';
+import '../appointment_detail/appointment_status_section/appointment_status.dart';
 
 class VolunteerAppointSummaryPage extends StatelessWidget {
   const VolunteerAppointSummaryPage({super.key, required this.profileId});
@@ -174,24 +175,22 @@ class VolunteerAppointSummaryPage extends StatelessWidget {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                    ),
-                                    child: TimeLineProgress(
-                                      ticks: getStatusNumber(detail.status),
-                                      sized: 4,
-                                      label: [
-                                        textCaption2(
-                                            'รอการยืนยัน', color.black87),
-                                        textCaption2(
-                                            'รอเริ่มงาน', color.black87),
-                                        textCaption2('เริ่มงาน', color.black87),
-                                        textCaption2('สำเร็จ', color.black87)
-                                      ],
-                                    ),
-                                  ),
+                                  AppointmentStatusStep(
+                                      stepValues: AppointmentStatus.values
+                                          .mapIndexed((index, status) =>
+                                              AppointmentStatusItem(
+                                                  value: status,
+                                                  title: (index + 1).toString(),
+                                                  description: status.title))
+                                          .toList(),
+                                      width: MediaQuery.of(context).size.width -
+                                          48,
+                                      currentStep: AppointmentStatus
+                                          .values[AppointStatus.values
+                                              .firstWhereOrNull((element) =>
+                                                  element.name == detail.status)
+                                              ?.index ??
+                                          0]),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -394,4 +393,15 @@ class VolunteerAppointSummaryPage extends StatelessWidget {
       ),
     );
   }
+}
+
+enum AppointmentStatus {
+  waitforapprove(title: 'รอการยืนยัน'),
+  waitforstart(title: 'รอเริ่มงาน'),
+  start(title: 'เริ่มงาน'),
+  done(title: 'สำเร็จ');
+
+  const AppointmentStatus({required this.title});
+
+  final String title;
 }
