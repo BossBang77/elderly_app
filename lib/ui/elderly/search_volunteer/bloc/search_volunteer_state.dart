@@ -16,6 +16,7 @@ class SearchVolunteerState extends Equatable {
       this.avaliableTime = const AvaliableData(),
       this.isLoading = false,
       this.currentMonth = null});
+
   final SearchVolunteerView searchVolunteerView;
   final SearchVolunteerModel searchVolunteerSubmit;
   final SearchVolunteerModel searchVolunteer;
@@ -30,6 +31,21 @@ class SearchVolunteerState extends Equatable {
   final AvaliableData avaliableTime;
   final bool isLoading;
   final DateTime? currentMonth;
+  SearchVolunteerState.initial(
+      {this.searchVolunteerView = SearchVolunteerView.searchSummary,
+      this.searchVolunteer = const SearchVolunteerModel(),
+      this.searchVolunteerSubmit = const SearchVolunteerModel(),
+      this.searchRes = const VolunteerDetailRes(),
+      this.currentVolunteerDetail = const VolunteerFullDetail(),
+      this.reviews = const RatingResModel(),
+      this.reviewSort = 0,
+      this.status = SearchStatus.initial,
+      this.createAppointment = const CreateAppointmentModel(),
+      this.currentVolunteerUid = '',
+      this.lastestAppointList = const AppointList(),
+      this.avaliableTime = const AvaliableData(),
+      this.isLoading = false,
+      this.currentMonth = null});
 
   SearchVolunteerState copyWith(
       {SearchVolunteerView? searchVolunteerView,

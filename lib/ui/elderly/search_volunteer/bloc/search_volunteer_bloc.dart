@@ -32,6 +32,7 @@ class SearchVolunteerBloc
     if (event is Intital) {
       add(SearchVolunteer(search: SearchVolunteerModel()));
       add(SearchCompleteAppointment(elderlyId: event.elderlyId));
+      yield SearchVolunteerState();
     }
 
     if (event is Changeview) {
@@ -250,6 +251,7 @@ class SearchVolunteerBloc
     add(MapCreateAppointment(
         createObj: CreateAppointObj.appointmentDate, value: initDate));
     add(GetAvaliableTime(date: DateTime.now()));
+    add(UpdateSelectMonth(date: DateTime.now()));
     return true;
   }
 }
