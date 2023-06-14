@@ -23,6 +23,8 @@ class SelectTime extends StatelessWidget {
           return time.any((item) => item.code == code);
         }
 
+        var available = state.avaliableTime.data;
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,35 +46,46 @@ class SelectTime extends StatelessWidget {
               children: List.generate(timeList.length, (index) {
                 var item = timeList[index];
 
+                bool isBusy = available.any((time) =>
+                    (time.code == item.keyCode) && time.isAvailable == false);
+
                 return InkWell(
                   onTap: () {
-                    CreateAppointObj type =
-                        CreateAppointObj.addAppointmentTimes;
-                    if (checkIsSelect(item.keyCode)) {
-                      type = CreateAppointObj.delAppointmentTimes;
+                    if (!isBusy) {
+                      CreateAppointObj type =
+                          CreateAppointObj.addAppointmentTimes;
+                      if (checkIsSelect(item.keyCode)) {
+                        type = CreateAppointObj.delAppointmentTimes;
+                      }
+                      context.read<SearchVolunteerBloc>().add(
+                          MapCreateAppointment(
+                              createObj: type, value: item.keyCode));
                     }
-                    context.read<SearchVolunteerBloc>().add(
-                        MapCreateAppointment(
-                            createObj: type, value: item.keyCode));
                   },
                   child: Container(
                       margin: EdgeInsets.only(top: 10, right: 10),
                       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: checkIsSelect(item.keyCode)
-                              ? color.blueText
-                              : color.grey10,
+                          color: isBusy
+                              ? color.grey10
+                              : checkIsSelect(item.keyCode)
+                                  ? color.blueText
+                                  : color.grey10,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           border: Border.all(
-                              color: checkIsSelect(item.keyCode)
-                                  ? color.blueText
-                                  : color.GreyBorder)),
+                              color: isBusy
+                                  ? color.GreyBorder
+                                  : checkIsSelect(item.keyCode)
+                                      ? color.blueText
+                                      : color.GreyBorder)),
                       child: textH7(
                           item.keyName,
-                          checkIsSelect(item.keyCode)
-                              ? color.white
-                              : color.black87)),
+                          isBusy
+                              ? color.greyText
+                              : checkIsSelect(item.keyCode)
+                                  ? color.white
+                                  : color.black87)),
                 );
               }),
             ),

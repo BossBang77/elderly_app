@@ -5,14 +5,18 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:health_application/ui/base/dialog/success_dialog.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
+import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/base/widget/timeline_process.dart';
 import 'package:health_application/ui/elderly/volunteer_appoint_summary/bloc/appoint_summary_bloc.dart';
 import 'package:health_application/ui/extension/extension.dart';
+import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
-
+import 'package:collection/collection.dart';
 import '../../base/constant/gender_const.dart';
+import '../appointment_detail/appointment_status_section/appointment_status.dart';
 
 class VolunteerAppointSummaryPage extends StatelessWidget {
   const VolunteerAppointSummaryPage({super.key, required this.profileId});
@@ -61,13 +65,46 @@ class VolunteerAppointSummaryPage extends StatelessWidget {
       create: (context) =>
           AppointSummaryBloc()..add(GetAppointmentId(id: profileId)),
       child: BlocConsumer<AppointSummaryBloc, AppointSummaryState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           var detail = state.appointDetail;
           if (!state.isLoading) {
             markers.add(Marker(
                 markerId: MarkerId("Home"),
                 position: LatLng(detail.latitude, detail.longitude),
                 onTap: () {}));
+          }
+
+          if (state.statusUpdate == StatusUpdate.updateStatusSuccess) {
+            final bool acceptClose = await showDialog(
+                context: context,
+                builder: (BuildContext context) => SuccessDialog(
+                      header: 'สำเร็จ',
+                      subtitle: "ยกเลิกการนัดหมายสำเร็จ",
+                      buttonName: 'ตกลง',
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => HomePage()));
+                      },
+                    )) as bool;
+
+            if (acceptClose) {
+              context.read<AppointSummaryBloc>().add(UpdateStatus());
+            }
+          }
+
+          if (state.statusUpdate == StatusUpdate.updateStatusFail) {
+            final bool acceptClose = await showDialog(
+                context: context,
+                builder: (BuildContext context) => ErrorAlertWidget(
+                      title: 'เกิดข้อผิดพลาก',
+                      subTitle: "ยกเลิกการนัดหมายไม่สำเร็จ\nลองอีกครั้ง",
+                      btnName: 'ตกลง',
+                    )) as bool;
+
+            if (acceptClose) {
+              context.read<AppointSummaryBloc>().add(UpdateStatus());
+            }
           }
         },
         builder: (context, state) {
@@ -84,12 +121,19 @@ class VolunteerAppointSummaryPage extends StatelessWidget {
                 }),
                 actions: [
                   detail.status == AppointStatus.CREATE.name
-                      ? Center(
-                          child: Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: textSubtitle16Blod(
-                              'ยกเลิก', ColorTheme().BlueDark),
-                        ))
+                      ? InkWell(
+                          onTap: () {
+                            context
+                                .read<AppointSummaryBloc>()
+                                .add(RejectAppointment(appointId: profileId));
+                          },
+                          child: Center(
+                              child: Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: textSubtitle16Blod(
+                                'ยกเลิก', ColorTheme().BlueDark),
+                          )),
+                        )
                       : Container()
                 ],
               ),
@@ -131,24 +175,22 @@ class VolunteerAppointSummaryPage extends StatelessWidget {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                    ),
-                                    child: TimeLineProgress(
-                                      ticks: getStatusNumber(detail.status),
-                                      sized: 4,
-                                      label: [
-                                        textCaption2(
-                                            'รอการยืนยัน', color.black87),
-                                        textCaption2(
-                                            'รอเริ่มงาน', color.black87),
-                                        textCaption2('เริ่มงาน', color.black87),
-                                        textCaption2('สำเร็จ', color.black87)
-                                      ],
-                                    ),
-                                  ),
+                                  AppointmentStatusStep(
+                                      stepValues: AppointmentStatus.values
+                                          .mapIndexed((index, status) =>
+                                              AppointmentStatusItem(
+                                                  value: status,
+                                                  title: (index + 1).toString(),
+                                                  description: status.title))
+                                          .toList(),
+                                      width: MediaQuery.of(context).size.width -
+                                          48,
+                                      currentStep: AppointmentStatus
+                                          .values[AppointStatus.values
+                                              .firstWhereOrNull((element) =>
+                                                  element.name == detail.status)
+                                              ?.index ??
+                                          0]),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -248,7 +290,7 @@ class VolunteerAppointSummaryPage extends StatelessWidget {
                                   carddetail(
                                     img: 'assets/images/type_appoit_icon.png',
                                     title: 'ประเภทการนัดหมาย',
-                                    detail: detail.getTypeAppoint(),
+                                    detail: detail.getTypeAppoint().isNoData(),
                                   ),
                                   carddetail(
                                     img: 'assets/images/calendar_blue.png',
@@ -351,4 +393,15 @@ class VolunteerAppointSummaryPage extends StatelessWidget {
       ),
     );
   }
+}
+
+enum AppointmentStatus {
+  waitforapprove(title: 'รอการยืนยัน'),
+  waitforstart(title: 'รอเริ่มงาน'),
+  start(title: 'เริ่มงาน'),
+  done(title: 'สำเร็จ');
+
+  const AppointmentStatus({required this.title});
+
+  final String title;
 }

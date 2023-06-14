@@ -1,5 +1,6 @@
 import 'package:health_application/ui/elderly/search_volunteer/model/appointment/code_model.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/appointment/profile_id.dart';
+import 'package:health_application/ui/extension/extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'create_appointment.g.dart';
 
@@ -28,6 +29,10 @@ class CreateAppointmentModel {
   final String addressFull;
   final double latitude;
   final double longitude;
+
+  DateTime getDateAppointment() {
+    return appointmentDate.parseTime();
+  }
 
   Map<String, dynamic> toJson() => _$CreateAppointmentModelToJson(this);
 

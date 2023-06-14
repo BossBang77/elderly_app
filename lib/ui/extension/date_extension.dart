@@ -9,6 +9,7 @@ extension DateTimeExtension on DateTime {
   static const String _dateAndTimeFormat = 'dd/MM/yyyy HH:mm';
   static const String _fullDateFormat = 'd MMMM yyyy';
   static const String _timeFormat = 'HH:mm';
+  static const String _dateFormatMonth = 'MMMM yyyy';
 
   ///for display date time string [format] with BuddhistDate
   String toDisplayBuddhistDate({String? locale}) {
@@ -119,6 +120,16 @@ extension DateTimeExtension on DateTime {
   String toDisplayFullBuddishDate({String? locale}) {
     try {
       return DateFormat(_fullDateFormat, locale)
+          .format(DateTime.utc(year + 543, month, day, hour, minute).toLocal())
+          .toString();
+    } catch (e) {
+      return '-';
+    }
+  }
+
+  String toDisplayBuddishMonth({String? locale}) {
+    try {
+      return DateFormat(_dateFormatMonth, locale)
           .format(DateTime.utc(year + 543, month, day, hour, minute).toLocal())
           .toString();
     } catch (e) {

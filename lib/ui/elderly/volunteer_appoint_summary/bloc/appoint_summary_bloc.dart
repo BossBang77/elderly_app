@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:health_application/repository/elderly_appointment_repos.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/appointment_detail/appointment_detail.dart';
+import 'package:health_application/ui/elderly/volunteer_appoint_summary/model/update_status_req.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'appoint_summary_event.dart';
@@ -25,6 +26,24 @@ class AppointSummaryBloc
       }, (AppointmentDetail res) async* {
         yield state.copyWith(appointDetail: res, isLoading: false);
       });
+    }
+
+    if (event is RejectAppointment) {
+      yield state.copyWith(isLoading: true);
+      UpdateStatusReq req = UpdateStatusReq(
+          status: AppointStatus.REJECT.name, appointmentId: event.appointId);
+      var detail = await _elderlyAppointmentRepository.updateStatus(req);
+      yield* detail.fold((l) async* {
+        yield state.copyWith(
+            isLoading: false, statusUpdate: StatusUpdate.updateStatusFail);
+      }, (String res) async* {
+        yield state.copyWith(
+            isLoading: false, statusUpdate: StatusUpdate.updateStatusSuccess);
+      });
+    }
+
+    if (event is UpdateStatus) {
+      yield state.copyWith(statusUpdate: event.statusUpdate);
     }
   }
 }

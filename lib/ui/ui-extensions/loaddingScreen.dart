@@ -31,27 +31,10 @@ class Loader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              child: isCustom
-                  ? Container(
-                      width: 30,
-                      height: 30,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.only(top: 10),
-                      decoration: new BoxDecoration(
-                        image: new DecorationImage(
-                          image: new AssetImage("assets/spinner.gif"),
-                        ),
-                      ),
-                    )
-                  : Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.only(top: 10),
-                      child: CircularProgressIndicator(),
-                    ),
-            ),
-            Container(
-                margin: const EdgeInsets.only(top: 5),
-                child: textH5(loadingTxt, ColorTheme().Primary, false)),
+                child: Image.asset(
+              "assets/images/spinner.gif",
+              scale: 3,
+            )),
           ],
         )),
       ],

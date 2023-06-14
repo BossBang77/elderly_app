@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:health_application/repository/elderly_appointment_repos.dart';
 import 'package:health_application/ui/base/model/failure.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/appointment/create_appointment.dart';
+import 'package:health_application/ui/elderly/search_volunteer/model/avaliable_time/avaliable_data.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/rating_res_model.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/search_volunteer_model.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/volunteer_detail_res.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/volunteer_full_detail.dart';
+import 'package:health_application/ui/extension/date_extension.dart';
 import 'package:health_application/ui/google_map/locationsModel.dart';
 
 import '../model/appointment/code_model.dart';
@@ -30,6 +32,7 @@ class SearchVolunteerBloc
     if (event is Intital) {
       add(SearchVolunteer(search: SearchVolunteerModel()));
       add(SearchCompleteAppointment(elderlyId: event.elderlyId));
+      yield SearchVolunteerState();
     }
 
     if (event is Changeview) {
@@ -37,36 +40,41 @@ class SearchVolunteerBloc
     }
 
     if (event is SearchVolunteer) {
+      yield state.copyWith(isLoading: true);
       yield state.copyWith(searchVolunteerSubmit: event.search);
       var res =
           await _elderlyAppointmentRepository.searchVolunteer(event.search);
       yield* res.fold((Failure err) async* {
-        yield state.copyWith(searchRes: VolunteerDetailRes());
+        yield state.copyWith(searchRes: VolunteerDetailRes(), isLoading: false);
       }, (VolunteerDetailRes res) async* {
-        yield state.copyWith(searchRes: res);
+        yield state.copyWith(searchRes: res, isLoading: false);
       });
     }
     if (event is GetDetailVolunteer) {
+      yield state.copyWith(isLoading: true);
       var res =
           await _elderlyAppointmentRepository.searchVolunteerById(event.id);
       yield* res.fold((Failure err) async* {
         yield state.copyWith(
             currentVolunteerDetail: VolunteerFullDetail(),
-            status: SearchStatus.getDetailFail);
+            status: SearchStatus.getDetailFail,
+            isLoading: false);
       }, (VolunteerFullDetail res) async* {
         var review = await _elderlyAppointmentRepository.searchReview(event.id);
         yield* review.fold((Failure err) async* {
           yield state.copyWith(
               currentVolunteerDetail: res,
               reviews: RatingResModel(),
-              status: SearchStatus.getDetailFail);
+              status: SearchStatus.getDetailFail,
+              isLoading: false);
         }, (RatingResModel review) async* {
           yield state.copyWith(
               currentVolunteerDetail: res,
               reviews: review,
               currentVolunteerUid: event.id,
               createAppointment: CreateAppointmentModel(),
-              searchVolunteerView: SearchVolunteerView.volunteerDetail);
+              searchVolunteerView: SearchVolunteerView.volunteerDetail,
+              isLoading: false);
         });
       });
     }
@@ -118,6 +126,23 @@ class SearchVolunteerBloc
       }, (AppointList res) async* {
         yield state.copyWith(lastestAppointList: res);
       });
+    }
+
+    if (event is GetAvaliableTime) {
+      yield state.copyWith(isLoading: true);
+      String? date = event.date!.toDisplayApiFormat();
+      var searchAppointList = await _elderlyAppointmentRepository
+          .getAvaliableTime(state.currentVolunteerUid, date);
+
+      yield* searchAppointList.fold((Failure err) async* {
+        yield state.copyWith(avaliableTime: AvaliableData(), isLoading: false);
+      }, (AvaliableData res) async* {
+        yield state.copyWith(avaliableTime: res, isLoading: false);
+      });
+    }
+
+    if (event is UpdateSelectMonth) {
+      yield state.copyWith(currentMonth: event.date);
     }
   }
 
@@ -203,7 +228,10 @@ class SearchVolunteerBloc
         elderly = elderly.copyWith(profileId: event.value);
         createObj = createObj.copyWith(elderly: elderly);
         break;
-
+      case CreateAppointObj.clearTime:
+        time = [];
+        createObj = createObj.copyWith(appointmentTimes: time);
+        break;
       default:
     }
 
@@ -217,9 +245,13 @@ class SearchVolunteerBloc
         latitude: _locations.latitude,
         longtitude: _locations.longtitude,
         nameAddress: _locations.nameAddress);
+    String initDate = DateTime.now().toDisplayApiFormat();
     add(MapCreateAppointment(
         createObj: CreateAppointObj.address, value: locations));
-
+    add(MapCreateAppointment(
+        createObj: CreateAppointObj.appointmentDate, value: initDate));
+    add(GetAvaliableTime(date: DateTime.now()));
+    add(UpdateSelectMonth(date: DateTime.now()));
     return true;
   }
 }
