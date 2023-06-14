@@ -39,36 +39,41 @@ class SearchVolunteerBloc
     }
 
     if (event is SearchVolunteer) {
+      yield state.copyWith(isLoading: true);
       yield state.copyWith(searchVolunteerSubmit: event.search);
       var res =
           await _elderlyAppointmentRepository.searchVolunteer(event.search);
       yield* res.fold((Failure err) async* {
-        yield state.copyWith(searchRes: VolunteerDetailRes());
+        yield state.copyWith(searchRes: VolunteerDetailRes(), isLoading: false);
       }, (VolunteerDetailRes res) async* {
-        yield state.copyWith(searchRes: res);
+        yield state.copyWith(searchRes: res, isLoading: false);
       });
     }
     if (event is GetDetailVolunteer) {
+      yield state.copyWith(isLoading: true);
       var res =
           await _elderlyAppointmentRepository.searchVolunteerById(event.id);
       yield* res.fold((Failure err) async* {
         yield state.copyWith(
             currentVolunteerDetail: VolunteerFullDetail(),
-            status: SearchStatus.getDetailFail);
+            status: SearchStatus.getDetailFail,
+            isLoading: false);
       }, (VolunteerFullDetail res) async* {
         var review = await _elderlyAppointmentRepository.searchReview(event.id);
         yield* review.fold((Failure err) async* {
           yield state.copyWith(
               currentVolunteerDetail: res,
               reviews: RatingResModel(),
-              status: SearchStatus.getDetailFail);
+              status: SearchStatus.getDetailFail,
+              isLoading: false);
         }, (RatingResModel review) async* {
           yield state.copyWith(
               currentVolunteerDetail: res,
               reviews: review,
               currentVolunteerUid: event.id,
               createAppointment: CreateAppointmentModel(),
-              searchVolunteerView: SearchVolunteerView.volunteerDetail);
+              searchVolunteerView: SearchVolunteerView.volunteerDetail,
+              isLoading: false);
         });
       });
     }

@@ -129,6 +129,7 @@ class VolunteerWidget extends StatelessWidget {
                           ),
                           if (lastest.isNotEmpty)
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 textSubtitle18Blod(
                                     'เรียกล่าสุด', ColorTheme().black87),
