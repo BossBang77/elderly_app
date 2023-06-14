@@ -55,10 +55,11 @@ class SelectRoleWidget extends StatelessWidget {
                   title: 'จิตอาสา',
                   subTitle: 'เจ้าหน้าที่ดูแลผู้สูงอายุ',
                   imgPath: 'assets/images/role_icon.png',
-                  isSelect: state.roleType == RoleType.volunteer, onTap: () {
+                  isSelect: state.roleType == RoleType.ROLE_USER_VOLUNTEER,
+                  onTap: () {
                 context
                     .read<RegisterProfileBloc>()
-                    .add(SelectRole(roleType: RoleType.volunteer));
+                    .add(SelectRole(roleType: RoleType.ROLE_USER_VOLUNTEER));
               })
             ]),
             ButtonGradient(

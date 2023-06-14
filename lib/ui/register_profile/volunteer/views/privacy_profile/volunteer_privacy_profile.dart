@@ -16,9 +16,7 @@ class VolunteerPrivacyProfile extends StatelessWidget {
     var user = state.registerModel;
     return Scaffold(
       backgroundColor: ColorTheme().white,
-      appBar: appBar(
-        title: 'โปรไฟล์ของฉัน',
-        onBack: () {
+      appBar: appBar(onBack: () {
         context
             .read<RegisterProfileBloc>()
             .add(ChangeProfileView(profileType: ProfileType.role));
@@ -82,19 +80,18 @@ class VolunteerPrivacyProfile extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              textSubtitle18Blod(
-                  'รหัสจิตอาสา', ColorTheme().black87),
+              textSubtitle18Blod('รหัสจิตอาสา', ColorTheme().black87),
               const SizedBox(
                 height: 10,
               ),
               TextFieldWidget.enable(
-                text: user.elderlyCareCode,
+                text: user.volunteerCode,
                 textNumberType: true,
                 maxLength: 4,
                 hintText: 'ตัวเลข 4 ตัว',
                 onChanged: (value) {
                   context.read<RegisterProfileBloc>().add(FormFillType(
-                        type: FillType.elderlyCareCode,
+                        type: FillType.volunteerCode,
                         value: value,
                       ));
                 },
@@ -126,8 +123,8 @@ class VolunteerPrivacyProfile extends StatelessWidget {
                 btnName: 'ลงทะเบียน',
                 onClick: () {
                   if (user.username.isNotEmpty && user.password.isNotEmpty) {
-                    context.read<RegisterProfileBloc>().add(
-                        ChangeProfileView(profileType: ProfileType.bmiProfile));
+                    context.read<RegisterProfileBloc>().add(ChangeProfileView(
+                        profileType: ProfileType.personalInformation));
                   }
                 },
               ),

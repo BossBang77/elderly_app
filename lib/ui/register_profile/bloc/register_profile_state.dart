@@ -8,7 +8,8 @@ enum ProfileType {
   bmiProfile,
   disease,
   foodAllergies,
-  success
+  success,
+  personalInformation,
 }
 
 enum BMIDetail { gender, name, age, weightDetail, heightDetail, summaryBMI }
@@ -34,7 +35,7 @@ enum FillType {
   volunteerCode
 }
 
-enum RoleType { initial, ROLE_USER_ELDERLY, volunteer }
+enum RoleType { initial, ROLE_USER_ELDERLY, ROLE_USER_VOLUNTEER }
 
 enum Gender { initial, male, female }
 

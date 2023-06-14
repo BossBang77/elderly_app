@@ -86,6 +86,10 @@ class RegisterProfileBloc
         regisMol = regisMol.copyWith(password: event.value);
         return state.copyWith(registerModel: regisMol);
 
+      case FillType.volunteerCode:
+        regisMol = regisMol.copyWith(volunteerCode: event.value);
+        return state.copyWith(registerModel: regisMol);
+
       case FillType.elderlyCareCode:
         regisMol = regisMol.copyWith(elderlyCareCode: event.value);
         return state.copyWith(registerModel: regisMol);
@@ -150,8 +154,6 @@ class RegisterProfileBloc
       case FillType.searchAllergies:
         return state.copyWith(textFilterAllergies: event.value);
 
-      case FillType.volunteerCode:
-        return state.copyWith(volunteerCode: event.value);
       default:
         return state;
     }
