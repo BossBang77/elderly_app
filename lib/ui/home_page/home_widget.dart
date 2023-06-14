@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/appoint_detail_card/appoint_detail_card.dart';
+import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/button_dark_bule.dart';
 import 'package:health_application/ui/elderly/search_volunteer/volunteer_page.dart';
 import 'package:health_application/ui/elderly/food/food_page.dart';
@@ -259,11 +260,13 @@ class HomeWidget extends StatelessWidget {
                                       ColorTheme().black87),
                                   ButtonDatkBule(
                                     btnName: 'หาจิตอาสา',
-                                    onClick: () {
+                                    onClick: () async {
+                                      String uid =
+                                          await UserSecureStorage().getUID();
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  VolunteerPage()),
+                                                  VolunteerPage(uid: uid)),
                                           (Route route) => false);
                                     },
                                   )

@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:health_application/ui/base/appoint_detail_card/bloc/appointment_card_bloc.dart';
 import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
 import 'package:health_application/ui/base/data_provider.dart';
+import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
 import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
 import 'package:health_application/ui/signIn_page/login/login_page.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
+import 'package:month_year_picker/month_year_picker.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'ui/elderly/exercise/bloc/exercise_bloc.dart';
 import 'ui/elderly/water_intake/bloc/water_intake_bloc.dart';
 import 'ui/home_page/bloc/home_page_bloc.dart';
@@ -49,6 +52,12 @@ class MyApp extends StatelessWidget {
               BlocProvider(
                 create: (context) => GoogleMapCubit()..initialState(),
               ),
+              BlocProvider(
+                create: (context) => SearchVolunteerBloc(),
+              ),
+              BlocProvider(
+                create: (context) => AppointmentCardBloc(),
+              ),
             ],
             child: Builder(builder: (context) {
               context.read<MasterDataBloc>().add(LoadMasterData());
@@ -60,6 +69,13 @@ class MyApp extends StatelessWidget {
                           primarySwatch: Colors.blue,
                         ),
                         home: WelcomePage(),
+                        localizationsDelegates: [
+                          DefaultMaterialLocalizations.delegate,
+                          DefaultWidgetsLocalizations.delegate,
+                          GlobalWidgetsLocalizations.delegate,
+                          GlobalMaterialLocalizations.delegate,
+                          MonthYearPickerLocalizations.delegate,
+                        ],
                       ));
             })));
   }

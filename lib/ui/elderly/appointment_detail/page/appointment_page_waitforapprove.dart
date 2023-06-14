@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
+import 'package:health_application/ui/elderly/appointment_detail/appointment_status_section/appointment_status_section.dart';
+import 'package:health_application/ui/elderly/appointment_detail/bloc/appointment_detail_event.dart';
+import 'package:health_application/ui/elderly/appointment_detail/bloc/appointment_detail_state.dart';
+import 'package:health_application/ui/elderly/appointment_detail/bloc/appointment_detial_bloc.dart';
 import 'package:health_application/ui/elderly/appointment_detail/dialog/appointment_approve_dialog.dart';
 import 'package:health_application/ui/elderly/appointment_detail/appointment_common_widget.dart';
 import 'package:health_application/ui/elderly/appointment_detail/appointment_detail_section/appointment_detail_section.dart';
@@ -9,19 +14,19 @@ import 'package:health_application/ui/elderly/appointment_detail/appointment_use
 import 'package:health_application/ui/elderly/appointment_detail/page/appointment_page_state.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 
-class AppointmetnPageStateWaitForApprove implements AppointmetnPageState {
+class AppointmetnPageStateWaitForApprove implements AppointmetnPageState<AppointmentDetailWaitForApproveState> {
   const AppointmetnPageStateWaitForApprove();
 
   @override
-  Widget body(BuildContext context) => Column(
+  Widget body(BuildContext context, AppointmentDetailWaitForApproveState state) => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
       topSpace(),
-      AppointmentNameSection(),
+      AppointmentNameSection(appointment: state.appointment),
       separator(),
-      AppointmentDetailSection(),
+      AppointmentDetailSection(appointment: state.appointment),
       separator(),
-      AppointmentUserDetailSection(),
+      AppointmentUserDetailSection(appointment: state.appointment),
 
       Container(
         color: ColorTheme().white,
@@ -42,6 +47,9 @@ class AppointmetnPageStateWaitForApprove implements AppointmetnPageState {
                   builder:(BuildContext c) => AppointmentApproveDialog(
                     title: 'ยืนยันการนัดหมาย',
                     description: 'คุณยืนยันการนัดหมายนี้ใช่หรือไม่',
+                    onConfirm: () {
+                      context.read<AppointmentDetailBloc>().add(AppointmentStatusChanged(status: AppointmentStatus.waitingtostart.value));
+                    },
                   )
                 );
               },
@@ -56,6 +64,9 @@ class AppointmetnPageStateWaitForApprove implements AppointmetnPageState {
                     title: 'ยืนยันการนัดหมาย',
                     description: 'คุณยืนยันการนัดหมายนี้ใช่หรือไม่',
                     theme: AppointmentApproveDialogTheme.destructive,
+                    onConfirm: () {
+                      context.read<AppointmentDetailBloc>().add(AppointmentStatusChanged(status: AppointmentStatus.reject.value));
+                    },
                   )
                 );
               },

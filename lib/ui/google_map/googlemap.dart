@@ -3,17 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:health_application/ui/base/loader/loader_screen.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
 import 'package:health_application/ui/google_map/locationsModel.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 
 import '../ui-extensions/color.dart';
 
 double userLatiPick = 0;
 double userLongtiPick = 0;
+String locationName = '';
 
 class GoogleMaps extends StatelessWidget {
   final String titleTxt;
@@ -26,7 +27,7 @@ class GoogleMaps extends StatelessWidget {
   double userLongti = 0;
   double storeLati = 0;
   double storeLongti = 0;
-  String locationName = '';
+
   Locations _locations = Locations();
   void _onAddMarkerButtonPressed(
       LatLng latlang, BuildContext context, state) async {

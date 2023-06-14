@@ -19,6 +19,11 @@ class MasterDataBloc extends Bloc<MasterDataEvent, MasterDataState> {
       var masterExerciseType = await _masterDataRepository
           .loadMasterData(MasterCategory().exerciseType);
 
+      var masterAppointmentTime = await _masterDataRepository
+          .loadMasterData(MasterCategory().appointmentTime);
+      var masterAppointmentType = await _masterDataRepository
+          .loadMasterData(MasterCategory().appointmentType);
+
       yield* masterDisease.fold((error) async* {
         // case fail
 
@@ -41,6 +46,20 @@ class MasterDataBloc extends Bloc<MasterDataEvent, MasterDataState> {
         yield state.copyWith(exerciseTypeMaster: const MasterData());
       }, (MasterData master) async* {
         yield state.copyWith(exerciseTypeMaster: master);
+      });
+
+      yield* masterAppointmentTime.fold((error) async* {
+        // case fail
+        yield state.copyWith(appointmentTime: const MasterData());
+      }, (MasterData master) async* {
+        yield state.copyWith(appointmentTime: master);
+      });
+
+      yield* masterAppointmentType.fold((error) async* {
+        // case fail
+        yield state.copyWith(appointmentType: const MasterData());
+      }, (MasterData master) async* {
+        yield state.copyWith(appointmentType: master);
       });
     }
   }

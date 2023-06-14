@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
+import 'package:health_application/ui/base/widget/image_notfound.dart';
 import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
 import 'package:health_application/ui/elderly/exercise/search_exercise/filter_event.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
@@ -29,12 +30,7 @@ class ExerciseDetail extends StatelessWidget {
                         currentDetail.image,
                         fit: BoxFit.cover,
                       )
-                    : Container(
-                        alignment: Alignment.topCenter,
-                        margin: EdgeInsets.only(top: 150),
-                        child: textSubtitle2(
-                            'Image NotFound', color.greyText, false),
-                      )),
+                    : ImageNotFound()),
           ]),
           Positioned(
               top: 60,

@@ -7,6 +7,8 @@ import 'package:meta/meta.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/services.dart';
 import 'package:equatable/equatable.dart';
+import 'dart:ui' as ui;
+
 part 'google_map_state.dart';
 
 class GoogleMapCubit extends Cubit<GoogleMapState> {
@@ -20,47 +22,45 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
   initialState() async {
     emit(GoogleMapInitial());
     emit(LoadingMap());
-    BitmapDescriptor markerbitmap = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(),
-      "assets/images/marker_icon.png",
-    );
+    final Uint8List markerIcon =
+        await getBytesFromAsset('assets/images/marker_icon.png', 100);
+
     apiKey = await rootBundle.loadString('assets/GoogleMapApiKey.text');
     print(apiKey);
     await _locations.getCurrentUserLocation();
     double userLati = _locations.latitude;
     double userLongti = _locations.longtitude;
-    print("Location :$userLongti, $userLongti");
     userLatiPick = userLati;
     userLongtiPick = userLongti;
+    print(userLatiPick);
 
     Set<Marker> markers = {};
-    String title = await getAddress(LatLng(userLatiPick, userLongtiPick));
-    locationName = title;
+    locationName = _locations.nameAddress;
     markers.add(Marker(
       markerId: MarkerId("Home"),
       position: LatLng(userLatiPick, userLongtiPick),
       infoWindow: InfoWindow(
-        title: title,
+        title: _locations.nameAddress,
       ),
-      icon: markerbitmap,
+      icon: BitmapDescriptor.fromBytes(markerIcon),
     ));
     emit(ShowGoogleMap(
         latitude: userLatiPick,
         longitude: userLongtiPick,
         apiKey: apiKey,
         markers: markers,
-        title: title));
+        title: _locations.nameAddress));
   }
 
   Future<void> pickLocation(double latitude, double longitude) async {
     emit(LoadingMap());
-    BitmapDescriptor markerbitmap = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(),
-      "assets/images/marker_icon.png",
-    );
+    final Uint8List markerIcon =
+        await getBytesFromAsset('assets/images/marker_icon.png', 100);
     Set<Marker> markers = {};
     String title = await getAddress(LatLng(latitude, longitude));
     locationName = title;
+    userLatiPick = latitude;
+    userLongtiPick = longitude;
 
     markers.add(Marker(
       markerId: MarkerId("Home"),
@@ -68,7 +68,7 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
       infoWindow: InfoWindow(
         title: title,
       ),
-      icon: markerbitmap,
+      icon: BitmapDescriptor.fromBytes(markerIcon),
     ));
     emit(ShowGoogleMap(
         latitude: latitude,
@@ -83,7 +83,6 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
         latitude: userLatiPick,
         longitude: userLongtiPick,
         locationName: locationName));
-    emit(initialState());
   }
 
   Future<String> getAddress(LatLng latLng) async {
@@ -99,4 +98,14 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
     }
     return '';
   }
+}
+
+Future<Uint8List> getBytesFromAsset(String path, int width) async {
+  ByteData data = await rootBundle.load(path);
+  ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+      targetWidth: width);
+  ui.FrameInfo fi = await codec.getNextFrame();
+  return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+      .buffer
+      .asUint8List();
 }

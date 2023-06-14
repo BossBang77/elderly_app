@@ -30,85 +30,91 @@ class FoodLogView extends StatelessWidget {
         title: textSubtitle2('ตัวกรอง', ColorTheme().black87, false),
         actions: [],
       ),
-      body: BlocBuilder<FoodLogBloc, FoodLogState>(
-        builder: (foodLogContext, state) => Container(
-          color: ColorTheme().white,
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                  child: textSubtitle1('วันนี้, 17 ตุลาคม 2565', ColorTheme().black87),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(16, 16, 16, 32),
-                  child: ButtonOrange(
-                    btnName: 'เพิ่มรายการใหม่',
-                    onClick: () {
-                      context.read<FoodLogBloc>().add(FoodLogAddMoreFoodButtonTapped());
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => FoodSearchPage(
-                            onFoodSelected: (foodSearchItem) {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => FoodLogDetailPage(
-                                    food: MealRecordItem.fromSearch(foodSearchItem),
-                                    mealType: state.mealType,
-                                    onSubmitted: (food) {
-                                      // print('onSubmitted');
-                                      // foodLogContext.read<FoodLogBloc>().add(FoodLogListUpdated(newItem: food));
-                                    },
+      body: BlocListener<FoodLogBloc, FoodLogState>(
+        listener: (context, state) {
+          if (state.isSavedCompleted == true) {
+            Navigator.of(context).pop();
+          }
+        },
+        child: BlocBuilder<FoodLogBloc, FoodLogState>(
+          builder: (foodLogContext, state) => Container(
+            color: ColorTheme().white,
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+                    child: textSubtitle1('วันนี้, 17 ตุลาคม 2565', ColorTheme().black87),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16, 16, 16, 32),
+                    child: ButtonOrange(
+                      btnName: 'เพิ่มรายการใหม่',
+                      onClick: () {
+                        context.read<FoodLogBloc>().add(FoodLogAddMoreFoodButtonTapped());
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => FoodSearchPage(
+                              onFoodSelected: (foodSearchItem) {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => FoodLogDetailPage(
+                                      food: MealRecordItem.fromSearch(foodSearchItem),
+                                      mealType: state.mealType,
+                                      onSubmitted: (food) {
+                                        // print('onSubmitted');
+                                        // foodLogContext.read<FoodLogBloc>().add(FoodLogListUpdated(newItem: food));
+                                      },
+                                    )
                                   )
-                                )
-                              );
-                            },
-                            onItemTrailingIconTap: (selectedFood) {
+                                );
+                              },
+                              onItemTrailingIconTap: (selectedFood) {
 
-                            },
+                              },
+                            )
                           )
+                        );
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: state.foods.length,
+                      separatorBuilder: (context, index) => Container(height: 1, color: ColorTheme().GreyBorder),
+                      itemBuilder:(context, index) => 
+                        FoodListItemView(
+                          name: state.foods[index].name,
+                          image: state.foods[index].image,
+                          calories: Calories(value: state.foods[index].calorie * state.foods[index].unit),
+                          trailingIcon: FoodListItemViewTrailingIcon.close,
+                          onTap: () {
+                            //TODO: handle on food selected
+                          },
+                          onTrailingIconTap: () {
+                            print('tapped');
+                            context.read<FoodLogBloc>().add(FoodLogMealItemRemoved(index: index));
+                          },
                         )
-                      );
-                    },
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: ListView.separated(
-                    itemCount: state.foods.length,
-                    separatorBuilder: (context, index) => Container(height: 1, color: ColorTheme().GreyBorder),
-                    itemBuilder:(context, index) => 
-                      FoodListItemView(
-                        name: state.foods[index].name,
-                        //TODO: add image
-                        image: 'state.foods[index].image',
-                        calories: Calories(value: state.foods[index].calorie * state.foods[index].unit),
-                        trailingIcon: FoodListItemViewTrailingIcon.close,
-                        onTap: () {
-                          //TODO: handle on food selected
-                        },
-                        onTrailingIconTap: () {
-                          print('tapped');
-                          context.read<FoodLogBloc>().add(FoodLogMealItemRemoved(index: index));
-                        },
-                      )
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                  child: ButtonGradient(
-                    btnName: 'บันทึกข้อมูล',
-                    onClick: () {
-                      context.read<FoodLogBloc>().add(FoodLogSaveButtonTapped());
-                    },
-                  ),
-                )
-              ],
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+                    child: ButtonGradient(
+                      btnName: 'บันทึกข้อมูล',
+                      onClick: () {
+                        context.read<FoodLogBloc>().add(FoodLogSaveButtonTapped());
+                      },
+                    ),
+                  )
+                ],
+              )
             )
           )
-        )
-      ),
+        ),
+      )
     );
   }
 }
