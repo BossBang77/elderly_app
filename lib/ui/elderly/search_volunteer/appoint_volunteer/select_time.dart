@@ -31,7 +31,13 @@ class SelectTime extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            textSubtitle16Blod('เลือกเวลา', color.black87),
+            Row(
+              children: [
+                textSubtitle16Blod('เลือกเวลา', color.black87),
+                textSubtitle16Blod('*', color.Error),
+              ],
+            ),
+            textH7('กรุณาเลือกเวลา', color.Error),
             textH7('เลือกได้มากกว่า 1 ช่วงเวลา', color.greyText),
             const SizedBox(
               height: 20,

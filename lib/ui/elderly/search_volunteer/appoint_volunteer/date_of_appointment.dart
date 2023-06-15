@@ -54,7 +54,13 @@ class DateOfAppointment extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            textSubtitle16Blod('เลือกวันที่ต้องการนัดหมาย', color.black87),
+            Row(
+              children: [
+                textSubtitle16Blod('เลือกวันที่ต้องการนัดหมาย', color.black87),
+                textSubtitle16Blod('*', color.Error),
+              ],
+            ),
+            textH7('กรุณาเลือกวันที่ต้องการนัดหมาย', color.Error),
             const SizedBox(
               height: 20,
             ),
