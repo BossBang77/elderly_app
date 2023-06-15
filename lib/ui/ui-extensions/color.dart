@@ -51,6 +51,7 @@ class ColorTheme {
   final Color DarkRed = HexColor('#C84032');
   final Color scaffoldGreyBackground = HexColor('#F5F5F5');
   final Color lightBlue = HexColor('#F3F7F9');
+  final Color emergency = HexColor('#E9605B');
 }
 
 class StyleBorder {
