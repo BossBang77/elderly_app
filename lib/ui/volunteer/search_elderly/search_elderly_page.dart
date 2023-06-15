@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
+import 'package:health_application/ui/register_profile/volunteer/model/elderly_profile_model.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/volunteer/search_elderly/component/elder_detail.dart';
 
@@ -10,13 +11,21 @@ import '../../elderly/water_intake/component/piechart_water_intake.dart';
 import '../../ui-extensions/color.dart';
 
 class ElderlySearchDetailPage extends StatelessWidget {
-  const ElderlySearchDetailPage({super.key});
+  const ElderlySearchDetailPage({super.key, required this.elderlyProfile});
+
+  final ElderlyProfileModel elderlyProfile;
 
   @override
   Widget build(BuildContext context) {
     bool showhealth = false;
     bool showWater = false;
     bool showDrug = false;
+    List<String> congenitalDisease =
+        elderlyProfile.congenitalDisease.map((el) => el.name).toList();
+    List<String> foodAllergy =
+        elderlyProfile.allergicFoods.map((el) => el.name).toList();
+    var medicine = elderlyProfile.personalMedication;
+    var drinkingWater = elderlyProfile.drinkingWater;
     return Scaffold(
       backgroundColor: color.whiteBackground,
       appBar: appBar(
@@ -59,7 +68,9 @@ class ElderlySearchDetailPage extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          textSubtitle16Blod('53 กิโลกรัม', color.black87),
+                          textSubtitle16Blod(
+                              '${elderlyProfile.profile.weight} กิโลกรัม',
+                              color.black87),
                         ],
                       ),
                       VerticalDivider(
@@ -72,7 +83,9 @@ class ElderlySearchDetailPage extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          textSubtitle16Blod('167 เซนติเมตร', color.black87),
+                          textSubtitle16Blod(
+                              '${elderlyProfile.profile.height} เซนติเมตร',
+                              color.black87),
                         ],
                       )
                     ]),
@@ -101,15 +114,14 @@ class ElderlySearchDetailPage extends StatelessWidget {
                             carddetail(
                                 img: 'assets/images/board_blue.png',
                                 title: 'โรคประจำตัว',
-                                detail:
-                                    'โรคความดันโลหิตสูง, โรคเบาหวาน โรคภูมิคุ้มกันบกพร่อง , โรคอ้วน'),
+                                detail: congenitalDisease.join(', ')),
                             const SizedBox(
                               height: 10,
                             ),
                             carddetail(
                                 img: 'assets/images/board_blue.png',
                                 title: 'การแพ้อาหาร',
-                                detail: 'นมวัว, แป้งสาลีและกลูเต็น'),
+                                detail: foodAllergy.join(', ')),
                             const SizedBox(
                               height: 10,
                             ),
@@ -141,10 +153,9 @@ class ElderlySearchDetailPage extends StatelessWidget {
                               height: 30,
                             ),
                             WaterIntakeChart(
-                              //TODO
-                              total: 100,
-                              isDrink: 50,
-                              left: 110,
+                              total: drinkingWater.target.toDouble(),
+                              isDrink: drinkingWater.achievable.toDouble(),
+                              left: drinkingWater.remaining.toDouble(),
                             ),
                             const SizedBox(
                               height: 30,
@@ -162,7 +173,8 @@ class ElderlySearchDetailPage extends StatelessWidget {
                                           children: [
                                             textSubtitle2('เป้าหมาย',
                                                 ColorTheme().greyText, true),
-                                            textBody1('1250 มล.',
+                                            textBody1(
+                                                '${drinkingWater.target} มล.',
                                                 ColorTheme().black87)
                                           ],
                                         )
@@ -177,7 +189,8 @@ class ElderlySearchDetailPage extends StatelessWidget {
                                         textSubtitle2('ปริมาณที่เหลือ',
                                             ColorTheme().greyText, true),
                                         textBody1(
-                                            '1250 มล.', ColorTheme().black87)
+                                            '${drinkingWater.remaining} มล.',
+                                            ColorTheme().black87)
                                       ],
                                     )
                                   ],
@@ -205,10 +218,10 @@ class ElderlySearchDetailPage extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
-                            for (int i = 0; i < 1; i++)
+                            for (var medic in medicine)
                               drugCard(
                                   img: 'assets/images/pill.png',
-                                  nameDrug: 'Furosemide 500mg',
+                                  nameDrug: medic.name,
                                   qtyDrug: '1/4 เม็ด',
                                   time: 'ก่อนอาหาร เช้า กลางวัน เย็น')
                           ],

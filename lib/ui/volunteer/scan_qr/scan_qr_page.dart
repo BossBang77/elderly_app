@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:health_application/ui/home_page/component/dialog/scan_error_dialog.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/volunteer/search_elderly/search_elderly_page.dart';
@@ -9,7 +10,9 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:scan/scan.dart';
 
 class ScanQrPage extends StatefulWidget {
-  const ScanQrPage({Key? key}) : super(key: key);
+  const ScanQrPage({Key? key, required this.onScan}) : super(key: key);
+
+  final Function onScan;
 
   @override
   State<StatefulWidget> createState() => _ScanQrPageState();
@@ -47,8 +50,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
       var image = await ImagePicker().getImage(source: ImageSource.gallery);
       if (image == null) return;
       String? result = await Scan.parse(image.path);
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => ElderlySearchDetailPage()));
+      widget.onScan.call(result);
       controller!.dispose();
     } catch (e) {
       print(e);
@@ -126,9 +128,18 @@ class _ScanQrPageState extends State<ScanQrPage> {
     c.resumeCamera();
     c.scannedDataStream.listen((scanData) {
       if (scanData != null) {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => ElderlySearchDetailPage()));
+        print('scan data = ${scanData.code}');
+        widget.onScan.call(scanData.code);
+        controller?.stopCamera();
+        // controller?.dispose();
       }
+    }, onError: (_) {
+      print('error scan ');
+      showDialog(
+          context: context,
+          builder: (_) {
+            return ScanErrorDialog();
+          }).then((value) => {controller?.resumeCamera()});
     });
   }
 
