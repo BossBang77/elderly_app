@@ -30,8 +30,8 @@ class AppointmentRepository implements AppointmentRepositoryProtocol {
   final NetworkProvider networkProvider = NetworkProvider();
   late final AppointmentService _appointmentService = AppointmentService(networkProvider.dioClient());
   ResponseHandler jsonResponseHandler = JsonResponseHandler();
-  StreamController<List<Appointment>> incompletedListController = StreamController<List<Appointment>>();
-  StreamController<List<Appointment>> completedListController = StreamController<List<Appointment>>();
+  StreamController<List<Appointment>> incompletedListController = StreamController<List<Appointment>>.broadcast();
+  StreamController<List<Appointment>> completedListController = StreamController<List<Appointment>>.broadcast();
   List<Appointment> currentIncompleteList = const[];
   List<Appointment> currentCompleteList = const[];
 
