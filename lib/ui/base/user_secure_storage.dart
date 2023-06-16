@@ -70,7 +70,23 @@ class UserSecureStorage {
   }
 
   Future<List<String>> getRecentlyExerciseSearched() async {
-    var recently = await _storage.read(key: UserKey.recentlySearched);
+    var recently = await _storage.read(key: UserKey.recentlySearchedVolunteer);
+    List<String> list = [];
+
+    if (recently != null) {
+      list = List<String>.from(json.decode(recently));
+    }
+
+    return list;
+  }
+
+  Future setRecentlyVolunteerSearched(List<String> value) async {
+    await _storage.write(
+        key: UserKey.recentlySearchedVolunteer, value: json.encode(value));
+  }
+
+  Future<List<String>> getRecentlyVolunteerSearched() async {
+    var recently = await _storage.read(key: UserKey.recentlySearchedVolunteer);
     List<String> list = [];
 
     if (recently != null) {
@@ -89,4 +105,5 @@ class UserKey {
   static String get roleCode => 'roleCode';
   static String get foodSearchHistory => 'foodSearchHistory';
   static String get recentlySearched => 'recently_exercise_searched';
+  static String get recentlySearchedVolunteer => 'recently_volunteer_searched';
 }

@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:health_application/repository/elderly_appointment_repos.dart';
 import 'package:health_application/ui/base/model/failure.dart';
+import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/appointment/create_appointment.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/avaliable_time/avaliable_data.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/rating_res_model.dart';
@@ -30,9 +31,12 @@ class SearchVolunteerBloc
   Stream<SearchVolunteerState> mapEventToState(
       SearchVolunteerEvent event) async* {
     if (event is Intital) {
+      var recentlyList =
+          await UserSecureStorage().getRecentlyVolunteerSearched();
+      yield SearchVolunteerState();
+      yield state.copyWith(recentlyList: recentlyList);
       add(SearchVolunteer(search: SearchVolunteerModel()));
       add(SearchCompleteAppointment(elderlyId: event.elderlyId));
-      yield SearchVolunteerState();
     }
 
     if (event is Changeview) {
@@ -143,6 +147,18 @@ class SearchVolunteerBloc
 
     if (event is UpdateSelectMonth) {
       yield state.copyWith(currentMonth: event.date);
+    }
+
+    if (event is SubmitSearchKeyWord) {
+      yield state.copyWith(isLoading: true);
+      List<String> recently = state.recentlyList;
+      if (event.keyWord.isNotEmpty && (!recently.contains(event.keyWord))) {
+        recently.add(event.keyWord);
+        await UserSecureStorage().setRecentlyVolunteerSearched(recently);
+        var recentlyList =
+            await UserSecureStorage().getRecentlyVolunteerSearched();
+        yield state.copyWith(recentlyList: recentlyList, isLoading: false);
+      }
     }
   }
 

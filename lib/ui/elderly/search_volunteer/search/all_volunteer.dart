@@ -29,7 +29,7 @@ class AllVolunteer extends StatelessWidget {
                     height: 20,
                   ),
                   Center(
-                      child: textSubtitle16Blod('ไม่พบข้อมูล', color.greyText)),
+                      child: textSubtitle15w400('ไม่พบข้อมูล', color.greyText)),
                 ],
               )
             },
