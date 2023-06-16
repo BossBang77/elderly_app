@@ -61,8 +61,7 @@ class WaitingEmergencyWidget extends StatelessWidget {
                 height: 20,
               ),
               Image.asset(
-                'assets/images/emergency_waiting_help.png',
-                scale: 3.5,
+                'assets/images/emergency_waiting_help.gif',
               ),
               const SizedBox(
                 height: 20,
