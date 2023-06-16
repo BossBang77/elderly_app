@@ -13,3 +13,9 @@ class ChangeMenu extends HomePageEvent {
   @override
   List<Object> get props => [menus];
 }
+
+class Initstate extends HomePageEvent {
+  const Initstate();
+  @override
+  List<Object> get props => [];
+}

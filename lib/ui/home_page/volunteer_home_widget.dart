@@ -31,15 +31,16 @@ class VolunteerHomeWidget extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                 ),
               ),
-              BlocConsumer<UserProfileBloc, UserProfileState>(
-                listener: (context, state) {},
-                builder: (BuildContext context, UserProfileState state) {
-                  var userProfile = state.userProfile;
-                  return Positioned(
-                    top: 90,
-                    left: 20,
-                    right: 20,
-                    child: Container(
+              Positioned(
+                  top: 90,
+                  left: 20,
+                  right: 20,
+                  child: BlocConsumer<UserProfileBloc, UserProfileState>(
+                    listener: (context, state) {},
+                    builder: (BuildContext context, UserProfileState state) {
+                      var userProfile = state.userProfile;
+
+                      return Container(
                         width: MediaQuery.of(context).size.width,
                         child: Column(
                           children: [
@@ -85,44 +86,44 @@ class VolunteerHomeWidget extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     color: Colors.black.withAlpha(51),
                                     borderRadius: BorderRadius.circular(8)),
-                                child: Expanded(
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        child: Image.asset(
-                                          'assets/images/home.png',
-                                          width: 18,
-                                          height: 18,
-                                        ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: Image.asset(
+                                        'assets/images/home.png',
+                                        width: 18,
+                                        height: 18,
                                       ),
-                                      SizedBox(width: 16),
-                                      Expanded(
-                                          child: Text(
+                                    ),
+                                    SizedBox(width: 16),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.6,
+                                      child: Text(
                                         '3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร 3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontFamily: fontFamily,
                                             fontSize: 18.sp,
                                             color: ColorTheme().white),
-                                      )),
-                                      GestureDetector(
-                                          onTap: () {},
-                                          child: Image.asset(
-                                              'assets/images/volunteer_chevron_right.png',
-                                              width: 20,
-                                              height: 20))
-                                      // textSubtitle1('3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร ', ColorTheme().white)
-                                    ],
-                                  ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                            'assets/images/volunteer_chevron_right.png',
+                                            width: 20,
+                                            height: 20))
+                                  ],
                                 ))
                           ],
-                        )),
-                  );
-                },
-              ),
+                        ),
+                      );
+                    },
+                  )),
               Container(
                 margin: EdgeInsets.only(top: 222),
                 width: MediaQuery.of(context).size.width,
@@ -135,18 +136,19 @@ class VolunteerHomeWidget extends StatelessWidget {
                         height: 20,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
-                              child: VolunteerMenu(
+                          VolunteerMenu(
+                            width: MediaQuery.of(context).size.width / 2.4,
                             title: 'รายการอาหาร',
                             image: 'assets/images/volunteer_food_bg.png',
-                          )),
+                          ),
                           SizedBox(width: 20),
-                          Expanded(
-                              child: VolunteerMenu(
+                          VolunteerMenu(
+                            width: MediaQuery.of(context).size.width / 2.4,
                             title: 'การออกกำลังกาย',
                             image: 'assets/images/volunteer_exercise_bg.png',
-                          ))
+                          )
                         ],
                       ),
                       const SizedBox(
@@ -154,6 +156,7 @@ class VolunteerHomeWidget extends StatelessWidget {
                       ),
                       GestureDetector(
                         child: VolunteerMenu(
+                            width: MediaQuery.of(context).size.width,
                             title: 'ค้นหาข้อมูลผู้สูงอายุ',
                             image: 'assets/images/volunteer_elder_bg.png'),
                         onTap: () {
