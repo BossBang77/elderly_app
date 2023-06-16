@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/home_page/component/dialog/scan_error_dialog.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/volunteer/search_elderly/search_elderly_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -24,6 +26,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
   final GlobalKey qrKey = GlobalKey();
   final picker = ImagePicker();
   late QRViewController control;
+  int counter = 0;
   @override
   void initState() {
     super.initState();
@@ -50,8 +53,8 @@ class _ScanQrPageState extends State<ScanQrPage> {
       var image = await ImagePicker().getImage(source: ImageSource.gallery);
       if (image == null) return;
       String? result = await Scan.parse(image.path);
-      widget.onScan.call(result);
-      controller!.dispose();
+      var keyId = result?.split('resetQR')[0];
+      context.read<UserProfileBloc>().add(getElderlyProfile(id: keyId ?? ''));
     } catch (e) {
       print(e);
     }
@@ -59,46 +62,69 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Column(
-            children: <Widget>[
-              Expanded(flex: 4, child: _buildQrView(context)),
-              Expanded(
-                flex: 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    textSubtitle24W700(
-                        'กรุณาสแกน QR code \nเพื่อค้นหาข้อมูลผู้สูงอายุ',
-                        color.greyText,
-                        align: TextAlign.center),
-                  ],
-                ),
-              )
+    return BlocConsumer<UserProfileBloc, UserProfileState>(
+      listener: (context, state) {
+        if (state.scanStatus == ScanStatus.fail) {
+          setState(() {
+            counter = 0;
+          });
+          showDialog(
+              context: context,
+              builder: (_) {
+                return ScanErrorDialog();
+              }).then((value) async {
+            await controller?.resumeCamera();
+          });
+          context.read<UserProfileBloc>().add(ResetScan());
+        } else if (state.scanStatus == ScanStatus.success) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ElderlySearchDetailPage(
+                  elderlyProfile: state.elderlyProfile)));
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: Stack(
+            children: [
+              Column(
+                children: <Widget>[
+                  Expanded(flex: 4, child: _buildQrView(context)),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        textSubtitle24W700(
+                            'กรุณาสแกน QR code \nเพื่อค้นหาข้อมูลผู้สูงอายุ',
+                            color.greyText,
+                            align: TextAlign.center),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Positioned(
+                  top: MediaQuery.of(context).size.height * 0.6,
+                  left: MediaQuery.of(context).size.width * 0.9,
+                  child: InkWell(
+                      onTap: () => _getPhotoByGallery(),
+                      child: Image.asset(
+                        'assets/images/pic_img_icon.png',
+                        scale: 4,
+                      ))),
+              Positioned(
+                  top: 40,
+                  left: MediaQuery.of(context).size.width * 0.05,
+                  child: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Image.asset(
+                        'assets/images/close_qr_icon.png',
+                        scale: 4,
+                      )))
             ],
           ),
-          Positioned(
-              top: MediaQuery.of(context).size.height * 0.6,
-              left: MediaQuery.of(context).size.width * 0.9,
-              child: InkWell(
-                  onTap: () => _getPhotoByGallery(),
-                  child: Image.asset(
-                    'assets/images/pic_img_icon.png',
-                    scale: 4,
-                  ))),
-          Positioned(
-              top: 40,
-              left: MediaQuery.of(context).size.width * 0.05,
-              child: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Image.asset(
-                    'assets/images/close_qr_icon.png',
-                    scale: 4,
-                  )))
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -126,20 +152,17 @@ class _ScanQrPageState extends State<ScanQrPage> {
       controller = c;
     });
     c.resumeCamera();
-    c.scannedDataStream.listen((scanData) {
-      if (scanData != null) {
-        print('scan data = ${scanData.code}');
-        widget.onScan.call(scanData.code);
-        controller?.stopCamera();
-        // controller?.dispose();
+    c.scannedDataStream.listen((scanData) async {
+      setState(() {
+        result = scanData;
+        counter++;
+      });
+
+      controller?.pauseCamera();
+      if (counter == 1) {
+        var keyId = result?.code?.split('resetQR')[0];
+        context.read<UserProfileBloc>().add(getElderlyProfile(id: keyId ?? ''));
       }
-    }, onError: (_) {
-      print('error scan ');
-      showDialog(
-          context: context,
-          builder: (_) {
-            return ScanErrorDialog();
-          }).then((value) => {controller?.resumeCamera()});
     });
   }
 

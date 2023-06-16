@@ -4,10 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
 import 'package:health_application/ui/extension/date_extension.dart';
 import 'package:health_application/ui/home_page/component/appointment_item.dart';
+import 'package:health_application/ui/home_page/component/dialog/scan_error_dialog.dart';
 import 'package:health_application/ui/home_page/component/volunteer_menu.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
+import 'package:health_application/ui/volunteer/scan_qr/scan_qr_page.dart';
+import 'package:health_application/ui/volunteer/search_elderly/search_elderly_page.dart';
 
 class VolunteerHomeWidget extends StatelessWidget {
   const VolunteerHomeWidget({super.key});
@@ -149,9 +152,18 @@ class VolunteerHomeWidget extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      VolunteerMenu(
-                          title: 'ค้นหาข้อมูลผู้สูงอายุ',
-                          image: 'assets/images/volunteer_elder_bg.png'),
+                      GestureDetector(
+                        child: VolunteerMenu(
+                            title: 'ค้นหาข้อมูลผู้สูงอายุ',
+                            image: 'assets/images/volunteer_elder_bg.png'),
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (_) {
+                                return ScanQrPage(onScan: (_) {});
+                              }).then((value) {});
+                        },
+                      ),
                       const SizedBox(
                         height: 20,
                       ),

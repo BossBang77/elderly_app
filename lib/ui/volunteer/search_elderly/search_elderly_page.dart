@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
+import 'package:health_application/ui/register_profile/volunteer/bloc/volunteer_register_bloc.dart';
 import 'package:health_application/ui/register_profile/volunteer/model/elderly_profile_model.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/volunteer/search_elderly/component/elder_detail.dart';
@@ -41,17 +42,22 @@ class ElderlySearchDetailPage extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            Center(
-              child: Image.asset(
-                'assets/images/${false ? 'woman' : 'man'}_active.png',
-                scale: 4,
+            if (elderlyProfile.profile.gender == SexType.FEMALE.name)
+              Center(
+                child: Image.asset(
+                  elderlyProfile.profile.gender == SexType.FEMALE.name
+                      ? 'assets/images/woman_active.png'
+                      : 'assets/images/man_active.png',
+                  scale: 4,
+                ),
               ),
-            ),
             const SizedBox(
               height: 20,
             ),
-            textSubtitle16Blod('นางทองใบ สันติวงษ์', color.black87),
-            textSubtitle16W500('เพศหญิง, อายุ 85 ปี', color.greyText),
+            textSubtitle16Blod('${elderlyProfile.profile.name}', color.black87),
+            textSubtitle16W500(
+                '${elderlyProfile.profile.gender == SexType.FEMALE.name ? 'เพศหญิง' : 'เพศชาย'}, อายุ ${elderlyProfile.profile.age} ปี',
+                color.greyText),
             const SizedBox(
               height: 20,
             ),
