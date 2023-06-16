@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
 import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
 import 'package:health_application/ui/elderly/exercise/exercise_widget.dart';
+import 'package:health_application/ui/elderly/food_detail/food_detail_page.dart';
+import 'package:health_application/ui/elderly/food_search/food_search_page.dart';
 import 'package:health_application/ui/extension/date_extension.dart';
 import 'package:health_application/ui/home_page/component/appointment_item.dart';
 import 'package:health_application/ui/home_page/component/volunteer_menu.dart';
@@ -143,6 +145,20 @@ class VolunteerHomeWidget extends StatelessWidget {
                             width: MediaQuery.of(context).size.width / 2.4,
                             title: 'รายการอาหาร',
                             image: 'assets/images/volunteer_food_bg.png',
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder:(context) => 
+                                  FoodSearchPage(
+                                    isToggleItemSelectable: true,
+                                    onFoodSelected: (food) {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(builder:(context) => FoodDetailPage(foodCode: food.code))
+                                      );
+                                    },
+                                  )
+                                )
+                              );
+                            },
                           ),
                           SizedBox(width: 20),
                           InkWell(

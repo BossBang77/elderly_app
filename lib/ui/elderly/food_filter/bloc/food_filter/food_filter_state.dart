@@ -1,5 +1,6 @@
 import 'package:chopper/chopper.dart';
 import 'package:equatable/equatable.dart';
+import 'package:health_application/ui/register_profile/model/sub_menu_model.dart';
 
 class FoodFilterState extends Equatable {
   const FoodFilterState({
@@ -8,7 +9,9 @@ class FoodFilterState extends Equatable {
     required this.foodTypes,
     required this.selectedTypes,
     required this.minimumCalories,
-    required this.maximumCalories
+    required this.maximumCalories,
+    this.selectedDisease = const[],
+    this.selectedFoodAllergy = const[]
   });
 
   const FoodFilterState.initial({
@@ -17,7 +20,9 @@ class FoodFilterState extends Equatable {
     this.foodTypes = const [],
     this.selectedTypes = const[],
     this.minimumCalories = '',
-    this.maximumCalories = ''
+    this.maximumCalories = '',
+    this.selectedDisease = const[],
+    this.selectedFoodAllergy = const[]
   });
 
   final bool isFoodAllergiesSelected;
@@ -26,6 +31,8 @@ class FoodFilterState extends Equatable {
   final List<String> selectedTypes;
   final String minimumCalories;
   final String maximumCalories;
+  final List<SubMenuModel> selectedDisease;
+  final List<SubMenuModel> selectedFoodAllergy;
 
   @override
   List<Object> get props => [
@@ -34,7 +41,9 @@ class FoodFilterState extends Equatable {
     foodTypes,
     selectedTypes,
     minimumCalories,
-    maximumCalories
+    maximumCalories,
+    selectedDisease,
+    selectedFoodAllergy
   ];
 
   @override
@@ -46,7 +55,9 @@ class FoodFilterState extends Equatable {
     List<String>? foodTypes,
     List<String>? selectedTypes,
     String? minimumCalories,
-    String? maximumCalories
+    String? maximumCalories,
+    List<SubMenuModel>? selectedDisease,
+    List<SubMenuModel>? selectedFoodAllergy
   }) {
     return FoodFilterState(
       isCongentialDeceaseSelected: isCongentialDeceaseSelected ?? this.isCongentialDeceaseSelected,
@@ -54,7 +65,9 @@ class FoodFilterState extends Equatable {
       foodTypes: foodTypes ?? this.foodTypes,
       selectedTypes: selectedTypes ?? this.selectedTypes,
       minimumCalories: minimumCalories ?? this.minimumCalories,
-      maximumCalories: maximumCalories ?? this.maximumCalories
+      maximumCalories: maximumCalories ?? this.maximumCalories,
+      selectedDisease: selectedDisease ?? this.selectedDisease,
+      selectedFoodAllergy: selectedFoodAllergy ?? this.selectedFoodAllergy
     );
   }
 
@@ -62,9 +75,11 @@ class FoodFilterState extends Equatable {
     Map<String, dynamic> mappedFilter = {};
     if (isCongentialDeceaseSelected) {
       mappedFilter['isCongentialDeceaseSelected'] = isCongentialDeceaseSelected;
+      mappedFilter['selectedDisease'] = selectedDisease.map((disease) => disease.name).toList();
     }
     if (isFoodAllergiesSelected) {
       mappedFilter['isFoodAllergiesSelected'] = isFoodAllergiesSelected;
+      mappedFilter['selectedFoodAllergy'] = selectedFoodAllergy.map((food) => food.name).toList();
     }
     if (selectedTypes.isNotEmpty) {
       mappedFilter['foodTypes'] = selectedTypes;
