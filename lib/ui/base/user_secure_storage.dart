@@ -70,7 +70,7 @@ class UserSecureStorage {
   }
 
   Future<List<String>> getRecentlyExerciseSearched() async {
-    var recently = await _storage.read(key: UserKey.recentlySearchedVolunteer);
+    var recently = await _storage.read(key: UserKey.recentlySearched);
     List<String> list = [];
 
     if (recently != null) {
