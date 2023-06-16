@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
-import 'package:health_application/ui/volunteer/request_assistance_detail.dart/request_assitance_detail_page.dart';
+import 'package:health_application/ui/volunteer/request_assistance_detail/request_assitance_detail_page.dart';
 
 import '../../../ui-extensions/color.dart';
 
