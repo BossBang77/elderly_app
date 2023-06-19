@@ -14,14 +14,13 @@ enum FoodListItemViewTrailingIcon {
 }
 
 class FoodListItemView extends StatelessWidget {
-  const FoodListItemView({
-    required this.image,
-    required this.name,
-    required this.calories, 
-    this.onTap, 
-    this.onTrailingIconTap,
-    this.trailingIcon = FoodListItemViewTrailingIcon.next
-  });
+  const FoodListItemView(
+      {required this.image,
+      required this.name,
+      required this.calories,
+      this.onTap,
+      this.onTrailingIconTap,
+      this.trailingIcon = FoodListItemViewTrailingIcon.next});
 
   final Function()? onTap;
   final Function()? onTrailingIconTap;
@@ -30,59 +29,74 @@ class FoodListItemView extends StatelessWidget {
   final Nutrient calories;
   final FoodListItemViewTrailingIcon trailingIcon;
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onTap: () {
-        onTap?.call();
-      },
-      child: Container(
-        height: 88,
-        margin: EdgeInsets.fromLTRB(16, 10, 16, 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              width: 80,
-              height: 80,
-              child: image.isNotEmpty ?
-                Image.network(image.isEmpty ? image : '', width: 50, height: 50) : 
-                Container(
-                  alignment: Alignment.topCenter,
-                  width: 50,
-                  height: 50,
-                  // margin: EdgeInsets.only(top: 150),
-                  child: Center(child: textOverline2(
-                    'Image NotFound', color.greyText)
-                  ),
-                )
-            ),
-            SizedBox(width: 25),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  textSubtitle2(name, ColorTheme().black87, false),
-                  textBody2(calories.value.toString() + ' ' + calories.unit.symbol, ColorTheme().black87, false),
-                ],
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          onTap?.call();
+        },
+        child: Container(
+          height: 88,
+          margin: EdgeInsets.fromLTRB(16, 10, 16, 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                  width: 80,
+                  height: 80,
+                  child: image.isNotEmpty
+                      ? Image.network(
+                          image.isEmpty ? image : '',
+                          width: 50,
+                          height: 50,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              alignment: Alignment.topCenter,
+                              width: 50,
+                              height: 50,
+                              // margin: EdgeInsets.only(top: 150),
+                              child: Center(
+                                  child: textOverline2(
+                                      'Image NotFound', color.greyText)),
+                            );
+                          },
+                        )
+                      : Container(
+                          alignment: Alignment.topCenter,
+                          width: 50,
+                          height: 50,
+                          // margin: EdgeInsets.only(top: 150),
+                          child: Center(
+                              child: textOverline2(
+                                  'Image NotFound', color.greyText)),
+                        )),
+              SizedBox(width: 25),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    textSubtitle2(name, ColorTheme().black87, false),
+                    textBody2(
+                        calories.value.toString() + ' ' + calories.unit.symbol,
+                        ColorTheme().black87,
+                        false),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(width: 25),
-            SizedBox(
-              height: 20,
-              width: 20,
-              child: GestureDetector(
-                onTap: () {
-                  onTrailingIconTap?.call();
-                },
-                child: Image.asset(trailingIcon.trailingIconPath),
-              )
-            ),
-          ],
-        ),
-      )
-    );
+              SizedBox(width: 25),
+              SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: GestureDetector(
+                    onTap: () {
+                      onTrailingIconTap?.call();
+                    },
+                    child: Image.asset(trailingIcon.trailingIconPath),
+                  )),
+            ],
+          ),
+        ));
   }
 }

@@ -306,8 +306,8 @@ class HomeWidget extends StatelessWidget {
                                 background: 'assets/images/food.png',
                                 title: 'อาหาร',
                                 onClick: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => FoodPage()));
+                                  context.read<HomePageBloc>().add(
+                                      ChangeMenu(menus: menuType.foodPage));
                                 },
                                 subTitle: 'บันทึกมื้ออาหาร',
                                 icon: 'assets/images/food_icon.png',
