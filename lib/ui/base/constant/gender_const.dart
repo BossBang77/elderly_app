@@ -11,4 +11,12 @@ class Gender {
   static bool isWoman(String code) {
     return code == femaleCode;
   }
+
+  static String getPicGenderVolunteer(String code) {
+    if (code == maleCode) {
+      return 'assets/images/volunteer_help_men.png';
+    } else {
+      return 'assets/images/volunteer_help_woman.png';
+    }
+  }
 }
