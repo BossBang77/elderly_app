@@ -68,7 +68,7 @@ class AppointmentListView extends StatelessWidget {
       }),
       backgroundColor: ColorTheme().white,
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 16, right: 16),
+        padding: EdgeInsets.only(left: 16, right: 16, bottom: 100),
         child: BlocBuilder<AppointmentListBloc, AppointmentListState>(
           builder: (context, state) => Column(
             children: [
