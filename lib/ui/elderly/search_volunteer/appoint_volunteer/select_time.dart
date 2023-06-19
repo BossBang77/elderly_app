@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
+import 'package:health_application/ui/base/widget/title_header.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:http/http.dart';
 
@@ -31,7 +32,11 @@ class SelectTime extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            textSubtitle16Blod('เลือกเวลา', color.black87),
+            TitleHeaderWidget(
+              title: 'เลือกเวลา',
+              isMandatory: true,
+            ),
+            textH7('กรุณาเลือกเวลา', color.Error),
             textH7('เลือกได้มากกว่า 1 ช่วงเวลา', color.greyText),
             const SizedBox(
               height: 20,
