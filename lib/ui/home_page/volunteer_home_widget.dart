@@ -171,6 +171,9 @@ class VolunteerHomeWidget extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
+
+                      /// TODO Integrate
+                      //  EmergencyDetailCard(),
                       if (true)
                         Column(
                           children: [
