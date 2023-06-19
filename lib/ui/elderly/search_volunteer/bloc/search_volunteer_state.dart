@@ -15,7 +15,8 @@ class SearchVolunteerState extends Equatable {
       this.lastestAppointList = const AppointList(),
       this.avaliableTime = const AvaliableData(),
       this.isLoading = false,
-      this.currentMonth = null});
+      this.currentMonth = null,
+      this.recentlyList = const <String>[]});
 
   final SearchVolunteerView searchVolunteerView;
   final SearchVolunteerModel searchVolunteerSubmit;
@@ -31,6 +32,7 @@ class SearchVolunteerState extends Equatable {
   final AvaliableData avaliableTime;
   final bool isLoading;
   final DateTime? currentMonth;
+  final List<String> recentlyList;
   SearchVolunteerState.initial(
       {this.searchVolunteerView = SearchVolunteerView.searchSummary,
       this.searchVolunteer = const SearchVolunteerModel(),
@@ -45,7 +47,8 @@ class SearchVolunteerState extends Equatable {
       this.lastestAppointList = const AppointList(),
       this.avaliableTime = const AvaliableData(),
       this.isLoading = false,
-      this.currentMonth = null});
+      this.currentMonth = null,
+      this.recentlyList = const <String>[]});
 
   SearchVolunteerState copyWith(
       {SearchVolunteerView? searchVolunteerView,
@@ -61,7 +64,8 @@ class SearchVolunteerState extends Equatable {
       AppointList? lastestAppointList,
       AvaliableData? avaliableTime,
       bool? isLoading,
-      DateTime? currentMonth}) {
+      DateTime? currentMonth,
+      List<String>? recentlyList}) {
     return SearchVolunteerState(
         searchVolunteerView: searchVolunteerView ?? this.searchVolunteerView,
         searchVolunteer: searchVolunteer ?? this.searchVolunteer,
@@ -78,7 +82,8 @@ class SearchVolunteerState extends Equatable {
         lastestAppointList: lastestAppointList ?? this.lastestAppointList,
         avaliableTime: avaliableTime ?? this.avaliableTime,
         isLoading: isLoading ?? this.isLoading,
-        currentMonth: currentMonth ?? this.currentMonth);
+        currentMonth: currentMonth ?? this.currentMonth,
+        recentlyList: recentlyList ?? this.recentlyList);
   }
 
   @override
@@ -96,7 +101,8 @@ class SearchVolunteerState extends Equatable {
         lastestAppointList,
         avaliableTime,
         isLoading,
-        currentMonth ?? DateTime.now()
+        currentMonth ?? DateTime.now(),
+        recentlyList
       ];
 }
 

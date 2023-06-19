@@ -63,6 +63,38 @@ class UserSecureStorage {
     Map<String, dynamic> decodedToken = JwtDecoder.decode(user.accessToken);
     return decodedToken['uid'] ?? '';
   }
+
+  Future setRecentlyExerciseSearched(List<String> value) async {
+    await _storage.write(
+        key: UserKey.recentlySearched, value: json.encode(value));
+  }
+
+  Future<List<String>> getRecentlyExerciseSearched() async {
+    var recently = await _storage.read(key: UserKey.recentlySearched);
+    List<String> list = [];
+
+    if (recently != null) {
+      list = List<String>.from(json.decode(recently));
+    }
+
+    return list;
+  }
+
+  Future setRecentlyVolunteerSearched(List<String> value) async {
+    await _storage.write(
+        key: UserKey.recentlySearchedVolunteer, value: json.encode(value));
+  }
+
+  Future<List<String>> getRecentlyVolunteerSearched() async {
+    var recently = await _storage.read(key: UserKey.recentlySearchedVolunteer);
+    List<String> list = [];
+
+    if (recently != null) {
+      list = List<String>.from(json.decode(recently));
+    }
+
+    return list;
+  }
 }
 
 class UserKey {
@@ -72,4 +104,6 @@ class UserKey {
   static String get roleName => 'role';
   static String get roleCode => 'roleCode';
   static String get foodSearchHistory => 'foodSearchHistory';
+  static String get recentlySearched => 'recently_exercise_searched';
+  static String get recentlySearchedVolunteer => 'recently_volunteer_searched';
 }

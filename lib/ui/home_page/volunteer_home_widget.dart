@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
+import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
+import 'package:health_application/ui/elderly/exercise/exercise_widget.dart';
 import 'package:health_application/ui/extension/date_extension.dart';
 import 'package:health_application/ui/home_page/component/appointment_item.dart';
 import 'package:health_application/ui/home_page/component/volunteer_menu.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
+
+import '../elderly/exercise/exercise_page.dart';
 
 class VolunteerHomeWidget extends StatelessWidget {
   const VolunteerHomeWidget({super.key});
@@ -141,10 +145,19 @@ class VolunteerHomeWidget extends StatelessWidget {
                             image: 'assets/images/volunteer_food_bg.png',
                           ),
                           SizedBox(width: 20),
-                          VolunteerMenu(
-                            width: MediaQuery.of(context).size.width / 2.4,
-                            title: 'การออกกำลังกาย',
-                            image: 'assets/images/volunteer_exercise_bg.png',
+                          InkWell(
+                            onTap: () async {
+                              context.read<ExerciseBloc>().add(Initial());
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => ExerciseWidget()),
+                                  (Route<dynamic> route) => false);
+                            },
+                            child: VolunteerMenu(
+                              width: MediaQuery.of(context).size.width / 2.4,
+                              title: 'การออกกำลังกาย',
+                              image: 'assets/images/volunteer_exercise_bg.png',
+                            ),
                           )
                         ],
                       ),

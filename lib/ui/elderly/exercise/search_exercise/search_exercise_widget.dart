@@ -49,6 +49,9 @@ class SearchExerciseWidget extends StatelessWidget {
                     },
                     textInputAction: TextInputAction.search,
                     onFieldSubmitted: () {
+                      context
+                          .read<ExerciseBloc>()
+                          .add(SubmitSearchKeyWord(keyWord: search.keyword));
                       context.read<ExerciseBloc>()..add(SearchExercise());
                     },
                   ),
@@ -63,7 +66,7 @@ class SearchExerciseWidget extends StatelessWidget {
                   },
                   child: Container(
                     width: 70,
-                    height: 60,
+                    height: MediaQuery.of(context).size.height * 0.065,
                     decoration: BoxDecoration(
                         color: isFilter ? color.DartBlue : color.grey10,
                         borderRadius: BorderRadius.all(Radius.circular(15)),
