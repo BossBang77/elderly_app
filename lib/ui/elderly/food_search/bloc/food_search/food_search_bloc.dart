@@ -78,15 +78,21 @@ class FoodSearchBloc extends Bloc<FoodSearchEvent, FoodSearchState> {
      _searchHistoryProvider.pushEntry(event.value);
       List<String> recenSearchValues = _searchHistoryProvider.history;
 
+    print(state.searchFilter);
     final request = FoodSearchRequest(
       keyword: event.value,
       limit: 20,
       offset: 0,
+      calorieMin: state.searchFilter['minimumCalories'] ?? 0,
+      calorieMax: state.searchFilter['maximumCalories'] ?? 9999,
+      allergicFoods: state.searchFilter['selectedFoodAllergy'] ?? [],
       sort: FoodSearchSort(
-        by: "",
-        order: ""
+        by: "string",
+        order: "ASC"
       )
     );
+    print(request);
+
     final response = await _foodSearchRepository.searchFoodWith(request);
 
     response.fold(

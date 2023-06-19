@@ -10,10 +10,11 @@ import 'package:health_application/ui/elderly/food_search/repository/food_search
 import 'package:health_application/ui/elderly/food_search/repository/food_search_repository.dart';
 
 class FoodSearchPage extends StatelessWidget {
-  const FoodSearchPage({this.onFoodSelected, this.onItemTrailingIconTap});
+  const FoodSearchPage({this.onFoodSelected, this.onItemTrailingIconTap, this.isToggleItemSelectable = false});
 
   final Function(FoodSearchItem)? onFoodSelected;
   final Function(FoodSearchItem)? onItemTrailingIconTap;
+  final bool isToggleItemSelectable;
   
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class FoodSearchPage extends StatelessWidget {
         ),
       ], 
       child: FoodSearchView(
+        isToggleItemSelectable: isToggleItemSelectable,
         onFoodSelected: onFoodSelected,
         onItemTrailingIconTap: onItemTrailingIconTap,
       )

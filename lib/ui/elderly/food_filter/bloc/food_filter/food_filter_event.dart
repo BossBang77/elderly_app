@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:health_application/ui/register_profile/model/sub_menu_model.dart';
 
 abstract class FoodFilterEvent extends Equatable {
   const FoodFilterEvent();
@@ -65,4 +66,20 @@ class FoodFilterClearButtonTapped extends FoodFilterEvent {
 
 class FoodFilterSearchButtonTapped extends FoodFilterEvent {
   const FoodFilterSearchButtonTapped();
+}
+
+class FoodFilterSetSelectedDisease extends FoodFilterEvent {
+  const FoodFilterSetSelectedDisease({this.diseases = const[]});
+  final List<SubMenuModel> diseases;
+
+  @override
+  List<Object> get props => [diseases];
+}
+
+class FoodFilterSetSelectedFoodAllergy extends FoodFilterEvent {
+  const FoodFilterSetSelectedFoodAllergy({this.foodAllergy = const[]});
+  final List<SubMenuModel> foodAllergy;
+
+  @override
+  List<Object> get props => [foodAllergy];
 }

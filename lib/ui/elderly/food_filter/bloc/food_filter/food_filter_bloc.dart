@@ -16,6 +16,8 @@ class FoodFilterBloc extends Bloc<FoodFilterEvent, FoodFilterState> {
     on<FoodFilterSearchButtonTapped>(_onFilterSearchButtonTapped);
     on<FoodFilterSnapshotCreated>(_onFoodFilterSnapshotCreated);
     on<FoodFilterStateRestored>(_onFoodFilterStateRestored);
+    on<FoodFilterSetSelectedDisease>(_onFoodFilterSetSelectedDisease);
+    on<FoodFilterSetSelectedFoodAllergy>(_onFoodFilterSetSelectedFoodAllergy);
   }
 
   StateRestorable<FoodFilterState> foodStateRestorer;
@@ -96,6 +98,8 @@ class FoodFilterBloc extends Bloc<FoodFilterEvent, FoodFilterState> {
     emit(state.copyWith(
       isCongentialDeceaseSelected: false,
       isFoodAllergiesSelected: false,
+      selectedDisease: [],
+      selectedFoodAllergy: [],
       selectedTypes: [],
       minimumCalories: '',
       maximumCalories: ''
@@ -107,5 +111,19 @@ class FoodFilterBloc extends Bloc<FoodFilterEvent, FoodFilterState> {
     Emitter<FoodFilterState> emit
   ) {
     
+  }
+
+  void _onFoodFilterSetSelectedDisease(
+    FoodFilterSetSelectedDisease event,
+    Emitter<FoodFilterState> emit
+  ) {
+    emit(state.copyWith(selectedDisease: event.diseases));
+  }
+
+  void _onFoodFilterSetSelectedFoodAllergy(
+    FoodFilterSetSelectedFoodAllergy event,
+    Emitter<FoodFilterState> emit
+  ) {
+    emit(state.copyWith(selectedFoodAllergy: event.foodAllergy));
   }
 }
