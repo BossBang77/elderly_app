@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/button_orange.dart';
+import 'package:health_application/ui/elderly/food/bloc/food_page/food_page_bloc.dart';
+import 'package:health_application/ui/elderly/food/bloc/food_page/food_page_event.dart';
 import 'package:health_application/ui/elderly/food/model/nutritions/calories.dart';
 import 'package:health_application/ui/elderly/food_log/bloc/food_log_bloc.dart';
 import 'package:health_application/ui/elderly/food_log/bloc/food_log_event.dart';
@@ -13,8 +15,11 @@ import 'package:health_application/ui/elderly/food_log_detail/food_log_detail_pa
 import 'package:health_application/ui/elderly/food_search/food_search_page.dart';
 import 'package:health_application/ui/elderly/food_search/view/search_result_view.dart';
 import 'package:health_application/ui/extension/extension.dart';
+import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+
+import '../../home_page/bloc/home_page_bloc.dart';
 
 class FoodLogView extends StatelessWidget {
   @override
@@ -33,8 +38,10 @@ class FoodLogView extends StatelessWidget {
         ),
         body: BlocListener<FoodLogBloc, FoodLogState>(
           listener: (context, state) {
-            if (state.isSavedCompleted == true) {
-              Navigator.of(context).pop();
+            if (state.isSavedCompleted) {
+              Navigator.pop(context);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => HomePage()));
             }
           },
           child: BlocBuilder<FoodLogBloc, FoodLogState>(
