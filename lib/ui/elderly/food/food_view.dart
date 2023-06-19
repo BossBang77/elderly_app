@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/elderly/food/food_page.dart';
 import 'package:health_application/ui/elderly/food/model/food/food.dart';
@@ -22,6 +23,8 @@ import 'package:health_application/ui/elderly/food_search/food_search_page.dart'
 import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+
+import '../../home_page/bloc/home_page_bloc.dart';
 
 class FoodView extends StatefulWidget {
   const FoodView({Key? key}) : super(key: key);
@@ -57,15 +60,13 @@ class _FoodViewState extends State<FoodView> {
     }
 
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          shadowColor: ColorTheme().white,
-          backgroundColor: ColorTheme().white,
-          leading: BackButtonWidget(onClick: () {
-            Navigator.pop(context, true);
-          }),
-          title: textSubtitle2('อาหาร', ColorTheme().black87, false),
-        ),
+        appBar: appBar(
+            onBack: () {
+              context
+                  .read<HomePageBloc>()
+                  .add(ChangeMenu(menus: menuType.mainPage));
+            },
+            title: 'อาหาร'),
         body: MultiBlocListener(
             listeners: [
               BlocListener<FoodPageBloc, FoodPageState>(
@@ -167,6 +168,9 @@ class _FoodViewState extends State<FoodView> {
                                                               'FoodLogPage')));
                                             }))
                                         .toList()),
+                                const SizedBox(
+                                  height: 90,
+                                )
                               ])
                         ],
                       ))),
