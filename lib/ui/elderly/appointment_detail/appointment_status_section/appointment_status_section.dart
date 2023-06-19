@@ -46,7 +46,7 @@ enum AppointmentStatus {
   waitingtostart(title: 'รอเริ่มงาน', value: 'WAITING_TO_START'),
   start(title: 'เริ่มงาน', value: 'START'),
   complete(title: 'สำเร็จ', value: 'COMPLETE'),
-  reject(title: '', value: 'REJECT');
+  reject(title: 'ยกเลิก', value: 'REJECT');
 
   const AppointmentStatus({
     required this.title,

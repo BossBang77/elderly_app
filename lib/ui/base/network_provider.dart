@@ -16,7 +16,6 @@ class NetworkProvider {
   ///alice
   final Alice alice = Alice(showNotification: false);
 
-
   ///setting
   AppConfig setting = ConfigEnv.appConfig;
   // Dio

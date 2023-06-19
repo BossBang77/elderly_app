@@ -24,6 +24,7 @@ class AppointmentListBloc extends Bloc<AppointmentListEvent, AppointmentListStat
     _incomplteListSubscriber = _appointmentRepository
       .incompletedListController
       .stream
+      .asBroadcastStream()
       .listen((List<Appointment> data) {
         add(AppointmentListUpdate(completedList: state.completedAppointments, incompleteList: data));
     });
@@ -31,6 +32,7 @@ class AppointmentListBloc extends Bloc<AppointmentListEvent, AppointmentListStat
     _completeListSubscriber = _appointmentRepository
       .completedListController
       .stream
+      .asBroadcastStream()
       .listen((List<Appointment> data) {
         add(AppointmentListUpdate(completedList: data, incompleteList: state.appointments));
     });
