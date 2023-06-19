@@ -16,6 +16,7 @@ class NetworkProvider {
   ///alice
   final Alice alice = Alice(showNotification: false);
 
+
   ///setting
   AppConfig setting = ConfigEnv.appConfig;
   // Dio
@@ -33,6 +34,7 @@ class NetworkProvider {
       // TODO: set interceptor after can call service
       ApiInterceptors(dio),
     });
+
     return dio;
   }
 }

@@ -109,11 +109,7 @@ class ElderProfileWidget extends StatelessWidget {
                             subtitle: 'คุณต้องการออกจากระบบ\nใช่หรือไม่'));
 
                     if (res) {
-                      await UserSecureStorage().clearSession();
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => WelcomePage()),
-                          (Route<dynamic> route) => false);
+                      context.read<UserProfileBloc>().add(UserProfileLoggedOut());
                     }
                   },
                   child: textSubtitle16Blod('ออกจากระบบ', color.Error)),

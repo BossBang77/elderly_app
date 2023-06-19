@@ -19,30 +19,25 @@ class _LogoutService implements LogoutService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<dynamic>> sendLogout(
-    accessToken,
-    deviceType,
-  ) async {
+  Future<HttpResponse<dynamic>> sendLogout() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{
       r'Accept': 'application/json',
       r'Content-Type': 'application/x-www-form-urlencoded',
-      r'Authorization': accessToken,
-      r'device_type': deviceType,
     };
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
-      method: 'POST',
+      method: 'DELETE',
       headers: _headers,
       extra: _extra,
       contentType: 'application/x-www-form-urlencoded',
     )
             .compose(
               _dio.options,
-              '/authentication/user/logout',
+              '/api/v1/logout',
               queryParameters: queryParameters,
               data: _data,
             )

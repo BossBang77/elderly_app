@@ -10,3 +10,7 @@ abstract class UserProfileEvent extends Equatable {
 class GetUserProfile extends UserProfileEvent {
   const GetUserProfile();
 }
+
+class UserProfileLoggedOut extends UserProfileEvent {}
+
+class UserProfileInitialLogoutState extends UserProfileEvent {}

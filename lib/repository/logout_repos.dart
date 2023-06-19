@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/logout_client.dart';
+import 'package:health_application/ui/base/model/status_code.dart';
 import 'package:retrofit/dio.dart';
 
 import '../ui/base/model/failure.dart';
@@ -13,16 +14,12 @@ class LogoutRepository {
   late final LogoutService _logoutService =
       LogoutService(networkProvider.dioClient());
 
-  //example callfunction
-  /* Future<Either<Failure,int>> sendLogout(String token) async {
+  Future<Either<Failure,int>> sendLogout() async {
     try {
-    
-
       final HttpResponse req =
-          await _logoutService.sendLogout(token, deviceType);
+          await _logoutService.sendLogout();
       if (req.response.statusCode == StatusCode.success) {
-        final Map<String, dynamic> data = req.data;
-        return Right(LogoutResponseModel.fromJson(data));
+        return Right(req.response.statusCode ?? StatusCode.success);
       }
     } on DioError catch (error) {
       if (error.response?.statusCode == StatusCode.notFound) {
@@ -34,5 +31,5 @@ class LogoutRepository {
       }
     }
     return const Left(Failure(''));
-  }*/
+  }
 }
