@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:alice/alice.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:health_application/repository/login_repos.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
+import 'package:health_application/ui/signIn_page/model/login_model.dart';
 
 import 'app_config/app_config.dart';
 import 'app_config/conflig.dart';
@@ -38,7 +40,7 @@ class NetworkProvider {
   }
 }
 
-class ApiInterceptors extends Interceptor {
+class ApiInterceptors extends QueuedInterceptor {
   final Dio dio;
 
   ApiInterceptors(this.dio);
@@ -64,22 +66,56 @@ class ApiInterceptors extends Interceptor {
   @override
   Future<dynamic> onError(
       DioError error, ErrorInterceptorHandler handler) async {
-    //TODO
-    // switch (error.type) {
-    //   case DioErrorType.connectTimeout:
-    //   case DioErrorType.sendTimeout:
-    //   case DioErrorType.receiveTimeout:
-    //     throw DeadlineExceededException(error.requestOptions);
-    //   case DioErrorType.response:
-    //     if (error.response?.statusCode == 403 ||
-    //         error.response?.statusCode == 401) {}
-    //     break;
-    //   case DioErrorType.cancel:
-    //     break;
-    //   case DioErrorType.other:
-    //     throw NoInternetConnectionException(error.requestOptions);
-    // }
+    switch (error.type) {
+      //TODO
+      // case DioErrorType.connectTimeout:
+      // case DioErrorType.sendTimeout:
+      // case DioErrorType.receiveTimeout:
+      // throw DeadlineExceededException(error.requestOptions);
+      case DioErrorType.response:
+        if (error.response?.statusCode == 401) {
+          var res = await refreshToken();
+          if (res != null && res) {
+            await _retry(error.requestOptions);
+          }
+        }
+        break;
+      case DioErrorType.cancel:
+        break;
+      case DioErrorType.other:
+        throw NoInternetConnectionException(error.requestOptions);
+    }
     return handler.next(error);
+  }
+
+  /// Api to get new token from refresh token
+  ///
+  Future<bool?> refreshToken() async {
+    var refreshToken = await UserSecureStorage().getRefreshToken();
+
+    if (refreshToken != null) {
+      var response = await LoginRepository().refreshToken(refreshToken);
+      response.fold((error) {
+        return null;
+      }, (LoginModel res) async {
+        await UserSecureStorage().setAccessToken(res.accessToken);
+        await UserSecureStorage().setRefreshToken(res.refreshToken);
+        await UserSecureStorage().setUserData(res);
+        return true;
+      });
+    }
+    return null;
+  }
+
+  Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {
+    final options = Options(
+      method: requestOptions.method,
+      headers: requestOptions.headers,
+    );
+    return dio.request<dynamic>(requestOptions.path,
+        data: requestOptions.data,
+        queryParameters: requestOptions.queryParameters,
+        options: options);
   }
 }
 

@@ -26,6 +26,8 @@ class SignInPage extends StatelessWidget {
         if (state.signInStatus == SignInStatus.success) {
           var loginRes = state.loginRes;
           await UserSecureStorage().setAccessToken(loginRes.accessToken);
+          await UserSecureStorage().setRefreshToken(loginRes.refreshToken);
+
           await UserSecureStorage().setUserData(loginRes);
           context.read<UserProfileBloc>()..add(GetUserProfile());
           context
