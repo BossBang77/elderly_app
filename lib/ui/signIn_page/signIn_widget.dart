@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/home_page/bloc/home_page_bloc.dart';
@@ -31,8 +33,7 @@ class SignInPage extends StatelessWidget {
           context
               .read<HomePageBloc>()
               .add(ChangeMenu(menus: menuType.mainPage));
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => HomePage()));
+          context.go(Routes.home);
         } else if (state.signInStatus == SignInStatus.fail) {
           final bool acceptClose = await showDialog(
               context: context,

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/elderly/request_assistance/bloc/request_assistance_bloc.dart';
@@ -69,9 +71,7 @@ class EmergrncyCallWidget extends StatelessWidget {
               left: 30,
               child: BackButtonWidget(
                 onClick: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                      (Route<dynamic> route) => false);
+                  context.go(Routes.home);
                 },
               ),
             ),

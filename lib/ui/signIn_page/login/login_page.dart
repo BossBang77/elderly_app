@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/text_field_widget.dart';
@@ -116,8 +118,7 @@ class LoginPage extends StatelessWidget {
                     textButton2('ยังไม่มีบัญชี?  ', ColorTheme().black87),
                     InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => RegisterProfilePage()));
+                          context.go(Routes.register);
                         },
                         child: textButton1('ลงทะเบียน', ColorTheme().Primary)),
                   ],

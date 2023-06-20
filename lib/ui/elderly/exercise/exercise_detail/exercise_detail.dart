@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/image_notfound.dart';
@@ -42,9 +44,7 @@ class ExerciseDetail extends StatelessWidget {
                         .read<ExerciseBloc>()
                         .add(ChangeView(exerciseView: ExerciseView.search));
                   } else {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                        (Route<dynamic> route) => false);
+                    context.go(Routes.home);
                   }
                 },
                 child: Image.asset(

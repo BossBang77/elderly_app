@@ -3,7 +3,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/appoint_detail_card/appoint_detail_card.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
 import 'package:health_application/ui/elderly/search_volunteer/component/last_volunteer.dart';
@@ -30,9 +32,7 @@ class VolunteerWidget extends StatelessWidget {
     return Scaffold(
       appBar: appBar(
           onBack: () {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => HomePage()),
-                (Route route) => false);
+            context.go(Routes.home);
           },
           showNotification: false,
           title: 'เรียกจิตอาสา'),
