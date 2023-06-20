@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:health_application/ui/base/luncher/luncher_function.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_red.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
@@ -95,25 +96,31 @@ class RequestAssitanceDetailPage extends StatelessWidget {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      Container(
-                                        padding: EdgeInsets.all(7),
-                                        decoration: BoxDecoration(
-                                          color:
-                                              color.emergency.withOpacity(0.2),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20)),
+                                      InkWell(
+                                        onTap: () async {
+                                          await Luncher.makePhoneCall(
+                                              profile.mobileNumber);
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.all(7),
+                                          decoration: BoxDecoration(
+                                            color: color.emergency
+                                                .withOpacity(0.2),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20)),
+                                          ),
+                                          child: Row(children: [
+                                            Image.asset(
+                                              'assets/images/phone_blue.png',
+                                              color: color.emergency,
+                                              scale: 4,
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            textButton1('โทร', color.emergency),
+                                          ]),
                                         ),
-                                        child: Row(children: [
-                                          Image.asset(
-                                            'assets/images/phone_blue.png',
-                                            color: color.emergency,
-                                            scale: 4,
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          textButton1('โทร', color.emergency),
-                                        ]),
                                       )
                                     ],
                                   )
@@ -200,8 +207,10 @@ class RequestAssitanceDetailPage extends StatelessWidget {
                                           detail.longitude.toDouble()),
                                       onTap: () {})
                                 ].toSet(),
-                                onTap: (LatLng latLng) {
-                                  // TODO
+                                onTap: (LatLng latLng) async {
+                                  await Luncher.launchMapsUrl(
+                                      detail.latitude.toDouble(),
+                                      detail.longitude.toDouble());
                                 },
                               )),
                         const SizedBox(
@@ -212,7 +221,9 @@ class RequestAssitanceDetailPage extends StatelessWidget {
                           child: ButtonRed(
                             btnName: 'นำทางไปที่หมาย',
                             onClick: () async {
-                              //TODO
+                              await Luncher.launchMapsUrl(
+                                  detail.latitude.toDouble(),
+                                  detail.longitude.toDouble());
                             },
                           ),
                         ),
