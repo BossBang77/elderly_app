@@ -8,11 +8,10 @@ part 'logout_client.g.dart';
 abstract class LogoutService {
   factory LogoutService(Dio dio) = _LogoutService;
 
-  @POST('/authentication/user/logout')
+  @DELETE('/api/v1/logout')
   @Headers(<String, dynamic>{
     "Accept": "application/json",
     "Content-Type": "application/x-www-form-urlencoded",
   })
-  Future<HttpResponse> sendLogout(@Header('Authorization') String accessToken,
-      @Header('device_type') String deviceType);
+  Future<HttpResponse> sendLogout();
 }

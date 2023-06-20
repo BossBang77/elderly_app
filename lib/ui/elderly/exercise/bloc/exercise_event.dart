@@ -96,3 +96,11 @@ class SaveExerciseRecordBeforeExerise extends ExerciseEvent {
   @override
   List<Object> get props => [name, code];
 }
+
+class SubmitSearchKeyWord extends ExerciseEvent {
+  final String keyWord;
+
+  const SubmitSearchKeyWord({required this.keyWord});
+  @override
+  List<Object> get props => [keyWord];
+}

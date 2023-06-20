@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/appoint_detail_card/appoint_detail_card.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/button_dark_bule.dart';
+import 'package:health_application/ui/elderly/request_assistance/request_assistance_page.dart';
 import 'package:health_application/ui/elderly/search_volunteer/volunteer_page.dart';
 import 'package:health_application/ui/elderly/food/food_page.dart';
 import 'package:health_application/ui/extension/extension.dart';
@@ -305,8 +306,8 @@ class HomeWidget extends StatelessWidget {
                                 background: 'assets/images/food.png',
                                 title: 'อาหาร',
                                 onClick: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => FoodPage()));
+                                  context.read<HomePageBloc>().add(
+                                      ChangeMenu(menus: menuType.foodPage));
                                 },
                                 subTitle: 'บันทึกมื้ออาหาร',
                                 icon: 'assets/images/food_icon.png',
@@ -360,7 +361,12 @@ class HomeWidget extends StatelessWidget {
                         context,
                         background: 'assets/images/sos.png',
                         title: 'ฉุกเฉิน',
-                        onClick: () {},
+                        onClick: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => RequestAssitancePage()),
+                              (Route route) => false);
+                        },
                         subTitle: 'ขอความช่วยเหลือ',
                         icon: 'assets/images/sos_icon.png',
                       ),

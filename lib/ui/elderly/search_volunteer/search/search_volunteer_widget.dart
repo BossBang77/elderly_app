@@ -52,6 +52,9 @@ class SearchVolunteerWidget extends StatelessWidget {
                             },
                             onFieldSubmitted: () {
                               context.read<SearchVolunteerBloc>().add(
+                                  SubmitSearchKeyWord(
+                                      keyWord: state.searchVolunteer.keyword));
+                              context.read<SearchVolunteerBloc>().add(
                                   SearchVolunteer(
                                       search: state.searchVolunteer));
                             },

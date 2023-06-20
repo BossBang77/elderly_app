@@ -9,12 +9,36 @@ import 'package:health_application/ui/elderly/exercise/exercise_detail/exercise_
 import 'package:health_application/ui/elderly/exercise/exercise_detail/exercise_vdo_player.dart';
 import 'package:health_application/ui/elderly/exercise/search_exercise/search_exercise_widget.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
+import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 
 class ExerciseWidget extends StatelessWidget {
   const ExerciseWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Widget initial(BuildContext context, ExerciseState state) {
+      if (state.exerciseView == ExerciseView.search) {
+        return SearchExerciseWidget(
+          state: state,
+        );
+      } else if (state.exerciseView == ExerciseView.exerciseDetail) {
+        return ExerciseDetail(
+          state: state,
+        );
+      } else if (state.exerciseView == ExerciseView.calculate) {
+        return ExerciseCalculate(
+          timeExercise: state.timeExercise,
+          state: state,
+        );
+      } else if (state.exerciseView == ExerciseView.vdoExercise) {
+        return ExerciseVdoPlayer(
+          videoLink: state.currentInformation.video,
+        );
+      } else {
+        return Container();
+      }
+    }
+
     return BlocConsumer<ExerciseBloc, ExerciseState>(
         listener: (context, state) async {
       if (state.statusSubmit == StatusSubmit.getInformationFail) {
@@ -58,26 +82,12 @@ class ExerciseWidget extends StatelessWidget {
         }
       }
     }, builder: (BuildContext parent, ExerciseState state) {
-      if (state.exerciseView == ExerciseView.search) {
-        return SearchExerciseWidget(
-          state: state,
-        );
-      } else if (state.exerciseView == ExerciseView.exerciseDetail) {
-        return ExerciseDetail(
-          state: state,
-        );
-      } else if (state.exerciseView == ExerciseView.calculate) {
-        return ExerciseCalculate(
-          timeExercise: state.timeExercise,
-          state: state,
-        );
-      } else if (state.exerciseView == ExerciseView.vdoExercise) {
-        return ExerciseVdoPlayer(
-          videoLink: state.currentInformation.video,
-        );
-      } else {
-        return Container();
-      }
+      return Stack(
+        children: [
+          initial(context, state),
+          if (state.loading) ...{Loader()}
+        ],
+      );
     });
   }
 }

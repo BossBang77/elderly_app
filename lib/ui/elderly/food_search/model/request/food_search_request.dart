@@ -7,11 +7,17 @@ part 'food_search_request.g.dart';
 class FoodSearchRequest {
   const FoodSearchRequest({
     this.keyword = '',
+    this.calorieMin = 0,
+    this.calorieMax = 0,
+    this.allergicFoods = const[],
     this.limit = 0,
     this.offset = 0,
     this.sort = const FoodSearchSort()
   });
   final String keyword;
+  final double calorieMin;
+  final double calorieMax;
+  final List<String> allergicFoods;
   final int limit;
   final int offset;
   final FoodSearchSort sort;
@@ -24,6 +30,9 @@ class FoodSearchRequest {
     keyword,
     limit,
     offset,
-    sort
+    sort,
+    calorieMax,
+    calorieMin,
+    allergicFoods
   ];
 }

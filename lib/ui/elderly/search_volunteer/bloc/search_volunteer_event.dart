@@ -99,3 +99,11 @@ class UpdateSelectMonth extends SearchVolunteerEvent {
   @override
   List<Object> get props => [date!];
 }
+
+class SubmitSearchKeyWord extends SearchVolunteerEvent {
+  final String keyWord;
+
+  const SubmitSearchKeyWord({required this.keyWord});
+  @override
+  List<Object> get props => [keyWord];
+}

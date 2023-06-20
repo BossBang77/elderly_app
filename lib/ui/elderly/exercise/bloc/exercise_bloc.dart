@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:health_application/repository/exercise_repos.dart';
 import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/base/model/failure.dart';
+import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/elderly/exercise/model/daily_activity_req_model.dart';
 import 'package:health_application/ui/elderly/exercise/model/exercise_model.dart';
 import 'package:health_application/ui/elderly/exercise/model/search_exercise_model.dart';
@@ -24,8 +25,24 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
   Stream<ExerciseState> mapEventToState(ExerciseEvent event) async* {
     if (event is Initial) {
       yield ExerciseState.initial();
-      add(GetExerciseDaily());
-      add(GetExerciseRecord());
+      yield state.copyWith(loading: true);
+      var recentlyList =
+          await UserSecureStorage().getRecentlyExerciseSearched();
+      var roleList = await UserSecureStorage().getRole();
+
+      String role = roleList.isNotEmpty ? roleList.first.role : '';
+      if (role == RoleType.ROLE_USER_VOLUNTEER.name) {
+        yield state.copyWith(
+            exerciseView: ExerciseView.search,
+            role: role,
+            recentlyList: recentlyList,
+            loading: false);
+        add(SearchExercise());
+      } else {
+        yield state.copyWith(recentlyList: recentlyList, loading: false);
+        add(GetExerciseDaily());
+        add(GetExerciseRecord());
+      }
     }
     if (event is ChangeView) {
       yield state.copyWith(exerciseView: event.exerciseView);
@@ -36,13 +53,14 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
           timeExercise: event.time, exerciseView: ExerciseView.calculate);
     }
     if (event is SearchExercise) {
+      yield state.copyWith(loading: true);
       var currentSearch = state.searchEx;
       yield state.copyWith(searchExSubmit: currentSearch);
       var res = await _exerciseRepository.searchExercise(state.searchExSubmit);
       yield* res.fold((l) async* {
-        yield state.copyWith(searchRes: SearchResListModel());
+        yield state.copyWith(searchRes: SearchResListModel(), loading: false);
       }, (SearchResListModel res) async* {
-        yield state.copyWith(searchRes: res);
+        yield state.copyWith(searchRes: res, loading: false);
       });
     }
     if (event is OnFilter) {
@@ -151,6 +169,17 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
           statusSubmit: StatusSubmit.saveExerciseDailySuccess,
         );
       });
+    }
+
+    if (event is SubmitSearchKeyWord) {
+      List<String> recently = state.recentlyList;
+      if (event.keyWord.isNotEmpty && (!recently.contains(event.keyWord))) {
+        recently.add(event.keyWord);
+        await UserSecureStorage().setRecentlyExerciseSearched(recently);
+        var recentlyList =
+            await UserSecureStorage().getRecentlyExerciseSearched();
+        yield state.copyWith(recentlyList: recentlyList);
+      }
     }
   }
 

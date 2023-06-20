@@ -19,11 +19,13 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 class FoodSearchView extends StatefulWidget {
   const FoodSearchView({
     this.onFoodSelected,
-    this.onItemTrailingIconTap
+    this.onItemTrailingIconTap,
+    this.isToggleItemSelectable = false
   });
 
   final Function(FoodSearchItem)? onFoodSelected;
   final Function(FoodSearchItem)? onItemTrailingIconTap;
+  final bool isToggleItemSelectable;
 
   @override
   State<StatefulWidget> createState()=> _FoodSearchViewState();
@@ -86,6 +88,7 @@ class _FoodSearchViewState extends State<FoodSearchView> {
                       BlocProvider.value(
                         value: BlocProvider.of<FoodFilterBloc>(context),
                         child: FoodFilterView(
+                          isToggleItemSelectable: true,
                           onFilterApplied: () {
                             Map<String, dynamic> filter = BlocProvider.of<FoodFilterBloc>(context).state.getMappedFilter();
                             context.read<FoodSearchBloc>().add(FoodSearchFilterApplied(filter: filter));

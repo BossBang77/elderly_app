@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
+import 'package:health_application/ui/elderly/appointment/appointment_list_page.dart';
 import 'package:health_application/ui/elderly/food/food_page.dart';
 import 'package:health_application/ui/elderly/exercise/exercise_page.dart';
 import 'package:health_application/ui/elderly/water_intake/water_intake_page.dart';
@@ -180,6 +181,8 @@ class HomePage extends StatelessWidget {
           switch (state.menus) {
             case menuType.mainPage:
               return VolunteerHomeWidget();
+            case menuType.appointment:
+              return AppointmentListPage();
             case menuType.profilePage:
               return UserProfilePage();
             // TODO case next page

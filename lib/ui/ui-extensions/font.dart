@@ -107,6 +107,8 @@ Widget textBody1(String text, Color color) {
 
 Widget textBody2(String text, Color color, bool underline) {
   return Text(text,
+      softWrap: true,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
         color: color,
         fontSize: 14.sp,
@@ -236,6 +238,8 @@ Widget textSubtitle16Blod(String text, Color color,
     {TextAlign align = TextAlign.start}) {
   return Text(text,
       textAlign: align,
+      softWrap: true,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
           color: color,
           fontSize: 16.sp,

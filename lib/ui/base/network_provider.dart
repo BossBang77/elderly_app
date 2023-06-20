@@ -33,6 +33,7 @@ class NetworkProvider {
       // TODO: set interceptor after can call service
       ApiInterceptors(dio),
     });
+
     return dio;
   }
 }

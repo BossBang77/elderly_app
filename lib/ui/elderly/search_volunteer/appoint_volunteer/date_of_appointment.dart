@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/line_date_picker/line_date_picker.dart';
+import 'package:health_application/ui/base/widget/title_header.dart';
 import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
 import 'package:health_application/ui/extension/date_extension.dart';
 import 'package:health_application/ui/extension/extension.dart';
@@ -54,7 +55,11 @@ class DateOfAppointment extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            textSubtitle16Blod('เลือกวันที่ต้องการนัดหมาย', color.black87),
+            TitleHeaderWidget(
+              title: 'เลือกวันที่ต้องการนัดหมาย',
+              isMandatory: true,
+            ),
+            textH7('กรุณาเลือกวันที่ต้องการนัดหมาย', color.Error),
             const SizedBox(
               height: 20,
             ),

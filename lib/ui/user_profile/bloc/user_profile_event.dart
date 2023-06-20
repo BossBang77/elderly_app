@@ -24,3 +24,7 @@ class getElderlyProfile extends UserProfileEvent {
 class ResetScan extends UserProfileEvent {
   const ResetScan();
 }
+
+class UserProfileLoggedOut extends UserProfileEvent {}
+
+class UserProfileInitialLogoutState extends UserProfileEvent {}

@@ -104,10 +104,15 @@ class AppointVolunteerWidget extends StatelessWidget {
                       ButtonGradient(
                         btnName: 'ส่งคำขอ',
                         onClick: () async {
-                          String uid = await UserSecureStorage().getUID();
-                          context
-                              .read<SearchVolunteerBloc>()
-                              .add(AcceptAppointment(elderltId: uid));
+                          if (state.createAppointment.appointmentDate
+                                  .isNotEmpty &&
+                              state.createAppointment.appointmentTimes
+                                  .isNotEmpty) {
+                            String uid = await UserSecureStorage().getUID();
+                            context
+                                .read<SearchVolunteerBloc>()
+                                .add(AcceptAppointment(elderltId: uid));
+                          }
                         },
                       ),
                       const SizedBox(

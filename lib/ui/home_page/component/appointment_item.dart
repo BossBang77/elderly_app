@@ -15,7 +15,7 @@ class AppointmentItem extends StatelessWidget {
 
   String statusImage(Appointment appointment) {
     if (appointment.status == AppointmentStatus.reject.value) {
-      return 'assets/images/appointment_canceled.png';
+      return 'assets/images/appointment_calceled.png';
     }
     return 'assets/images/appointment_check.png';
   }

@@ -11,7 +11,10 @@ class ExerciseState extends Equatable {
       this.statusSubmit = StatusSubmit.initial,
       this.exerciseDaily = const ExerciseDailyModel(),
       this.recordList = const SearchResListModel(),
-      this.statusView = StatusViewExercise.caseNew});
+      this.statusView = StatusViewExercise.caseNew,
+      this.role = '',
+      this.loading = false,
+      this.recentlyList = const <String>[]});
   final ExerciseView exerciseView;
   final String timeExercise;
   final SearchExerciseModel searchEx;
@@ -22,6 +25,9 @@ class ExerciseState extends Equatable {
   final ExerciseDailyModel exerciseDaily;
   final SearchResListModel recordList;
   final StatusViewExercise statusView;
+  final String role;
+  final bool loading;
+  final List<String> recentlyList;
 
   ExerciseState.initial(
       {this.exerciseView = ExerciseView.summary,
@@ -33,7 +39,10 @@ class ExerciseState extends Equatable {
       this.statusSubmit = StatusSubmit.initial,
       this.exerciseDaily = const ExerciseDailyModel(),
       this.recordList = const SearchResListModel(),
-      this.statusView = StatusViewExercise.caseNew});
+      this.statusView = StatusViewExercise.caseNew,
+      this.role = '',
+      this.loading = false,
+      this.recentlyList = const <String>[]});
 
   ExerciseState copyWith(
       {ExerciseView? exerciseView,
@@ -45,7 +54,10 @@ class ExerciseState extends Equatable {
       StatusSubmit? statusSubmit,
       ExerciseDailyModel? exerciseDaily,
       SearchResListModel? recordList,
-      StatusViewExercise? statusView}) {
+      StatusViewExercise? statusView,
+      String? role,
+      bool? loading,
+      List<String>? recentlyList}) {
     return ExerciseState(
         searchExSubmit: searchExSubmit ?? this.searchExSubmit,
         exerciseView: exerciseView ?? this.exerciseView,
@@ -56,7 +68,10 @@ class ExerciseState extends Equatable {
         statusSubmit: statusSubmit ?? this.statusSubmit,
         exerciseDaily: exerciseDaily ?? this.exerciseDaily,
         recordList: recordList ?? this.recordList,
-        statusView: statusView ?? this.statusView);
+        statusView: statusView ?? this.statusView,
+        role: role ?? this.role,
+        loading: loading ?? this.loading,
+        recentlyList: recentlyList ?? this.recentlyList);
   }
 
   @override
@@ -70,7 +85,10 @@ class ExerciseState extends Equatable {
         statusSubmit,
         exerciseDaily,
         recordList,
-        statusView
+        statusView,
+        role,
+        loading,
+        recentlyList
       ];
 }
 
@@ -119,3 +137,5 @@ var typeOfExerciseList = [
   'แบบไม่ต้องใช้ออกซิเจน ในระหว่างที่มีการเคลื่อนไหว',
   'แบบมีการยืด-หดตัวของกล้ามเนื้อ '
 ];
+
+enum RoleType { initial, ROLE_USER_ELDERLY, ROLE_USER_VOLUNTEER }
