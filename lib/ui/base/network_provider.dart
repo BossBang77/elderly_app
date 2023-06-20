@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:alice/alice.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:health_application/repository/login_repos.dart';
+import 'package:health_application/ui/base/cubit/expired_cubit.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/signIn_page/model/login_model.dart';
 
@@ -77,6 +79,8 @@ class ApiInterceptors extends QueuedInterceptor {
           var res = await refreshToken();
           if (res != null && res) {
             await _retry(error.requestOptions);
+          } else {
+            TokenExpiredCubit().isExpired(true);
           }
         }
         break;
