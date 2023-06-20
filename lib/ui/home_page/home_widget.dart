@@ -92,7 +92,7 @@ class HomeWidget extends StatelessWidget {
                       ),
                     );
                   }),
-              Container(
+              BlocBuilder<HomePageBloc, HomePageState>(builder:(context, state) => Container(
                 margin: EdgeInsets.only(top: 160),
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 20, right: 20, top: 20),
@@ -144,7 +144,7 @@ class HomeWidget extends StatelessWidget {
                                         Row(
                                           children: [
                                             textSubtitle24(
-                                                '0', ColorTheme().Primary),
+                                                (state.tdeeModel.eatingCalorieLimit - state.tdeeModel.eatingCalorieRemaining).floor().toString(), ColorTheme().Primary),
                                             textSubtitle18Blod(
                                                 ' kcal', ColorTheme().black87),
                                           ],
@@ -167,7 +167,7 @@ class HomeWidget extends StatelessWidget {
                                         Row(
                                           children: [
                                             textSubtitle24(
-                                                '0', ColorTheme().Primary),
+                                                state.tdeeModel.burnCalorie.floor().toString(), ColorTheme().Primary),
                                             textSubtitle18Blod(
                                                 ' kcal', ColorTheme().black87),
                                           ],
@@ -196,13 +196,13 @@ class HomeWidget extends StatelessWidget {
                                       ],
                                     ),
                                     textSubtitle24(
-                                        '1050 kcal', ColorTheme().Primary),
+                                        state.tdeeModel.eatingCalorieRemaining.floor().toString() + ' kcal', ColorTheme().Primary),
                                     Container(
                                         height: 20,
                                         child: Stack(
                                           children: [
                                             LiquidLinearProgressIndicator(
-                                              value: 0.5, // TODO
+                                              value: (state.tdeeModel.eatingCalorieLimit - state.tdeeModel.eatingCalorieRemaining) / state.tdeeModel.eatingCalorieAchievable, // TODO
                                               valueColor:
                                                   AlwaysStoppedAnimation(
                                                       ColorTheme().Primary),
@@ -222,7 +222,7 @@ class HomeWidget extends StatelessWidget {
                                                 padding: const EdgeInsets.only(
                                                     right: 8),
                                                 child: textOverline2(
-                                                    '1050 kcal',
+                                                    '${(state.tdeeModel.eatingCalorieLimit - state.tdeeModel.eatingCalorieRemaining).toString()} kcal',
                                                     ColorTheme()
                                                         .Primary
                                                         .withOpacity(0.6)),
@@ -376,7 +376,8 @@ class HomeWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              )),
+              
             ]),
           ),
         ],
