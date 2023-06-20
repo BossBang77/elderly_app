@@ -15,6 +15,7 @@ class WaterIntakeGoalModel {
   //convert from json
   factory WaterIntakeGoalModel.fromJson(Map<String, dynamic> json) =>
       _$WaterIntakeGoalModelFromJson(json);
+  Map<String, dynamic> toJson() => _$WaterIntakeGoalModelToJson(this);
 
   WaterIntakeGoalModel copyWith(
           {num? target, num? remaining, num? achievable}) =>
