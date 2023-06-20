@@ -18,6 +18,13 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
       String role = await getRole();
       yield state.copyWith(role: role, loading: false);
     }
+    if (event is ShowLoading) {
+      yield state.copyWith(loading: true);
+    }
+
+    if (event is HideLoading) {
+      yield state.copyWith(loading: false);
+    }
   }
 
   Future<String> getRole() async {
