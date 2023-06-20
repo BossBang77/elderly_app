@@ -14,3 +14,15 @@ class GetAssistanceDatail extends RequestAssistanceEvent {
   @override
   List<Object> get props => [emergencyId];
 }
+
+class GetElderlyProfile extends RequestAssistanceEvent {
+  final String id;
+  const GetElderlyProfile({this.id = ''});
+
+  @override
+  List<Object> get props => [id];
+}
+
+class SetInitialEvent extends RequestAssistanceEvent {
+  const SetInitialEvent();
+}

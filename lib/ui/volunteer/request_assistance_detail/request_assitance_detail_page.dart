@@ -9,9 +9,11 @@ import 'package:health_application/ui/base/widget/button_red.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 import 'package:health_application/ui/volunteer/request_assistance_detail/bloc/request_assistance_bloc.dart';
+import 'package:health_application/ui/volunteer/search_elderly/search_elderly_page.dart';
 
 import '../../base/constant/gender_const.dart';
 import '../../base/widget/button_gradient.dart';
+import '../../base/widget/error_alert.dart';
 import '../../ui-extensions/color.dart';
 
 class RequestAssitanceDetailPage extends StatelessWidget {
@@ -25,7 +27,28 @@ class RequestAssitanceDetailPage extends StatelessWidget {
       create: (context) => RequestAssistanceBloc()
         ..add(GetAssistanceDatail(emergencyId: assistanceId)),
       child: BlocConsumer<RequestAssistanceBloc, RequestAssistanceState>(
-        listener: (context, state) {},
+        listener: (context, state) async {
+          if (state.eventStatus == EventStatus.searchElderlySuccess) {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ElderlySearchDetailPage(
+                    elderlyProfile: state.elderlyProfile)));
+          }
+
+          if (state.eventStatus == EventStatus.searchElderlyFail) {
+            final bool acceptClose = await showDialog(
+                context: context,
+                builder: (BuildContext context) => ErrorAlertWidget(
+                      title: 'เกิดข้อผิดพลาด',
+                      subTitle:
+                          "มีบางอย่างผิดพลาดในการดึงข้อมูล\nกรุณาลองใหม่อีกครั้ง",
+                      btnName: 'ตกลง',
+                    )) as bool;
+
+            if (acceptClose) {
+              context.read<RequestAssistanceBloc>().add(SetInitialEvent());
+            }
+          }
+        },
         builder: (context, state) {
           var detail = state.emergencyDetail;
           var profile = detail.profile;
@@ -143,7 +166,8 @@ class RequestAssitanceDetailPage extends StatelessWidget {
                         ),
                         InkWell(
                             onTap: () {
-                              //TODO
+                              context.read<RequestAssistanceBloc>().add(
+                                  GetElderlyProfile(id: profile.profileId));
                             },
                             child: textButton1(
                                 'ดูข้อมูลเพิ่มเติม', color.blueText,

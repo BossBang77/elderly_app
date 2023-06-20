@@ -10,7 +10,8 @@ class ElderlyDetailModel {
       this.height = 0,
       this.image = '',
       this.mobileNumber = '',
-      this.name = ''});
+      this.name = '',
+      this.profileId = ''});
 
   ///convert from json
   factory ElderlyDetailModel.fromJson(Map<String, dynamic> json) =>
@@ -23,6 +24,7 @@ class ElderlyDetailModel {
   final num age;
   final num weight;
   final num height;
+  final String profileId;
 
   ElderlyDetailModel get empty => ElderlyDetailModel();
 
@@ -33,7 +35,8 @@ class ElderlyDetailModel {
           String? gender,
           num? age,
           num? weight,
-          num? height}) =>
+          num? height,
+          String? profileId}) =>
       ElderlyDetailModel(
           mobileNumber: mobileNumber ?? this.mobileNumber,
           name: name ?? this.name,
@@ -41,8 +44,17 @@ class ElderlyDetailModel {
           gender: gender ?? this.gender,
           age: age ?? this.age,
           weight: weight ?? this.weight,
-          height: height ?? this.height);
+          height: height ?? this.height,
+          profileId: profileId ?? this.profileId);
 
-  List<Object?> get props =>
-      <Object>[mobileNumber, name, image, gender, age, weight, height];
+  List<Object?> get props => <Object>[
+        mobileNumber,
+        name,
+        image,
+        gender,
+        age,
+        weight,
+        height,
+        profileId
+      ];
 }
