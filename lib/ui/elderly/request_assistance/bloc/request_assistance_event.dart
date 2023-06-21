@@ -13,3 +13,33 @@ class UpdateStatus extends RequestAssistanceEvent {
   @override
   List<Object> get props => [status];
 }
+
+class CreateEmergency extends RequestAssistanceEvent {
+  final CreateEmergencyModel createEmergencyModel;
+  const CreateEmergency({required this.createEmergencyModel});
+  @override
+  List<Object> get props => [createEmergencyModel];
+}
+
+class SetLoading extends RequestAssistanceEvent {
+  final bool loading;
+  const SetLoading({this.loading = false});
+  @override
+  List<Object> get props => [loading];
+}
+
+class GetEmergencyDetail extends RequestAssistanceEvent {
+  const GetEmergencyDetail();
+}
+
+class SubmitIsSafe extends RequestAssistanceEvent {
+  const SubmitIsSafe();
+}
+
+class ResetSubmitStatus extends RequestAssistanceEvent {
+  const ResetSubmitStatus();
+}
+
+class UpdateEmergetcyDetail extends RequestAssistanceEvent {
+  const UpdateEmergetcyDetail();
+}

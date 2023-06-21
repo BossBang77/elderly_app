@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/elderly/request_assistance/bloc/request_assistance_bloc.dart';
+import 'package:health_application/ui/elderly/request_assistance/model/request/create_emergency_model.dart';
+import 'package:health_application/ui/google_map/locationsModel.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
@@ -46,9 +48,19 @@ class EmergrncyCallWidget extends StatelessWidget {
                     ],
                   ),
                   InkWell(
-                      onTap: () {
-                        context.read<RequestAssistanceBloc>().add(UpdateStatus(
-                            status: AssistanceStatus.waitingForHelp));
+                      onTap: () async {
+                        context
+                            .read<RequestAssistanceBloc>()
+                            .add(SetLoading(loading: true));
+                        Locations _location = Locations();
+                        await _location.getCurrentUserLocation();
+                        CreateEmergencyModel reqMol = CreateEmergencyModel(
+                            addressFull: _location.nameAddress,
+                            latitude: _location.latitude,
+                            longitude: _location.longtitude);
+                        context
+                            .read<RequestAssistanceBloc>()
+                            .add(CreateEmergency(createEmergencyModel: reqMol));
                       },
                       child: Container(
                         padding: EdgeInsets.all(150),
