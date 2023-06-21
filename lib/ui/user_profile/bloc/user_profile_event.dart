@@ -11,6 +11,20 @@ class GetUserProfile extends UserProfileEvent {
   const GetUserProfile();
 }
 
+class GetDetail extends UserProfileEvent {
+  const GetDetail();
+}
+
+class getElderlyProfile extends UserProfileEvent {
+  const getElderlyProfile({required this.id});
+
+  final String id;
+}
+
+class ResetScan extends UserProfileEvent {
+  const ResetScan();
+}
+
 class UserProfileLoggedOut extends UserProfileEvent {}
 
 class UserProfileInitialLogoutState extends UserProfileEvent {}

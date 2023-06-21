@@ -61,11 +61,13 @@ class MyApp extends StatelessWidget {
               BlocProvider(
                 create: (context) => AppointmentCardBloc(),
               ),
-              BlocProvider(create: (context) => EmergencyDetailCardBloc()),
               BlocProvider(
                 create: (context) => TokenExpiredCubit(),
                 child: TokenExpiredWidget(),
-              )
+              ),
+              BlocProvider(
+                  create: (context) =>
+                      EmergencyDetailCardBloc()..add(GetEmergencyList()))
             ],
             child: Builder(builder: (context) {
               context.read<MasterDataBloc>().add(LoadMasterData());

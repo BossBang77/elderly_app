@@ -11,3 +11,18 @@ class UpdateStatus extends EmergencyDetailCardEvent {
   final EmergencyStatus status;
   const UpdateStatus({this.status = EmergencyStatus.WaitingAssistance});
 }
+
+class GetEmergencyList extends EmergencyDetailCardEvent {
+  const GetEmergencyList();
+}
+
+class AcceptAssistance extends EmergencyDetailCardEvent {
+  final SubmitAssistance submitMol;
+
+  const AcceptAssistance({
+    required this.submitMol,
+  });
+
+  @override
+  List<Object> get props => [submitMol];
+}

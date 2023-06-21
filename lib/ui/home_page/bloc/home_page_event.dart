@@ -19,3 +19,11 @@ class Initstate extends HomePageEvent {
   @override
   List<Object> get props => [];
 }
+
+class ShowLoading extends HomePageEvent {
+  const ShowLoading();
+}
+
+class HideLoading extends HomePageEvent {
+  const HideLoading();
+}
