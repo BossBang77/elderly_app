@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/base/constant/gender_const.dart';
 import 'package:health_application/ui/base/dialog/log_out_dialog.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
+import 'package:health_application/ui/extension/string_extension.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
@@ -32,7 +34,9 @@ class VolunteerProfileWidget extends StatelessWidget {
               ),
               CircleAvatar(
                 backgroundImage: ExactAssetImage(
-                    'assets/images/example_volunteer2.png',
+                    Gender.isWoman(user.profile.gender)
+                        ? 'assets/images/volunteer_woman.png'
+                        : 'assets/images/volunteer_men.png',
                     scale: 3),
                 radius: 50,
               ),
@@ -40,7 +44,9 @@ class VolunteerProfileWidget extends StatelessWidget {
                 height: 20,
               ),
               textSubtitle16Blod(user.profile.name, color.black87),
-              textCaption1('จิตอาสา(9045)', color.greyText),
+              textCaption1(
+                  'จิตอาสา(${user.volunteerCode.isNotEmpty ? user.volunteerCode : 'ไม่พบหมายเลขจิตอาสา'})',
+                  color.greyText),
               const SizedBox(
                 height: 20,
               ),
@@ -91,7 +97,9 @@ class VolunteerProfileWidget extends StatelessWidget {
                             subtitle: 'คุณต้องการออกจากระบบ\nใช่หรือไม่'));
 
                     if (res) {
-                      context.read<UserProfileBloc>().add(UserProfileLoggedOut());
+                      context
+                          .read<UserProfileBloc>()
+                          .add(UserProfileLoggedOut());
                     }
                   },
                   child: textSubtitle16Blod('ออกจากระบบ', color.Error)),
