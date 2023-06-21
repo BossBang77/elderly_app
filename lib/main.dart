@@ -9,6 +9,7 @@ import 'package:health_application/ui/base/data_provider.dart';
 import 'package:health_application/ui/base/emergency_detail_card/bloc/emergency_detail_card_bloc.dart';
 import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
 import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
+import 'package:health_application/ui/home_page/repository/tdee_repository.dart';
 import 'package:health_application/ui/signIn_page/login/login_page.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context) => HomePageBloc()),
+              BlocProvider(create: (context) => HomePageBloc(TDEERepository())..fetchTDEEData()),
               BlocProvider(create: (context) => ExerciseBloc()),
               BlocProvider(create: (context) => MasterDataBloc()),
               BlocProvider(create: (context) => WaterIntakeBloc()),
