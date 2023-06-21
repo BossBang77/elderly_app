@@ -56,15 +56,25 @@ class WaterIntakeChart extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: 58,
-            left: left == 0 ? MediaQuery.of(context).size.width / 2.8 : left,
-            child: Column(children: [
-              textSubtitle24W700(
-                  '${isDrink.toInt()} มล.', ColorTheme().black87),
-              textSubtitle2('ปริมาณที่ดื่ม', ColorTheme().black87, true),
-            ]),
-          )
+          Stack(
+            children: <Widget>[
+              Positioned.fill(
+                top: -40,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        textSubtitle24W700(
+                            '${isDrink.toInt()} มล.', ColorTheme().black87),
+                        textSubtitle2(
+                            'ปริมาณที่ดื่ม', ColorTheme().black87, true),
+                      ]),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
