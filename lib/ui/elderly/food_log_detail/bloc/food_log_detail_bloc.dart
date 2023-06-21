@@ -62,7 +62,7 @@ class FoodLogDetailBloc extends Bloc<FoodLogDetailEvent, FoodLogDetailState> {
     FoodLogDetailConsumeUnitSubstracted event,
     Emitter<FoodLogDetailState> emit
   ) {
-    if (state.consumeUnit > 0) { return; }
+    if (state.consumeUnit <= 1) { return; }
     emit(state.copyWith(consumeUnit: state.consumeUnit - 1));
   }
 
