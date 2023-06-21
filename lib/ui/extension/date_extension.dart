@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 ///extension for date
 extension DateTimeExtension on DateTime {
   static const String _dateFormat = 'dd-MM-yyyy';
+  static const String _dateFormatBuddhist = 'dd/MM/yyyy';
   static const String _dateFormatApi = 'yyyy-MM-dd';
   //// dd/MM/yyy HH:mm  (Hour format 24 hour)
   static const String _dateAndTimeFormat = 'dd/MM/yyyy HH:mm';
@@ -14,7 +15,7 @@ extension DateTimeExtension on DateTime {
   ///for display date time string [format] with BuddhistDate
   String toDisplayBuddhistDate({String? locale}) {
     try {
-      return DateFormat(_dateFormat, locale)
+      return DateFormat(_dateFormatBuddhist, locale)
           .format(DateTime.utc(year + 543, month, day))
           .toString();
     } catch (e) {
@@ -153,5 +154,19 @@ DateTime addYears(DateTime startDate, int years) {
     return DateTime(startDate.year + years, startDate.month, startDate.day);
   } catch (e) {
     return DateTime.now();
+  }
+}
+
+extension IsDateExtenstion on String {
+  static final format = 'yyyy-MM-dd';
+  bool isDate() {
+    try {
+      final DateTime date = DateFormat(format).parseStrict(this);
+      //print(d);
+      return true;
+    } catch (e) {
+      //print(e);
+      return false;
+    }
   }
 }

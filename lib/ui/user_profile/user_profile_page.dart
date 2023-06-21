@@ -16,32 +16,31 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserProfileBloc>().add(GetUserProfile());
     return BlocConsumer<UserProfileBloc, UserProfileState>(
         listener: (context, state) async {
-          if (state.logoutStatus == LogoutStatus.success) {
-            await UserSecureStorage().clearSession();
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (context) => WelcomePage()),
-                (Route<dynamic> route) => false);
-          } else if (state.logoutStatus == LogoutStatus.fail) {
-            final bool acceptClose = await showDialog(
-              context: context,
-              builder: (BuildContext context) => ErrorAlertWidget(
-                    title: 'ไม่สำเร็จ!',
-                    subTitle: "ล็อกเอ้าท์ไม่สำเร็จ\nกรุณาลองใหม่อีกครั้ง",
-                    btnName: 'ตกลง',
-                  )) as bool;
-          }
-        },
-        builder: (BuildContext context, UserProfileState state) {
-          if (state.userProfile.role == RoleType.ROLE_USER_ELDERLY.name) {
-            return ElderProfileWidget(state: state);
-          } else {
-            return VolunteerProfileWidget(
-              state: state,
-            );
-          }
-        });
+      if (state.logoutStatus == LogoutStatus.success) {
+        await UserSecureStorage().clearSession();
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => WelcomePage()),
+            (Route<dynamic> route) => false);
+      } else if (state.logoutStatus == LogoutStatus.fail) {
+        final bool acceptClose = await showDialog(
+            context: context,
+            builder: (BuildContext context) => ErrorAlertWidget(
+                  title: 'ไม่สำเร็จ!',
+                  subTitle: "ล็อกเอ้าท์ไม่สำเร็จ\nกรุณาลองใหม่อีกครั้ง",
+                  btnName: 'ตกลง',
+                )) as bool;
+      }
+    }, builder: (BuildContext context, UserProfileState state) {
+      if (state.userProfile.role == RoleType.ROLE_USER_ELDERLY.name) {
+        return ElderProfileWidget(state: state);
+      } else {
+        return VolunteerProfileWidget(
+          state: state,
+        );
+      }
+    });
   }
 }
