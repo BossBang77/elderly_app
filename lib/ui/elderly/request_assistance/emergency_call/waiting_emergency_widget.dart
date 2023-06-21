@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/routes.dart';
+import 'package:health_application/ui/base/dialog/accept_two_condition_dialog.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_white.dart';
@@ -69,9 +70,18 @@ class WaitingEmergencyWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: ButtonWhite(
-                  onClick: () {
-                    context.read<RequestAssistanceBloc>().add(
-                        UpdateStatus(status: AssistanceStatus.volunteerAccept));
+                  onClick: () async {
+                    final bool acceptClose = await showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AcceptTwoCondition(
+                              header: 'ปลอดภัยแล้ว',
+                              subtitle:
+                                  'กรุณากดยืนยัน\nเพื่อยืนยันการได้รับ\nความช่วยเหลือแล้ว',
+                            )) as bool;
+
+                    if (acceptClose) {
+                      context.read<RequestAssistanceBloc>().add(SubmitIsSafe());
+                    }
                   },
                   btnName: 'ฉันปลอดภัยแล้ว',
                 ),
