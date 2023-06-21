@@ -31,8 +31,22 @@ class UserSecureStorage {
     return isSuccess;
   }
 
+  Future<bool> setRefreshToken(String token) async {
+    bool isSuccess = true;
+
+    await _storage
+        .write(key: UserKey.refresh, value: token)
+        .catchError((error) => isSuccess = false);
+
+    return isSuccess;
+  }
+
   Future getAccessToken() async {
     return await _storage.read(key: UserKey.token) ?? '';
+  }
+
+  Future getRefreshToken() async {
+    return await _storage.read(key: UserKey.refresh) ?? '';
   }
 
   Future<List<RoleModel>> getRole() async {
@@ -101,6 +115,7 @@ class UserKey {
   static String get userData => 'userData';
   static String get username => 'username';
   static String get token => 'access_token';
+  static String get refresh => 'refresh_Token';
   static String get roleName => 'role';
   static String get roleCode => 'roleCode';
   static String get foodSearchHistory => 'foodSearchHistory';

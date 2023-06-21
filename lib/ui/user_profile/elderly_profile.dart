@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:health_application/ui/base/dialog/log_out_dialog.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
+import 'package:health_application/ui/elderly/health_profile/health_profile_page.dart';
 import 'package:health_application/ui/elderly/qr_code_elderly/qr_code_elderly_page.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -70,7 +71,12 @@ class ElderProfileWidget extends StatelessWidget {
               ),
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/health_profile_icon.png',
-                onClick: () {},
+                onClick: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => HealthProfilePage(
+                            profile: user,
+                          )));
+                },
                 title: 'ข้อมูลสุขภาพ',
               ),
               CardListMenu(
@@ -109,7 +115,9 @@ class ElderProfileWidget extends StatelessWidget {
                             subtitle: 'คุณต้องการออกจากระบบ\nใช่หรือไม่'));
 
                     if (res) {
-                      context.read<UserProfileBloc>().add(UserProfileLoggedOut());
+                      context
+                          .read<UserProfileBloc>()
+                          .add(UserProfileLoggedOut());
                     }
                   },
                   child: textSubtitle16Blod('ออกจากระบบ', color.Error)),

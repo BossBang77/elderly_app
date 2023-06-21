@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/routes.dart';
@@ -9,7 +8,6 @@ import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/user_profile/elderly_profile.dart';
 import 'package:health_application/ui/user_profile/volunteer_profile.dart';
-import 'package:health_application/ui/welcome_page/welcome_page.dart';
 
 import '../register_profile/bloc/register_profile_bloc.dart';
 
@@ -18,6 +16,7 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserProfileBloc>().add(GetUserProfile());
     return BlocConsumer<UserProfileBloc, UserProfileState>(
         listener: (context, state) async {
       if (state.logoutStatus == LogoutStatus.success) {

@@ -13,10 +13,23 @@ abstract class LoginService {
   })
   Future<HttpResponse> login(@Body() Map<String, dynamic> body);
 
+  @POST('/api/v1/refresh-token')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> refreshToken(@Body() Map<String, dynamic> body);
+
   @GET('/api/v1/user/profile')
   @Headers(<String, dynamic>{
     "Accept": "application/json",
     "Content-Type": "application/json",
   })
   Future<HttpResponse> getProfile();
+  @PUT('/api/v1/user/profile')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> updateProfile(@Body() Map<String, dynamic> body);
 }
