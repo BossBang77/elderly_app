@@ -38,6 +38,27 @@ class LoginRepository {
     return const Left(Failure(''));
   }
 
+  Future<Either<Failure, LoginModel>> refreshToken(String token) async {
+    Map<String, dynamic> body = {"refreshToken": token};
+    try {
+      final HttpResponse req = await _loginService.refreshToken(body);
+      final Map<String, dynamic> data = req.data;
+      if (req.response.statusCode == StatusCode.success) {
+        return Right(LoginModel.fromJson(data['data']));
+      }
+    } on DioError catch (error) {
+      print(error.response);
+      if (error.response?.statusCode == StatusCode.notFound) {
+        print('Error 400 $error');
+        return const Left(Failure(''));
+      } else if (error.response?.statusCode == StatusCode.failure) {
+        print('Error 500 $error');
+        return const Left(Failure(''));
+      }
+    }
+    return const Left(Failure(''));
+  }
+
   Future<Either<Failure, RegisterModel>> getPfofile() async {
     try {
       final HttpResponse req = await _loginService.getProfile();
