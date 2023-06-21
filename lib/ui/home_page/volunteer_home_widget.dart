@@ -21,6 +21,7 @@ import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/volunteer/scan_qr/scan_qr_page.dart';
 import 'package:health_application/ui/volunteer/search_elderly/search_elderly_page.dart';
 
+import '../base/emergency_detail_card/emergency_detail_card.dart';
 import '../elderly/exercise/exercise_page.dart';
 
 class VolunteerHomeWidget extends StatelessWidget {
@@ -29,222 +30,240 @@ class VolunteerHomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorTheme().BackgroundWhite,
-      body: BlocProvider<AppointmentListBloc>(
-        create: (context) => AppointmentListBloc(AppointmentRepository.instance),
+        backgroundColor: ColorTheme().BackgroundWhite,
+        body: BlocProvider<AppointmentListBloc>(
+          create: (context) =>
+              AppointmentListBloc(AppointmentRepository.instance),
           child: Column(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              child: Stack(children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.asset(
-                    'assets/images/background_home.png',
-                    fit: BoxFit.fitWidth,
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                child: Stack(children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Image.asset(
+                      'assets/images/background_home.png',
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
-                ),
-                BlocConsumer<UserProfileBloc, UserProfileState>(
-                  listener: (context, state) {},
-                  builder: (BuildContext context, UserProfileState state) {
-                    var userProfile = state.userProfile;
-                    return Positioned(
-                      top: 90,
-                      left: 20,
-                      right: 20,
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Column(
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1.8,
-                                            child: textSubtitle24(
-                                                'สวัสดี, ${state.status == UserProfileStatus.success ? userProfile.profile.name : ''}',
+                  BlocConsumer<UserProfileBloc, UserProfileState>(
+                    listener: (context, state) {},
+                    builder: (BuildContext context, UserProfileState state) {
+                      var userProfile = state.userProfile;
+                      return Positioned(
+                        top: 90,
+                        left: 20,
+                        right: 20,
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  1.8,
+                                              child: textSubtitle24(
+                                                  'สวัสดี, ${state.status == UserProfileStatus.success ? userProfile.profile.name : ''}',
+                                                  ColorTheme().white),
+                                            ),
+                                            textSubtitle18Blod(
+                                                'วันนี้, ${DateTime.now().toDisplayFullBuddishDate(locale: 'th')}',
                                                 ColorTheme().white),
-                                          ),
-                                          textSubtitle18Blod(
-                                              'วันนี้, ${DateTime.now().toDisplayFullBuddishDate(locale: 'th')}',
-                                              ColorTheme().white),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Image.asset(
-                                    true
-                                        ? 'assets/images/notify_alert.png'
-                                        : 'assets/images/notify.png',
-                                    scale: 4,
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: 18,
-                              ),
-                              Container(
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Image.asset(
+                                      true
+                                          ? 'assets/images/notify_alert.png'
+                                          : 'assets/images/notify.png',
+                                      scale: 4,
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 18,
+                                ),
+                                Container(
                                   padding: EdgeInsets.fromLTRB(16, 12, 16, 10),
                                   decoration: BoxDecoration(
                                       color: Colors.black.withAlpha(51),
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: Expanded(
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          child: Image.asset(
-                                            'assets/images/home.png',
-                                            width: 18,
-                                            height: 18,
-                                          ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        child: Image.asset(
+                                          'assets/images/home.png',
+                                          width: 18,
+                                          height: 18,
                                         ),
-                                        SizedBox(width: 16),
-                                        Expanded(
-                                            child: Text(
-                                          '3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร 3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontFamily: fontFamily,
-                                              fontSize: 18.sp,
-                                              color: ColorTheme().white),
-                                        )),
-                                        GestureDetector(
-                                            onTap: () {},
-                                            child: Image.asset(
-                                                'assets/images/volunteer_chevron_right.png',
-                                                width: 20,
-                                                height: 20))
-                                        // textSubtitle1('3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร ', ColorTheme().white)
-                                      ],
-                                    ),
-                                  ))
-                            ],
-                          )),
-                    );
-                  },
-                ),
-                BlocBuilder<AppointmentListBloc, AppointmentListState>(
-                  builder: (context, state) => Container(
-                margin: EdgeInsets.only(top: 222),
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          VolunteerMenu(
-                            width: MediaQuery.of(context).size.width / 2.4,
-                            title: 'รายการอาหาร',
-                            image: 'assets/images/volunteer_food_bg.png',
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(builder:(context) => 
-                                  FoodSearchPage(
-                                    isToggleItemSelectable: true,
-                                    onFoodSelected: (food) {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(builder:(context) => FoodDetailPage(foodCode: food.code))
-                                      );
-                                    },
-                                  )
+                                      ),
+                                      SizedBox(width: 16),
+                                      Expanded(
+                                          child: Text(
+                                        '3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร 3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร',
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontFamily: fontFamily,
+                                            fontSize: 18.sp,
+                                            color: ColorTheme().white),
+                                      )),
+                                      GestureDetector(
+                                          onTap: () {},
+                                          child: Image.asset(
+                                              'assets/images/volunteer_chevron_right.png',
+                                              width: 20,
+                                              height: 20))
+                                      // textSubtitle1('3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร ', ColorTheme().white)
+                                    ],
+                                  ),
                                 )
-                              );
-                            },
-                          ),
-                          SizedBox(width: 20),
-                          InkWell(
-                            onTap: () async {
-                              context.read<ExerciseBloc>().add(Initial());
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (context) => ExerciseWidget()),
-                                  (Route<dynamic> route) => false);
-                            },
-                            child: VolunteerMenu(
-                              width: MediaQuery.of(context).size.width / 2.4,
-                              title: 'การออกกำลังกาย',
-                              image: 'assets/images/volunteer_exercise_bg.png',
-                            ),
-                          ),
-                        ]),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        child: VolunteerMenu(
-                            width: MediaQuery.of(context).size.width,
-                            title: 'ค้นหาข้อมูลผู้สูงอายุ',
-                            image: 'assets/images/volunteer_elder_bg.png'),
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (_) {
-                                return ScanQrPage(onScan: (_) {});
-                              }).then((value) {});
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      /// TODO Integrate
-                      //  EmergencyDetailCard(),
-                        Column(
-                          children: state.appointments.map((appointment) =>
-                            Padding( 
-                              padding: EdgeInsets.only(bottom: 10),
-                              child: AppointmentItem(
-                                appointment: appointment,
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(builder:(context) => AppointmentDetailPage(appointment: appointment,)));
-                                },
-                                onApply: () {
-                                  context.read<AppointmentListBloc>().add(AppointmentApproved(appointmentId: appointment.id));
-                                },
-                              )
-                            )
-                          ).toList()
-                        ),
-                        // AppointmentItem(appointment: Appointment()),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const SizedBox(
-                          height: 100,
-                        ),
-              
-                        ],
-                      ),
-              ),
+                              ],
+                            )),
+                      );
+                    },
                   ),
-                )
-            ]),
-            ),
-          ],
-        ),
-      )
-    );
+                  BlocBuilder<AppointmentListBloc, AppointmentListState>(
+                    builder: (context, state) => Container(
+                      margin: EdgeInsets.only(top: 222),
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  VolunteerMenu(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.4,
+                                    title: 'รายการอาหาร',
+                                    image:
+                                        'assets/images/volunteer_food_bg.png',
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FoodSearchPage(
+                                                    isToggleItemSelectable:
+                                                        true,
+                                                    onFoodSelected: (food) {
+                                                      Navigator.of(context).push(
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  FoodDetailPage(
+                                                                      foodCode:
+                                                                          food.code)));
+                                                    },
+                                                  )));
+                                    },
+                                  ),
+                                  SizedBox(width: 20),
+                                  InkWell(
+                                    onTap: () async {
+                                      context
+                                          .read<ExerciseBloc>()
+                                          .add(Initial());
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ExerciseWidget()),
+                                          (Route<dynamic> route) => false);
+                                    },
+                                    child: VolunteerMenu(
+                                      width: MediaQuery.of(context).size.width /
+                                          2.4,
+                                      title: 'การออกกำลังกาย',
+                                      image:
+                                          'assets/images/volunteer_exercise_bg.png',
+                                    ),
+                                  ),
+                                ]),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) {
+                                      return ScanQrPage(onScan: (_) {});
+                                    }).then((value) {});
+                              },
+                              child: VolunteerMenu(
+                                  width: MediaQuery.of(context).size.width,
+                                  title: 'ค้นหาข้อมูลผู้สูงอายุ',
+                                  image:
+                                      'assets/images/volunteer_elder_bg.png'),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+
+                            EmergencyDetailCard(),
+                            Column(
+                                children: state.appointments
+                                    .map((appointment) => Padding(
+                                        padding: EdgeInsets.only(bottom: 10),
+                                        child: AppointmentItem(
+                                          appointment: appointment,
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AppointmentDetailPage(
+                                                          appointment:
+                                                              appointment,
+                                                        )));
+                                          },
+                                          onApply: () {
+                                            context
+                                                .read<AppointmentListBloc>()
+                                                .add(AppointmentApproved(
+                                                    appointmentId:
+                                                        appointment.id));
+                                          },
+                                        )))
+                                    .toList()),
+                            // AppointmentItem(appointment: Appointment()),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const SizedBox(
+                              height: 100,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ]),
+              ),
+            ],
+          ),
+        ));
   }
 }

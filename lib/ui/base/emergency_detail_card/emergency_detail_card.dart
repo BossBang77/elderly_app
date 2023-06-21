@@ -15,16 +15,35 @@ class EmergencyDetailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var sized = MediaQuery.of(context).size;
+    context.read<EmergencyDetailCardBloc>().add(GetEmergencyList());
     return BlocConsumer<EmergencyDetailCardBloc, EmergencyDetailCardState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        if (state.status == EmergencyStatus.WaitingAssistance) {
-          return WaitingAssistance();
-        } else {
-          return VolunteerAcceptAssistance();
-        }
+        var requestList = state.requsetAssistanceList;
+        return Container(
+          color: color.whiteBackground,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              for (var item in requestList.data) ...{
+                if (item.isMyHelp) ...{
+                  VolunteerAcceptAssistance(
+                    item: item,
+                  )
+                } else ...{
+                  WaitingAssistance(
+                    item: item,
+                  )
+                }
+              },
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
+        );
       },
     );
   }
