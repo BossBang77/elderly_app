@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:health_application/ui/base/dialog/log_out_dialog.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
+import 'package:health_application/ui/elderly/elderly_setting/elderly_setting_page.dart';
 import 'package:health_application/ui/elderly/health_profile/health_profile_page.dart';
 import 'package:health_application/ui/elderly/qr_code_elderly/qr_code_elderly_page.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
@@ -103,7 +104,12 @@ class ElderProfileWidget extends StatelessWidget {
               ),
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/setting_profile_icon.png',
-                onClick: () {},
+                onClick: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ElderlySettingPage(
+                            profile: user,
+                          )));
+                },
                 title: 'การตั้งค่า',
               ),
               InkWell(
