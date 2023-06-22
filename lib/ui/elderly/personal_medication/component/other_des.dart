@@ -1,0 +1,32 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:health_application/ui/base/widget/space_widget.dart';
+import 'package:health_application/ui/ui-extensions/color.dart';
+import 'package:health_application/ui/ui-extensions/font.dart';
+
+import '../../../base/widget/text_field_widget.dart';
+
+class OtherDes extends StatelessWidget {
+  const OtherDes({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        textBody1('เพิ่มเติม', color.black87),
+        SpaceWidget(
+          height: 10,
+        ),
+        TextFieldWidget.enable(
+          text: '',
+          maxLength: 100,
+          minLines: 4,
+          multiLine: true,
+          hintText: 'เช่น ทาบริเวณที่เป็นโรค',
+        ),
+      ],
+    );
+  }
+}
