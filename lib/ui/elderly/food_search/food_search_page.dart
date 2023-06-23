@@ -4,6 +4,7 @@ import 'package:health_application/ui/elderly/food/model/food/food.dart';
 import 'package:health_application/ui/elderly/food_filter/bloc/food_filter/food_filter_bloc.dart';
 import 'package:health_application/ui/elderly/food_filter/bloc/food_filter/state_restorable.dart';
 import 'package:health_application/ui/elderly/food_search/bloc/food_search/food_search_bloc.dart';
+import 'package:health_application/ui/elderly/food_search/bloc/food_search/food_search_event.dart';
 import 'package:health_application/ui/elderly/food_search/food_search_view.dart';
 import 'package:health_application/ui/elderly/food_search/model/response/food_search_item.dart';
 import 'package:health_application/ui/elderly/food_search/repository/food_search_history_provider.dart';
@@ -21,7 +22,7 @@ class FoodSearchPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => FoodSearchBloc(FoodSearchRepository(), FoodSearchHistoryProvider.instance),
+          create: (BuildContext context) => FoodSearchBloc(FoodSearchRepository(), FoodSearchHistoryProvider.instance)..add(FoodSearchSubmitted(value: '')),
         ),
         BlocProvider(
           create: (BuildContext context) => FoodFilterBloc(FoodFilterStateRestorer()),
