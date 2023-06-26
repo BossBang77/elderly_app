@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/appoint_detail_card/appoint_detail_card.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/button_dark_bule.dart';
 import 'package:health_application/ui/elderly/personal_medication/personal_medication_page.dart';
@@ -390,11 +392,7 @@ class HomeWidget extends StatelessWidget {
                                   background: 'assets/images/medicine.png',
                                   title: 'ยาประจำตัว',
                                   onClick: () {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PersonalMedicationPage()),
-                                        (Route route) => false);
+                                    context.go(Routes.personalMedication);
                                   },
                                   subTitle: 'ตั้งค่าแจ้งเตือน\nการทานยา',
                                   icon: 'assets/images/medicine_icon.png',
