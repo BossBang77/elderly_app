@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/space_widget.dart';
@@ -28,55 +29,56 @@ class MedicationDetail extends StatelessWidget {
           },
           title: 'ยาประจำตัว',
           showNotification: true),
-      body: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SpaceWidget(
-                height: 30,
+      body: BlocBuilder<PersonalMedicationBloc, PersonalMedicationState>(
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.only(left: 20, right: 20),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SpaceWidget(
+                    height: 30,
+                  ),
+                  SearchMedication(),
+                  SpaceWidget(
+                    height: 20,
+                  ),
+                  Dosage(),
+                  SpaceWidget(
+                    height: 20,
+                  ),
+                  PeriodWidget(),
+                  SpaceWidget(
+                    height: 20,
+                  ),
+                  SelectTime(),
+                  SpaceWidget(
+                    height: 20,
+                  ),
+                  OtherDes(),
+                  SpaceWidget(
+                    height: 20,
+                  ),
+                  SelectRepeatNotifications(),
+                  SpaceWidget(
+                    height: 20,
+                  ),
+                  ButtonGradient(
+                    btnName: 'บันทึก',
+                    onClick: () {
+                      if (checkMandatory(state.currentMedication))
+                        addEvent(context, SubmitMedication());
+                    },
+                  ),
+                  SpaceWidget(
+                    height: 40,
+                  ),
+                ],
               ),
-              SearchMedication(),
-              SpaceWidget(
-                height: 20,
-              ),
-              Dosage(),
-              SpaceWidget(
-                height: 20,
-              ),
-              PeriodWidget(),
-              SpaceWidget(
-                height: 20,
-              ),
-              SelectTime(),
-              SpaceWidget(
-                height: 20,
-              ),
-              OtherDes(),
-              SpaceWidget(
-                height: 20,
-              ),
-              SelectRepeatNotifications(),
-              SpaceWidget(
-                height: 20,
-              ),
-              ButtonGradient(
-                btnName: 'บันทึก',
-                onClick: () {
-                  // TODO
-                  addEvent(
-                      context,
-                      ChangeView(
-                          viewMedication: PageViewMedication.summaryPage));
-                },
-              ),
-              SpaceWidget(
-                height: 40,
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

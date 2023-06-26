@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_orange.dart';
 import 'package:health_application/ui/elderly/personal_medication/bloc/personal_medication_bloc.dart';
@@ -16,44 +20,47 @@ class SummaryMedication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: color.whiteBackground,
-      appBar: appBar(
-          onBack: () {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => HomePage()),
-                (Route<dynamic> route) => false);
-          },
-          title: 'ยาประจำตัว',
-          showNotification: true),
-      body: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SpaceWidget(
-              height: 30,
-            ),
-            textSubtitle18Blod('ยาที่ต้องรับประทาน', ColorTheme().black87),
-            SpaceWidget(
-              height: 30,
-            ),
-            ButtonOrange(
-              btnName: 'เพิ่มรายการยา',
-              onClick: () {
-                addEvent(
-                    context,
-                    ChangeView(
-                        viewMedication: PageViewMedication.medicationDetail));
+    return BlocBuilder<PersonalMedicationBloc, PersonalMedicationState>(
+      builder: (context, state) {
+        var personalMedi = state.personalMedicationList.data;
+        return Scaffold(
+          backgroundColor: color.whiteBackground,
+          appBar: appBar(
+              onBack: () {
+                context.go(Routes.home);
               },
+              title: 'ยาประจำตัว',
+              showNotification: true),
+          body: Padding(
+            padding: EdgeInsets.only(left: 20, right: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SpaceWidget(
+                  height: 30,
+                ),
+                textSubtitle18Blod('ยาที่ต้องรับประทาน', ColorTheme().black87),
+                SpaceWidget(
+                  height: 30,
+                ),
+                ButtonOrange(
+                  btnName: 'เพิ่มรายการยา',
+                  onClick: () {
+                    addEvent(context, CreateFormMedication());
+                  },
+                ),
+                SpaceWidget(
+                  height: 30,
+                ),
+                for (var _item in personalMedi)
+                  MedicationWidget(
+                    item: _item,
+                  )
+              ],
             ),
-            SpaceWidget(
-              height: 30,
-            ),
-            MedicationWidget()
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
