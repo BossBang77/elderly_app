@@ -1,32 +1,40 @@
 part of 'master_data_bloc.dart';
 
 class MasterDataState extends Equatable {
-  const MasterDataState({
-    this.congenitalDiseaseMaster = const MasterData(),
-    this.allergiesMaster = const MasterData(),
-    this.exerciseTypeMaster = const MasterData(),
-    this.appointmentTime = const MasterData(),
-    this.appointmentType = const MasterData(),
-  });
+  const MasterDataState(
+      {this.congenitalDiseaseMaster = const MasterData(),
+      this.allergiesMaster = const MasterData(),
+      this.exerciseTypeMaster = const MasterData(),
+      this.appointmentTime = const MasterData(),
+      this.appointmentType = const MasterData(),
+      this.medicationIntakeTime = const MasterData(),
+      this.notificationEveryHour = const MasterData()});
   final MasterData congenitalDiseaseMaster;
   final MasterData allergiesMaster;
   final MasterData exerciseTypeMaster;
   final MasterData appointmentTime;
   final MasterData appointmentType;
+  final MasterData medicationIntakeTime;
+  final MasterData notificationEveryHour;
 
   MasterDataState copyWith(
       {MasterData? congenitalDiseaseMaster,
       MasterData? allergiesMaster,
       MasterData? exerciseTypeMaster,
       MasterData? appointmentTime,
-      MasterData? appointmentType}) {
+      MasterData? appointmentType,
+      MasterData? medicationIntakeTime,
+      MasterData? notificationEveryHour}) {
     return MasterDataState(
         congenitalDiseaseMaster:
             congenitalDiseaseMaster ?? this.congenitalDiseaseMaster,
         allergiesMaster: allergiesMaster ?? this.allergiesMaster,
         exerciseTypeMaster: exerciseTypeMaster ?? this.exerciseTypeMaster,
         appointmentTime: appointmentTime ?? this.appointmentTime,
-        appointmentType: appointmentType ?? this.appointmentType);
+        appointmentType: appointmentType ?? this.appointmentType,
+        medicationIntakeTime: medicationIntakeTime ?? this.medicationIntakeTime,
+        notificationEveryHour:
+            notificationEveryHour ?? this.notificationEveryHour);
   }
 
   @override
@@ -35,7 +43,9 @@ class MasterDataState extends Equatable {
         allergiesMaster,
         exerciseTypeMaster,
         appointmentTime,
-        appointmentType
+        appointmentType,
+        medicationIntakeTime,
+        notificationEveryHour
       ];
 }
 
@@ -47,4 +57,6 @@ class MasterCategory {
   String get exerciseType => 'exercise_type';
   String get appointmentTime => 'appointment_time';
   String get appointmentType => 'appointment_type';
+  String get medicationIntakeTime => 'medication_intake_time';
+  String get notificationEveryHour => 'notification_every_hour';
 }
