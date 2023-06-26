@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/elderly/elderly_history/elderly_history_page.dart';
 import 'package:health_application/ui/google_map/googlemap.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
+import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/register_profile/register_profile_page.dart';
 import 'package:health_application/ui/signIn_page/signIn_widget.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
@@ -34,6 +36,20 @@ final GoRouter appRouter =
       builder: (BuildContext context, GoRouterState state) {
         return GoogleMaps();
       }),
+  GoRoute(
+      path: Routes.elderlyHistory,
+      redirect: (state) {
+        if (state.extra != null) {
+          return null;
+        } else {
+          return Routes.elderlyHistory;
+        }
+      },
+      builder: (BuildContext context, GoRouterState state) {
+        var args = state.extra as RegisterModel;
+        return ElderlyHistoryPage(profile: args);
+      },
+      routes: []),
 ]);
 
 class Routes {
@@ -58,4 +74,6 @@ class Routes {
   static const String home = '/home';
 
   static const String map = '/map';
+
+  static const String elderlyHistory = '/elderly-history';
 }

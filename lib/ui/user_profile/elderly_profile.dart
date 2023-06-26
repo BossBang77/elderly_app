@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/dialog/log_out_dialog.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/elderly_setting/elderly_setting_page.dart';
@@ -68,9 +70,10 @@ class ElderProfileWidget extends StatelessWidget {
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/person_profile_icon.png',
                 onClick: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder:(context) => 
-                        ElderlyProfileInformationView(state: state),
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ElderlyProfileInformationView(state: state),
                     ),
                   );
                 },
@@ -89,7 +92,9 @@ class ElderProfileWidget extends StatelessWidget {
               ),
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/history_profile_icon.png',
-                onClick: () {},
+                onClick: () {
+                  context.go(Routes.elderlyHistory, extra: user);
+                },
                 title: 'ประวัติการบันทึกข้อมูล',
               ),
               CardListMenu(
