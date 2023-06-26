@@ -38,7 +38,10 @@ class TextFieldWidget extends StatelessWidget {
       this.prefix = false,
       this.prefixTxt,
       this.textInputAction = null,
-      this.onFieldSubmitted})
+      this.onFieldSubmitted,
+      this.focusNode = null,
+      this.suffixIcon = null,
+      this.textAlign = TextAlign.left})
       : super(key: key);
 
   ///create text field with disable
@@ -50,7 +53,8 @@ class TextFieldWidget extends StatelessWidget {
       String? suffixTxt,
       bool suffix = false,
       int? minLines,
-      bool obscureText = false})
+      bool obscureText = false,
+      Widget? suffixIcon = null})
       : this(
             suffix: suffix,
             suffixTxt: suffixTxt,
@@ -62,6 +66,32 @@ class TextFieldWidget extends StatelessWidget {
             multiLine: multiLine,
             minLines: minLines,
             obscureText: obscureText,
+            suffixIcon: suffixIcon,
+            textEditingController: TextEditingController(text: text));
+
+  ///create text field with disable
+  TextFieldWidget.readOnly(
+      {required String text,
+      String hintText = '',
+      double? height,
+      bool multiLine = false,
+      String? suffixTxt,
+      bool suffix = false,
+      int? minLines,
+      bool obscureText = false,
+      Widget? suffixIcon = null})
+      : this(
+            suffix: suffix,
+            suffixTxt: suffixTxt,
+            maxLength: 300,
+            isEnabled: true,
+            readOnly: true,
+            hintText: hintText,
+            height: height,
+            multiLine: multiLine,
+            minLines: minLines,
+            obscureText: obscureText,
+            suffixIcon: suffixIcon,
             textEditingController: TextEditingController(text: text));
 
   ///create text field with disable
@@ -88,6 +118,7 @@ class TextFieldWidget extends StatelessWidget {
       bool setErrorWithOuter = false,
       bool readOnly = false,
       String? suffixTxt,
+      Widget? suffixIcon = null,
       int? minLines,
       String? prefixTxt,
       bool prefix = false,
@@ -95,7 +126,10 @@ class TextFieldWidget extends StatelessWidget {
       FormFieldValidator<String>? validator,
       ValueChanged<String>? onChanged,
       TextInputAction? textInputAction,
-      VoidCallback? onFieldSubmitted})
+      TextEditingController? textEditingController,
+      FocusNode? focusNode,
+      VoidCallback? onFieldSubmitted,
+      TextAlign textAlign = TextAlign.left})
       : this(
             readOnly: readOnly,
             onChanged: onChanged,
@@ -118,13 +152,16 @@ class TextFieldWidget extends StatelessWidget {
             setErrorWithOuter: setErrorWithOuter,
             suffixTxt: suffixTxt,
             validator: validator,
-            textEditingController: TextEditingController(text: text),
+            textEditingController: textEditingController ?? TextEditingController(text: text),
             minLines: minLines,
             prefix: prefix,
             prefixTxt: prefixTxt,
             imagePathPrefix: imagePathPrefix,
             textInputAction: textInputAction,
-            onFieldSubmitted: onFieldSubmitted);
+            suffixIcon: suffixIcon,
+            onFieldSubmitted: onFieldSubmitted,
+            focusNode: focusNode,
+            textAlign: textAlign);
 
   ///error text
   final String errorText;
@@ -156,6 +193,8 @@ class TextFieldWidget extends StatelessWidget {
   ///suffix
   final bool suffix;
 
+  final Widget? suffixIcon;
+
   ///imagePath
   final String imagePath;
 
@@ -186,6 +225,10 @@ class TextFieldWidget extends StatelessWidget {
 
   ///onTap
   final VoidCallback? onTap;
+
+  final FocusNode? focusNode;
+
+  final TextAlign textAlign;
 
   final String? suffixTxt;
   final int? minLines;
@@ -230,6 +273,8 @@ class TextFieldWidget extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Center(
         child: TextFormField(
+          textAlign: textAlign,
+          focusNode: focusNode,
           enabled: isEnabled,
           obscureText: obscureText,
           autovalidateMode: autoValid
@@ -288,7 +333,8 @@ class TextFieldWidget extends StatelessWidget {
                       )
                 : null,
             suffixIcon: (suffix)
-                ? suffixTxt != null
+                ? suffixIcon != null ? suffixIcon :
+                 suffixTxt != null
                     ? Padding(
                         padding: const EdgeInsets.only(top: 10, right: 5),
                         child: textSubtitle16Blod(suffixTxt ?? '', Colors.grey))
