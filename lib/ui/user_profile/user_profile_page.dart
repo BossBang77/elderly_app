@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/user_profile/elderly_profile.dart';
 import 'package:health_application/ui/user_profile/volunteer_profile.dart';
-import 'package:health_application/ui/welcome_page/welcome_page.dart';
 
 import '../register_profile/bloc/register_profile_bloc.dart';
 
@@ -21,9 +21,7 @@ class UserProfilePage extends StatelessWidget {
         listener: (context, state) async {
       if (state.logoutStatus == LogoutStatus.success) {
         await UserSecureStorage().clearSession();
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => WelcomePage()),
-            (Route<dynamic> route) => false);
+        context.go(Routes.root);
       } else if (state.logoutStatus == LogoutStatus.fail) {
         final bool acceptClose = await showDialog(
             context: context,
