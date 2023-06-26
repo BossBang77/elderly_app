@@ -44,7 +44,7 @@ class AppointmentItem extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
           decoration: BoxDecoration(
-              color: ColorTheme().grey10,
+              color: ColorTheme().appointmentCardBackground,
               border: Border.all(color: Colors.black.withAlpha(7)),
               borderRadius: BorderRadius.circular(8)),
           child: Column(

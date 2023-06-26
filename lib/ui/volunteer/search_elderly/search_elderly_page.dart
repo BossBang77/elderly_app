@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/register_profile/volunteer/bloc/volunteer_register_bloc.dart';
@@ -31,8 +33,7 @@ class ElderlySearchDetailPage extends StatelessWidget {
       backgroundColor: color.whiteBackground,
       appBar: appBar(
           onBack: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => HomePage()));
+            context.go(Routes.home);
           },
           title: 'ข้อมูลผู้สูงอายุ'),
       body: Padding(
@@ -42,15 +43,14 @@ class ElderlySearchDetailPage extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            if (elderlyProfile.profile.gender == SexType.FEMALE.name)
-              Center(
-                child: Image.asset(
-                  elderlyProfile.profile.gender == SexType.FEMALE.name
-                      ? 'assets/images/woman_active.png'
-                      : 'assets/images/man_active.png',
-                  scale: 4,
-                ),
+            Center(
+              child: Image.asset(
+                elderlyProfile.profile.gender == SexType.FEMALE.name
+                    ? 'assets/images/woman_active.png'
+                    : 'assets/images/man_active.png',
+                scale: 4,
               ),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -159,10 +159,9 @@ class ElderlySearchDetailPage extends StatelessWidget {
                               height: 30,
                             ),
                             WaterIntakeChart(
-                              total: drinkingWater.target.toDouble(),
-                              isDrink: drinkingWater.achievable.toDouble(),
-                              left: drinkingWater.remaining.toDouble(),
-                            ),
+                                total: drinkingWater.target.toDouble(),
+                                isDrink: drinkingWater.achievable.toDouble(),
+                                left: MediaQuery.of(context).size.width / 2.8),
                             const SizedBox(
                               height: 30,
                             ),

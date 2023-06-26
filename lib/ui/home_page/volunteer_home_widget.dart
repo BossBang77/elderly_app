@@ -219,6 +219,29 @@ class VolunteerHomeWidget extends StatelessWidget {
                             ),
 
                             EmergencyDetailCard(),
+                            SizedBox(height: 16),
+                            Row(
+                              children: [
+                                textSubtitle1('กานัดหมาย ', ColorTheme().black87),
+                                (state.appointments.isEmpty) ?
+                                Container() : textSubtitle1('(${state.appointments.length})', ColorTheme().black87)
+                              ],
+                            ),
+                            SizedBox(height: 16),
+                            (state.appointments.isEmpty) ?
+                            Container(
+                              padding: EdgeInsets.only(top: 64),
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset('assets/images/appointment_empty.png', width: 42, height: 42),
+                                  SizedBox(height: 42),
+                                  textSubtitle1('ยังไม่มีการนัดหมาย', ColorTheme().grey50)
+                                ],
+                              ),
+                            ) :
                             Column(
                                 children: state.appointments
                                     .map((appointment) => Padding(
