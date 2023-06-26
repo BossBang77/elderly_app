@@ -5,6 +5,7 @@ import 'package:health_application/ui/base/dialog/log_out_dialog.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/elderly_address/elderly_address_page.dart';
+import 'package:health_application/ui/elderly/elderly_setting/elderly_setting_page.dart';
 import 'package:health_application/ui/elderly/health_profile/health_profile_page.dart';
 import 'package:health_application/ui/elderly/qr_code_elderly/qr_code_elderly_page.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
@@ -12,6 +13,7 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/user_profile/component/card_list_menu.dart';
+import 'package:health_application/ui/user_profile/profile_information/elderly_prfile_information_view.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
 import 'package:provider/provider.dart';
 
@@ -66,7 +68,14 @@ class ElderProfileWidget extends StatelessWidget {
               ),
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/person_profile_icon.png',
-                onClick: () {},
+                onClick: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ElderlyProfileInformationView(state: state),
+                    ),
+                  );
+                },
                 title: 'ข้อมูลส่วนตัว',
                 sufficTxt: 'ยังไม่ยืนยัน',
               ),
@@ -109,7 +118,12 @@ class ElderProfileWidget extends StatelessWidget {
               ),
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/setting_profile_icon.png',
-                onClick: () {},
+                onClick: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ElderlySettingPage(
+                            profile: user,
+                          )));
+                },
                 title: 'การตั้งค่า',
               ),
               InkWell(

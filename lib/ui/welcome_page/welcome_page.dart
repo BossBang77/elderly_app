@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:health_application/ui/elderly/food/model/food/food.dart';
-import 'package:health_application/ui/elderly/food/model/nutritions/calories.dart';
-import 'package:health_application/ui/elderly/food_detail/food_detail_page.dart';
-import 'package:health_application/ui/elderly/food_log/food_log_page.dart';
-import 'package:health_application/ui/elderly/appointment/appointment_list_view.dart';
-import 'package:health_application/ui/register_profile/register_profile_page.dart';
-import 'package:health_application/ui/signIn_page/login/login_page.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
-
-import '../signIn_page/signIn_widget.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -53,8 +44,7 @@ class WelcomePage extends StatelessWidget {
               ButtonGradient(
                 btnName: 'เริ่มต้นใช้งาน',
                 onClick: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => RegisterProfilePage()));
+                  context.go(Routes.register);
                 },
               ),
               const SizedBox(
@@ -63,8 +53,7 @@ class WelcomePage extends StatelessWidget {
               ButtonBlueFade(
                 btnName: 'เข้าสู่ระบบ',
                 onClick: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SignInPage()));
+                  context.go(Routes.login);
                 },
               )
             ],

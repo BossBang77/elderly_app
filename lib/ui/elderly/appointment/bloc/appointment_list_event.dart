@@ -35,11 +35,13 @@ class AppointmentSelectListType extends AppointmentListEvent {
 class AppointmentListUpdate extends AppointmentListEvent {
   const AppointmentListUpdate({
     this.completedList = const[],
-    this.incompleteList = const[]
+    this.incompleteList = const[],
+    required this.type
   });
 
   final List<Appointment> completedList;
   final List<Appointment> incompleteList;
+  final AppointmentListType type;
 
   @override
   List<Object?> get props => [

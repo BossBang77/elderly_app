@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/text_field_widget.dart';
@@ -137,8 +139,7 @@ class VolunteerPrivacyProfile extends StatelessWidget {
                   textButton2('มีบัญชี?  ', ColorTheme().black87),
                   InkWell(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SignInPage()));
+                        context.go(Routes.login);
                       },
                       child: textButton1('เข้าสู่ระบบ', ColorTheme().Primary)),
                 ],

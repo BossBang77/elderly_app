@@ -47,16 +47,17 @@ class AppointmentRepository implements AppointmentRepositoryProtocol {
         request.includeStatus,
         request.elderlyProfileId,
         request.volunteerProfileId,
-        request.excludeStatus
+        request.excludeStatus 
       ), 
       decodeWith: (data) {
-        if (request.includeStatus == AppointmentStatus.complete.value) {
-          completedListController.sink.add(AppointmentListResponse.fromJson(data).data);
-          currentCompleteList = AppointmentListResponse.fromJson(data).data;
-        } else {
-          incompletedListController.sink.add(AppointmentListResponse.fromJson(data).data);
-          currentIncompleteList = AppointmentListResponse.fromJson(data).data;
-        }
+        var dataFromJson = AppointmentListResponse.fromJson(data).data;
+        var completedList = dataFromJson.where((element) => (element.status == AppointmentStatus.complete.value) || (element.status == AppointmentStatus.reject.value)).toList();
+        completedListController.sink.add(completedList);
+        currentCompleteList = completedList;
+
+        var inCompletedList = dataFromJson.where((element) => (element.status != AppointmentStatus.complete.value) && (element.status != AppointmentStatus.reject.value)).toList();
+        incompletedListController.sink.add(inCompletedList);
+        currentIncompleteList = inCompletedList;
         return AppointmentListResponse.fromJson(data);
       });
   }
