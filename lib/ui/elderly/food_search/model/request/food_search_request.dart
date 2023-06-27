@@ -15,8 +15,8 @@ class FoodSearchRequest {
     this.sort = const FoodSearchSort()
   });
   final String keyword;
-  final double calorieMin;
-  final double calorieMax;
+  final int calorieMin;
+  final int calorieMax;
   final List<String> allergicFoods;
   final int limit;
   final int offset;
