@@ -75,6 +75,7 @@ class SuccessDialog extends StatelessWidget {
                     ButtonGradient(
                       btnName: buttonName,
                       onClick: () {
+                        Navigator.pop(context, true);
                         onTap!();
                       },
                     ),
