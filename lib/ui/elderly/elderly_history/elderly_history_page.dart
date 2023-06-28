@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/health_profile/component/health_menu.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 
 class ElderlyHistoryPage extends StatelessWidget {
-  const ElderlyHistoryPage({super.key, required this.profile});
-
-  final RegisterModel profile;
+  const ElderlyHistoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,9 @@ class ElderlyHistoryPage extends StatelessWidget {
               HealthMenu(
                 title: 'บันทึกมื้ออหาร',
                 subtitle: '',
-                callback: () {},
+                callback: () {
+                  context.go(Routes.elderlyHistoryFood);
+                },
               ),
               HealthMenu(
                 title: 'บันทึกการออกกำลังกาย',
