@@ -93,7 +93,9 @@ class ElderProfileWidget extends StatelessWidget {
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/history_profile_icon.png',
                 onClick: () {
-                  context.go(Routes.elderlyHistory, extra: user);
+                  context.go(
+                    Routes.elderlyHistory,
+                  );
                 },
                 title: 'ประวัติการบันทึกข้อมูล',
               ),
