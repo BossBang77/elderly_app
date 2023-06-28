@@ -11,6 +11,8 @@ extension DateTimeExtension on DateTime {
   static const String _fullDateFormat = 'd MMMM yyyy';
   static const String _timeFormat = 'HH:mm';
   static const String _dateFormatMonth = 'MMMM yyyy';
+  static const String _dateRangeFormat = 'd MMM yyyy';
+  static const String _shortDateMonthFormat = 'd MMM';
 
   ///for display date time string [format] with BuddhistDate
   String toDisplayBuddhistDate({String? locale}) {
@@ -103,6 +105,44 @@ extension DateTimeExtension on DateTime {
       return DateFormat(_dateFormatApi, locale)
           .format(DateTime.utc(year, month, day))
           .toString();
+    } catch (e) {
+      return '-';
+    }
+  }
+
+  String toDisplayShortDate({String? locale}) {
+    try {
+      return DateFormat(_shortDateMonthFormat, locale)
+          .format(DateTime.utc(year, month, day))
+          .toString();
+    } catch (e) {
+      return '-';
+    }
+  }
+
+  String toDisplayDateByWeek({String? locale}) {
+    try {
+      var startDate = DateFormat(_shortDateMonthFormat, locale)
+          .format(DateTime.utc(year + 543, month, day - 7).toLocal())
+          .toString();
+      var endDate = DateFormat(_dateRangeFormat, locale)
+          .format(DateTime.utc(year + 543, month, day).toLocal())
+          .toString();
+      return '${startDate} - ${endDate}';
+    } catch (e) {
+      return '-';
+    }
+  }
+
+  String toDisplayDateByMonth({String? locale}) {
+    try {
+      var startDate = DateFormat(_shortDateMonthFormat, locale)
+          .format(DateTime.utc(year + 543, month - 1, day).toLocal())
+          .toString();
+      var endDate = DateFormat(_dateRangeFormat, locale)
+          .format(DateTime.utc(year + 543, month, day).toLocal())
+          .toString();
+      return '${startDate} - ${endDate}';
     } catch (e) {
       return '-';
     }
