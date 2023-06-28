@@ -4,6 +4,9 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 class FoodFilterCaloriesWidget extends StatelessWidget {
+  const FoodFilterCaloriesWidget({this.onMinimumValueChange, this.onMaximumValueChange});
+  final Function(String)? onMinimumValueChange;
+  final Function(String)? onMaximumValueChange;
   @override 
   Widget build(BuildContext context) {
     return Column(
@@ -22,6 +25,9 @@ class FoodFilterCaloriesWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextField(
+                      onChanged: (value) {
+                        onMinimumValueChange?.call(value);
+                      },
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -48,6 +54,9 @@ class FoodFilterCaloriesWidget extends StatelessWidget {
                   ),
                   Expanded(
                     child: TextField(
+                      onChanged: (value) {
+                        onMaximumValueChange?.call(value);
+                      },
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(

@@ -7,6 +7,7 @@ import 'package:health_application/ui/elderly/food_search/bloc/food_search/food_
 import 'package:health_application/ui/elderly/food_search/bloc/food_search/food_search_state.dart';
 import 'package:health_application/ui/elderly/food_search/model/request/food_search_request.dart';
 import 'package:health_application/ui/elderly/food_search/model/request/food_search_sort.dart';
+import 'package:health_application/ui/elderly/food_search/model/response/food_search_item.dart';
 import 'package:health_application/ui/elderly/food_search/model/response/food_search_response.dart';
 import 'package:health_application/ui/elderly/food_search/repository/food_search_history_provider.dart';
 import 'package:health_application/ui/elderly/food_search/repository/food_search_repository.dart';
@@ -29,12 +30,16 @@ class FoodSearchBloc extends Bloc<FoodSearchEvent, FoodSearchState> {
 
   FoodSearchRepositoryProtocol _foodSearchRepository;
   SearchHistoryProvider<String> _searchHistoryProvider;
+  Set<FoodSearchItem> _cachedSearchResultItem = Set();
 
   void _onSearchTextFieldValueChanged(
     FoodSearchTextFieldValueChanged event,
     Emitter<FoodSearchState> emit
   ) {
-    emit(state.copyWith(searchValue: event.value));
+    var currentSearchResult = _cachedSearchResultItem.toList();
+    currentSearchResult.sort((a, b) => a.name.compareTo(b.name));
+    var filteredResult = currentSearchResult.where((element) => element.name.contains(event.value)).toList();
+    emit(state.copyWith(searchValue: event.value, searchResults: filteredResult));
   }
 
   void _onFilterButtonTapped(
@@ -74,9 +79,10 @@ class FoodSearchBloc extends Bloc<FoodSearchEvent, FoodSearchState> {
     FoodSearchSubmitted event,
     Emitter<FoodSearchState> emit
   ) async {
-    if (event.value.isEmpty) { return; }
+    if (!event.value.isEmpty) { 
      _searchHistoryProvider.pushEntry(event.value);
-      List<String> recenSearchValues = _searchHistoryProvider.history;
+    }
+    List<String> recenSearchValues = _searchHistoryProvider.history;
 
     print(state.searchFilter);
     final request = FoodSearchRequest(
@@ -101,6 +107,7 @@ class FoodSearchBloc extends Bloc<FoodSearchEvent, FoodSearchState> {
         emit(state.copyWith(recentSearchValues: recenSearchValues));
       }, 
       (response) {
+        _cachedSearchResultItem.addAll(response.data);
         emit(state.copyWith(searchResults: response.data, recentSearchValues: recenSearchValues));
         return;
       }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
 import 'package:health_application/ui/elderly/exercise/exercise_detail/exercise_calculate.dart';
@@ -60,9 +62,7 @@ class ExerciseWidget extends StatelessWidget {
 
       if ((state.statusSubmit == StatusSubmit.saveRecordSuccess) ||
           state.statusSubmit == StatusSubmit.saveExerciseDailySuccess) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => HomePage()),
-            (Route<dynamic> route) => false);
+        context.go(Routes.home);
       }
 
       if (state.statusSubmit == StatusSubmit.saveRecordFail ||

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/button_orange.dart';
@@ -40,8 +42,7 @@ class FoodLogView extends StatelessWidget {
           listener: (context, state) {
             if (state.isSavedCompleted) {
               Navigator.pop(context);
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => HomePage()));
+              context.go(Routes.home);
             }
           },
           child: BlocBuilder<FoodLogBloc, FoodLogState>(

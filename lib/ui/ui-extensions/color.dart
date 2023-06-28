@@ -53,6 +53,7 @@ class ColorTheme {
   final Color lightBlue = HexColor('#F3F7F9');
   final Color emergency = HexColor('#E9605B');
   final Color redText = HexColor('#EF5050');
+  final Color appointmentCardBackground = HexColor('#F2F2F2');
 }
 
 class StyleBorder {

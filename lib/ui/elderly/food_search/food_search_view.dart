@@ -88,7 +88,7 @@ class _FoodSearchViewState extends State<FoodSearchView> {
                       BlocProvider.value(
                         value: BlocProvider.of<FoodFilterBloc>(context),
                         child: FoodFilterView(
-                          isToggleItemSelectable: true,
+                          isToggleItemSelectable: widget.isToggleItemSelectable,
                           onFilterApplied: () {
                             Map<String, dynamic> filter = BlocProvider.of<FoodFilterBloc>(context).state.getMappedFilter();
                             context.read<FoodSearchBloc>().add(FoodSearchFilterApplied(filter: filter));
@@ -109,6 +109,12 @@ class _FoodSearchViewState extends State<FoodSearchView> {
                 ListSection(
                   sectionHeaderTitle: 'รายการที่ค้นหาล่าสุด',
                   children: [
+                    state.recentSearchValues.isEmpty ? 
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 80,
+                      child: Center(child: textSubtitle1('ไม่พบรายการค้นหาล่าสุด', ColorTheme().grey50)),
+                    ) :
                     Padding(
                       padding: EdgeInsets.only(left: 16, right: 16),
                       child: Wrap(
@@ -145,30 +151,6 @@ class _FoodSearchViewState extends State<FoodSearchView> {
                       },
                     )
                   ).toList()
-                  // children: [
-                    //TODO: Display real search item list
-                    // FoodListItemView(
-                    //   food: Food(
-                    //     code: '',
-                    //     name: 'SDPFISJPDIFS',
-                    //     unit: 0,
-                    //     categories: [],
-                    //     calories: Calories(value: 375.8),
-                    //     energy: Calories(value: 375.8),
-                    //     durationMin: '',
-                    //     durationMax: '',
-                    //     description: 'description',
-                    //     ingredients: [],
-                    //     methods: []
-                    //   ),
-                    //   onTap: (food) {
-                    //     widget.onFoodSelected?.call(food);
-                    //   },
-                    //   onTrailingIconTap: (food) {
-                    //     widget.onItemTrailingIconTap?.call(food);
-                    //   },
-                    // )
-                  // ],
                 )
               ],
             )

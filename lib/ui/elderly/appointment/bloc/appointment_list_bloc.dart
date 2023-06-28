@@ -26,7 +26,7 @@ class AppointmentListBloc extends Bloc<AppointmentListEvent, AppointmentListStat
       .stream
       .asBroadcastStream()
       .listen((List<Appointment> data) {
-        add(AppointmentListUpdate(completedList: state.completedAppointments, incompleteList: data));
+        add(AppointmentListUpdate(incompleteList: data, type: AppointmentListType.incomplete));
     });
 
     _completeListSubscriber = _appointmentRepository
@@ -34,7 +34,7 @@ class AppointmentListBloc extends Bloc<AppointmentListEvent, AppointmentListStat
       .stream
       .asBroadcastStream()
       .listen((List<Appointment> data) {
-        add(AppointmentListUpdate(completedList: data, incompleteList: state.appointments));
+        add(AppointmentListUpdate(completedList: data, type: AppointmentListType.completed));
     });
 
     fetchAppointmentList();
@@ -100,7 +100,7 @@ class AppointmentListBloc extends Bloc<AppointmentListEvent, AppointmentListStat
   ) {
     emit(state.copyWith(type: event.type));
     if (event.type == AppointmentListType.completed) {
-      fetchAppointmentList(includeStatus: AppointmentStatus.complete.value);
+      fetchAppointmentList();
     } else {
       fetchAppointmentList(excludeStatus: AppointmentStatus.complete.value);
     }
@@ -110,6 +110,10 @@ class AppointmentListBloc extends Bloc<AppointmentListEvent, AppointmentListStat
     AppointmentListUpdate event,
     Emitter<AppointmentListState> emit
   ) {
-    emit(state.copyWith(appointments: event.incompleteList, completedAppointments: event.completedList));
+    if (event.type == AppointmentListType.completed) {
+      emit(state.copyWith(completedAppointments: event.completedList));
+    } else {
+      emit(state.copyWith(appointments: event.incompleteList));
+    }
   }
 }
