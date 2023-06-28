@@ -42,6 +42,7 @@ class ColorTheme {
   final Color greybackground5 = HexColor("#343434").withOpacity(0.05);
   final Color blueText = HexColor("#0267D0");
   final Color BlueFade2 = HexColor('#0C81E4');
+  final Color blueFade3 = HexColor('#81E4E4').withOpacity(0.05);
   final Color BackgroundWhite = HexColor('#FCFCFC');
   final Color BlueDark2 = HexColor('#3E54D3');
   final Color Orange1 = HexColor('#F8763E');

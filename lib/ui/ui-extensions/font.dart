@@ -285,3 +285,14 @@ Widget textSubtitle15w400(String text, Color color) {
           fontFamily: fontFamily,
           fontWeight: FontWeight.w300));
 }
+
+Widget text12(String text, Color color, {TextAlign align = TextAlign.center}) {
+  return Text(text,
+      textAlign: align,
+      softWrap: true,
+      style: TextStyle(
+          color: color,
+          fontSize: 12.sp,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w700));
+}
