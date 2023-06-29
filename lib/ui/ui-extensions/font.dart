@@ -277,8 +277,9 @@ Widget text12Bold(String text, Color color,
           fontWeight: FontWeight.w700));
 }
 
-Widget textSubtitle15w400(String text, Color color) {
+Widget textSubtitle15w400(String text, Color color, {int maxLine = 1}) {
   return Text(text,
+      maxLines: maxLine,
       style: TextStyle(
           color: color,
           fontSize: 15.sp,

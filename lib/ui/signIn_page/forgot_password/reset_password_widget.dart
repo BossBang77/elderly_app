@@ -58,7 +58,8 @@ class ResetPasswordWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  textSubtitle18Blod('รหัสผ่านใหม่', ColorTheme().black87),
+                  textSubtitle18Blod(
+                      'ยืนยันรหัสผ่านใหม่', ColorTheme().black87),
                   const SizedBox(
                     height: 10,
                   ),

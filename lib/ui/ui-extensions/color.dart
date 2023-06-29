@@ -65,11 +65,11 @@ class StyleBorder {
         border: isBorder ? Border.all(color: color.GreyBorder) : null);
   }
 
-  BoxDecoration blueDecoration({double radius = 20}) {
+  BoxDecoration blueDecoration({double radius = 20, bool isBorder = true}) {
     return BoxDecoration(
         color: color.blueText.withOpacity(0.12),
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        border: Border.all(color: color.blueText));
+        border: isBorder ? Border.all(color: color.blueText) : null);
   }
 
   BoxDecoration buttomSheet({double radius = 20}) {

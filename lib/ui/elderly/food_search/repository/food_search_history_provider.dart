@@ -21,7 +21,7 @@ class FoodSearchHistoryProvider implements SearchHistoryProvider<String> {
 
   void init() async {
     final hisoryFromStorage = await UserSecureStorage().getValueForKey(forKey: UserKey.foodSearchHistory);
-    // _history = jsonDecode(hisoryFromStorage);
+    _history = jsonDecode(hisoryFromStorage);
   }
 
 

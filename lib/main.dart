@@ -18,6 +18,7 @@ import 'package:month_year_picker/month_year_picker.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'ui/base/app_config/conflig.dart';
 import 'ui/base/token_expired/token_expired.dart';
+import 'ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
 import 'ui/elderly/exercise/bloc/exercise_bloc.dart';
 import 'ui/elderly/water_intake/bloc/water_intake_bloc.dart';
 import 'ui/home_page/bloc/home_page_bloc.dart';
@@ -75,7 +76,8 @@ class MyApp extends StatelessWidget {
               ),
               BlocProvider(
                   create: (context) =>
-                      EmergencyDetailCardBloc()..add(GetEmergencyList()))
+                      EmergencyDetailCardBloc()..add(GetEmergencyList())),
+              BlocProvider(create: (context) => ElderlyAddressBloc()),
             ],
             child: Builder(builder: (context) {
               context.read<MasterDataBloc>().add(LoadMasterData());

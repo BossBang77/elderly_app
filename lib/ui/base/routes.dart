@@ -9,6 +9,9 @@ import 'package:health_application/ui/register_profile/register_profile_page.dar
 import 'package:health_application/ui/signIn_page/signIn_widget.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
 
+import '../elderly/personal_medication/personal_medication_page.dart';
+import '../elderly/search_volunteer/volunteer_page.dart';
+
 final GoRouter appRouter =
     GoRouter(initialLocation: Routes.root, routes: <GoRoute>[
   GoRoute(
@@ -50,6 +53,11 @@ final GoRouter appRouter =
               return HistoryFoodPage();
             }),
       ]),
+  GoRoute(
+      path: Routes.personalMedication,
+      builder: (BuildContext context, GoRouterState state) {
+        return PersonalMedicationPage();
+      }),
 ]);
 
 class Routes {
@@ -78,4 +86,5 @@ class Routes {
   static const String elderlyHistory = '/elderly-history';
 
   static const String elderlyHistoryFood = '/elderly-history/food-log';
+  static const String personalMedication = '/personalMedicationPage';
 }
