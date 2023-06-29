@@ -127,7 +127,14 @@ class FoodFilterView extends StatelessWidget {
                             Column(
                               children: toggleItems(state)
                             ),
-                            FoodFilterCaloriesWidget(),
+                            FoodFilterCaloriesWidget(
+                              onMinimumValueChange: (value) {
+                                context.read<FoodFilterBloc>().add(FoodFilterMinimumCaloriesTextFieldValueChanged(minimumCalories: value));
+                              },
+                              onMaximumValueChange: (value) {
+                                context.read<FoodFilterBloc>().add(FoodFilterMaximumCaloriesTextFieldValueChanged(maximumCalories: value));
+                              },
+                            ),
                             FoodFilterTypeWidget<String>(
                               //TODO use list from api
                               items: [],

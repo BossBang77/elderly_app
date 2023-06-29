@@ -179,24 +179,22 @@ class VolunteerHomeWidget extends StatelessWidget {
                                     },
                                   ),
                                   SizedBox(width: 20),
-                                  InkWell(
-                                    onTap: () async {
+                                  VolunteerMenu(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ExerciseWidget()),
+                                      );
                                       context
                                           .read<ExerciseBloc>()
                                           .add(Initial());
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ExerciseWidget()),
-                                          (Route<dynamic> route) => false);
                                     },
-                                    child: VolunteerMenu(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.4,
-                                      title: 'การออกกำลังกาย',
-                                      image:
-                                          'assets/images/volunteer_exercise_bg.png',
-                                    ),
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.4,
+                                    title: 'การออกกำลังกาย',
+                                    image:
+                                        'assets/images/volunteer_exercise_bg.png',
                                   ),
                                 ]),
                             const SizedBox(
