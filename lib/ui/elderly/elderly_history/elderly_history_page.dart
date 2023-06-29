@@ -14,7 +14,7 @@ class ElderlyHistoryPage extends StatelessWidget {
       backgroundColor: color.white,
       appBar: appBar(
           onBack: () {
-            Navigator.pop(context);
+            context.go(Routes.home);
           },
           title: 'ประวัติการบันทึกข้อมูล'),
       body: Padding(

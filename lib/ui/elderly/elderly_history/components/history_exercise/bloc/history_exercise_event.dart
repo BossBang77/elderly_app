@@ -18,3 +18,8 @@ class OnFrequencyChange extends HistoryExerciseEvent {
 
   final GraphRangeType type;
 }
+
+class OnSelectDateChange extends HistoryExerciseEvent {
+  const OnSelectDateChange({required this.date});
+  final String date;
+}

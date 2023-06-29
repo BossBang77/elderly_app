@@ -1,3 +1,4 @@
+import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/model/elderly_exercise_model.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/graph_model.dart';
 
 const List<GraphModel> mockExerciseMonth = [
@@ -86,4 +87,10 @@ const List<GraphModel> mockTimeExerciseMonth = [
   GraphModel(date: '2023-06-25', value: 45),
   GraphModel(date: '2023-06-26', value: 60),
   GraphModel(date: '2023-06-27', value: 65),
+];
+
+const List<ElderlyExerciseModel> mockExercise = [
+  ElderlyExerciseModel(
+      exerciseName: 'Full body Workout', time: '25', calories: '450'),
+  ElderlyExerciseModel(exerciseName: 'วิ่ง', time: '40', calories: '250'),
 ];

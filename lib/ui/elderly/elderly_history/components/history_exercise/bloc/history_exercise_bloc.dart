@@ -20,6 +20,9 @@ class HistoryExerciseBloc
       if (event is OnFrequencyChange) {
         emit(state.copyWith(currentRange: event.type));
       }
+      if (event is OnSelectDateChange) {
+        emit(state.copyWith(selectedDate: event.date));
+      }
     });
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/bloc/history_exercise_bloc.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/views/history_log_exercise.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/views/history_summary_exercise.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
@@ -71,8 +72,9 @@ class HistoryExercisePage extends StatelessWidget {
                     ),
                     if (state.currentTab == HistoryExerciseTab.summary) ...{
                       HistorySummaryExerciseWidget()
-                    } else
-                      ...{}
+                    } else ...{
+                      HistoryLogExerciseWidget()
+                    }
                   ],
                 ),
               );
