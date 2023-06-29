@@ -4,10 +4,11 @@ import 'package:health_application/ui/google_map/googlemap.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/register_profile/register_profile_page.dart';
 import 'package:health_application/ui/signIn_page/signIn_widget.dart';
+import 'package:health_application/ui/user_profile/profile_information/elderly_profile_information_view.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
 
 import '../elderly/personal_medication/personal_medication_page.dart';
-import '../elderly/search_volunteer/volunteer_page.dart';
+import '../register_profile/model/register_model.dart';
 
 final GoRouter appRouter =
     GoRouter(initialLocation: Routes.root, routes: <GoRoute>[
@@ -42,6 +43,12 @@ final GoRouter appRouter =
       builder: (BuildContext context, GoRouterState state) {
         return PersonalMedicationPage();
       }),
+  GoRoute(
+      path: Routes.elderlyProfileInformationView,
+      builder: (BuildContext context, GoRouterState state) {
+        var userProfile = state.extra as RegisterModel;
+        return ElderlyProfileInformationView(profile: userProfile);
+      }),
 ]);
 
 class Routes {
@@ -68,4 +75,7 @@ class Routes {
   static const String map = '/map';
 
   static const String personalMedication = '/personalMedicationPage';
+
+  static const String elderlyProfileInformationView =
+      '/elderlyProfileInformationView';
 }
