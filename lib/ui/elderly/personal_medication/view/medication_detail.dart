@@ -12,6 +12,7 @@ import 'package:health_application/ui/elderly/personal_medication/component/sear
 import 'package:health_application/ui/elderly/personal_medication/component/select_repeat_notifications.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 
+import '../../../base/dialog/warning_dialog.dart';
 import '../component/dosage.dart';
 import '../component/select_time.dart';
 
@@ -66,9 +67,29 @@ class MedicationDetail extends StatelessWidget {
                   ),
                   ButtonGradient(
                     btnName: 'บันทึก',
-                    onClick: () {
-                      if (checkMandatory(state.currentMedication))
+                    onClick: () async {
+                      if (!checkMandatory(state.currentMedication)) {
+                        await showDialog(
+                            context: context,
+                            builder: (BuildContext context) => WarningDialog(
+                                  header: 'แจ้งเตือน',
+                                  subtitle: "กรุณากรอกข้อมูลให้ครบถ้วน",
+                                  buttonName: 'ตกลง',
+                                  onTap: () {},
+                                )) as bool;
+                      } else if (!checkDuplicateMedication(
+                          state, state.currentMedication.medicationId)) {
+                        await showDialog(
+                            context: context,
+                            builder: (BuildContext context) => WarningDialog(
+                                  header: 'แจ้งเตือน',
+                                  subtitle: "ไม่สามารถเพิ่มยาซ้ำกันได้",
+                                  buttonName: 'ตกลง',
+                                  onTap: () {},
+                                )) as bool;
+                      } else {
                         addEvent(context, SubmitMedication());
+                      }
                     },
                   ),
                   SpaceWidget(

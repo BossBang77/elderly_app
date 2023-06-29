@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/widget/space_widget.dart';
+import 'package:health_application/ui/base/widget/title_header.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 import '../../../ui-extensions/color.dart';
@@ -19,7 +20,10 @@ class PeriodWidget extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            textBody1('ช่วงเวลา', color.black87),
+            TitleHeaderWidget(
+              title: 'ช่วงเวลา',
+              isMandatory: true,
+            ),
             SpaceWidget(
               height: 10,
             ),

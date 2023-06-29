@@ -223,3 +223,8 @@ bool checkMandatory(MedicationDetailModel currentMedication) {
 
   return check;
 }
+
+bool checkDuplicateMedication(PersonalMedicationState _state, String _id) {
+  return !_state.personalMedicationList.data
+      .any((_medicationList) => _medicationList.medicationId == _id);
+}

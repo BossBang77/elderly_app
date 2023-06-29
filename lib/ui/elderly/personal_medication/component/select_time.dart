@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
 import 'package:health_application/ui/base/widget/space_widget.dart';
+import 'package:health_application/ui/base/widget/title_header.dart';
 import 'package:health_application/ui/elderly/personal_medication/model/period_time_model.dart';
 import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/extension/master_data_extension.dart';
@@ -106,10 +107,16 @@ class SelectTime extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textSubtitle16Blod('เวลาแจ้งเตือน', color.black87),
+                        TitleHeaderWidget(
+                          title: 'เวลาแจ้งเตือน',
+                          isMandatory: true,
+                        ),
                         DropdownWidget(
                           value: getNotiTimeDDL(item.name).takeOrNullIfEmpty(),
                           items: getMasterList(item.name).toListKeyName(),
+                          setErrorWithOuter:
+                              getNotiTimeDDL(item.name).takeOrNullIfEmpty() ==
+                                  null,
                           onChanged: (value) {
                             addEvent(
                                 context,
