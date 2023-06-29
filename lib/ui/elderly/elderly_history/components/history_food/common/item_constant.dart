@@ -20,3 +20,10 @@ enum HistoryFoodTab {
   summary,
   history,
 }
+
+enum LunchIcon {
+  breakfast,
+  lunch,
+  snack,
+  dinner,
+}
