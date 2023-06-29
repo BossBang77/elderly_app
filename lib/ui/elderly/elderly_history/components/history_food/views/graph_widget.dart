@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:health_application/ui/elderly/elderly_history/components/history_food/bloc/history_food_bloc.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_food/common/item_constant.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/graph_model.dart';
 import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -203,7 +203,7 @@ class _GraphWidgetState extends State<GraphWidget> {
         ),
         minX: 0,
         maxX: getMaxX(),
-        minY: getMinValue(),
+        minY: 0,
         maxY: getMaxValue(),
         lineBarsData: [
           LineChartBarData(

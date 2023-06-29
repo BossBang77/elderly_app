@@ -27,13 +27,3 @@ class HistoryFoodState extends Equatable {
 }
 
 class HistoryFoodInitial extends HistoryFoodState {}
-
-enum GraphRangeType {
-  oneWeek,
-  oneMonth,
-}
-
-enum HistoryFoodTab {
-  summary,
-  history,
-}

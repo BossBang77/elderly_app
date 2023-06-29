@@ -10,3 +10,13 @@ String getNutrientDesc(String code) {
   var nutrient = selectNutrients.firstWhere((el) => el.code == code);
   return nutrient.desc;
 }
+
+enum GraphRangeType {
+  oneWeek,
+  oneMonth,
+}
+
+enum HistoryFoodTab {
+  summary,
+  history,
+}
