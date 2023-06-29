@@ -7,6 +7,8 @@ import 'package:health_application/ui/elderly/elderly_history/components/history
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
+import 'views/history_food_log_widget.dart';
+
 class HistoryFoodPage extends StatelessWidget {
   const HistoryFoodPage({super.key});
 
@@ -70,7 +72,7 @@ class HistoryFoodPage extends StatelessWidget {
                     if (state.currentTab == HistoryFoodTab.summary) ...{
                       SummaryFoodWidget()
                     } else ...{
-                      // TODO: history food widget
+                      HistoryFoodLogWidget()
                     }
                   ],
                 ),

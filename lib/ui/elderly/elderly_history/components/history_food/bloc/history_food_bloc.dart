@@ -22,6 +22,10 @@ class HistoryFoodBloc extends Bloc<HistoryFoodEvent, HistoryFoodState> {
       if (event is onNutrientsChange) {
         emit(state.copyWith(currentNutrient: event.code));
       }
+
+      if (event is onSelectDateChange) {
+        emit(state.copyWith(selectedDate: event.date));
+      }
     });
   }
 }
