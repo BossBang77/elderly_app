@@ -55,7 +55,14 @@ class HistoryFoodBox extends StatelessWidget {
             for (var food in foods) ...{
               Row(
                 children: [
-                  Image.asset('assets/images/food_1.png'),
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    child: Image.asset(
+                      'assets/images/food_1.png',
+                      fit: BoxFit.contain,
+                      scale: 3,
+                    ),
+                  ),
                   const SizedBox(
                     width: 20,
                   ),
@@ -68,7 +75,10 @@ class HistoryFoodBox extends StatelessWidget {
                     ],
                   )
                 ],
-              )
+              ),
+              const SizedBox(
+                height: 30,
+              ),
             },
           } else ...{
             Column(
