@@ -53,9 +53,7 @@ class PersonalMedicationPage extends StatelessWidget {
                         header: "สำเร็จ!",
                         subtitle: SubmitState.deleteMedicationSuccess.title,
                         buttonName: 'ตกลง',
-                        onTap: () {
-                          Navigator.pop(context, true);
-                        },
+                        onTap: () {},
                       ));
 
               if (acceptClose) {
@@ -71,9 +69,7 @@ class PersonalMedicationPage extends StatelessWidget {
                         header: "สำเร็จ!",
                         subtitle: SubmitState.submitMedicationSuccess.title,
                         buttonName: 'ตกลง',
-                        onTap: () {
-                          Navigator.pop(context, true);
-                        },
+                        onTap: () {},
                       ));
 
               if (acceptClose) {
