@@ -101,6 +101,7 @@ class MyApp extends StatelessWidget {
                         GlobalMaterialLocalizations.delegate,
                         MonthYearPickerLocalizations.delegate,
                       ],
+                      locale: const Locale('th', 'TH'),
                       builder: (BuildContext context, Widget? child) {
                         return Stack(children: <Widget>[
                           if (child != null) child,
