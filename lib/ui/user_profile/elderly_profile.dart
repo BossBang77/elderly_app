@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/dialog/log_out_dialog.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/change_password/change_password_page.dart';
@@ -94,7 +95,11 @@ class ElderProfileWidget extends StatelessWidget {
               ),
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/history_profile_icon.png',
-                onClick: () {},
+                onClick: () {
+                  context.go(
+                    Routes.elderlyHistory,
+                  );
+                },
                 title: 'ประวัติการบันทึกข้อมูล',
               ),
               CardListMenu(

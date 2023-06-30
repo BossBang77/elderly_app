@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:health_application/ui/base/widget/space_widget.dart';
 import 'package:health_application/ui/base/widget/text_field_widget.dart';
+import 'package:health_application/ui/base/widget/title_header.dart';
 import 'package:health_application/ui/elderly/personal_medication/bloc/personal_medication_bloc.dart';
 import 'package:health_application/ui/elderly/personal_medication/model/master_medication.dart';
 import 'package:health_application/ui/extension/string_extension.dart';
@@ -54,7 +55,10 @@ class SearchMedication extends StatelessWidget {
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                textBody1('ชื่อยา', color.black87),
+                                TitleHeaderWidget(
+                                  title: 'ชื่อยา',
+                                  isMandatory: true,
+                                ),
                                 SpaceWidget(
                                   height: 10,
                                 ),
