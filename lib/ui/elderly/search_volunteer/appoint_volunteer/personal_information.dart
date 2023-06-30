@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/text_field_widget.dart';
@@ -11,6 +12,7 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 
 import '../../../base/constant/gender_const.dart';
+import '../../../base/routes.dart';
 import '../bloc/search_volunteer_bloc.dart';
 
 class PersonalInformation extends StatelessWidget {
@@ -172,17 +174,7 @@ class PersonalInformation extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => GoogleMaps()),
-                ).then((value) {
-                  Locations _locations = Locations(
-                      latitude: userLatiPick,
-                      longtitude: userLongtiPick,
-                      nameAddress: locationName);
-                  context.read<SearchVolunteerBloc>().add(MapCreateAppointment(
-                      createObj: CreateAppointObj.address, value: _locations));
-                });
+                GoRouter.of(context).go(Routes.googleMaps);
               },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

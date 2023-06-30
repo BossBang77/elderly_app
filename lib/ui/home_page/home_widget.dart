@@ -304,13 +304,8 @@ class HomeWidget extends StatelessWidget {
                                       onClick: () async {
                                         String uid =
                                             await UserSecureStorage().getUID();
-                                        Navigator.of(context)
-                                            .pushAndRemoveUntil(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        VolunteerPage(
-                                                            uid: uid)),
-                                                (Route route) => false);
+                                        context.go(Routes.volunteerPage,
+                                            extra: [uid, false]);
                                       },
                                     )
                                   ],

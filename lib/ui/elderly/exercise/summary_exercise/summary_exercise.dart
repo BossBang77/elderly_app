@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
 import 'package:health_application/ui/elderly/exercise/exercise_widget.dart';
@@ -10,6 +11,7 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:provider/provider.dart';
 
+import '../../../base/routes.dart';
 import '../../../base/widget/button_orange.dart';
 import '../../../base/widget/text_field_widget.dart';
 import '../../../home_page/bloc/home_page_bloc.dart';
@@ -46,10 +48,7 @@ class SummaryExerciseWidget extends StatelessWidget {
                   context
                       .read<ExerciseBloc>()
                       .add(ChangeView(exerciseView: ExerciseView.search));
-
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => ExerciseWidget()),
-                      (Route<dynamic> route) => false);
+                  context.go(Routes.exerciseWidget);
                 }),
                 child: TextFieldWidget.enable(
                   text: '',
@@ -151,9 +150,8 @@ class SummaryExerciseWidget extends StatelessWidget {
                   context
                       .read<ExerciseBloc>()
                       .add(ChangeView(exerciseView: ExerciseView.search));
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => ExerciseWidget()),
-                      (Route<dynamic> route) => false);
+
+                  context.go(Routes.exerciseWidget);
                 },
               ),
               const SizedBox(

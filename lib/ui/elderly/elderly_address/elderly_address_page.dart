@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
 import 'package:health_application/ui/elderly/elderly_address/view/address_item_box.dart';
@@ -7,6 +8,8 @@ import 'package:health_application/ui/elderly/elderly_address/view/manage_addres
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+
+import '../../base/routes.dart';
 
 class ElderlyAddressPage extends StatelessWidget {
   const ElderlyAddressPage({super.key, required this.profile});
@@ -58,9 +61,8 @@ class ElderlyAddressPage extends StatelessWidget {
                         child: InkWell(
                           child: textButton1('+ เพิ่มที่อยู่', color.Orange1),
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ManageAddressElderly(
-                                    type: ManageAddressType.add)));
+                            context.go(Routes.manageAddressElderly,
+                                extra: ManageAddressType.add);
                           },
                         ),
                       ),

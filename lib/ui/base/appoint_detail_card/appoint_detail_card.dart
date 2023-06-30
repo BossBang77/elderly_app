@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/appoint_detail_card/bloc/appointment_card_bloc.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/elderly/volunteer_appoint_summary/volunteer_appoint_summary_page.dart';
 import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -48,14 +48,11 @@ class AppointDetailCard extends StatelessWidget {
     );
   }
 
-  Widget appointCard(context, AppointmentDetail item) {
+  Widget appointCard(BuildContext context, AppointmentDetail item) {
     var sized = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => VolunteerAppointSummaryPage(
-                  profileId: item.id,
-                )));
+        context.push(Routes.volunteerAppointSummary, extra: item.id);
       },
       child: Container(
         decoration: BoxDecoration(

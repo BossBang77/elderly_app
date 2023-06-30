@@ -22,8 +22,7 @@ import '../../google_map/cubit/google_map_cubit.dart';
 import '../../ui-extensions/font.dart';
 
 class VolunteerWidget extends StatelessWidget {
-  final String uid;
-  const VolunteerWidget({super.key, required this.uid});
+  const VolunteerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

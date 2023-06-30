@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_application/ui/base/luncher/luncher_function.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
@@ -12,6 +13,7 @@ import 'package:health_application/ui/volunteer/request_assistance_detail/bloc/r
 import 'package:health_application/ui/volunteer/search_elderly/search_elderly_page.dart';
 
 import '../../base/constant/gender_const.dart';
+import '../../base/routes.dart';
 import '../../base/widget/button_gradient.dart';
 import '../../base/widget/error_alert.dart';
 import '../../ui-extensions/color.dart';
@@ -29,9 +31,7 @@ class RequestAssitanceDetailPage extends StatelessWidget {
       child: BlocConsumer<RequestAssistanceBloc, RequestAssistanceState>(
         listener: (context, state) async {
           if (state.eventStatus == EventStatus.searchElderlySuccess) {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ElderlySearchDetailPage(
-                    elderlyProfile: state.elderlyProfile)));
+            context.go(Routes.elderlySearchDetail, extra: state.elderlyProfile);
           }
 
           if (state.eventStatus == EventStatus.searchElderlyFail) {

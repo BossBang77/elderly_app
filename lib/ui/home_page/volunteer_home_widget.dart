@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/elderly/appointment/bloc/appointment_list_bloc.dart';
 import 'package:health_application/ui/elderly/appointment/bloc/appointment_list_event.dart';
 import 'package:health_application/ui/elderly/appointment/bloc/appointment_list_state.dart';
@@ -22,6 +23,7 @@ import 'package:health_application/ui/volunteer/scan_qr/scan_qr_page.dart';
 import 'package:health_application/ui/volunteer/search_elderly/search_elderly_page.dart';
 
 import '../base/emergency_detail_card/emergency_detail_card.dart';
+import '../base/routes.dart';
 import '../elderly/exercise/exercise_page.dart';
 
 class VolunteerHomeWidget extends StatelessWidget {
@@ -181,11 +183,7 @@ class VolunteerHomeWidget extends StatelessWidget {
                                   SizedBox(width: 20),
                                   VolunteerMenu(
                                     onTap: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ExerciseWidget()),
-                                      );
+                                      context.go(Routes.exerciseWidget);
                                       context
                                           .read<ExerciseBloc>()
                                           .add(Initial());
@@ -222,50 +220,61 @@ class VolunteerHomeWidget extends StatelessWidget {
                             SizedBox(height: 16),
                             Row(
                               children: [
-                                textSubtitle1('กานัดหมาย ', ColorTheme().black87),
-                                (state.appointments.isEmpty) ?
-                                Container() : textSubtitle1('(${state.appointments.length})', ColorTheme().black87)
+                                textSubtitle1(
+                                    'กานัดหมาย ', ColorTheme().black87),
+                                (state.appointments.isEmpty)
+                                    ? Container()
+                                    : textSubtitle1(
+                                        '(${state.appointments.length})',
+                                        ColorTheme().black87)
                               ],
                             ),
                             SizedBox(height: 16),
-                            (state.appointments.isEmpty) ?
-                            Container(
-                              padding: EdgeInsets.only(top: 64),
-                              width: MediaQuery.of(context).size.width,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset('assets/images/appointment_empty.png', width: 42, height: 42),
-                                  SizedBox(height: 42),
-                                  textSubtitle1('ยังไม่มีการนัดหมาย', ColorTheme().grey50)
-                                ],
-                              ),
-                            ) :
-                            Column(
-                                children: state.appointments
-                                    .map((appointment) => Padding(
-                                        padding: EdgeInsets.only(bottom: 10),
-                                        child: AppointmentItem(
-                                          appointment: appointment,
-                                          onTap: () {
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        AppointmentDetailPage(
-                                                          appointment:
-                                                              appointment,
-                                                        )));
-                                          },
-                                          onApply: () {
-                                            context
-                                                .read<AppointmentListBloc>()
-                                                .add(AppointmentApproved(
-                                                    appointmentId:
-                                                        appointment.id));
-                                          },
-                                        )))
-                                    .toList()),
+                            (state.appointments.isEmpty)
+                                ? Container(
+                                    padding: EdgeInsets.only(top: 64),
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                            'assets/images/appointment_empty.png',
+                                            width: 42,
+                                            height: 42),
+                                        SizedBox(height: 42),
+                                        textSubtitle1('ยังไม่มีการนัดหมาย',
+                                            ColorTheme().grey50)
+                                      ],
+                                    ),
+                                  )
+                                : Column(
+                                    children: state.appointments
+                                        .map((appointment) => Padding(
+                                            padding:
+                                                EdgeInsets.only(bottom: 10),
+                                            child: AppointmentItem(
+                                              appointment: appointment,
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            AppointmentDetailPage(
+                                                              appointment:
+                                                                  appointment,
+                                                            )));
+                                              },
+                                              onApply: () {
+                                                context
+                                                    .read<AppointmentListBloc>()
+                                                    .add(AppointmentApproved(
+                                                        appointmentId:
+                                                            appointment.id));
+                                              },
+                                            )))
+                                        .toList()),
                             // AppointmentItem(appointment: Appointment()),
                             const SizedBox(
                               height: 10,

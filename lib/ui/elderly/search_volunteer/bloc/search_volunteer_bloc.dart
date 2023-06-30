@@ -33,7 +33,10 @@ class SearchVolunteerBloc
     if (event is Intital) {
       var recentlyList =
           await UserSecureStorage().getRecentlyVolunteerSearched();
-      yield SearchVolunteerState();
+      if (!event.ispop) {
+        yield SearchVolunteerState();
+      }
+
       yield state.copyWith(recentlyList: recentlyList);
       add(SearchVolunteer(search: SearchVolunteerModel()));
       add(SearchCompleteAppointment(elderlyId: event.elderlyId));

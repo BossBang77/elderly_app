@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_application/ui/base/dialog/success_dialog.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
@@ -16,6 +17,7 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:collection/collection.dart';
 import '../../base/constant/gender_const.dart';
+import '../../base/routes.dart';
 import '../../base/widget/page_scroll.dart';
 import '../appointment_detail/appointment_status_section/appointment_status.dart';
 
@@ -83,9 +85,7 @@ class VolunteerAppointSummaryPage extends StatelessWidget {
                       subtitle: "ยกเลิกการนัดหมายสำเร็จ",
                       buttonName: 'ตกลง',
                       onTap: () {
-                        Navigator.pop(context);
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => HomePage()));
+                        context.go(Routes.home);
                       },
                     )) as bool;
 
@@ -118,7 +118,7 @@ class VolunteerAppointSummaryPage extends StatelessWidget {
                 centerTitle: true,
                 title: textSubtitle18W800('การนัดหมาย', ColorTheme().black87),
                 leading: BackButtonWidget(onClick: () {
-                  Navigator.pop(context);
+                  context.pop();
                 }),
                 actions: [
                   detail.status == AppointStatus.CREATE.name

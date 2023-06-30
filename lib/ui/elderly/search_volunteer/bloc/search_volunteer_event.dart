@@ -23,7 +23,8 @@ class SearchVolunteer extends SearchVolunteerEvent {
 
 class Intital extends SearchVolunteerEvent {
   final String elderlyId;
-  const Intital({this.elderlyId = ''});
+  final bool ispop;
+  const Intital({this.elderlyId = '', this.ispop = false});
   @override
   List<Object> get props => [elderlyId];
 }
