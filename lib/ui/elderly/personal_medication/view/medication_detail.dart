@@ -78,7 +78,8 @@ class MedicationDetail extends StatelessWidget {
                                   onTap: () {},
                                 )) as bool;
                       } else if (!checkDuplicateMedication(
-                          state, state.currentMedication.medicationId)) {
+                              state, state.currentMedication.medicationId) &&
+                          (state.modeData == ModeData.CREATE)) {
                         await showDialog(
                             context: context,
                             builder: (BuildContext context) => WarningDialog(

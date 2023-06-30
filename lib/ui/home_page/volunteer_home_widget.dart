@@ -256,13 +256,9 @@ class VolunteerHomeWidget extends StatelessWidget {
                                             child: AppointmentItem(
                                               appointment: appointment,
                                               onTap: () {
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            AppointmentDetailPage(
-                                                              appointment:
-                                                                  appointment,
-                                                            )));
+                                                context.push(
+                                                    Routes.appointmentDetail,
+                                                    extra: appointment);
                                               },
                                               onApply: () {
                                                 context
