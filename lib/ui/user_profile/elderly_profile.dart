@@ -16,11 +16,10 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:health_application/ui/user_profile/component/card_list_menu.dart';
-import 'package:health_application/ui/user_profile/profile_information/elderly_prfile_information_view.dart';
-import 'package:health_application/ui/welcome_page/welcome_page.dart';
 import 'package:provider/provider.dart';
 
 import '../base/constant/gender_const.dart';
+import '../base/routes.dart';
 
 class ElderProfileWidget extends StatelessWidget {
   const ElderProfileWidget({super.key, required this.state});
@@ -51,10 +50,16 @@ class ElderProfileWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
-                child: Image.asset(
-                  'assets/images/${Gender.isWoman(user.profile.gender) ? 'woman' : 'man'}_active.png',
-                  scale: 4,
-                ),
+                child: user.profile.image.isNotEmpty
+                    ? CircleAvatar(
+                        radius: 50,
+                        backgroundImage:
+                            NetworkImage(user.profile.image, scale: 4),
+                      )
+                    : Image.asset(
+                        'assets/images/${Gender.isWoman(user.profile.gender) ? 'woman' : 'man'}_active.png',
+                        scale: 4,
+                      ),
               ),
               const SizedBox(
                 height: 20,
@@ -69,12 +74,8 @@ class ElderProfileWidget extends StatelessWidget {
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/person_profile_icon.png',
                 onClick: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ElderlyProfileInformationView(state: state),
-                    ),
-                  );
+                  context.go(Routes.elderlyProfileInformationView,
+                      extra: state.userProfile);
                 },
                 title: 'ข้อมูลส่วนตัว',
                 sufficTxt: 'ยังไม่ยืนยัน',
@@ -112,10 +113,7 @@ class ElderProfileWidget extends StatelessWidget {
                 img:
                     'assets/images/profile_menu_icon/reset_pass_profile_icon.png',
                 onClick: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ChangePasswordPage(
-                            profile: user,
-                          )));
+                  context.push(Routes.changePassword, extra: user);
                 },
                 title: 'เปลี่ยนรหัสผ่าน',
               ),

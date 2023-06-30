@@ -16,12 +16,12 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<UserProfileBloc>().add(GetUserProfile());
     return BlocConsumer<UserProfileBloc, UserProfileState>(
         listener: (context, state) async {
       if (state.logoutStatus == LogoutStatus.success) {
         await UserSecureStorage().clearSession();
         context.go(Routes.root);
+        context.read<UserProfileBloc>().add(IntitalLogoutStatus());
       } else if (state.logoutStatus == LogoutStatus.fail) {
         final bool acceptClose = await showDialog(
             context: context,
@@ -30,8 +30,13 @@ class UserProfilePage extends StatelessWidget {
                   subTitle: "ล็อกเอ้าท์ไม่สำเร็จ\nกรุณาลองใหม่อีกครั้ง",
                   btnName: 'ตกลง',
                 )) as bool;
+
+        if (acceptClose) {
+          context.read<UserProfileBloc>().add(IntitalLogoutStatus());
+        }
       }
     }, builder: (BuildContext context, UserProfileState state) {
+      context.read<UserProfileBloc>().add(GetUserProfile());
       if (state.userProfile.role == RoleType.ROLE_USER_ELDERLY.name) {
         return ElderProfileWidget(state: state);
       } else {

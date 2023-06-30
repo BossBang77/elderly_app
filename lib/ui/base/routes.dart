@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
 import 'package:health_application/ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
+import 'package:health_application/ui/elderly/change_password/change_password_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/history_exercise_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/history_food_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/elderly_history_page.dart';
@@ -16,6 +17,7 @@ import 'package:health_application/ui/register_profile/model/register_model.dart
 import 'package:health_application/ui/register_profile/register_profile_page.dart';
 import 'package:health_application/ui/signIn_page/signIn_widget.dart';
 import 'package:health_application/ui/volunteer/request_assistance_detail/request_assitance_detail_page.dart';
+import 'package:health_application/ui/user_profile/profile_information/elderly_profile_information_view.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
 
 import '../elderly/appointment_detail/appointment_detail_page.dart';
@@ -25,6 +27,7 @@ import '../elderly/qr_code_elderly/qr_code_elderly_page.dart';
 import '../elderly/search_volunteer/volunteer_page.dart';
 import '../register_profile/volunteer/model/elderly_profile_model.dart';
 import '../volunteer/search_elderly/search_elderly_page.dart';
+import '../register_profile/model/register_model.dart';
 
 final GoRouter appRouter =
     GoRouter(initialLocation: Routes.root, routes: <GoRoute>[
@@ -156,6 +159,18 @@ final GoRouter appRouter =
       builder: (BuildContext context, GoRouterState state) {
         return RequestAssitancePage();
       }),
+  GoRoute(
+      path: Routes.elderlyProfileInformationView,
+      builder: (BuildContext context, GoRouterState state) {
+        var userProfile = state.extra as RegisterModel;
+        return ElderlyProfileInformationView(profile: userProfile);
+      }),
+  GoRoute(
+      path: Routes.changePassword,
+      builder: (BuildContext context, GoRouterState state) {
+        var userProfile = state.extra as RegisterModel;
+        return ChangePasswordPage(profile: userProfile);
+      }),
 ]);
 
 class Routes {
@@ -201,4 +216,8 @@ class Routes {
   static const String qrCodeElderly = '/qrCodeElderly';
   static const String elderlySearchDetail = '/elderlySearchDetail';
   static const String requestAssitance = '/requestAssitance';
+  static const String elderlyProfileInformationView =
+      '/elderlyProfileInformationView';
+
+  static const String changePassword = '/changePassword';
 }
