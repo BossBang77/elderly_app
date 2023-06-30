@@ -32,4 +32,11 @@ abstract class LoginService {
     "Content-Type": "application/json",
   })
   Future<HttpResponse> updateProfile(@Body() Map<String, dynamic> body);
+
+  @DELETE('/api/v1/user/terminate')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> deleteUser();
 }

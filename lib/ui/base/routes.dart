@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/history_exercise_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/history_food_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/elderly_history_page.dart';
+import 'package:health_application/ui/elderly/elderly_setting/elderly_setting_page.dart';
 import 'package:health_application/ui/google_map/googlemap.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
@@ -64,6 +65,14 @@ final GoRouter appRouter =
       builder: (BuildContext context, GoRouterState state) {
         return PersonalMedicationPage();
       }),
+  GoRoute(
+      path: Routes.elderlySettingPage,
+      builder: (BuildContext context, GoRouterState state) {
+        var profile = state.extra as RegisterModel;
+        return ElderlySettingPage(
+          profile: profile,
+        );
+      }),
 ]);
 
 class Routes {
@@ -96,4 +105,6 @@ class Routes {
   static const String elderlyHistoryExercise = '/elderly-history/exercise-log';
 
   static const String personalMedication = '/personalMedicationPage';
+
+  static const String elderlySettingPage = '/elderlySettingPage';
 }
