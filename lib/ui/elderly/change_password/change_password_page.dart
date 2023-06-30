@@ -170,9 +170,11 @@ class ChangePasswordPage extends StatelessWidget {
                         ButtonGradient(
                           btnName: 'เปลี่ยนรหัสผ่าน',
                           onClick: () {
-                            context
-                                .read<ChangePasswordBloc>()
-                                .add(SubmitChangePassword());
+                            if ((state.confirmPassword == state.newPassword) &&
+                                (state.oldPassword == profile.password))
+                              context
+                                  .read<ChangePasswordBloc>()
+                                  .add(SubmitChangePassword());
                           },
                         )
                       ],
