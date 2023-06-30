@@ -116,10 +116,7 @@ class ElderProfileWidget extends StatelessWidget {
                 img:
                     'assets/images/profile_menu_icon/reset_pass_profile_icon.png',
                 onClick: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ChangePasswordPage(
-                            profile: user,
-                          )));
+                  context.push(Routes.changePassword, extra: user);
                 },
                 title: 'เปลี่ยนรหัสผ่าน',
               ),

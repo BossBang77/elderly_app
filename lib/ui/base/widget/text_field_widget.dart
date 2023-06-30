@@ -152,7 +152,8 @@ class TextFieldWidget extends StatelessWidget {
             setErrorWithOuter: setErrorWithOuter,
             suffixTxt: suffixTxt,
             validator: validator,
-            textEditingController: textEditingController ?? TextEditingController(text: text),
+            textEditingController:
+                textEditingController ?? TextEditingController(text: text),
             minLines: minLines,
             prefix: prefix,
             prefixTxt: prefixTxt,
@@ -318,6 +319,11 @@ class TextFieldWidget extends StatelessWidget {
             fontFamily: fontFamily,
           ),
           decoration: InputDecoration(
+            errorStyle: TextStyle(
+              color: ColorTheme().Error,
+              fontSize: 16.sp,
+              fontFamily: fontFamily,
+            ),
             prefixIcon: (prefix)
                 ? prefixTxt != null
                     ? Padding(
@@ -333,18 +339,20 @@ class TextFieldWidget extends StatelessWidget {
                       )
                 : null,
             suffixIcon: (suffix)
-                ? suffixIcon != null ? suffixIcon :
-                 suffixTxt != null
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 10, right: 5),
-                        child: textSubtitle16Blod(suffixTxt ?? '', Colors.grey))
-                    : GestureDetector(
-                        onTap: onTap,
-                        child: Image.asset(
-                          imagePath,
-                          scale: 5,
-                        ),
-                      )
+                ? suffixIcon != null
+                    ? suffixIcon
+                    : suffixTxt != null
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 10, right: 5),
+                            child: textSubtitle16Blod(
+                                suffixTxt ?? '', Colors.grey))
+                        : GestureDetector(
+                            onTap: onTap,
+                            child: Image.asset(
+                              imagePath,
+                              scale: 5,
+                            ),
+                          )
                 : null,
             errorBorder: (setErrorWithOuter)
                 ? OutlineInputBorder(
