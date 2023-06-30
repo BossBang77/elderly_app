@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/elderly/change_password/change_password_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/history_exercise_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/history_food_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/elderly_history_page.dart';
@@ -71,6 +72,12 @@ final GoRouter appRouter =
         var userProfile = state.extra as RegisterModel;
         return ElderlyProfileInformationView(profile: userProfile);
       }),
+  GoRoute(
+      path: Routes.changePassword,
+      builder: (BuildContext context, GoRouterState state) {
+        var userProfile = state.extra as RegisterModel;
+        return ChangePasswordPage(profile: userProfile);
+      }),
 ]);
 
 class Routes {
@@ -106,4 +113,6 @@ class Routes {
 
   static const String elderlyProfileInformationView =
       '/elderlyProfileInformationView';
+
+  static const String changePassword = '/changePassword';
 }

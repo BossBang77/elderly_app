@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/login_client.dart';
+import 'package:health_application/ui/elderly/change_password/model/request_change_password.dart';
 
 import 'package:retrofit/dio.dart';
 
@@ -113,6 +114,26 @@ class LoginRepository {
         ),
       });
       final HttpResponse req = await _loginService.uploadImageProfile(formData);
+      final Map<String, dynamic> data = req.data;
+      return Right('success');
+    } on DioError catch (error) {
+      print(error.response);
+      if (error.response?.statusCode == StatusCode.notFound) {
+        print('Error 400 $error');
+        return const Left(Failure(''));
+      } else if (error.response?.statusCode == StatusCode.failure) {
+        print('Error 500 $error');
+        return const Left(Failure(''));
+      }
+    }
+    return const Left(Failure(''));
+  }
+
+  Future<Either<Failure, String>> changePassword(
+      RequestChangePassword body) async {
+    try {
+      final HttpResponse req =
+          await _loginService.changePassword(body.toJson());
       final Map<String, dynamic> data = req.data;
       return Right('success');
     } on DioError catch (error) {
