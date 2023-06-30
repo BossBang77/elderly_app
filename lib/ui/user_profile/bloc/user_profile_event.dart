@@ -25,6 +25,11 @@ class ResetScan extends UserProfileEvent {
   const ResetScan();
 }
 
+class IntitalLogoutStatus extends UserProfileEvent {
+  const IntitalLogoutStatus();
+}
+
+
 class UserProfileLoggedOut extends UserProfileEvent {}
 
 class UserProfileInitialLogoutState extends UserProfileEvent {}
