@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_food/history_food_page.dart';
+import 'package:health_application/ui/elderly/elderly_history/elderly_history_page.dart';
 import 'package:health_application/ui/google_map/googlemap.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
+import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/register_profile/register_profile_page.dart';
 import 'package:health_application/ui/signIn_page/signIn_widget.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
@@ -38,6 +41,19 @@ final GoRouter appRouter =
         return GoogleMaps();
       }),
   GoRoute(
+      path: Routes.elderlyHistory,
+      builder: (BuildContext context, GoRouterState state) {
+        // var args = state.extra as RegisterModel;
+        return ElderlyHistoryPage();
+      },
+      routes: [
+        GoRoute(
+            path: 'food-log',
+            builder: (BuildContext context, GoRouterState state) {
+              return HistoryFoodPage();
+            }),
+      ]),
+  GoRoute(
       path: Routes.personalMedication,
       builder: (BuildContext context, GoRouterState state) {
         return PersonalMedicationPage();
@@ -67,5 +83,8 @@ class Routes {
 
   static const String map = '/map';
 
+  static const String elderlyHistory = '/elderly-history';
+
+  static const String elderlyHistoryFood = '/elderly-history/food-log';
   static const String personalMedication = '/personalMedicationPage';
 }
