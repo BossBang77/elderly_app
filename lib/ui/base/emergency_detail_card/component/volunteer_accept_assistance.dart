@@ -23,7 +23,7 @@ class VolunteerAcceptAssistance extends StatelessWidget {
     var profile = item.profile;
     return InkWell(
       onTap: () {
-        context.go(Routes.requestAssitanceDetail, extra: item.id);
+        context.push(Routes.requestAssitanceDetail, extra: item.id);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 10),

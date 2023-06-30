@@ -63,7 +63,7 @@ class RequestAssitanceDetailPage extends StatelessWidget {
                 left: 20,
                 child: BackButtonWidget(
                   onClick: () {
-                    Navigator.pop(context);
+                    context.pop();
                   },
                   imgPath: 'assets/images/back_icon_outline.png',
                 ),

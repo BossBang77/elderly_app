@@ -59,7 +59,7 @@ class AppointmentListView extends StatelessWidget {
                 child: AppointmentItem(
                   appointment: appointment,
                   onTap: () {
-                    context.go(Routes.appointmentDetail, extra: appointment);
+                    context.push(Routes.appointmentDetail, extra: appointment);
                   },
                   onApply: () {
                     context.read<AppointmentListBloc>().add(

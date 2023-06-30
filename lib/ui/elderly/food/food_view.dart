@@ -160,8 +160,15 @@ class _FoodViewState extends State<FoodView> {
                                                           Calories(value: 0)))
                                                   .toList();
 
-                                              context.go(Routes.foodLog,
-                                                  extra: meal.mealType);
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          FoodLogPage(
+                                                              mealType: meal
+                                                                  .mealType),
+                                                      settings: RouteSettings(
+                                                          name:
+                                                              'FoodLogPage')));
                                             }))
                                         .toList()),
                                 const SizedBox(

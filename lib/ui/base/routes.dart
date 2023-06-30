@@ -8,6 +8,7 @@ import 'package:health_application/ui/elderly/elderly_history/elderly_history_pa
 import 'package:health_application/ui/elderly/exercise/exercise_widget.dart';
 import 'package:health_application/ui/elderly/food/model/food/meal.dart';
 import 'package:health_application/ui/elderly/food_log/food_log_page.dart';
+import 'package:health_application/ui/elderly/request_assistance/request_assistance_page.dart';
 import 'package:health_application/ui/elderly/volunteer_appoint_summary/volunteer_appoint_summary_page.dart';
 import 'package:health_application/ui/google_map/googlemap.dart';
 import 'package:health_application/ui/home_page/home_page.dart';
@@ -150,6 +151,11 @@ final GoRouter appRouter =
           elderlyProfile: elderly,
         );
       }),
+  GoRoute(
+      path: Routes.requestAssitance,
+      builder: (BuildContext context, GoRouterState state) {
+        return RequestAssitancePage();
+      }),
 ]);
 
 class Routes {
@@ -194,4 +200,5 @@ class Routes {
   static const String volunteerPage = '/volunteerPage';
   static const String qrCodeElderly = '/qrCodeElderly';
   static const String elderlySearchDetail = '/elderlySearchDetail';
+  static const String requestAssitance = '/requestAssitance';
 }

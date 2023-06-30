@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_application/ui/base/dialog/accept_two_condition_dialog.dart';
 import 'package:health_application/ui/base/routes.dart';
@@ -38,9 +39,7 @@ class AssitstanceDetailWidget extends StatelessWidget {
               left: 20,
               child: BackButtonWidget(
                 onClick: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                      (Route<dynamic> route) => false);
+                  context.go(Routes.home);
                 },
                 imgPath: 'assets/images/back_icon_outline.png',
               ),

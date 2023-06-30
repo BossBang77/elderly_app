@@ -198,20 +198,18 @@ class VolunteerHomeWidget extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            InkWell(
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (_) {
-                                      return ScanQrPage(onScan: (_) {});
-                                    }).then((value) {});
-                              },
-                              child: VolunteerMenu(
-                                  width: MediaQuery.of(context).size.width,
-                                  title: 'ค้นหาข้อมูลผู้สูงอายุ',
-                                  image:
-                                      'assets/images/volunteer_elder_bg.png'),
-                            ),
+                            VolunteerMenu(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) {
+                                        return ScanQrPage(onScan: (_) {});
+                                      }).then((value) {});
+                                },
+                                width: MediaQuery.of(context).size.width,
+                                title: 'ค้นหาข้อมูลผู้สูงอายุ',
+                                image: 'assets/images/volunteer_elder_bg.png'),
+
                             const SizedBox(
                               height: 20,
                             ),
