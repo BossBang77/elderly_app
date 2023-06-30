@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
-import 'package:health_application/ui/elderly/elderly_history/components/history_food/bloc/history_food_bloc.dart';
-import 'package:health_application/ui/elderly/elderly_history/components/history_food/common/item_constant.dart';
-import 'package:health_application/ui/elderly/elderly_history/components/history_food/views/summary_food.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/bloc/history_exercise_bloc.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/views/history_log_exercise.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/views/history_summary_exercise.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
-import 'views/history_food_log_widget.dart';
-
-class HistoryFoodPage extends StatelessWidget {
-  const HistoryFoodPage({super.key});
+class HistoryExercisePage extends StatelessWidget {
+  const HistoryExercisePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +19,11 @@ class HistoryFoodPage extends StatelessWidget {
           onBack: () {
             Navigator.pop(context);
           },
-          title: 'บันทึกมื้ออาหาร'),
+          title: 'บันทึกการออกกำลังกาย'),
       body: SingleChildScrollView(
         child: BlocProvider(
-          create: (context) => HistoryFoodBloc(),
-          child: BlocConsumer<HistoryFoodBloc, HistoryFoodState>(
+          create: (context) => HistoryExerciseBloc(),
+          child: BlocConsumer<HistoryExerciseBloc, HistoryExerciseState>(
             listener: (context, state) {
               // TODO: implement listener
             },
@@ -43,7 +41,9 @@ class HistoryFoodPage extends StatelessWidget {
                       borderRadius: 30,
                       height: 50,
                       selectedIndex:
-                          state.currentTab == HistoryFoodTab.summary ? 0 : 1,
+                          state.currentTab == HistoryExerciseTab.summary
+                              ? 0
+                              : 1,
                       selectedBackgroundColors: [
                         color.Primary,
                         color.BlueFade2
@@ -62,18 +62,18 @@ class HistoryFoodPage extends StatelessWidget {
                       labels: ['สถิติ', 'ข้อมูลการบันทึก'],
                       selectedLabelIndex: (index) {
                         context
-                            .read<HistoryFoodBloc>()
-                            .add(onTabChange(tabIndex: index));
+                            .read<HistoryExerciseBloc>()
+                            .add(OnTabChange(tabIndex: index));
                       },
                       isScroll: false,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    if (state.currentTab == HistoryFoodTab.summary) ...{
-                      SummaryFoodWidget()
+                    if (state.currentTab == HistoryExerciseTab.summary) ...{
+                      HistorySummaryExerciseWidget()
                     } else ...{
-                      HistoryFoodLogWidget()
+                      HistoryLogExerciseWidget()
                     }
                   ],
                 ),

@@ -23,3 +23,8 @@ class onNutrientsChange extends HistoryFoodEvent {
   const onNutrientsChange({required this.code});
   final String code;
 }
+
+class onSelectDateChange extends HistoryFoodEvent {
+  const onSelectDateChange({required this.date});
+  final String date;
+}

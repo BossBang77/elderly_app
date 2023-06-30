@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_food/common/item_constant.dart';
 
 part 'history_food_event.dart';
 part 'history_food_state.dart';
@@ -21,6 +22,10 @@ class HistoryFoodBloc extends Bloc<HistoryFoodEvent, HistoryFoodState> {
 
       if (event is onNutrientsChange) {
         emit(state.copyWith(currentNutrient: event.code));
+      }
+
+      if (event is onSelectDateChange) {
+        emit(state.copyWith(selectedDate: event.date));
       }
     });
   }
