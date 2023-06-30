@@ -33,6 +33,13 @@ abstract class LoginService {
   })
   Future<HttpResponse> updateProfile(@Body() Map<String, dynamic> body);
 
+  @PUT('/api/v1/user/profile/image')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> uploadImageProfile(@Body() FormData body);
+
   @DELETE('/api/v1/user/terminate')
   @Headers(<String, dynamic>{
     "Accept": "application/json",

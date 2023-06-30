@@ -62,6 +62,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
             scanStatus: ScanStatus.fail);
       }, (ElderlyProfileResponse res) async* {
         ElderlyProfileModel profile = res.data;
+        print(profile.profile.image);
         yield state.copyWith(
             elderlyProfile: profile,
             scanLoading: ScannerLoadStatus.done,
@@ -74,5 +75,9 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     }
 
     if (event is GetDetail) {}
+
+    if (event is IntitalLogoutStatus) {
+      yield state.copyWith(logoutStatus: LogoutStatus.initial);
+    }
   }
 }

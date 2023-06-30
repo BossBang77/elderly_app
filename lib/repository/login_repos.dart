@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/login_client.dart';
@@ -63,6 +65,7 @@ class LoginRepository {
     try {
       final HttpResponse req = await _loginService.getProfile();
       final Map<String, dynamic> data = req.data;
+
       if (req.response.statusCode == StatusCode.success) {
         return Right(RegisterModel.fromJson(data['data']));
       }
@@ -102,7 +105,32 @@ class LoginRepository {
   Future<Either<Failure, String>> deleteUser() async {
     try {
       final HttpResponse req = await _loginService.deleteUser();
+      return Right('success');
+    } on DioError catch (error) {
+      print(error.response);
+      if (error.response?.statusCode == StatusCode.notFound) {
+        print('Error 400 $error');
+        return const Left(Failure(''));
+      } else if (error.response?.statusCode == StatusCode.failure) {
+        print('Error 500 $error');
+        return const Left(Failure(''));
+      }
+    }
+    return const Left(Failure(''));
+  }
 
+  Future<Either<Failure, String>> uploadImageProfile(File file) async {
+    try {
+      String fileName = file.path.split('/').last;
+
+      FormData formData = FormData.fromMap({
+        "image": await MultipartFile.fromFile(
+          file.path,
+          filename: fileName,
+        ),
+      });
+      final HttpResponse req = await _loginService.uploadImageProfile(formData);
+      final Map<String, dynamic> data = req.data;
       return Right('success');
     } on DioError catch (error) {
       print(error.response);
