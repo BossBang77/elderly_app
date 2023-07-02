@@ -53,7 +53,7 @@ class WelcomePage extends StatelessWidget {
               ButtonBlueFade(
                 btnName: 'เข้าสู่ระบบ',
                 onClick: () {
-                  context.go(Routes.login);
+                  context.push(Routes.login);
                 },
               )
             ],

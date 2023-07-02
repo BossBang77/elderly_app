@@ -21,7 +21,7 @@ class SelectRoleWidget extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorTheme().white,
       appBar: appBar(onBack: () {
-        context.go(Routes.login);
+        context.push(Routes.login);
       }),
       body: Padding(
         padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
