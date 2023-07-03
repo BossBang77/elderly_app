@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
     var _signIn = state.signIn;
     return Scaffold(
       appBar: appBar(onBack: () {
-        context.pop();
+        context.go(Routes.root);
       }),
       backgroundColor: ColorTheme().white,
       body: Center(
@@ -118,7 +118,7 @@ class LoginPage extends StatelessWidget {
                     textButton2('ยังไม่มีบัญชี?  ', ColorTheme().black87),
                     InkWell(
                         onTap: () {
-                          context.go(Routes.register);
+                          context.push(Routes.register);
                         },
                         child: textButton1('ลงทะเบียน', ColorTheme().Primary)),
                   ],

@@ -14,6 +14,7 @@ import 'package:health_application/ui/signIn_page/forgot_password/forgot_passwor
 import 'package:health_application/ui/signIn_page/forgot_password/reset_password_widget.dart';
 import 'package:health_application/ui/signIn_page/forgot_password/vertify_otp.dart';
 import 'package:health_application/ui/signIn_page/login/login_page.dart';
+import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 
 class SignInPage extends StatelessWidget {
@@ -50,19 +51,25 @@ class SignInPage extends StatelessWidget {
           }
         }
       }, builder: (BuildContext context, SignInState state) {
-        if (state.view == SectionView.login) {
-          return LoginPage(
-            state: state,
-          );
-        } else if (state.view == SectionView.forgotPassword) {
-          return ForgotPasswordPage();
-        } else if (state.view == SectionView.vertifyOTP) {
-          return VertifyOTPWidget();
-        } else if (state.view == SectionView.resetPassword) {
-          return ResetPasswordWidget();
-        } else {
-          return Container();
+        Widget getView() {
+          if (state.view == SectionView.login) {
+            return LoginPage(
+              state: state,
+            );
+          } else if (state.view == SectionView.forgotPassword) {
+            return ForgotPasswordPage();
+          } else if (state.view == SectionView.vertifyOTP) {
+            return VertifyOTPWidget();
+          } else if (state.view == SectionView.resetPassword) {
+            return ResetPasswordWidget();
+          } else {
+            return Container();
+          }
         }
+
+        return Stack(
+          children: [getView(), if (state.isLoading) Loader()],
+        );
       }),
     );
   }

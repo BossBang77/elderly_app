@@ -68,3 +68,12 @@ class ObscurePassword extends RegisterProfileEvent {
 class InitialStatus extends RegisterProfileEvent {
   const InitialStatus();
 }
+
+class CheckExisting extends RegisterProfileEvent {
+  final String userName;
+  const CheckExisting({this.userName = ''});
+}
+
+class ResetRegisterModel extends RegisterProfileEvent {
+  const ResetRegisterModel();
+}

@@ -24,7 +24,9 @@ class BMIWidget extends StatelessWidget {
         case BMIDetail.name:
           return SelectNameWidget(context, state);
         case BMIDetail.age:
-          return SelectAgeWidget(context, state);
+          return SelectDateOfBirth(
+            dateOfBirth: state.registerModel.profile.birthDate,
+          );
         case BMIDetail.weightDetail:
           return SelectWeigthWidget(context, state);
         case BMIDetail.heightDetail:
@@ -72,7 +74,9 @@ class BMIWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.75,
+              height: state.bmiDetail != BMIDetail.age
+                  ? MediaQuery.of(context).size.height * 0.75
+                  : MediaQuery.of(context).size.height,
               child: Column(
                 children: [
                   const SizedBox(
@@ -83,40 +87,45 @@ class BMIWidget extends StatelessWidget {
                         'Step ${state.bmiDetail.index + 1}/ ${BMIDetail.values.length}',
                         ColorTheme().grey50),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    padding: state.bmiDetail != BMIDetail.age
+                        ? EdgeInsets.fromLTRB(15, 0, 15, 0)
+                        : EdgeInsets.zero,
                     child: getView(context, state),
                   ),
                 ],
               ),
             ),
-            Column(
-              children: [
-                ButtonGradient(
-                  btnName: state.bmiDetail == BMIDetail.heightDetail
-                      ? 'คำนวณหาดัชนีมวลกาย'
-                      : 'ถัดไป',
-                  onClick: () {
-                    if (state.bmiDetail == BMIDetail.heightDetail) {
-                      // คำนวณหาดัชนีมวลกาย
-                      context.read<RegisterProfileBloc>().add(CalculateBMI());
-                    }
-                    if (state.bmiDetail == BMIDetail.summaryBMI) {
-                      context.read<RegisterProfileBloc>().add(
-                          ChangeProfileView(profileType: ProfileType.disease));
-                    } else {
-                      if (getMadatory(context, state)) {
-                        context
-                            .read<RegisterProfileBloc>()
-                            .add(ForwardBMIDetail());
+            if (state.bmiDetail != BMIDetail.age)
+              Column(
+                children: [
+                  ButtonGradient(
+                    btnName: state.bmiDetail == BMIDetail.heightDetail
+                        ? 'คำนวณหาดัชนีมวลกาย'
+                        : 'ถัดไป',
+                    onClick: () {
+                      if (state.bmiDetail == BMIDetail.heightDetail) {
+                        // คำนวณหาดัชนีมวลกาย
+                        context.read<RegisterProfileBloc>().add(CalculateBMI());
                       }
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
-            )
+
+                      if (state.bmiDetail == BMIDetail.summaryBMI) {
+                        context.read<RegisterProfileBloc>().add(
+                            ChangeProfileView(
+                                profileType: ProfileType.disease));
+                      } else {
+                        if (getMadatory(context, state)) {
+                          context
+                              .read<RegisterProfileBloc>()
+                              .add(ForwardBMIDetail());
+                        }
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              )
           ],
         ),
       )),
