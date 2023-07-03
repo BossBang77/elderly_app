@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/elderly/change_password/change_password_page.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_drinking/history_drinking_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/history_exercise_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/history_food_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/elderly_history_page.dart';
@@ -60,6 +62,11 @@ final GoRouter appRouter =
             builder: (BuildContext context, GoRouterState state) {
               return HistoryExercisePage();
             }),
+        GoRoute(
+            path: 'drinking-log',
+            builder: (BuildContext context, GoRouterState state) {
+              return HistoryDrinkingPage();
+            }),
       ]),
   GoRoute(
       path: Routes.personalMedication,
@@ -79,6 +86,12 @@ final GoRouter appRouter =
       builder: (BuildContext context, GoRouterState state) {
         var userProfile = state.extra as RegisterModel;
         return ElderlyProfileInformationView(profile: userProfile);
+      }),
+  GoRoute(
+      path: Routes.changePassword,
+      builder: (BuildContext context, GoRouterState state) {
+        var userProfile = state.extra as RegisterModel;
+        return ChangePasswordPage(profile: userProfile);
       }),
 ]);
 
@@ -111,9 +124,13 @@ class Routes {
 
   static const String elderlyHistoryExercise = '/elderly-history/exercise-log';
 
+  static const String elderlyHistoryDrinking = '/elderly-history/drinking-log';
+
   static const String personalMedication = '/personalMedicationPage';
 
   static const String elderlySettingPage = '/elderlySettingPage';
   static const String elderlyProfileInformationView =
       '/elderlyProfileInformationView';
+
+  static const String changePassword = '/changePassword';
 }

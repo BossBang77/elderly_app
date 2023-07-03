@@ -42,7 +42,9 @@ class ElderlyHistoryPage extends StatelessWidget {
               HealthMenu(
                 title: 'บันทึกการดื่มน้ำ',
                 subtitle: '',
-                callback: () {},
+                callback: () {
+                  context.go(Routes.elderlyHistoryDrinking);
+                },
               ),
             ],
           ),

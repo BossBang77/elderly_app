@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/constant/gender_const.dart';
 import 'package:health_application/ui/base/dialog/log_out_dialog.dart';
 import 'package:health_application/ui/base/routes.dart';
+import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -71,7 +72,9 @@ class VolunteerProfileWidget extends StatelessWidget {
               CardListMenu(
                 img:
                     'assets/images/profile_menu_icon/reset_pass_profile_icon.png',
-                onClick: () {},
+                onClick: () {
+                  context.push(Routes.changePassword, extra: user);
+                },
                 title: 'เปลี่ยนรหัสผ่าน',
               ),
               CardListMenu(
