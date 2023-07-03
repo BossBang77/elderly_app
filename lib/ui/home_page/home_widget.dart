@@ -304,13 +304,8 @@ class HomeWidget extends StatelessWidget {
                                       onClick: () async {
                                         String uid =
                                             await UserSecureStorage().getUID();
-                                        Navigator.of(context)
-                                            .pushAndRemoveUntil(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        VolunteerPage(
-                                                            uid: uid)),
-                                                (Route route) => false);
+                                        context.go(Routes.volunteerPage,
+                                            extra: [uid, false]);
                                       },
                                     )
                                   ],
@@ -407,11 +402,7 @@ class HomeWidget extends StatelessWidget {
                           background: 'assets/images/sos.png',
                           title: 'ฉุกเฉิน',
                           onClick: () {
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        RequestAssitancePage()),
-                                (Route route) => false);
+                            context.push(Routes.requestAssitance);
                           },
                           subTitle: 'ขอความช่วยเหลือ',
                           icon: 'assets/images/sos_icon.png',

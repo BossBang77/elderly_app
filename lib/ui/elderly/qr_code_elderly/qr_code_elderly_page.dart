@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/error_alert.dart';
@@ -53,9 +54,7 @@ class _QrCodeElderlyPageState extends State<QrCodeElderlyPage> {
                     header: 'สำเร็จ!',
                     subtitle: 'บันทึก QR สำเร็จ',
                     buttonName: 'ตกลง',
-                    onTap: () {
-                      Navigator.pop(context, true);
-                    },
+                    onTap: () {},
                   ));
         }
       }).catchError((onError) async {
@@ -73,7 +72,7 @@ class _QrCodeElderlyPageState extends State<QrCodeElderlyPage> {
     return Scaffold(
       appBar: appBar(
           onBack: () {
-            Navigator.pop(context);
+            context.pop();
           },
           title: 'QR code ของฉัน'),
       body: Padding(

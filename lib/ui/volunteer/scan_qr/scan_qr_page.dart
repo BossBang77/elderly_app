@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/home_page/component/dialog/scan_error_dialog.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
@@ -10,6 +11,8 @@ import 'package:health_application/ui/volunteer/search_elderly/search_elderly_pa
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:scan/scan.dart';
+
+import '../../base/routes.dart';
 
 class ScanQrPage extends StatefulWidget {
   const ScanQrPage({Key? key, required this.onScan}) : super(key: key);
@@ -77,9 +80,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
           });
           context.read<UserProfileBloc>().add(ResetScan());
         } else if (state.scanStatus == ScanStatus.success) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ElderlySearchDetailPage(
-                  elderlyProfile: state.elderlyProfile)));
+          context.go(Routes.elderlySearchDetail, extra: state.elderlyProfile);
         }
       },
       builder: (context, state) {

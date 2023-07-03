@@ -36,10 +36,7 @@ class ElderProfileWidget extends StatelessWidget {
           suffixAction: InkWell(
             onTap: () async {
               String uuid = await UserSecureStorage().getUID();
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => QrCodeElderlyPage(
-                        uuid: uuid,
-                      )));
+              context.push(Routes.qrCodeElderly, extra: uuid);
             },
             child: Image.asset(
               'assets/images/qr_code_scan.png',

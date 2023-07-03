@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
+import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
 import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
 import 'package:health_application/ui/google_map/locationsModel.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 
+import '../base/routes.dart';
 import '../ui-extensions/color.dart';
 
 double userLatiPick = 0;
@@ -65,7 +68,13 @@ class GoogleMaps extends StatelessWidget {
       appBar: appBar(
           images: 'assets/images/exit_icon.png',
           onBack: () {
-            Navigator.of(context).pop();
+            String uid = BlocProvider.of<SearchVolunteerBloc>(context)
+                .state
+                .currentVolunteerUid;
+            context.go(
+              Routes.volunteerPage,
+              extra: [uid, true],
+            );
           },
           title: titleTxt.isEmpty ? "เลือกสถานที่นัดหมาย" : titleTxt),
       body: BlocConsumer<GoogleMapCubit, GoogleMapState>(
@@ -74,7 +83,19 @@ class GoogleMaps extends StatelessWidget {
             userLatiPick = state.latitude;
             userLongtiPick = state.longitude;
             locationName = state.locationName;
-            Navigator.pop(context);
+            Locations _locations = Locations(
+                latitude: userLatiPick,
+                longtitude: userLongtiPick,
+                nameAddress: locationName);
+            context.read<SearchVolunteerBloc>().add(MapCreateAppointment(
+                createObj: CreateAppointObj.address, value: _locations));
+            String uid = BlocProvider.of<SearchVolunteerBloc>(context)
+                .state
+                .currentVolunteerUid;
+            context.go(
+              Routes.volunteerPage,
+              extra: [uid, true],
+            );
           }
         },
         builder: (context, state) {

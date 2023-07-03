@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/widget/back_button_circle.dart';
 import 'package:health_application/ui/base/widget/button_blue_fade.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
@@ -29,46 +30,58 @@ class AppointmentDetailView extends StatefulWidget {
 class _AppointmentDetailViewState extends State<AppointmentDetailView> {
   double _scrollOffset = 0;
   // double _headerViewOffset = 0;
-  int get _alpha => min(255, max(0, ((_scrollOffset / (MediaQuery.of(context).padding.top + AppBar().preferredSize.height)) * 255).toInt()));
+  int get _alpha => min(
+      255,
+      max(
+          0,
+          ((_scrollOffset /
+                      (MediaQuery.of(context).padding.top +
+                          AppBar().preferredSize.height)) *
+                  255)
+              .toInt()));
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: ColorTheme().white,
-      appBar: AppBar(
-        elevation: 0,
-        shadowColor: ColorTheme().white,
-        backgroundColor: Colors.white.withAlpha(_alpha),
-        leading: BackButtonCircleWidget(onClick: () {
-          Navigator.pop(context, true);
-        }),
-        title: Opacity(
-          opacity: _alpha / 255,
-          child: textSubtitle1('รายละเอียด', ColorTheme().black87),
-        ),
-        actions: [],
-      ),
-      body: AppointmentScrollView(
-        onScroll: (offset) {
-          setState(() {
-            _scrollOffset = offset;
-          });
-        },
-        child: Container(
-          margin: EdgeInsets.only(top: 200),
-          padding: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0),
-          decoration: BoxDecoration(
-            boxShadow: [BoxShadow(blurRadius: 30, offset: Offset(0, -4), color: Colors.black.withAlpha(10))],
-            color: ColorTheme().scaffoldGreyBackground,
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30))
+        extendBodyBehindAppBar: true,
+        backgroundColor: ColorTheme().white,
+        appBar: AppBar(
+          elevation: 0,
+          shadowColor: ColorTheme().white,
+          backgroundColor: Colors.white.withAlpha(_alpha),
+          leading: BackButtonCircleWidget(onClick: () {
+            context.pop();
+          }),
+          title: Opacity(
+            opacity: _alpha / 255,
+            child: textSubtitle1('รายละเอียด', ColorTheme().black87),
           ),
-          child: BlocBuilder<AppointmentDetailBloc, AppointmentDetailState>(
-            builder: (context, state) => 
-              state.pageState.body(context, state),
-          )
-        )
-      )
-    );
+          actions: [],
+        ),
+        body: AppointmentScrollView(
+            onScroll: (offset) {
+              setState(() {
+                _scrollOffset = offset;
+              });
+            },
+            child: Container(
+                margin: EdgeInsets.only(top: 200),
+                padding: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0),
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 30,
+                          offset: Offset(0, -4),
+                          color: Colors.black.withAlpha(10))
+                    ],
+                    color: ColorTheme().scaffoldGreyBackground,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30))),
+                child:
+                    BlocBuilder<AppointmentDetailBloc, AppointmentDetailState>(
+                  builder: (context, state) =>
+                      state.pageState.body(context, state),
+                ))));
   }
 }

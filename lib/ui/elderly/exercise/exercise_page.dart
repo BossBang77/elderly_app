@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
-import 'package:health_application/ui/elderly/exercise/exercise_widget.dart';
 import 'package:health_application/ui/elderly/exercise/summary_exercise/summary_exercise.dart';
+import '../../base/routes.dart';
 
 class ExercisePage extends StatelessWidget {
   const ExercisePage({super.key});
@@ -16,9 +17,7 @@ class ExercisePage extends StatelessWidget {
     return BlocConsumer<ExerciseBloc, ExerciseState>(
         listener: (context, state) async {
       if (state.statusSubmit == StatusSubmit.getInformationSuccess) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => ExerciseWidget()),
-            (Route<dynamic> route) => false);
+        context.go(Routes.exerciseWidget);
       }
 
       if (state.statusSubmit == StatusSubmit.getInformationFail) {

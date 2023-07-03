@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/emergency_detail_card/bloc/emergency_detail_card_bloc.dart';
 import 'package:health_application/ui/base/widget/button_red.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
@@ -13,6 +14,7 @@ import '../../../home_page/bloc/home_page_bloc.dart';
 import '../../../ui-extensions/color.dart';
 import '../../../volunteer/request_assistance_detail/model/assitance_model.dart';
 import '../../../volunteer/request_assistance_detail/request_assitance_detail_page.dart';
+import '../../routes.dart';
 
 class WaitingAssistance extends StatelessWidget {
   const WaitingAssistance({super.key, required this.item});
@@ -26,12 +28,7 @@ class WaitingAssistance extends StatelessWidget {
     var profile = item.profile;
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => RequestAssitanceDetailPage(
-                      assistanceId: item.id,
-                    )));
+        context.push(Routes.requestAssitanceDetail, extra: item.id);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 10),

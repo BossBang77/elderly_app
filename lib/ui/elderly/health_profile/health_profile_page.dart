@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/dialog/success_dialog.dart';
 import 'package:health_application/ui/base/widget/error_alert.dart';
 
@@ -17,6 +18,7 @@ import 'package:health_application/ui/home_page/home_page.dart';
 
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 
+import '../../base/routes.dart';
 import '../../user_profile/bloc/user_profile_bloc.dart';
 
 class HealthProfilePage extends StatelessWidget {
@@ -66,9 +68,7 @@ class HealthProfilePage extends StatelessWidget {
                         buttonName: 'ตกลง',
                         onTap: () {
                           Navigator.pop(context, true);
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()));
+                          context.go(Routes.home);
                         },
                       )) as bool;
 

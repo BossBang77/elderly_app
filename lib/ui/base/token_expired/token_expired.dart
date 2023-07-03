@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/cubit/expired_cubit.dart';
 import 'package:health_application/ui/base/token_expired/expired_dialog.dart';
 import 'package:health_application/ui/signIn_page/signIn_widget.dart';
+
+import '../routes.dart';
 
 class TokenExpiredWidget extends StatelessWidget {
   const TokenExpiredWidget({super.key});
@@ -20,8 +23,7 @@ class TokenExpiredWidget extends StatelessWidget {
               }).then((click) {
             if (click) {
               context.read<TokenExpiredCubit>().isExpired(false);
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => SignInPage()));
+              context.go(Routes.login);
             }
           });
         }

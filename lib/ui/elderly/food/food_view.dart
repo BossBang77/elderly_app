@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/elderly/food/food_page.dart';
@@ -24,6 +25,7 @@ import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
+import '../../base/routes.dart';
 import '../../home_page/bloc/home_page_bloc.dart';
 
 class FoodView extends StatefulWidget {
@@ -157,6 +159,7 @@ class _FoodViewState extends State<FoodView> {
                                                       energy:
                                                           Calories(value: 0)))
                                                   .toList();
+
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>

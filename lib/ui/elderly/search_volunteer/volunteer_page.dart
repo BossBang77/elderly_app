@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/dialog/success_dialog.dart';
 import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/elderly/search_volunteer/appoint_volunteer/appoint_volunteer_widget.dart';
@@ -11,20 +12,23 @@ import 'package:health_application/ui/elderly/search_volunteer/volunteer_widget.
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 
+import '../../base/routes.dart';
 import 'bloc/search_volunteer_bloc.dart';
 
 class VolunteerPage extends StatelessWidget {
-  const VolunteerPage({super.key, required this.uid});
+  const VolunteerPage({super.key, required this.uid, this.ispop = false});
   final String uid;
+  final bool ispop;
 
   @override
   Widget build(BuildContext context) {
-    context.read<SearchVolunteerBloc>().add(Intital(elderlyId: uid));
+    context
+        .read<SearchVolunteerBloc>()
+        .add(Intital(elderlyId: uid, ispop: ispop));
+
     Widget intital(BuildContext context, SearchVolunteerState state) {
       if (state.searchVolunteerView == SearchVolunteerView.searchSummary) {
-        return VolunteerWidget(
-          uid: uid,
-        );
+        return VolunteerWidget();
       } else if (state.searchVolunteerView ==
           SearchVolunteerView.searchResult) {
         return SearchVolunteerWidget();
@@ -80,7 +84,7 @@ class VolunteerPage extends StatelessWidget {
                       "รอการยืนยันคุณสามารถแชทกับจิตอาสาได้หลังจากที่จิตอาสายืนยันการนัดหมาย",
                   buttonName: 'ตกลง',
                   onTap: () {
-                    Navigator.pop(context, true);
+                    context.go(Routes.home);
                   },
                 ));
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
 import 'package:health_application/ui/elderly/elderly_address/view/manage_address_elderly.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -41,9 +43,8 @@ class AddressItemBox extends StatelessWidget {
                 InkWell(
                   child: textBody2('แก้ไข', color.BlueDark2, true),
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ManageAddressElderly(
-                            type: ManageAddressType.edit)));
+                    context.go(Routes.manageAddressElderly,
+                        extra: ManageAddressType.edit);
                   },
                 )
               ],

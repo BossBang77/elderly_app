@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
@@ -9,6 +10,8 @@ import 'package:health_application/ui/register_profile/component/role_card.dart'
 import 'package:health_application/ui/signIn_page/signIn_widget.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+
+import '../../base/routes.dart';
 
 class SelectRoleWidget extends StatelessWidget {
   const SelectRoleWidget({super.key, required this.state});
@@ -18,8 +21,7 @@ class SelectRoleWidget extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorTheme().white,
       appBar: appBar(onBack: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => SignInPage()));
+        context.push(Routes.login);
       }),
       body: Padding(
         padding: EdgeInsets.fromLTRB(15, 0, 15, 30),

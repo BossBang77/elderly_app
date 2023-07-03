@@ -20,8 +20,8 @@ class UserProfilePage extends StatelessWidget {
         listener: (context, state) async {
       if (state.logoutStatus == LogoutStatus.success) {
         await UserSecureStorage().clearSession();
-        context.go(Routes.root);
         context.read<UserProfileBloc>().add(IntitalLogoutStatus());
+        context.go(Routes.root);
       } else if (state.logoutStatus == LogoutStatus.fail) {
         final bool acceptClose = await showDialog(
             context: context,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:health_application/ui/signIn_page/signIn_widget.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
+import '../../base/routes.dart';
 import '../../base/widget/text_field_widget.dart';
 
 class PrivacyProfile extends StatelessWidget {
@@ -119,8 +121,7 @@ class PrivacyProfile extends StatelessWidget {
                   textButton2('มีบัญชี?  ', ColorTheme().black87),
                   InkWell(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SignInPage()));
+                        context.push(Routes.login);
                       },
                       child: textButton1('เข้าสู่ระบบ', ColorTheme().Primary)),
                 ],

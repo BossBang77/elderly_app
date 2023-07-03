@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
     var _signIn = state.signIn;
     return Scaffold(
       appBar: appBar(onBack: () {
-        Navigator.pop(context, true);
+        context.pop();
       }),
       backgroundColor: ColorTheme().white,
       body: Center(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
+import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/volunteer/request_assistance_detail/request_assitance_detail_page.dart';
 
@@ -21,13 +23,7 @@ class VolunteerAcceptAssistance extends StatelessWidget {
     var profile = item.profile;
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => RequestAssitanceDetailPage(
-                    assistanceId: item.id,
-                  )),
-        );
+        context.push(Routes.requestAssitanceDetail, extra: item.id);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 10),

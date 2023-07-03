@@ -139,7 +139,7 @@ class VolunteerPrivacyProfile extends StatelessWidget {
                   textButton2('มีบัญชี?  ', ColorTheme().black87),
                   InkWell(
                       onTap: () {
-                        context.go(Routes.login);
+                        context.push(Routes.login);
                       },
                       child: textButton1('เข้าสู่ระบบ', ColorTheme().Primary)),
                 ],
