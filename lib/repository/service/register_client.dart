@@ -19,4 +19,11 @@ abstract class RegisterService {
     "Content-Type": "application/json",
   })
   Future<HttpResponse> checkExisting(@Body() Map<String, dynamic> body);
+
+  @POST('/api/v1/user/check-existing-user')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> checkExisting(@Body() Map<String, dynamic> body);
 }
