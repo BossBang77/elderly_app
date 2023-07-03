@@ -22,11 +22,13 @@ class RegisterRepository {
     try {
       final HttpResponse req =
           await _registerService.registerProfile(body.toJson());
-
+      print(body.toJson());
+      print(req.response.data);
       if (req.response.statusCode == StatusCode.success) {
         return Right(req.response.statusCode ?? 0);
       }
     } on DioError catch (error) {
+      print(error.response);
       if (error.response?.statusCode == StatusCode.notFound) {
         print('Error 400 $error');
         return const Left(Failure(''));
@@ -36,5 +38,28 @@ class RegisterRepository {
       }
     }
     return const Left(Failure(''));
+  }
+
+  Future<Either<bool, bool>> checkExisting(String userName) async {
+    try {
+      var body = {'username': userName};
+      final HttpResponse req = await _registerService.checkExisting(body);
+      if (req.response.statusCode == StatusCode.success) {
+        return Left(false);
+      } else {
+        return Left(false);
+      }
+    } on DioError catch (error) {
+      print(error.response);
+      if (error.response?.statusCode == StatusCode.fileNotFound) {
+        print('${error.response?.statusCode} $error');
+        return const Right(false);
+      } else if (error.response?.statusCode == StatusCode.failure) {
+        print('Error 500 $error');
+        return Left(false);
+      } else {
+        return Left(false);
+      }
+    }
   }
 }

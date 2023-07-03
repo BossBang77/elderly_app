@@ -21,7 +21,7 @@ class SelectRoleWidget extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorTheme().white,
       appBar: appBar(onBack: () {
-        context.push(Routes.login);
+        context.pop();
       }),
       body: Padding(
         padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
@@ -72,6 +72,7 @@ class SelectRoleWidget extends StatelessWidget {
                         type: FillType.role,
                         value: state.roleType.name,
                       ));
+                context.read<RegisterProfileBloc>().add(ResetRegisterModel());
                 context.read<RegisterProfileBloc>().add(
                     ChangeProfileView(profileType: ProfileType.privacyProfile));
               },

@@ -10,13 +10,15 @@ class SignInState extends Equatable {
       this.signIn = const SignInModel(),
       this.signInStatus = SignInStatus.initial,
       this.loginRes = const LoginModel(),
-      this.obscurePassword = true});
+      this.obscurePassword = true,
+      this.isLoading = false});
 
   final SectionView view;
   final SignInModel signIn;
   final SignInStatus signInStatus;
   final LoginModel loginRes;
   final bool obscurePassword;
+  final bool isLoading;
 
   const SignInState.initial() : this();
   SignInState copyWith(
@@ -24,16 +26,18 @@ class SignInState extends Equatable {
       SignInModel? signIn,
       SignInStatus? signInStatus,
       LoginModel? loginRes,
-      bool? obscurePassword}) {
+      bool? obscurePassword,
+      bool? isLoading}) {
     return SignInState(
         view: view ?? this.view,
         signIn: signIn ?? this.signIn,
         signInStatus: signInStatus ?? this.signInStatus,
         loginRes: loginRes ?? this.loginRes,
-        obscurePassword: obscurePassword ?? this.obscurePassword);
+        obscurePassword: obscurePassword ?? this.obscurePassword,
+        isLoading: isLoading ?? this.isLoading);
   }
 
   @override
   List<Object> get props =>
-      [view, signIn, signInStatus, loginRes, obscurePassword];
+      [view, signIn, signInStatus, loginRes, obscurePassword, isLoading];
 }

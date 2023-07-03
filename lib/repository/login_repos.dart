@@ -24,19 +24,15 @@ class LoginRepository {
   Future<Either<Failure, LoginModel>> login(SignInModel body) async {
     try {
       final HttpResponse req = await _loginService.login(body.toJson());
-      final Map<String, dynamic> data = req.data;
+
       if (req.response.statusCode == StatusCode.success) {
+        final Map<String, dynamic> data = req.data;
         return Right(LoginModel.fromJson(data['data']));
       }
     } on DioError catch (error) {
-      print(error.response);
-      if (error.response?.statusCode == StatusCode.notFound) {
-        print('Error 400 $error');
-        return const Left(Failure(''));
-      } else if (error.response?.statusCode == StatusCode.failure) {
-        print('Error 500 $error');
-        return const Left(Failure(''));
-      }
+      return const Left(Failure(''));
+    } catch (e) {
+      return const Left(Failure(''));
     }
     return const Left(Failure(''));
   }
@@ -50,12 +46,9 @@ class LoginRepository {
         return Right(LoginModel.fromJson(data['data']));
       }
     } on DioError catch (error) {
-      print(error.response);
       if (error.response?.statusCode == StatusCode.notFound) {
-        print('Error 400 $error');
         return const Left(Failure(''));
       } else if (error.response?.statusCode == StatusCode.failure) {
-        print('Error 500 $error');
         return const Left(Failure(''));
       }
     }
@@ -71,12 +64,9 @@ class LoginRepository {
         return Right(RegisterModel.fromJson(data['data']));
       }
     } on DioError catch (error) {
-      print(error.response);
       if (error.response?.statusCode == StatusCode.notFound) {
-        print('Error 400 $error');
         return const Left(Failure(''));
       } else if (error.response?.statusCode == StatusCode.failure) {
-        print('Error 500 $error');
         return const Left(Failure(''));
       }
     }
@@ -91,12 +81,9 @@ class LoginRepository {
         return Right('success');
       }
     } on DioError catch (error) {
-      print(error.response);
       if (error.response?.statusCode == StatusCode.notFound) {
-        print('Error 400 $error');
         return const Left(Failure(''));
       } else if (error.response?.statusCode == StatusCode.failure) {
-        print('Error 500 $error');
         return const Left(Failure(''));
       }
     }
@@ -108,12 +95,9 @@ class LoginRepository {
       final HttpResponse req = await _loginService.deleteUser();
       return Right('success');
     } on DioError catch (error) {
-      print(error.response);
       if (error.response?.statusCode == StatusCode.notFound) {
-        print('Error 400 $error');
         return const Left(Failure(''));
       } else if (error.response?.statusCode == StatusCode.failure) {
-        print('Error 500 $error');
         return const Left(Failure(''));
       }
     }
@@ -134,12 +118,9 @@ class LoginRepository {
       final Map<String, dynamic> data = req.data;
       return Right('success');
     } on DioError catch (error) {
-      print(error.response);
       if (error.response?.statusCode == StatusCode.notFound) {
-        print('Error 400 $error');
         return const Left(Failure(''));
       } else if (error.response?.statusCode == StatusCode.failure) {
-        print('Error 500 $error');
         return const Left(Failure(''));
       }
     }
@@ -154,12 +135,9 @@ class LoginRepository {
       final Map<String, dynamic> data = req.data;
       return Right('success');
     } on DioError catch (error) {
-      print(error.response);
       if (error.response?.statusCode == StatusCode.notFound) {
-        print('Error 400 $error');
         return const Left(Failure(''));
       } else if (error.response?.statusCode == StatusCode.failure) {
-        print('Error 500 $error');
         return const Left(Failure(''));
       }
     }

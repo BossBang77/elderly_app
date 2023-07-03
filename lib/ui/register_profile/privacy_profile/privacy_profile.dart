@@ -49,11 +49,24 @@ class PrivacyProfile extends StatelessWidget {
                 maxLength: 10,
                 textNumberType: true,
                 hintText: '081 234 5678',
+                errorText: !state.isNotExisting &&
+                        state.registerModel.username.length == 10
+                    ? 'เบอร์มือถือนี้ลงทะเบียนแล้ว'
+                    : '',
+                setErrorWithOuter: !state.isNotExisting &&
+                    state.registerModel.username.length == 10,
+                setError: !state.isNotExisting,
                 onChanged: (value) {
                   context.read<RegisterProfileBloc>().add(FormFillType(
                         type: FillType.username,
                         value: value,
                       ));
+
+                  if (value.length == 10) {
+                    context
+                        .read<RegisterProfileBloc>()
+                        .add(CheckExisting(userName: value));
+                  }
                 },
               ),
               const SizedBox(
@@ -106,7 +119,10 @@ class PrivacyProfile extends StatelessWidget {
               ButtonGradient(
                 btnName: 'ลงทะเบียน',
                 onClick: () {
-                  if (user.username.isNotEmpty && user.password.isNotEmpty) {
+                  print(state.isNotExisting);
+                  if (user.username.isNotEmpty &&
+                      user.password.isNotEmpty &&
+                      state.isNotExisting) {
                     context.read<RegisterProfileBloc>().add(
                         ChangeProfileView(profileType: ProfileType.bmiProfile));
                   }

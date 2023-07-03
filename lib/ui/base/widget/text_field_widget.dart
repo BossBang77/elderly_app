@@ -245,6 +245,14 @@ class TextFieldWidget extends StatelessWidget {
     _offset = offset;
   }
 
+  String getErrorText() {
+    if (setError) {
+      return errorText;
+    } else {
+      return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     try {
@@ -255,160 +263,121 @@ class TextFieldWidget extends StatelessWidget {
       textEditingController?.selection = TextSelection.fromPosition(
           TextPosition(offset: textEditingController!.text.length));
     }
-    return Container(
-      padding: (setErrorWithOuter)
-          ? EdgeInsets.all(0)
-          : EdgeInsets.only(left: 20, right: 20),
-      height: height,
-      decoration: (setErrorWithOuter)
-          ? null
-          : BoxDecoration(
-              color: isEnabled
-                  ? ColorTheme().GreyBackGround.withOpacity(0.03)
-                  : HexColor('#FBFBFB'),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 20, right: 20),
+          height: height,
+          decoration: BoxDecoration(
+              color: setErrorWithOuter
+                  ? color.Error.withOpacity(0.2)
+                  : isEnabled
+                      ? ColorTheme().GreyBackGround.withOpacity(0.03)
+                      : HexColor('#FBFBFB'),
               border: Border.all(
-                  color: (isEnabled)
-                      ? ColorTheme().GreyBorder
-                      : HexColor('#EFEFEF'),
+                  color: setErrorWithOuter
+                      ? color.Error
+                      : (isEnabled)
+                          ? ColorTheme().GreyBorder
+                          : HexColor('#EFEFEF'),
                   width: 1),
               borderRadius: BorderRadius.all(Radius.circular(15))),
-      child: Center(
-        child: TextFormField(
-          textAlign: textAlign,
-          focusNode: focusNode,
-          enabled: isEnabled,
-          obscureText: obscureText,
-          autovalidateMode: autoValid
-              ? AutovalidateMode.always
-              : AutovalidateMode.onUserInteraction,
-          controller: textEditingController,
-          inputFormatters: <TextInputFormatter>[
-            if (hasSpecialChar)
-              FilteringTextInputFormatter.deny(RegExp(r'[!#^$%*+`~]')),
-            if (textNumberType) FilteringTextInputFormatter.digitsOnly
-          ],
-          maxLength: maxLength,
-          minLines: minLines,
-          keyboardType: (multiLine) ? TextInputType.multiline : null,
-          readOnly: readOnly,
-          validator: validator ??
-              (String? value) {
-                if (setError) {
-                  return errorText;
-                } else {
-                  return null;
-                }
+          child: Center(
+            child: TextFormField(
+              textAlign: textAlign,
+              focusNode: focusNode,
+              enabled: isEnabled,
+              obscureText: obscureText,
+              autovalidateMode: autoValid
+                  ? AutovalidateMode.always
+                  : AutovalidateMode.onUserInteraction,
+              controller: textEditingController,
+              inputFormatters: <TextInputFormatter>[
+                if (hasSpecialChar)
+                  FilteringTextInputFormatter.deny(RegExp(r'[!#^$%*+`~]')),
+                if (textNumberType) FilteringTextInputFormatter.digitsOnly
+              ],
+              maxLength: maxLength,
+              minLines: minLines,
+              keyboardType: (multiLine) ? TextInputType.multiline : null,
+              readOnly: readOnly,
+              textInputAction: textInputAction ?? TextInputAction.done,
+              onChanged: isEnabled
+                  ? (value) {
+                      var cursorPos =
+                          textEditingController?.selection.base.offset;
+                      onChanged?.call(value);
+                      setOffset(cursorPos ?? 0);
+                    }
+                  : null,
+              onFieldSubmitted: (value) {
+                if (onFieldSubmitted != null) onFieldSubmitted!();
               },
-          textInputAction: textInputAction ?? TextInputAction.done,
-          onChanged: isEnabled
-              ? (value) {
-                  var cursorPos = textEditingController?.selection.base.offset;
-                  onChanged?.call(value);
-                  setOffset(cursorPos ?? 0);
-                }
-              : null,
-          onFieldSubmitted: (value) {
-            if (onFieldSubmitted != null) onFieldSubmitted!();
-          },
-          maxLines: multiLine ? null : 1,
-          cursorColor: ColorTheme().Primary,
-          cursorHeight: 25,
-          style: TextStyle(
-            color: ColorTheme().black87,
-            fontSize: 18.sp,
-            fontFamily: fontFamily,
-          ),
-          decoration: InputDecoration(
-            errorStyle: TextStyle(
-              color: ColorTheme().Error,
-              fontSize: 16.sp,
-              fontFamily: fontFamily,
-            ),
-            prefixIcon: (prefix)
-                ? prefixTxt != null
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 7, right: 5),
-                        child: textOverline2(
-                            prefixTxt ?? '', ColorTheme().Primary))
-                    : GestureDetector(
-                        onTap: onTap,
-                        child: Image.asset(
-                          imagePathPrefix,
-                          scale: 5,
-                        ),
-                      )
-                : null,
-            suffixIcon: (suffix)
-                ? suffixIcon != null
-                    ? suffixIcon
-                    : suffixTxt != null
+              maxLines: multiLine ? null : 1,
+              cursorColor: ColorTheme().Primary,
+              cursorHeight: 25,
+              style: TextStyle(
+                color: ColorTheme().black87,
+                fontSize: 18.sp,
+                fontFamily: fontFamily,
+              ),
+              decoration: InputDecoration(
+                prefixIcon: (prefix)
+                    ? prefixTxt != null
                         ? Padding(
-                            padding: const EdgeInsets.only(top: 10, right: 5),
-                            child: textSubtitle16Blod(
-                                suffixTxt ?? '', Colors.grey))
+                            padding: const EdgeInsets.only(top: 7, right: 5),
+                            child: textOverline2(
+                                prefixTxt ?? '', ColorTheme().Primary))
                         : GestureDetector(
                             onTap: onTap,
                             child: Image.asset(
-                              imagePath,
+                              imagePathPrefix,
                               scale: 5,
                             ),
                           )
-                : null,
-            errorBorder: (setErrorWithOuter)
-                ? OutlineInputBorder(
-                    gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(15.0)),
-                    borderSide: BorderSide(color: ColorTheme().Warning),
-                  )
-                : InputBorder.none,
-            counterText: counterText ? null : '',
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            hintStyle: TextStyle(
-              color: ColorTheme().grey50,
-              fontSize: 18.sp,
-              fontFamily: fontFamily,
+                    : null,
+                suffixIcon: (suffix)
+                    ? suffixIcon != null
+                        ? suffixIcon
+                        : suffixTxt != null
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 10, right: 5),
+                                child: textSubtitle16Blod(
+                                    suffixTxt ?? '', Colors.grey))
+                            : GestureDetector(
+                                onTap: onTap,
+                                child: Image.asset(
+                                  imagePath,
+                                  scale: 5,
+                                ),
+                              )
+                    : null,
+                errorBorder: InputBorder.none,
+                counterText: counterText ? null : '',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                hintStyle: TextStyle(
+                  color: ColorTheme().grey50,
+                  fontSize: 18.sp,
+                  fontFamily: fontFamily,
+                ),
+                hintText: hintText,
+                focusedBorder: InputBorder.none,
+                border: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                focusedErrorBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+              ),
             ),
-            hintText: hintText,
-            filled: setError,
-            fillColor: ColorTheme().Warning.withOpacity(0.1),
-            focusedBorder: (setErrorWithOuter)
-                ? OutlineInputBorder(
-                    gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    borderSide: BorderSide(color: HexColor('#B8B8B8')),
-                  )
-                : InputBorder.none,
-            border: (setErrorWithOuter)
-                ? OutlineInputBorder(
-                    gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    borderSide: BorderSide(color: HexColor('#B8B8B8')),
-                  )
-                : InputBorder.none,
-            disabledBorder: (setErrorWithOuter)
-                ? OutlineInputBorder(
-                    gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    borderSide: BorderSide(color: HexColor('#B8B8B8')),
-                  )
-                : InputBorder.none,
-            focusedErrorBorder: (setErrorWithOuter)
-                ? OutlineInputBorder(
-                    gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    borderSide: BorderSide(color: ColorTheme().Warning),
-                  )
-                : InputBorder.none,
-            enabledBorder: (setErrorWithOuter)
-                ? OutlineInputBorder(
-                    gapPadding: 1,
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    borderSide: BorderSide(color: HexColor('#B8B8B8')),
-                  )
-                : InputBorder.none,
           ),
         ),
-      ),
+        if (getErrorText().isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top: 10, left: 8),
+            child: textButton2(getErrorText(), color.Error),
+          )
+      ],
     );
   }
 }

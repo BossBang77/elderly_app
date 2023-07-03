@@ -36,12 +36,19 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       yield state.copyWith(signIn: signIn);
     }
     if (event is SubmitLogin) {
+      yield state.copyWith(isLoading: true);
       var submit = await _loginRepository.login(state.signIn);
       yield* submit.fold((Failure error) async* {
+        print(false);
         yield state.copyWith(
-            signInStatus: SignInStatus.fail, loginRes: LoginModel());
+            signInStatus: SignInStatus.fail,
+            loginRes: LoginModel(),
+            isLoading: false);
       }, (LoginModel res) async* {
-        yield state.copyWith(signInStatus: SignInStatus.success, loginRes: res);
+        yield state.copyWith(
+            signInStatus: SignInStatus.success,
+            loginRes: res,
+            isLoading: false);
       });
     }
     if (event is ObscurePassword) {

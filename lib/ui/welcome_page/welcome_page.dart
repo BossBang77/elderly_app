@@ -44,7 +44,7 @@ class WelcomePage extends StatelessWidget {
               ButtonGradient(
                 btnName: 'เริ่มต้นใช้งาน',
                 onClick: () {
-                  context.go(Routes.register);
+                  context.push(Routes.register);
                 },
               ),
               const SizedBox(

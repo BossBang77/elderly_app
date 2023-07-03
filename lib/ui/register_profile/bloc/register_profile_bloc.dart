@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:health_application/repository/register_repos.dart';
+import 'package:health_application/ui/base/widget/error_alert.dart';
+import 'package:health_application/ui/extension/string_extension.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 
 import '../../base/model/failure.dart';
@@ -66,6 +69,20 @@ class RegisterProfileBloc
     if (event is InitialStatus) {
       yield state.copyWith(status: SubmitStatus.initial);
     }
+
+    if (event is CheckExisting) {
+      var checkExisting =
+          await _registerRepository.checkExisting(event.userName);
+      yield* checkExisting.fold((err) async* {
+        yield state.copyWith(isNotExisting: err);
+      }, (res) async* {
+        yield state.copyWith(isNotExisting: res);
+      });
+    }
+
+    if (event is ResetRegisterModel) {
+      yield state.copyWith(registerModel: RegisterModel());
+    }
   }
 
   RegisterProfileState setFillInformation(FormFillType event) {
@@ -99,8 +116,10 @@ class RegisterProfileBloc
         regisMol = regisMol.copyWith(profile: profileMol);
         return state.copyWith(registerModel: regisMol);
 
-      case FillType.age:
-        profileMol = profileMol.copyWith(age: event.value);
+      case FillType.birthDate:
+        String birthDate = event.value;
+        int age = userAge(DateTime.now(), birthDate.parseTime());
+        profileMol = profileMol.copyWith(birthDate: event.value, age: age);
         regisMol = regisMol.copyWith(profile: profileMol);
         return state.copyWith(registerModel: regisMol);
 
@@ -158,4 +177,20 @@ class RegisterProfileBloc
         return state;
     }
   }
+}
+
+Future dateInvalidFormat(BuildContext context) async {
+  final bool acceptClose = await showDialog(
+      context: context,
+      builder: (BuildContext context) => ErrorAlertWidget(
+            title: 'เกิดข้อผิดพลาด',
+            subTitle: "วันเกิดไม่ถูกต้อง \n กรุณาตรวจสอบข้อมูล",
+            btnName: 'ตกลง',
+          )) as bool;
+}
+
+int userAge(DateTime curruntDate, DateTime UsersBirthDate) {
+  Duration parse = curruntDate.difference(UsersBirthDate);
+
+  return parse.inDays ~/ 360;
 }
