@@ -20,8 +20,6 @@ class NetworkProvider {
   ///alice
   final Alice alice = Alice(showNotification: false);
 
-
-
   ///setting
   AppConfig setting = ConfigEnv.appConfig;
   // Dio
@@ -76,16 +74,23 @@ class ApiInterceptors extends QueuedInterceptor {
       // case DioErrorType.sendTimeout:
       // case DioErrorType.receiveTimeout:
       // throw DeadlineExceededException(error.requestOptions);
+
       case DioErrorType.response:
         if (error.response?.statusCode == 401) {
-          var res = await refreshToken();
-          if (res != null && res) {
-            await _retry(error.requestOptions);
+          var accessToken = await UserSecureStorage().getAccessToken();
+          if (accessToken != '') {
+            var res = await refreshToken();
+            if (res != null && res) {
+              await _retry(error.requestOptions);
+            } else {
+              TokenExpiredCubit().isExpired(true);
+            }
           } else {
-            TokenExpiredCubit().isExpired(true);
+            return handler.next(error);
           }
         }
         break;
+
       case DioErrorType.cancel:
         break;
       case DioErrorType.other:
