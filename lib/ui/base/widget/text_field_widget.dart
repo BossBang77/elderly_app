@@ -323,11 +323,6 @@ class TextFieldWidget extends StatelessWidget {
                 fontFamily: fontFamily,
               ),
               decoration: InputDecoration(
-                // errorStyle: TextStyle(
-                //   color: ColorTheme().Error,
-                //   fontSize: 16.sp,
-                //   fontFamily: fontFamily,
-                // ),
                 prefixIcon: (prefix)
                     ? prefixTxt != null
                         ? Padding(
@@ -368,7 +363,6 @@ class TextFieldWidget extends StatelessWidget {
                   fontFamily: fontFamily,
                 ),
                 hintText: hintText,
-
                 focusedBorder: InputBorder.none,
                 border: InputBorder.none,
                 disabledBorder: InputBorder.none,
