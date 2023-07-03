@@ -14,3 +14,11 @@ class SettingLanguage extends ElderlySettingEvent {
 class DeleteAccount extends ElderlySettingEvent {
   const DeleteAccount();
 }
+
+class GetVersionApp extends ElderlySettingEvent {
+  const GetVersionApp();
+}
+
+class ResetDeleteStatus extends ElderlySettingEvent {
+  const ResetDeleteStatus();
+}
