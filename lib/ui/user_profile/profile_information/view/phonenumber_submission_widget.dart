@@ -13,7 +13,6 @@ import 'package:health_application/ui/user_profile/profile_information/bloc/chan
 import 'package:health_application/ui/user_profile/profile_information/view/otp_submission_widget.dart';
 import 'package:provider/provider.dart';
 
-
 class PhoneNumberSubmissionWidget extends StatelessWidget {
   const PhoneNumberSubmissionWidget({super.key, required this.state});
 
@@ -50,15 +49,19 @@ class PhoneNumberSubmissionWidget extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  textSubtitle18Blod(
-                      'เบอร์มือถือของคุณ', ColorTheme().black87),
+                  textSubtitle18Blod('เบอร์มือถือของคุณ', ColorTheme().black87),
                   const SizedBox(
                     height: 10,
                   ),
                   TextFieldWidget.enable(
-                    text: '',
+                    text: state.phoneNumber,
                     maxLength: 10,
                     hintText: '081 234 5678',
+                    onChanged: (value) {
+                      context
+                          .read<RequestOtpBloc>()
+                          .add(RequestOtpPhoneNumberValueChanged(value: value));
+                    },
                   ),
                   const SizedBox(
                     height: 0,
@@ -68,7 +71,9 @@ class PhoneNumberSubmissionWidget extends StatelessWidget {
               ButtonGradient(
                 btnName: 'ขอรหัส OTP',
                 onClick: () {
-                  context.read<RequestOtpBloc>().add(RequestOtpSendOtpRequest());
+                  context
+                      .read<RequestOtpBloc>()
+                      .add(RequestOtpSendOtpRequest());
                 },
               )
             ],

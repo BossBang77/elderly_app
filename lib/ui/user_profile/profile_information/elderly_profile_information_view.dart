@@ -220,14 +220,22 @@ class ElderlyProfileInformationView extends StatelessWidget {
                                   hintText: 'เบอร์มือถือของคุณ',
                                   suffix: true,
                                   suffixIcon: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
+                                      onTap: () async {
+                                        String phoneNumber = await Navigator.of(
+                                                context)
+                                            .push(MaterialPageRoute(
                                                 builder: (context) =>
                                                     RequestOtpPage(),
                                                 settings: RouteSettings(
                                                     name:
                                                         'ElderlyProfileInformationView')));
+
+                                        if (phoneNumber.isNotEmpty) {
+                                          context
+                                              .read<ProfileInformationBloc>()
+                                              .add(ChangePhoneNumber(
+                                                  phoneNumber: phoneNumber));
+                                        }
                                       },
                                       child: Container(
                                         width: 80,
