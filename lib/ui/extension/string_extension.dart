@@ -292,4 +292,6 @@ extension StringExtension on String {
   String removeSpace() {
     return replaceAll(' ', '');
   }
+
+  String lastChars(int n) => substring(length - n);
 }

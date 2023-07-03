@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 abstract class RequestOtpEvent extends Equatable {
-  const RequestOtpEvent();  
+  const RequestOtpEvent();
 }
 
 class RequestOtpPhoneNumberValueChanged extends RequestOtpEvent {
@@ -40,4 +40,16 @@ class RequestOtpSendOtpConfirmation extends RequestOtpEvent {
 class RequestOtpTimerUpdated extends RequestOtpEvent {
   @override
   List<Object?> get props => [];
+}
+
+class ResetRequestOtpState extends RequestOtpEvent {
+  @override
+  List<Object?> get props => [];
+  const ResetRequestOtpState();
+}
+
+class ResetPhoneNumberSubmit extends RequestOtpEvent {
+  @override
+  List<Object?> get props => [];
+  const ResetPhoneNumberSubmit();
 }
