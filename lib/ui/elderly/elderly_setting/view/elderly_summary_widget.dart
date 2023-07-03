@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/elderly_setting/bloc/elderly_setting_bloc.dart';
 import 'package:health_application/ui/elderly/elderly_setting/view/dialog/delete_submit_dialog.dart';
@@ -17,12 +18,12 @@ class ElderlySumaryWidget extends StatelessWidget {
           // TODO: handle delete fail
         }
       },
-      builder: (context, state) {
+      builder: (BuildContext context, state) {
         return Scaffold(
           backgroundColor: color.white,
           appBar: appBar(
               onBack: () {
-                Navigator.pop(context);
+                context.pop();
               },
               title: 'การตั้งค่า'),
           body: SingleChildScrollView(
@@ -33,27 +34,24 @@ class ElderlySumaryWidget extends StatelessWidget {
               ),
               HealthMenu(
                 title: 'เวอร์ชันปัจจุบัน',
-                subtitle: '1.0.0',
+                subtitle: state.appVersion,
+                nullData: state.appVersion.isEmpty,
                 isEdit: false,
                 callback: () {},
               ),
               HealthMenu(
-                title: 'ภาษา',
-                subtitle: 'ภาษาไทย',
-                callback: () {
-                  context.read<ElderlySettingBloc>().add(SettingLanguage());
-                },
-              ),
-              HealthMenu(
                 title: 'ลบบัญชี',
                 subtitle: '',
-                callback: () {
-                  showDialog(
+                callback: () async {
+                  bool acceptDel = await showDialog(
                       context: context,
                       builder: (_) {
                         return DeleteSubmitDialog();
-                      }).then((click) {});
-                  context.read<ElderlySettingBloc>().add(DeleteAccount());
+                      }) as bool;
+
+                  if (acceptDel) {
+                    context.read<ElderlySettingBloc>().add(DeleteAccount());
+                  }
                 },
               ),
               HealthMenu(

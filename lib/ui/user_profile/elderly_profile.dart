@@ -129,10 +129,7 @@ class ElderProfileWidget extends StatelessWidget {
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/setting_profile_icon.png',
                 onClick: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ElderlySettingPage(
-                            profile: user,
-                          )));
+                  context.push(Routes.elderlySettingPage, extra: user);
                 },
                 title: 'การตั้งค่า',
               ),

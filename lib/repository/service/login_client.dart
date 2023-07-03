@@ -40,6 +40,13 @@ abstract class LoginService {
   })
   Future<HttpResponse> uploadImageProfile(@Body() FormData body);
 
+  @DELETE('/api/v1/user/terminate')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> deleteUser();
+
   @POST('/api/v1/password/change-password')
   @Headers(<String, dynamic>{
     "Accept": "application/json",
