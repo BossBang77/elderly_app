@@ -62,7 +62,14 @@ class RequestOtpPage extends StatelessWidget {
               backgroundColor: ColorTheme().white,
               appBar: appBar(
                   onBack: () {
-                    Navigator.of(context).pop('');
+                    if (state.displayState ==
+                        RequestOtpDisplayState.optSubmission) {
+                      context.read<RequestOtpBloc>().add(
+                          ChangeRequestOtpDisplayState(
+                              state: RequestOtpDisplayState.phoneSubmission));
+                    } else {
+                      Navigator.of(context).pop('');
+                    }
                   },
                   title: 'ลืมรหัสผ่าน'),
               body: BlocBuilder<RequestOtpBloc, RequestOtpState>(

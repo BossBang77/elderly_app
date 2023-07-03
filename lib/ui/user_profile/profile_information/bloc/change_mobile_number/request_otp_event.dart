@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:health_application/ui/user_profile/profile_information/bloc/change_mobile_number/request_otp_state.dart';
 
 abstract class RequestOtpEvent extends Equatable {
   const RequestOtpEvent();
@@ -52,4 +53,11 @@ class ResetPhoneNumberSubmit extends RequestOtpEvent {
   @override
   List<Object?> get props => [];
   const ResetPhoneNumberSubmit();
+}
+
+class ChangeRequestOtpDisplayState extends RequestOtpEvent {
+  final RequestOtpDisplayState state;
+  const ChangeRequestOtpDisplayState({required this.state});
+  @override
+  List<Object?> get props => [state];
 }

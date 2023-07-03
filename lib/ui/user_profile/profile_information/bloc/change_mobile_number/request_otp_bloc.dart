@@ -15,6 +15,9 @@ class RequestOtpBloc extends Bloc<RequestOtpEvent, RequestOtpState> {
     on<RequestOtpSendOtpConfirmation>(_onRequestOtpSendOtpConfirmation); //
     on<RequestOtpSendOtpRequest>(_onRequestOtpSendOtpRequest); // ขอรหัส OTP
     on<RequestOtpTimerUpdated>(_onRequestOtpTimerUpdated);
+    on<ResetRequestOtpState>(_onResetRequestOtpState);
+    on<ResetPhoneNumberSubmit>(_onResetPhoneNumberSubmit);
+    on<ChangeRequestOtpDisplayState>(_onChangeRequestOtpDisplayState);
   }
   RequestOtpRepository _requestOtpRepository = RequestOtpRepository();
   Timer? _timer;
@@ -35,11 +38,9 @@ class RequestOtpBloc extends Bloc<RequestOtpEvent, RequestOtpState> {
     var request = await _requestOtpRepository.verifyOtp(
         state.phoneNumber, state.requestOtpResponse.token, state.otp);
     request.fold((err) async {
-      print('err');
       emit(state.copyWith(
           phoneNumberSubmitState: PhoneNumberSubmitState.failure));
     }, (res) async {
-      print('success');
       emit(state.copyWith(
           phoneNumberSubmitState: PhoneNumberSubmitState.success));
       close();
@@ -96,14 +97,19 @@ class RequestOtpBloc extends Bloc<RequestOtpEvent, RequestOtpState> {
     }
   }
 
-  @override
-  Stream<RequestOtpState> mapEventToState(RequestOtpEvent event) async* {
-    if (event is ResetRequestOtpState) {
-      yield state.copyWith(requestOtpState: RequestingState.initial);
-    }
-    if (event is ResetPhoneNumberSubmit) {
-      yield state.copyWith(
-          phoneNumberSubmitState: PhoneNumberSubmitState.initial);
-    }
+  Future<void> _onResetRequestOtpState(
+      ResetRequestOtpState event, Emitter<RequestOtpState> emit) async {
+    emit(state.copyWith(requestOtpState: RequestingState.initial));
+  }
+
+  Future<void> _onResetPhoneNumberSubmit(
+      ResetPhoneNumberSubmit event, Emitter<RequestOtpState> emit) async {
+    emit(
+        state.copyWith(phoneNumberSubmitState: PhoneNumberSubmitState.initial));
+  }
+
+  Future<void> _onChangeRequestOtpDisplayState(
+      ChangeRequestOtpDisplayState event, Emitter<RequestOtpState> emit) async {
+    emit(state.copyWith(displayState: event.state));
   }
 }
