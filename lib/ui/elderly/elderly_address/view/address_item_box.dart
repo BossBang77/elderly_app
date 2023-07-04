@@ -6,6 +6,9 @@ import 'package:health_application/ui/elderly/elderly_address/view/manage_addres
 import 'package:health_application/ui/register_profile/model/addresses_detail.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+import 'package:provider/provider.dart';
+
+import '../../../google_map/cubit/google_map_cubit.dart';
 
 class AddressItemBox extends StatelessWidget {
   const AddressItemBox(
@@ -23,7 +26,7 @@ class AddressItemBox extends StatelessWidget {
       width: sized.width * 0.9,
       // height: sized.height * 0.2,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
@@ -47,6 +50,11 @@ class AddressItemBox extends StatelessWidget {
                 InkWell(
                   child: textBody2('แก้ไข', color.BlueDark2, true),
                   onTap: () {
+                    context.read<GoogleMapCubit>().initialState(
+                        lat: addressDes.latitude,
+                        lng: addressDes.longitude,
+                        addressName: addressDes.fullAddress);
+
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => ManageAddressElderly(
                             type: ManageAddressType.edit,

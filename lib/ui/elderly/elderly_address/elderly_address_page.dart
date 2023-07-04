@@ -5,6 +5,7 @@ import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
 import 'package:health_application/ui/elderly/elderly_address/view/address_item_box.dart';
 import 'package:health_application/ui/elderly/elderly_address/view/manage_address_elderly.dart';
+import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
@@ -68,6 +69,7 @@ class ElderlyAddressPage extends StatelessWidget {
                               child:
                                   textButton1('+ เพิ่มที่อยู่', color.Orange1),
                               onTap: () {
+                                context.read<GoogleMapCubit>().initialState();
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => ManageAddressElderly(
                                           type: ManageAddressType.add,

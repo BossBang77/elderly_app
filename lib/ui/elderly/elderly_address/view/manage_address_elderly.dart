@@ -102,10 +102,8 @@ class ManageAddressElderly extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: MapLocation(
-                    latLng: type == ManageAddressType.edit
-                        ? LatLng(
-                            state.location.latitude, state.location.longitude)
-                        : null,
+                    latLng:
+                        type == ManageAddressType.edit ? state.location : null,
                     onAccept: (LocationModel locate) {
                       context
                           .read<ElderlyAddressBloc>()

@@ -18,7 +18,7 @@ class MapLocation extends StatelessWidget {
 
   final Function(LocationModel) onAccept;
   final bool enableSearch;
-  final LatLng? latLng;
+  final LocationModel? latLng;
 
   Completer<GoogleMapController> _controller = Completer();
   double userLati = 0;
