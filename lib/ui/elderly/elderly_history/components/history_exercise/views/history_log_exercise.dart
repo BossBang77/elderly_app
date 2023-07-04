@@ -92,7 +92,7 @@ class HistoryLogExerciseWidget extends StatelessWidget {
               height: 20,
             ),
             HistoryExerciseBox(
-              exercises: mockExercise,
+              exercises: state.exerciseLogData,
             ),
             const SizedBox(
               height: 50,
