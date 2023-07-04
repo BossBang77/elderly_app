@@ -50,10 +50,9 @@ class RegisterRepository {
         return Left(false);
       }
     } on DioError catch (error) {
-      print(error.response);
       if (error.response?.statusCode == StatusCode.fileNotFound) {
         print('${error.response?.statusCode} $error');
-        return const Right(false);
+        return const Right(true);
       } else if (error.response?.statusCode == StatusCode.failure) {
         print('Error 500 $error');
         return Left(false);
