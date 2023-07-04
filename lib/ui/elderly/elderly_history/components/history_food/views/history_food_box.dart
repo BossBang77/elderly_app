@@ -59,7 +59,7 @@ class HistoryFoodBox extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     // TODO: Display picture base64 or not ?
                     child: Image.asset(
-                      'assets/images/food_1.png',
+                      food.image,
                       fit: BoxFit.contain,
                       scale: 3,
                     ),
@@ -69,9 +69,9 @@ class HistoryFoodBox extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      textSubtitle16W500(food.foodName, color.black87),
+                      textSubtitle16W500(food.name, color.black87),
                       textSubtitle15w400(
-                          '${food.size} ${food.unit} : ${food.calories} kcal ',
+                          '${food.unit} จาน : ${food.calories} kcal ',
                           color.black87),
                     ],
                   )
