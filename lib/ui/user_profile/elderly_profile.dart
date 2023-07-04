@@ -78,7 +78,8 @@ class ElderProfileWidget extends StatelessWidget {
                       extra: state.userProfile);
                 },
                 title: 'ข้อมูลส่วนตัว',
-                sufficTxt: 'ยังไม่ยืนยัน',
+                sufficTxt:
+                    state.userProfile.profile.isVerify ? '' : 'ยังไม่ยืนยัน',
               ),
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/health_profile_icon.png',
@@ -103,9 +104,7 @@ class ElderProfileWidget extends StatelessWidget {
                 img: 'assets/images/profile_menu_icon/home_profile_icon.png',
                 onClick: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ElderlyAddressPage(
-                            profile: user,
-                          )));
+                      builder: (context) => ElderlyAddressPage()));
                 },
                 title: 'ที่อยู่ของคุณ',
               ),

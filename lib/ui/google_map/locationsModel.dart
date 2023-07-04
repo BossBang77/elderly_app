@@ -1,6 +1,7 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:health_application/ui/register_profile/model/addresses_detail.dart';
 
 class Locations {
   double latitude;
@@ -44,5 +45,28 @@ class Locations {
       return title;
     }
     return '';
+  }
+
+  Future<AddressDetailModel> getAddressDetailModel(LatLng latLng) async {
+    AddressDetailModel address = AddressDetailModel();
+
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        latLng.latitude, latLng.longitude,
+        localeIdentifier: 'th');
+    if (placemarks != null && placemarks.isNotEmpty) {
+      Placemark place = placemarks.first;
+      String title =
+          '${place.name ?? ''}  ${place.subLocality} ${place.locality ?? ''} ${place.country ?? ''} ${place.postalCode ?? ''}';
+
+      address = AddressDetailModel(
+        addressNo: place.name ?? '',
+        subDistrict: place.subLocality ?? '',
+        district: place.locality ?? '',
+        postalCode: place.postalCode ?? '',
+        country: place.country ?? '',
+        road: place.street ?? '',
+      );
+    }
+    return address;
   }
 }

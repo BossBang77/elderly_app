@@ -14,11 +14,22 @@ class LocationChange extends ElderlyAddressEvent {
 }
 
 class onAcceptLocation extends ElderlyAddressEvent {
-  onAcceptLocation();
+  final int index;
+  final ManageAddressType type;
+
+  onAcceptLocation({this.index = 0, required this.type});
 }
 
 class ManageAddress extends ElderlyAddressEvent {
   ManageAddress({required this.type});
 
   final ManageAddressType type;
+}
+
+class GetProfile extends ElderlyAddressEvent {
+  GetProfile();
+}
+
+class ResetState extends ElderlyAddressEvent {
+  ResetState();
 }
