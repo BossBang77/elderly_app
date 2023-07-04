@@ -55,7 +55,7 @@ class RegisterProfileState extends Equatable {
       this.textFilterDisease = '',
       this.textFilterAllergies = '',
       this.volunteerCode = '',
-      this.isNotExisting = false});
+      this.isNotExisting = true});
   final ProfileView profileView;
   final ProfileType profileType;
   final BMIDetail bmiDetail;

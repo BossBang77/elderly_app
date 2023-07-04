@@ -16,6 +16,7 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserProfileBloc>().add(GetUserProfile());
     return BlocConsumer<UserProfileBloc, UserProfileState>(
         listener: (context, state) async {
       if (state.logoutStatus == LogoutStatus.success) {
@@ -36,7 +37,6 @@ class UserProfilePage extends StatelessWidget {
         }
       }
     }, builder: (BuildContext context, UserProfileState state) {
-      context.read<UserProfileBloc>().add(GetUserProfile());
       if (state.userProfile.role == RoleType.ROLE_USER_ELDERLY.name) {
         return ElderProfileWidget(state: state);
       } else {
