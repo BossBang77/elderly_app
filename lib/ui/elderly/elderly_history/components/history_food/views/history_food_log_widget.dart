@@ -95,7 +95,7 @@ class HistoryFoodLogWidget extends StatelessWidget {
             HistoryFoodBox(
               title: 'อาหารเช้า',
               type: LunchIcon.breakfast,
-              foods: mockFoodData,
+              foods: state.foodLogData.breakfast,
             ),
             const SizedBox(
               height: 20,
@@ -103,7 +103,7 @@ class HistoryFoodLogWidget extends StatelessWidget {
             HistoryFoodBox(
               title: 'อาหารกลางวัน',
               type: LunchIcon.lunch,
-              foods: [],
+              foods: state.foodLogData.lunch,
             ),
             const SizedBox(
               height: 20,
@@ -111,7 +111,7 @@ class HistoryFoodLogWidget extends StatelessWidget {
             HistoryFoodBox(
               title: 'อาหารว่าง',
               type: LunchIcon.snack,
-              foods: [],
+              foods: state.foodLogData.snack,
             ),
             const SizedBox(
               height: 20,
@@ -119,7 +119,7 @@ class HistoryFoodLogWidget extends StatelessWidget {
             HistoryFoodBox(
               title: 'อาหารเย็น',
               type: LunchIcon.dinner,
-              foods: [],
+              foods: state.foodLogData.dinner,
             ),
           ],
         );

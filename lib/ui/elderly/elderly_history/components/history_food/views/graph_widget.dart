@@ -85,20 +85,24 @@ class _GraphWidgetState extends State<GraphWidget> {
 
     Widget bottomTitleWidgets(double index, TitleMeta meta) {
       String text = '';
-      if (widget.rangeType == GraphRangeType.oneWeek) {
-        var item = widget.data[index.toInt()];
-        text = item.date.isNotEmpty
-            ? DateTime.parse(item.date).toDisplayShortDate(locale: 'th')
-            : '';
-      } else {
-        var average = (widget.data.length / 2).ceil();
-        var listIndDisplay = [0, average, widget.data.length - 1];
-        if (listIndDisplay.contains(index)) {
+      if (widget.data.isNotEmpty) {
+        if (widget.rangeType == GraphRangeType.oneWeek) {
           var item = widget.data[index.toInt()];
           text = item.date.isNotEmpty
               ? DateTime.parse(item.date).toDisplayShortDate(locale: 'th')
               : '';
+        } else {
+          var average = (widget.data.length / 2).ceil();
+          var listIndDisplay = [0, average, widget.data.length - 1];
+          if (listIndDisplay.contains(index)) {
+            var item = widget.data[index.toInt()];
+            text = item.date.isNotEmpty
+                ? DateTime.parse(item.date).toDisplayShortDate(locale: 'th')
+                : '';
+          }
         }
+      } else {
+        text = DateTime.now().toDisplayShortDate(locale: 'th');
       }
 
       return Container(width: 25, child: text12(text, color.black87));
@@ -234,11 +238,22 @@ class _GraphWidgetState extends State<GraphWidget> {
       children: [
         Flexible(
           flex: 8,
-          child: LineChart(
-            lineData(),
-            swapAnimationDuration: const Duration(milliseconds: 150),
-            swapAnimationCurve: Curves.linear,
-          ),
+          child: widget.data.isNotEmpty
+              ? LineChart(
+                  lineData(),
+                  swapAnimationDuration: const Duration(milliseconds: 150),
+                  swapAnimationCurve: Curves.linear,
+                )
+              : Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      textSubtitle16W500('ไม่พบข้อมูล', color.greyText),
+                    ],
+                  ),
+                ),
         ),
       ],
     );

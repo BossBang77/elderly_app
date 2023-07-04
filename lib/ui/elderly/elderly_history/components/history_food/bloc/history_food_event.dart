@@ -7,6 +7,14 @@ class HistoryFoodEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class GetSummaryFood extends HistoryFoodEvent {
+  const GetSummaryFood();
+}
+
+class GetHistoryLogFood extends HistoryFoodEvent {
+  const GetHistoryLogFood();
+}
+
 class onTabChange extends HistoryFoodEvent {
   const onTabChange({required this.tabIndex});
 
