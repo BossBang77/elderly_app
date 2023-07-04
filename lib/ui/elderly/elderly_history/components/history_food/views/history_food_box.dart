@@ -57,6 +57,7 @@ class HistoryFoodBox extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
+                    // TODO: Display picture base64 or not ?
                     child: Image.asset(
                       'assets/images/food_1.png',
                       fit: BoxFit.contain,

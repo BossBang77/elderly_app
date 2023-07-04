@@ -26,7 +26,7 @@ class ElderlyHistoryPage extends StatelessWidget {
                 height: 20,
               ),
               HealthMenu(
-                title: 'บันทึกมื้ออหาร',
+                title: 'บันทึกมื้ออาหาร',
                 subtitle: '',
                 callback: () {
                   context.go(Routes.elderlyHistoryFood);

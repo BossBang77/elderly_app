@@ -22,12 +22,12 @@ class HistoryExercisePage extends StatelessWidget {
           title: 'บันทึกการออกกำลังกาย'),
       body: SingleChildScrollView(
         child: BlocProvider(
-          create: (context) => HistoryExerciseBloc(),
+          create: (_) => HistoryExerciseBloc(),
           child: BlocConsumer<HistoryExerciseBloc, HistoryExerciseState>(
-            listener: (context, state) {
+            listener: (BuildContext context, HistoryExerciseState state) {
               // TODO: implement listener
             },
-            builder: (context, state) {
+            builder: (BuildContext context, HistoryExerciseState state) {
               return Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.only(left: 20, right: 20),

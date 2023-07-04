@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/bloc/history_food_bloc.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/common/item_constant.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/elderly_food_model.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/graph_model.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/mock_graph_data.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/views/graph_widget.dart';
 import 'package:health_application/ui/extension/extension.dart';
@@ -40,20 +42,23 @@ class SummaryFoodWidget extends StatelessWidget {
       }
     }
 
-    // double getNutrientRangeInterval(String type) {
-    //   switch (type) {
-    //     case 'P':
-    //       return
-    //     case GraphRangeType.oneMonth:
-    //       return DateTime.now().toDisplayDateByMonth(locale: 'th');
-    //     default:
-    //       return '';
-    //   }
-    // }
+    List<GraphModel> getNutrientsData(String type, ElderlyFoodModel data) {
+      if (type == NutrientsEnum.Protein.name) {
+        return data.protein;
+      } else if (type == NutrientsEnum.Carb.name) {
+        return data.carb;
+      } else if (type == NutrientsEnum.Fat.name) {
+        return data.fat;
+      } else if (type == NutrientsEnum.Sugar.name) {
+        return data.sugar;
+      } else {
+        return [];
+      }
+    }
 
     return BlocConsumer<HistoryFoodBloc, HistoryFoodState>(
-      listener: (context, state) {},
-      builder: (context, state) {
+      listener: (BuildContext context, HistoryFoodState state) {},
+      builder: (BuildContext context, HistoryFoodState state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -110,9 +115,7 @@ class SummaryFoodWidget extends StatelessWidget {
                 Container(
                   height: 300,
                   child: GraphWidget(
-                    data: state.currentRange == GraphRangeType.oneWeek
-                        ? mockGraphWeek
-                        : mockGraphMonth,
+                    data: state.foodData.calories,
                     leftTitleRange: 200,
                     bottomTitleRange: 1,
                     rangeType: state.currentRange,
@@ -152,9 +155,8 @@ class SummaryFoodWidget extends StatelessWidget {
                 Container(
                   height: 300,
                   child: GraphWidget(
-                    data: state.currentNutrient == 'P'
-                        ? mockProteinWeek
-                        : mockCarbWeek,
+                    data:
+                        getNutrientsData(state.currentNutrient, state.foodData),
                     leftTitleRange: 20,
                     bottomTitleRange: 1,
                     rangeType: state.currentRange,
