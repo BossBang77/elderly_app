@@ -4,7 +4,7 @@ part 'graph_model.g.dart';
 
 @JsonSerializable()
 class GraphModel {
-  const GraphModel({this.date = '', this.value = 0, this.amount = 0});
+  const GraphModel({this.date = '', this.value = 0});
 
   ///convert from json
   factory GraphModel.fromJson(Map<String, dynamic> json) =>
@@ -12,5 +12,4 @@ class GraphModel {
 
   final String date;
   final double value;
-  final double amount;
 }

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
-import 'package:health_application/ui/elderly/elderly_history/components/history_food/bloc/history_food_bloc.dart';
-import 'package:health_application/ui/elderly/elderly_history/components/history_food/common/item_constant.dart';
-import 'package:health_application/ui/elderly/elderly_history/components/history_food/views/summary_food.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
+import 'bloc/history_food_bloc.dart';
+import 'common/item_constant.dart';
 import 'views/history_food_log_widget.dart';
+import 'views/summary_food.dart';
 
 class HistoryFoodPage extends StatelessWidget {
   const HistoryFoodPage({super.key});
@@ -24,12 +24,12 @@ class HistoryFoodPage extends StatelessWidget {
           title: 'บันทึกมื้ออาหาร'),
       body: SingleChildScrollView(
         child: BlocProvider(
-          create: (context) => HistoryFoodBloc(),
+          create: (_) => HistoryFoodBloc()..add(GetSummaryFood()),
           child: BlocConsumer<HistoryFoodBloc, HistoryFoodState>(
-            listener: (context, state) {
+            listener: (BuildContext context, HistoryFoodState state) {
               // TODO: implement listener
             },
-            builder: (context, state) {
+            builder: (BuildContext context, HistoryFoodState state) {
               return Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.only(left: 20, right: 20),

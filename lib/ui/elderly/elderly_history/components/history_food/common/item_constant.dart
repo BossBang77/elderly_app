@@ -1,9 +1,10 @@
 import 'package:health_application/ui/base/model/dropdown_model.dart';
 
-const List<DropdownModel> selectNutrients = [
-  DropdownModel(code: 'P', desc: 'โปรตีน (g)'),
-  DropdownModel(code: 'C', desc: 'คาร์บ (g)'),
-  DropdownModel(code: 'F', desc: 'ไขมัน (g)'),
+List<DropdownModel> selectNutrients = [
+  DropdownModel(code: NutrientsEnum.Protein.name, desc: 'โปรตีน (g)'),
+  DropdownModel(code: NutrientsEnum.Carb.name, desc: 'คาร์บ (g)'),
+  DropdownModel(code: NutrientsEnum.Fat.name, desc: 'ไขมัน (g)'),
+  DropdownModel(code: NutrientsEnum.Sugar.name, desc: 'น้ำตาล (g)'),
 ];
 
 String getNutrientDesc(String code) {
@@ -27,3 +28,27 @@ enum LunchIcon {
   snack,
   dinner,
 }
+
+enum NutrientsEnum {
+  Protein,
+  Carb,
+  Fat,
+  Sugar,
+}
+
+// extension Nutrients on NutrientsEnum {
+//   String get name {
+//     switch (this) {
+//       case NutrientsEnum.Protein:
+//         return 'Protein';
+//       case NutrientsEnum.Carb:
+//         return 'Carb';
+//       case NutrientsEnum.Fat:
+//         return 'Fat';
+//       case NutrientsEnum.Sugar:
+//         return 'Sugar';
+//       default:
+//         return '';
+//     }
+//   }
+// }
