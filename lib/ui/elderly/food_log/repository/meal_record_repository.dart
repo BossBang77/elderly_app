@@ -22,7 +22,8 @@ abstract class MealRecordRepositoryProtocol {
 
   //function
   Future<Either<Failure, MealRecordResponse>> getMealRecord();
-  Future<Either<Failure, HttpResponse>> saveMealRecord(SaveMealRecordRequest request);
+  Future<Either<Failure, HttpResponse>> saveMealRecord(
+      SaveMealRecordRequest request);
   List<MealRecordItem> getCurrentMealListFrom(MealType mealType);
   void setMealListWith(MealType mealType, List<MealRecordItem> meals);
   void addMeal(MealRecordItem meal, MealType toMealType);
@@ -32,8 +33,9 @@ abstract class MealRecordRepositoryProtocol {
 
 class MealRecordRepository implements MealRecordRepositoryProtocol {
   final NetworkProvider networkProvider = NetworkProvider();
-  late final MealRecordService _mealRecordService = MealRecordService(networkProvider.dioClient());
-  
+  late final MealRecordService _mealRecordService =
+      MealRecordService(networkProvider.dioClient());
+
   final StreamController streamController = StreamController();
   MealRecordStreamProtocol breakfast = MealRecordStream();
   MealRecordStreamProtocol lunch = MealRecordStream();
@@ -61,10 +63,18 @@ class MealRecordRepository implements MealRecordRepositoryProtocol {
   }
 
   void updateStreamWithResponse(MealRecordResponse response) {
-    breakfast.updateItemList(response.data.breakfast.map((meal) => MealRecordItem.fromResponse(meal)).toList());
-    lunch.updateItemList(response.data.lunch.map((meal) => MealRecordItem.fromResponse(meal)).toList());
-    snack.updateItemList(response.data.snack.map((meal) => MealRecordItem.fromResponse(meal)).toList());
-    dinner.updateItemList(response.data.dinner.map((meal) => MealRecordItem.fromResponse(meal)).toList());
+    breakfast.updateItemList(response.data.breakfast
+        .map((meal) => MealRecordItem.fromResponse(meal))
+        .toList());
+    lunch.updateItemList(response.data.lunch
+        .map((meal) => MealRecordItem.fromResponse(meal))
+        .toList());
+    snack.updateItemList(response.data.snack
+        .map((meal) => MealRecordItem.fromResponse(meal))
+        .toList());
+    dinner.updateItemList(response.data.dinner
+        .map((meal) => MealRecordItem.fromResponse(meal))
+        .toList());
     MealType.values.forEach((mealType) {
       final stream = mealRecordStreamFor(mealType);
       stream.createSnapshot(stream.value);
@@ -74,31 +84,40 @@ class MealRecordRepository implements MealRecordRepositoryProtocol {
   List<MealRecordItem> getCurrentMealListFrom(MealType mealType) {
     return mealRecordStreamFor(mealType).value;
   }
-  
+
   void setMealListWith(MealType mealType, List<MealRecordItem> meals) {
     mealRecordStreamFor(mealType).updateItemList(meals);
   }
 
   void addMeal(MealRecordItem meal, MealType toMealType) {
-    List<MealRecordItem> mealRecordList = List.from(mealRecordStreamFor(toMealType).value);
+    List<MealRecordItem> mealRecordList =
+        List.from(mealRecordStreamFor(toMealType).value);
     mealRecordList.add(meal);
     mealRecordStreamFor(toMealType).updateItemList(mealRecordList);
   }
 
   MealRecordStreamProtocol mealRecordStreamFor(MealType mealType) {
     switch (mealType) {
-      case MealType.breakfast: return breakfast;
-      case MealType.lunch: return lunch;
-      case MealType.dinner: return dinner;
-      case MealType.snack: return snack;
+      case MealType.breakfast:
+        return breakfast;
+      case MealType.lunch:
+        return lunch;
+      case MealType.dinner:
+        return dinner;
+      case MealType.snack:
+        return snack;
     }
   }
-  
+
   @override
-  Future<Either<Failure, HttpResponse>> saveMealRecord(SaveMealRecordRequest request) async {
+  Future<Either<Failure, HttpResponse>> saveMealRecord(
+      SaveMealRecordRequest request) async {
     try {
-      final response = await _mealRecordService.saveMealRecord(request.toJson());
-      if (response.response.statusCode == StatusCode.success || response.response.statusCode == 201) {
+      final response =
+          await _mealRecordService.saveMealRecord(request.toJson());
+
+      if (response.response.statusCode == StatusCode.success ||
+          response.response.statusCode == 201) {
         return Right(response);
       }
     } on DioError catch (error) {
@@ -108,19 +127,28 @@ class MealRecordRepository implements MealRecordRepositoryProtocol {
     return Left(Failure(''));
   }
 
-  @override 
+  @override
   SaveMealRecordRequest createRequestFromMealStream() {
     return SaveMealRecordRequest(
-      breakfast: breakfast.value.map((meal) => MealRecordRequestItem.fromMealRecordItem(meal)).toList(),
-      lunch: lunch.value.map((meal) => MealRecordRequestItem.fromMealRecordItem(meal)).toList(),
-      snack: snack.value.map((meal) => MealRecordRequestItem.fromMealRecordItem(meal)).toList(),
-      dinner: dinner.value.map((meal) => MealRecordRequestItem.fromMealRecordItem(meal)).toList(),
+      breakfast: breakfast.value
+          .map((meal) => MealRecordRequestItem.fromMealRecordItem(meal))
+          .toList(),
+      lunch: lunch.value
+          .map((meal) => MealRecordRequestItem.fromMealRecordItem(meal))
+          .toList(),
+      snack: snack.value
+          .map((meal) => MealRecordRequestItem.fromMealRecordItem(meal))
+          .toList(),
+      dinner: dinner.value
+          .map((meal) => MealRecordRequestItem.fromMealRecordItem(meal))
+          .toList(),
     );
   }
 
-  @override 
+  @override
   void removeMeal(MealType mealType, int atIndex) {
-    List<MealRecordItem> mealRecordList = List.from(mealRecordStreamFor(mealType).value);
+    List<MealRecordItem> mealRecordList =
+        List.from(mealRecordStreamFor(mealType).value);
     mealRecordList.removeAt(atIndex);
     mealRecordStreamFor(mealType).updateItemList(mealRecordList);
   }

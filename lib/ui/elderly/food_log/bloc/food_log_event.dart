@@ -45,3 +45,7 @@ class FoodLogMealItemRemoved extends FoodLogEvent {
   @override
   List<Object> get props => [index];
 }
+
+class ResetStateOfSaved extends FoodLogEvent {
+  const ResetStateOfSaved();
+}
