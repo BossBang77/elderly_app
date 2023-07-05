@@ -2,13 +2,12 @@ import 'package:health_application/ui/elderly/food_log/model/response/meal_recor
 import 'package:health_application/ui/elderly/food_search/model/response/food_search_item.dart';
 
 class MealRecordItem {
-  const MealRecordItem({
-    this.code = '',
-    this.unit = 0,
-    this.calorie = 0,
-    this.name = '',
-    this.image = ''
-  });
+  const MealRecordItem(
+      {this.code = '',
+      this.unit = 0,
+      this.calorie = 0,
+      this.name = '',
+      this.image = ''});
 
   final String code;
   final int unit;
@@ -18,20 +17,19 @@ class MealRecordItem {
 
   factory MealRecordItem.fromResponse(MealRecordResponseItem meal) {
     return MealRecordItem(
-      code: meal.code,
-      unit: meal.unit,
-      calorie: meal.calorie,
-      name: meal.mame
-    );
+        code: meal.code,
+        unit: meal.unit,
+        calorie: meal.calorie,
+        name: meal.mame,
+        image: meal.image);
   }
 
   factory MealRecordItem.fromSearch(FoodSearchItem meal) {
     return MealRecordItem(
-      code: meal.code,
-      unit: 1,
-      calorie: meal.calorie,
-      name: meal.name,
-      image: meal.image
-    );
+        code: meal.code,
+        unit: 1,
+        calorie: meal.calorie,
+        name: meal.name,
+        image: meal.image);
   }
 }

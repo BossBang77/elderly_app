@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_application/ui/base/widget/image_notfound.dart';
 import 'package:health_application/ui/elderly/food/model/food/food.dart';
 import 'package:health_application/ui/elderly/food/model/nutrition_unit/nutrient_unit.dart';
 import 'package:health_application/ui/elderly/food/model/nutritions/nutrient.dart';
@@ -42,35 +43,16 @@ class FoodListItemView extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                  width: 80,
-                  height: 80,
-                  child: image.isNotEmpty
-                      ? Image.network(
-                          image.isEmpty ? image : '',
-                          width: 50,
-                          height: 50,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              alignment: Alignment.topCenter,
-                              width: 50,
-                              height: 50,
-                              // margin: EdgeInsets.only(top: 150),
-                              child: Center(
-                                  child: textOverline2(
-                                      'Image NotFound', color.greyText)),
-                            );
-                          },
-                        )
-                      : Container(
-                          alignment: Alignment.topCenter,
-                          width: 50,
-                          height: 50,
-                          // margin: EdgeInsets.only(top: 150),
-                          child: Center(
-                              child: textOverline2(
-                                  'Image NotFound', color.greyText)),
-                        )),
+              image.isNotEmpty
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(
+                        image,
+                        width: 75,
+                        height: 75,
+                        fit: BoxFit.cover,
+                      ))
+                  : ImageNotFound(),
               SizedBox(width: 25),
               Expanded(
                 child: Column(
