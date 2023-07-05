@@ -11,7 +11,8 @@ class MealLogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MealLogWidgetIconImageProvider? iconImageProvider = meal.mealType.optionalCast();
+    final MealLogWidgetIconImageProvider? iconImageProvider =
+        meal.mealType.optionalCast();
     final String iconImage = iconImageProvider?.iconImage ?? '';
 
     return Container(
@@ -19,9 +20,8 @@ class MealLogWidget extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(16, 10, 16, 10),
       padding: EdgeInsets.only(left: 30, right: 30),
       decoration: BoxDecoration(
-        color: ColorTheme().greybackground5,
-        borderRadius: BorderRadius.circular(12)
-      ),
+          color: ColorTheme().greybackground5,
+          borderRadius: BorderRadius.circular(12)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -33,14 +33,13 @@ class MealLogWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 textSubtitle2(meal.mealType.name, ColorTheme().black87, false),
-                textBody2("แคลอรี่ : " + meal.calories.toString(), ColorTheme().black87, false),
+                textBody2("แคลอรี่ : " + meal.calories.toString() + ' kcal',
+                    ColorTheme().black87, false),
               ],
             ),
           ),
           GestureDetector(
-            onTap: () => {
-              onAddButtonTapped?.call(meal.mealType)
-            },
+            onTap: () => {onAddButtonTapped?.call(meal.mealType)},
             child: Container(
               height: 15,
               width: 15,
