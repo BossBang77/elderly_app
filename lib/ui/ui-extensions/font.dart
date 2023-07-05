@@ -85,10 +85,12 @@ Widget textSubtitle1(String text, Color color) {
           fontWeight: FontWeight.w500));
 }
 
-Widget textSubtitle2(String text, Color color, bool center) {
+Widget textSubtitle2(String text, Color color, bool center, {int maxLine = 1}) {
   return Text(text,
       textAlign: (center) ? TextAlign.center : TextAlign.start,
       softWrap: true,
+      overflow: TextOverflow.ellipsis,
+      maxLines: maxLine,
       style: TextStyle(
           color: color,
           fontSize: 15.sp,
