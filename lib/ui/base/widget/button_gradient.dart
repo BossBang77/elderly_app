@@ -16,19 +16,14 @@ class ButtonGradient extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 55,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              ColorTheme().BlueDark,
-              ColorTheme().BlueDark,
-              ColorTheme().BlueDark,
-              ColorTheme().BlueDark,
-              ColorTheme().BlueDark,
-              ColorTheme().Blue,
-            ],
+        decoration: ShapeDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment(1.00, 0.02),
+            end: Alignment(-1, -0.02),
+            colors: [Color(0xFF437ECB), Color(0xFF4AB4C0)],
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
         ),
         child: Center(
