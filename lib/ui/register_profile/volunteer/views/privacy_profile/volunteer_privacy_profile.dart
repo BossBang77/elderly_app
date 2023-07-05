@@ -47,7 +47,7 @@ class VolunteerPrivacyProfile extends StatelessWidget {
                 text: user.username,
                 maxLength: 10,
                 textNumberType: true,
-                hintText: '081 234 5678',
+                hintText: 'เบอร์มือถือของคุณ',
                 errorText: !state.isNotExisting &&
                         state.registerModel.username.length == 10
                     ? 'เบอร์มือถือนี้ลงทะเบียนแล้ว'

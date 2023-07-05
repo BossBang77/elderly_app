@@ -64,7 +64,6 @@ class ElderlyProfileInformationView extends StatelessWidget {
                     )) as bool;
 
             if (acceptClose) {
-              context.read<UserProfileBloc>().add(GetUserProfile());
               context.read<ProfileInformationBloc>().add(InitialSubmitStatus());
             }
           }
