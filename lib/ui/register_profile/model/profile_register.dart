@@ -48,7 +48,7 @@ class ProfileRegisterModel {
   final String citizenId;
 
   @JsonKey(
-    name: 'birthDate',
+    name: 'birthdate',
   )
   final String birthDate;
   @JsonKey(
