@@ -77,7 +77,7 @@ class ApiInterceptors extends QueuedInterceptor {
 
       case DioErrorType.response:
         if (error.response?.statusCode == 401 &&
-            !ByPassAuten401().isByPassAuten401(error.requestOptions.path)) {
+            !ByPassAuth401().isByPassAuten401(error.requestOptions.path)) {
           var accessToken = await UserSecureStorage().getAccessToken();
           if (accessToken != '') {
             var res = await refreshToken();
@@ -206,7 +206,7 @@ class PlublicRequest {
   }
 }
 
-class ByPassAuten401 {
+class ByPassAuth401 {
   static String get changePassword => '/api/v1/password/change-password';
 
   bool isByPassAuten401(String url) {
