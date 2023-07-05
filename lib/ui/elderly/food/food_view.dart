@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
+import 'package:health_application/ui/elderly/food/bloc/food_page/food_page_event.dart';
 import 'package:health_application/ui/elderly/food/food_page.dart';
 import 'package:health_application/ui/elderly/food/model/food/food.dart';
 import 'package:health_application/ui/elderly/food/model/nutritions/calories.dart';
@@ -23,9 +24,6 @@ import 'package:health_application/ui/elderly/food/views/search_box/search_box.d
 import 'package:health_application/ui/elderly/food_search/food_search_page.dart';
 import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
-import 'package:health_application/ui/ui-extensions/font.dart';
-
-import '../../base/routes.dart';
 import '../../home_page/bloc/home_page_bloc.dart';
 
 class FoodView extends StatefulWidget {
@@ -149,7 +147,8 @@ class _FoodViewState extends State<FoodView> {
                                     children: state.meals
                                         .map<Widget>((meal) => MealLogWidget(
                                             meal: meal,
-                                            onAddButtonTapped: (mealType) {
+                                            onAddButtonTapped:
+                                                (mealType) async {
                                               meal.foods
                                                   .map((food) => Food(
                                                       code: food.code,
@@ -160,15 +159,22 @@ class _FoodViewState extends State<FoodView> {
                                                           Calories(value: 0)))
                                                   .toList();
 
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          FoodLogPage(
-                                                              mealType: meal
-                                                                  .mealType),
-                                                      settings: RouteSettings(
-                                                          name:
-                                                              'FoodLogPage')));
+                                              bool res = await Navigator.of(
+                                                          context)
+                                                      .push(MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              FoodLogPage(
+                                                                  mealType: meal
+                                                                      .mealType),
+                                                          settings: RouteSettings(
+                                                              name:
+                                                                  'FoodLogPage')))
+                                                  as bool;
+
+                                              if (res) {
+                                                context.read<FoodPageBloc>().add(
+                                                    FoodPageMealRecordFetched());
+                                              }
                                             }))
                                         .toList()),
                                 const SizedBox(

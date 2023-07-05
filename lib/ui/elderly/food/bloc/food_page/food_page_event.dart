@@ -12,10 +12,8 @@ abstract class FoodPageEvent extends Equatable {
 class FoodPageMealRecordFetched extends FoodPageEvent {}
 
 class FoodPageOnMealRecordUpdated extends FoodPageEvent {
-  const FoodPageOnMealRecordUpdated({
-    required this.mealType,
-    required this.items
-  });
+  const FoodPageOnMealRecordUpdated(
+      {required this.mealType, required this.items});
 
   final MealType mealType;
   final List<MealRecordItem> items;
