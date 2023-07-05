@@ -23,3 +23,11 @@ class OnSelectDateChange extends HistoryDrinkingEvent {
   const OnSelectDateChange({required this.date});
   final String date;
 }
+
+class GetSummaryDrinkingWater extends HistoryDrinkingEvent {
+  const GetSummaryDrinkingWater();
+}
+
+class GetLogDrinkingWater extends HistoryDrinkingEvent {
+  const GetLogDrinkingWater();
+}

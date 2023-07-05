@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/ui/base/model/status_code.dart';
 import 'package:health_application/ui/base/network_provider.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_drinking/model/elderly_history_drinking_response.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_drinking/model/elderly_log_drinking_response.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/model/elderly_history_exercise_response.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/model/elderly_log_exercise_response.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/elderly_history_food_response.dart';
@@ -93,6 +95,50 @@ class ElderlyHistoryRepository {
 
       if (req.response.statusCode == StatusCode.success) {
         return Right(ElderlyLogExerciseResponse.fromJson(data));
+      }
+    } on DioError catch (error) {
+      if (error.response?.statusCode == StatusCode.notFound) {
+        print('Error 400 $error');
+        return const Left(Failure(''));
+      } else if (error.response?.statusCode == StatusCode.failure) {
+        print('Error 500 $error');
+        return const Left(Failure(''));
+      }
+    }
+    return const Left(Failure(''));
+  }
+
+  Future<Either<Failure, ElderlyHistoryDrinkingResponse>>
+      getSummaryDrinkingWater(String startDate, String endDate) async {
+    try {
+      final HttpResponse req = await _elderlyHistoryService
+          .getSummaryDrinkingWater(startDate, endDate);
+      final Map<String, dynamic> data = req.data;
+
+      if (req.response.statusCode == StatusCode.success) {
+        return Right(ElderlyHistoryDrinkingResponse.fromJson(data));
+      }
+    } on DioError catch (error) {
+      if (error.response?.statusCode == StatusCode.notFound) {
+        print('Error 400 $error');
+        return const Left(Failure(''));
+      } else if (error.response?.statusCode == StatusCode.failure) {
+        print('Error 500 $error');
+        return const Left(Failure(''));
+      }
+    }
+    return const Left(Failure(''));
+  }
+
+  Future<Either<Failure, ElderlyLogDrinkingResponse>>
+      getHistoryLogDrinkingWater(String selectedDate) async {
+    try {
+      final HttpResponse req =
+          await _elderlyHistoryService.getHistoryLogDrinkingWater(selectedDate);
+      final Map<String, dynamic> data = req.data;
+
+      if (req.response.statusCode == StatusCode.success) {
+        return Right(ElderlyLogDrinkingResponse.fromJson(data));
       }
     } on DioError catch (error) {
       if (error.response?.statusCode == StatusCode.notFound) {
