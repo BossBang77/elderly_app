@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:health_application/ui/base/model/status_code.dart';
 import 'package:health_application/ui/elderly/change_password/model/request_change_password.dart';
 
 import '../../../../repository/login_repos.dart';
@@ -20,7 +21,8 @@ class ChangePasswordBloc
       yield state.copyWith(newPassword: event.newPassword);
     }
     if (event is ChangeOldPassword) {
-      yield state.copyWith(oldPassword: event.oldPassword);
+      yield state.copyWith(
+          oldPassword: event.oldPassword, oldPasswordWrong: false);
     }
     if (event is ChangeConfirmPassword) {
       yield state.copyWith(confirmPassword: event.confirmPassword);
@@ -51,9 +53,13 @@ class ChangePasswordBloc
       yield* submitChangePassword.fold((error) async* {
         yield state.copyWith(
             isLoading: false, status: ChangePasswordStatus.changeFail);
-      }, (res) async* {
-        yield state.copyWith(
-            isLoading: false, status: ChangePasswordStatus.changeSuccess);
+      }, (int res) async* {
+        if (res == StatusCode.unauthorized) {
+          yield state.copyWith(isLoading: false, oldPasswordWrong: true);
+        } else {
+          yield state.copyWith(
+              isLoading: false, status: ChangePasswordStatus.changeSuccess);
+        }
       });
     }
   }
