@@ -98,9 +98,7 @@ class HistorySummaryDrinking extends StatelessWidget {
                 Container(
                   height: 300,
                   child: GraphWidget(
-                    data: state.currentRange == GraphRangeType.oneWeek
-                        ? mockDrinkingWeek
-                        : mockDrinkingMonth,
+                    data: state.drinkingData.amountToDrink,
                     leftTitleRange: 400,
                     bottomTitleRange: 1,
                     rangeType: state.currentRange,

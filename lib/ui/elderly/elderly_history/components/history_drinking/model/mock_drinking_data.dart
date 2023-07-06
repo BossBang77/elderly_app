@@ -46,7 +46,8 @@ const List<GraphModel> mockDrinkingWeek = [
 ];
 
 const List<ElderlyDrinkingModel> mockDrinking = [
-  ElderlyDrinkingModel(bottleSize: '250', unit: 'แก้ว', size: '2'),
-  ElderlyDrinkingModel(bottleSize: '600', unit: 'แก้ว', size: '2'),
-  ElderlyDrinkingModel(bottleSize: '1500', unit: 'แก้ว', size: '2'),
+  ElderlyDrinkingModel(containerCode: '250', numberOfDrink: 1, volume: 2),
+  ElderlyDrinkingModel(containerCode: '500', numberOfDrink: 1, volume: 2),
+  ElderlyDrinkingModel(containerCode: '600', numberOfDrink: 1, volume: 2),
+  ElderlyDrinkingModel(containerCode: '1500', numberOfDrink: 1, volume: 2),
 ];
