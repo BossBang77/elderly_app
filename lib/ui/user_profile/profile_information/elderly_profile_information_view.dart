@@ -53,9 +53,7 @@ class ElderlyProfileInformationView extends StatelessWidget {
             if (acceptClose) {
               context.read<ProfileInformationBloc>().add(InitialSubmitStatus());
             }
-          }
-
-          if (state.submitStatus == SubmitStatus.submitSuccess) {
+          } else if (state.submitStatus == SubmitStatus.submitSuccess) {
             final bool acceptClose = await showDialog(
                 context: context,
                 builder: (BuildContext context) => SuccessDialog(
@@ -70,8 +68,7 @@ class ElderlyProfileInformationView extends StatelessWidget {
             if (acceptClose) {
               context.read<ProfileInformationBloc>().add(InitialSubmitStatus());
             }
-          }
-          if (state.submitStatus == SubmitStatus.uploadImgFail) {
+          } else if (state.submitStatus == SubmitStatus.uploadImgFail) {
             final bool acceptClose = await showDialog(
                 context: context,
                 builder: (BuildContext context) => ErrorAlertWidget(

@@ -36,7 +36,8 @@ class ProfileInformationState extends Equatable {
       this.role = ''});
 
   @override
-  List<Object> get props => [pickedFile ?? '', isLoading, profile, role];
+  List<Object> get props =>
+      [pickedFile ?? '', isLoading, profile, role, submitStatus];
 }
 
 class ProfileInformationInitial extends ProfileInformationState {}

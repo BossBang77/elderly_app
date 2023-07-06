@@ -76,3 +76,7 @@ class ChangeBirthdate extends ProfileInformationEvent {
   @override
   List<Object> get props => [birthDate];
 }
+
+class SubmitImg extends ProfileInformationEvent {
+  const SubmitImg();
+}

@@ -21,22 +21,9 @@ class ProfileInformationBloc
   Stream<ProfileInformationState> mapEventToState(
       ProfileInformationEvent event) async* {
     if (event is UploadImageProfile) {
-      yield state.copyWith(isLoading: true);
-      File file = File(event.img!.path);
-      var res = await _loginRepository.uploadImageProfile(file);
-      yield* res.fold((err) async* {
-        // Upload img fail
-        yield state.copyWith(
-            pickedFile: XFile(''),
-            isLoading: false,
-            submitStatus: SubmitStatus.uploadImgFail);
-      }, (res) async* {
-        //upload img success
-        yield state.copyWith(
-            pickedFile: event.img,
-            isLoading: false,
-            submitStatus: SubmitStatus.uploadImgSuccess);
-      });
+      yield state.copyWith(
+        pickedFile: event.img,
+      );
     }
 
     if (event is SetIntitalData) {
@@ -78,8 +65,14 @@ class ProfileInformationBloc
         yield state.copyWith(
             isLoading: false, submitStatus: SubmitStatus.submitFail);
       }, (reso) async* {
-        yield state.copyWith(
-            isLoading: false, submitStatus: SubmitStatus.submitSuccess);
+        if (state.pickedFile != null) {
+          add(SubmitImg());
+        } else {
+          yield state.copyWith(
+            isLoading: false,
+            submitStatus: SubmitStatus.submitSuccess,
+          );
+        }
       });
     }
 
@@ -109,6 +102,22 @@ class ProfileInformationBloc
       profile = profile.copyWith(citizenId: event.citizenId);
       user = user.copyWith(profile: profile);
       yield state.copyWith(profile: user);
+    }
+
+    if (event is SubmitImg) {
+      File file = File(state.pickedFile!.path);
+      var res = await _loginRepository.uploadImageProfile(file);
+      yield* res.fold((err) async* {
+        // Upload img fail
+        yield state.copyWith(
+            isLoading: false, submitStatus: SubmitStatus.uploadImgFail);
+      }, (res) async* {
+        //upload img success
+        yield state.copyWith(
+          submitStatus: SubmitStatus.submitSuccess,
+          isLoading: false,
+        );
+      });
     }
   }
 }
