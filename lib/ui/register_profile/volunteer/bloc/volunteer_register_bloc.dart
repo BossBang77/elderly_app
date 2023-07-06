@@ -57,11 +57,7 @@ class VolunteerRegisterBloc
     }
 
     if (event is RegisterProfile) {
-      var encryptCid =
-          await EncryptData.encryptAES(state.registerData.profile.citizenId);
-      var profile = state.registerData.profile.copyWith(citizenId: encryptCid);
-      var regisModel = state.registerData.copyWith(profile: profile);
-
+      var regisModel = state.registerData;
       yield state.copyWth(status: RegisterStatus.loading);
       var submit = await _registerRepository.registerProfile(regisModel);
       yield* submit.fold((Failure error) async* {
