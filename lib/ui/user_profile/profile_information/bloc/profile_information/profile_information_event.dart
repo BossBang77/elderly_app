@@ -52,3 +52,27 @@ class SubmitProfile extends ProfileInformationEvent {
 class InitialSubmitStatus extends ProfileInformationEvent {
   const InitialSubmitStatus();
 }
+
+class ChangeGender extends ProfileInformationEvent {
+  final String gender;
+  const ChangeGender({this.gender = ''});
+
+  @override
+  List<Object> get props => [gender];
+}
+
+class ChangeCitizenId extends ProfileInformationEvent {
+  final String citizenId;
+  const ChangeCitizenId({this.citizenId = ''});
+
+  @override
+  List<Object> get props => [citizenId];
+}
+
+class ChangeBirthdate extends ProfileInformationEvent {
+  final String birthDate;
+  const ChangeBirthdate({this.birthDate = ''});
+
+  @override
+  List<Object> get props => [birthDate];
+}

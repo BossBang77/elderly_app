@@ -4,8 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:health_application/repository/login_repos.dart';
+import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../../base/encrypt/encrypt.dart';
 
 part 'profile_information_event.dart';
 part 'profile_information_state.dart';
@@ -37,10 +40,14 @@ class ProfileInformationBloc
     }
 
     if (event is SetIntitalData) {
-      print('ini');
       yield ProfileInformationState.initial();
+      yield state.copyWith(isLoading: true);
+      var role = await getRole();
       yield state.copyWith(
-          profile: event.profile, submitStatus: SubmitStatus.initial);
+          profile: event.profile,
+          submitStatus: SubmitStatus.initial,
+          isLoading: false,
+          role: role);
     }
 
     if (event is ChangeName) {
@@ -79,5 +86,38 @@ class ProfileInformationBloc
     if (event is InitialSubmitStatus) {
       yield state.copyWith(submitStatus: SubmitStatus.initial);
     }
+
+    if (event is ChangeGender) {
+      var user = state.profile;
+      var profile = user.profile;
+      profile = profile.copyWith(gender: event.gender);
+      user = user.copyWith(profile: profile);
+      yield state.copyWith(profile: user);
+    }
+
+    if (event is ChangeBirthdate) {
+      var user = state.profile;
+      var profile = user.profile;
+      profile = profile.copyWith(birthDate: event.birthDate);
+      user = user.copyWith(profile: profile);
+      yield state.copyWith(profile: user);
+    }
+
+    if (event is ChangeCitizenId) {
+      var user = state.profile;
+      var profile = user.profile;
+      profile = profile.copyWith(citizenId: event.citizenId);
+      user = user.copyWith(profile: profile);
+      yield state.copyWith(profile: user);
+    }
   }
+}
+
+Future<String> getRole() async {
+  var roleList = await UserSecureStorage().getRole();
+  return roleList[0].role;
+}
+
+bool checkValidateCitizen(String citizenId) {
+  return citizenId.length > 0 && citizenId.length < 13;
 }
