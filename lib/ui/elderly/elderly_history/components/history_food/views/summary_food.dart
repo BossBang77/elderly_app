@@ -119,6 +119,8 @@ class SummaryFoodWidget extends StatelessWidget {
                     leftTitleRange: 200,
                     bottomTitleRange: 1,
                     rangeType: state.currentRange,
+                    noDataIcon: 'assets/images/calories_icon_disable.png',
+                    noDataText: 'ไมมีบันทึกแคลอรี่',
                   ),
                 ),
               ],
@@ -160,6 +162,8 @@ class SummaryFoodWidget extends StatelessWidget {
                     leftTitleRange: 20,
                     bottomTitleRange: 1,
                     rangeType: state.currentRange,
+                    noDataIcon: 'assets/images/nutrient_icon.png',
+                    noDataText: 'ไมมีบันทึกโภชนาการ',
                   ),
                 ),
                 const SizedBox(

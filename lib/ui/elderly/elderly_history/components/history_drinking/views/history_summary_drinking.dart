@@ -102,6 +102,8 @@ class HistorySummaryDrinking extends StatelessWidget {
                     leftTitleRange: 400,
                     bottomTitleRange: 1,
                     rangeType: state.currentRange,
+                    noDataIcon: 'assets/images/drinking_disable.png',
+                    noDataText: 'ไม่มีบันทึกการดื่มน้ำ',
                   ),
                 ),
               ],
