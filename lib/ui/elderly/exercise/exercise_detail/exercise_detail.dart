@@ -177,20 +177,20 @@ class ExerciseDetail extends StatelessWidget {
                                     exerciseView: ExerciseView.vdoExercise));
                               },
                             )),
-                        const SizedBox(
-                          width: 20,
-                        ),
                         if (!checkIsSaveRecord(
                             state.recordList, state.currentInformation.code))
                           Flexible(
-                              child: ButtonBlueFade(
-                            btnName: 'บันทึก',
-                            onClick: () {
-                              context.read<ExerciseBloc>().add(
-                                  SaveExerciseRecord(
-                                      code: state.currentInformation.code,
-                                      name: state.currentInformation.name));
-                            },
+                              child: Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: ButtonBlueFade(
+                              btnName: 'บันทึก',
+                              onClick: () {
+                                context.read<ExerciseBloc>().add(
+                                    SaveExerciseRecord(
+                                        code: state.currentInformation.code,
+                                        name: state.currentInformation.name));
+                              },
+                            ),
                           ))
                       ],
                     ),
