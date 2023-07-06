@@ -95,9 +95,10 @@ class ExerciseCalculate extends StatelessWidget {
                     ButtonGradient(
                       btnName: 'บันทึกรายการ',
                       onClick: () {
-                        context
-                            .read<ExerciseBloc>()
-                            .add(SaveExerciseDaily(timePoint: timeExercise));
+                        context.read<ExerciseBloc>().add(SaveExerciseDaily(
+                            timePoint: timeExercise,
+                            code: state.currentInformation.code,
+                            name: state.currentInformation.name));
                       },
                     ),
                     const SizedBox(
