@@ -154,12 +154,6 @@ void onFiter(BuildContext context) {
                                           : '',
                                       textNumberType: true,
                                       maxLength: 100,
-                                      setError: (search.burnCalorieMax != 0 &&
-                                              search.burnCalorieMin == 0) ||
-                                          (search.burnCalorieMin >
-                                              search.burnCalorieMax),
-                                      setErrorWithOuter: true,
-                                      errorText: 'โปรดระบุ',
                                       onChanged: (value) {
                                         parent.read<ExerciseBloc>()
                                           ..add(OnFilter(
@@ -182,12 +176,6 @@ void onFiter(BuildContext context) {
                                       text: search.burnCalorieMax != 0
                                           ? search.burnCalorieMax.toString()
                                           : '',
-                                      setError: (search.burnCalorieMin != 0 &&
-                                              search.burnCalorieMax == 0) ||
-                                          (search.burnCalorieMin >
-                                              search.burnCalorieMax),
-                                      setErrorWithOuter: true,
-                                      errorText: 'โปรดระบุ',
                                       textNumberType: true,
                                       maxLength: 100,
                                       onChanged: (value) {
