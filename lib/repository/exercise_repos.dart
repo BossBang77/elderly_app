@@ -89,9 +89,7 @@ class ExerciseRepository {
     try {
       final HttpResponse req =
           await _exerciseService.saveExerciseDaily(body.toJson());
-      if (req.response.statusCode == StatusCode.success) {
-        return Right(req.response.statusCode ?? 200);
-      }
+      return Right(req.response.statusCode ?? 200);
     } on DioError catch (error) {
       if (error.response?.statusCode == StatusCode.notFound) {
         print('Error 400 $error');

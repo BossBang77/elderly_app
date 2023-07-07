@@ -151,6 +151,97 @@ class ExerciseDetail extends StatelessWidget {
                     ],
                   ),
                 ),
+                textSubtitle18Blod(currentDetail.name, ColorTheme().black87),
+                textH7(
+                  currentDetail.type,
+                  color.grey50,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                textSubtitle2(currentDetail.description, color.black87, false),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
+                  decoration: BoxDecoration(
+                      color: color.grey10,
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Image.asset(
+                            'assets/images/icon_exercise_outline.png',
+                            scale: 3.5,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          textSubtitle16Blod('ออกกำลังกาย', color.black87)
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        color: color.grey50,
+                      ),
+                      textSubtitle16Blod('ระยะเวลา', color.black87),
+                      textSubtitle15w400(
+                          'ระบุระยะเวลาที่คุณออกกำลังกาย', Colors.grey),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: sized.width,
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                            color: color.BlueBackGround,
+                            border:
+                                Border.all(color: color.Blue2.withOpacity(0.7)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
+                        child: Center(
+                            child: textSubtitle16Blod(
+                                '${currentDetail.time} นาที', color.Blue2)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              textSubtitle16Blod('แคลอรี่', color.black87),
+                              textSubtitle15w400(
+                                  'แคลอรี่ที่คุณจะได้รับ', Colors.grey),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                'assets/images/burn.png',
+                                scale: 4,
+                                color: color.Blue2,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              textSubtitle16Blod(
+                                  currentDetail.burnCalorie.toString(),
+                                  color.Blue2)
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -174,22 +265,26 @@ class ExerciseDetail extends StatelessWidget {
                                   exerciseView: ExerciseView.vdoExercise));
                             },
                           )),
-                      const SizedBox(
-                        width: 20,
-                      ),
                       if (!checkIsSaveRecord(
                           state.recordList, state.currentInformation.code))
                         Flexible(
-                            child: ButtonBlueFade(
-                          btnName: 'บันทึก',
-                          onClick: () {
-                            context.read<ExerciseBloc>().add(SaveExerciseRecord(
-                                code: state.currentInformation.code,
-                                name: state.currentInformation.name));
-                          },
+                            child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: ButtonBlueFade(
+                            btnName: 'บันทึก',
+                            onClick: () {
+                              context.read<ExerciseBloc>().add(
+                                  SaveExerciseRecord(
+                                      code: state.currentInformation.code,
+                                      name: state.currentInformation.name));
+                            },
+                          ),
                         ))
                     ],
                   ),
+                const SizedBox(
+                  height: 50,
+                ),
                 const SizedBox(
                   height: 50,
                 ),

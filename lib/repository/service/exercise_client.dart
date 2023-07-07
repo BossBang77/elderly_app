@@ -48,7 +48,7 @@ abstract class ExerciseService {
   })
   Future<HttpResponse> saveExerciseRecord(@Body() String body);
 
-  @PATCH('/api/v1/exercise/daily-activity')
+  @POST('/api/v1/exercise/activity')
   @Headers(<String, dynamic>{
     "Accept": "application/json",
     "Content-Type": "application/json",

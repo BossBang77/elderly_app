@@ -159,7 +159,9 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
 
       DailyActivityModel dailyMol = DailyActivityModel(
           burnCaloriePoint: burnCalorie,
-          timePoint: (double.tryParse(event.timePoint) ?? 0).ceil());
+          timePoint: (double.tryParse(event.timePoint) ?? 0).ceil(),
+          name: event.name,
+          code: event.code);
 
       var res = await _exerciseRepository.saveExerciseDaily(dailyMol);
       yield* res.fold((Failure err) async* {

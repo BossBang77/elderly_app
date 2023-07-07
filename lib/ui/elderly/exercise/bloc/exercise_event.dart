@@ -84,8 +84,11 @@ class GetExerciseRecord extends ExerciseEvent {
 
 class SaveExerciseDaily extends ExerciseEvent {
   final String timePoint;
-  const SaveExerciseDaily({required this.timePoint});
-  List<Object> get props => [timePoint];
+  final String name;
+  final String code;
+  const SaveExerciseDaily(
+      {required this.timePoint, required this.name, required this.code});
+  List<Object> get props => [timePoint, name, code];
 }
 
 class SaveExerciseRecordBeforeExerise extends ExerciseEvent {
