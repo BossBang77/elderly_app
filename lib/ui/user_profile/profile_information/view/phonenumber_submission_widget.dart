@@ -56,7 +56,7 @@ class PhoneNumberSubmissionWidget extends StatelessWidget {
                   TextFieldWidget.enable(
                     text: state.phoneNumber,
                     maxLength: 10,
-                    hintText: '081 234 5678',
+                    hintText: 'เบอร์มือถือของคุณ',
                     onChanged: (value) {
                       context
                           .read<RequestOtpBloc>()

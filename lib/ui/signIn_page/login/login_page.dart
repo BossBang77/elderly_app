@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
                 TextFieldWidget.enable(
                   text: _signIn.username,
                   maxLength: 10,
-                  hintText: '081 234 5678',
+                  hintText: 'เบอร์มือถือของคุณ',
                   onChanged: (value) {
                     context
                         .read<SignInBloc>()

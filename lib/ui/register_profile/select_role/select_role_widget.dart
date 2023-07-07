@@ -72,7 +72,6 @@ class SelectRoleWidget extends StatelessWidget {
                         type: FillType.role,
                         value: state.roleType.name,
                       ));
-                context.read<RegisterProfileBloc>().add(ResetRegisterModel());
                 context.read<RegisterProfileBloc>().add(
                     ChangeProfileView(profileType: ProfileType.privacyProfile));
               },
