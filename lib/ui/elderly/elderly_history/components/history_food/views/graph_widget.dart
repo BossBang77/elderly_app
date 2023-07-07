@@ -13,12 +13,16 @@ class GraphWidget extends StatefulWidget {
       required this.data,
       required this.leftTitleRange,
       required this.bottomTitleRange,
-      required this.rangeType});
+      required this.rangeType,
+      required this.noDataIcon,
+      required this.noDataText});
 
   final List<GraphModel> data;
   final double leftTitleRange;
   final double bottomTitleRange;
   final GraphRangeType rangeType;
+  final String noDataIcon;
+  final String noDataText;
 
   @override
   State<GraphWidget> createState() => _GraphWidgetState();
@@ -247,10 +251,15 @@ class _GraphWidgetState extends State<GraphWidget> {
               : Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(20),
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      textSubtitle16W500('ไม่พบข้อมูล', color.greyText),
+                      Image.asset(
+                        widget.noDataIcon,
+                        scale: 4,
+                      ),
+                      textSubtitle16W500(widget.noDataText, color.greyText),
                     ],
                   ),
                 ),
