@@ -95,6 +95,7 @@ class _FoodViewState extends State<FoodView> {
                               children: [
                                 SearchBoxWidget(
                                   isEditable: false,
+                                  hintText: 'ค้นหาอาหาร',
                                   onChanged: (value) {
                                     context.read<FoodSearchBloc>().add(
                                         FoodSearchTextFieldValueChanged(

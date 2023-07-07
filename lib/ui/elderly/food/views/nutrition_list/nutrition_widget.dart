@@ -17,7 +17,8 @@ class NutritionWidget extends StatelessWidget {
     final double displayableItem = 2.5;
     final double spaceBetweenItem = 10;
     final double ratio = 148 / 126;
-    final double itemWidth = (width / displayableItem) - (2 * spaceBetweenItem);
+    final double itemWidth =
+        (width / displayableItem) - (1.8 * spaceBetweenItem);
     final double itemHeight = itemWidth * ratio;
 
     return Container(
@@ -29,20 +30,24 @@ class NutritionWidget extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(12)),
           image: DecorationImage(
               image: AssetImage(nutrientWidgetImageProvider?.backgroundImage ??
-                  'assets/images/back_arrow.png'), fit: BoxFit.cover)),
+                  'assets/images/back_arrow.png'),
+              fit: BoxFit.cover)),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            child: Image(image: AssetImage(nutrientWidgetImageProvider?.iconImage ?? 'assets/images/back_arrow.png')),
-          ),
-          textSubtitle2(nutrient.name, ColorTheme().white, false),
-          textSubtitle18Blod(nutrient.value.toString() + ' ' + nutrient.unit.symbol, ColorTheme().white)
-        ]
-      ),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              child: Image(
+                  image: AssetImage(nutrientWidgetImageProvider?.iconImage ??
+                      'assets/images/back_arrow.png')),
+            ),
+            textSubtitle2(nutrient.name, ColorTheme().white, false),
+            textSubtitle18Blod(
+                nutrient.value.toString() + ' ' + nutrient.unit.symbol,
+                ColorTheme().white)
+          ]),
     );
   }
 }

@@ -1,11 +1,10 @@
-
 import 'package:health_application/ui/elderly/food/model/nutrition_unit/nutrient_unit.dart';
 import 'package:health_application/ui/elderly/food/model/nutritions/nutrient.dart';
 import 'package:health_application/ui/elderly/food/model/nutritions/nutrient_widget_background_provider.dart';
 
 class Cholesterol implements Nutrient, NutrientWidgetImageProvider {
   @override
-  String get name => "Cholesterol";
+  String get name => "คอเลสเตอรอล";
 
   @override
   final double value;

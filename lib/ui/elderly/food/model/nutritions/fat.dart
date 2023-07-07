@@ -4,7 +4,7 @@ import 'package:health_application/ui/elderly/food/model/nutritions/nutrient_wid
 
 class Fat implements Nutrient, NutrientWidgetImageProvider {
   @override
-  String get name => "Fat";
+  String get name => "ไขมัน";
 
   @override
   final double value;
