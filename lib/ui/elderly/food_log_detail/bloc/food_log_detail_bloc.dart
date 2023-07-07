@@ -12,16 +12,15 @@ import 'package:retrofit/dio.dart';
 
 class FoodLogDetailBloc extends Bloc<FoodLogDetailEvent, FoodLogDetailState> {
   FoodLogDetailBloc(
-    MealRecordItem food,
-    MealType mealType,
-    FoodDetailRepositoryProtocol foodDetailRepository,
-    MealRecordRepositoryProtocol mealRecordRepository
-  ): 
-    food = food,
-    mealType = mealType,
-    _foodDetailRepository = foodDetailRepository,
-    _mealRecordRepository = mealRecordRepository,
-    super(FoodLogDetailState(consumeUnit: 1, food: food)) {
+      MealRecordItem food,
+      MealType mealType,
+      FoodDetailRepositoryProtocol foodDetailRepository,
+      MealRecordRepositoryProtocol mealRecordRepository)
+      : food = food,
+        mealType = mealType,
+        _foodDetailRepository = foodDetailRepository,
+        _mealRecordRepository = mealRecordRepository,
+        super(FoodLogDetailState(consumeUnit: 1, food: food)) {
     on<FoodLogDetailConsumeUnitAdded>(_onConsumeUnitAdded);
     on<FoodLogDetailConsumeUnitSubstracted>(_onConsumeUnitSubstracted);
     on<FoodLogDetailSubmitted>(_onFoodLogDetailSubmitted);
@@ -36,47 +35,38 @@ class FoodLogDetailBloc extends Bloc<FoodLogDetailEvent, FoodLogDetailState> {
   final MealRecordItem food;
   final MealType mealType;
 
-  void _onFoodLogDetailInitial(
-    FoodLogDetailPageInitialized event,
-    Emitter<FoodLogDetailState> emit
-  ) async {
+  void _onFoodLogDetailInitial(FoodLogDetailPageInitialized event,
+      Emitter<FoodLogDetailState> emit) async {
     final response = await _foodDetailRepository.getFoodDetaiByCodel(food.code);
-    response.fold(
-      (error) {
-        //TODO handle error
-      }, 
-      (response) {
-        emit(state.copyWith(foodDetail: response.data));
-      }
-    );
+    response.fold((error) {
+      //TODO handle error
+    }, (response) {
+      emit(state.copyWith(foodDetail: response.data));
+    });
   }
 
-  void _onConsumeUnitAdded( 
-    FoodLogDetailConsumeUnitAdded event,
-    Emitter<FoodLogDetailState> emit
-  ) {
+  void _onConsumeUnitAdded(
+      FoodLogDetailConsumeUnitAdded event, Emitter<FoodLogDetailState> emit) {
     emit(state.copyWith(consumeUnit: state.consumeUnit + 1));
   }
 
-  void _onConsumeUnitSubstracted( 
-    FoodLogDetailConsumeUnitSubstracted event,
-    Emitter<FoodLogDetailState> emit
-  ) {
-    if (state.consumeUnit <= 1) { return; }
+  void _onConsumeUnitSubstracted(FoodLogDetailConsumeUnitSubstracted event,
+      Emitter<FoodLogDetailState> emit) {
+    if (state.consumeUnit <= 1) {
+      return;
+    }
     emit(state.copyWith(consumeUnit: state.consumeUnit - 1));
   }
 
   void _onFoodLogDetailSubmitted(
-    FoodLogDetailSubmitted event,
-    Emitter<FoodLogDetailState> emit
-  ) {
+      FoodLogDetailSubmitted event, Emitter<FoodLogDetailState> emit) {
     MealRecordItem meal = MealRecordItem(
-      calorie: state.food.calorie,
-      name: state.food.name,
-      code: state.food.code,
-      unit: state.consumeUnit
-    );
+        calorie: state.food.calorie,
+        name: state.food.name,
+        code: state.food.code,
+        unit: state.consumeUnit,
+        image: state.food.image);
     _mealRecordRepository.addMeal(meal, mealType);
     emit(state.copyWith(food: meal));
   }
-} 
+}

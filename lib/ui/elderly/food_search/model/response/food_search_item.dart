@@ -4,12 +4,8 @@ part 'food_search_item.g.dart';
 
 @JsonSerializable()
 class FoodSearchItem {
-  const FoodSearchItem({
-    this.name = '',
-    this.code = '',
-    this.calorie = 0,
-    this.image = ''
-  });
+  const FoodSearchItem(
+      {this.name = '', this.code = '', this.calorie = 0, this.image = ''});
 
   final String name;
   final String code;
@@ -20,9 +16,5 @@ class FoodSearchItem {
       _$FoodSearchItemFromJson(json);
   Map<String, dynamic> toJson() => _$FoodSearchItemToJson(this);
 
-  List<Object?> get props => <Object>[
-    name,
-    code,
-    calorie
-  ];
+  List<Object?> get props => <Object>[name, code, calorie, image];
 }

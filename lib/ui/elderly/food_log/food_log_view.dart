@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/button_orange.dart';
-import 'package:health_application/ui/elderly/food/bloc/food_page/food_page_bloc.dart';
-import 'package:health_application/ui/elderly/food/bloc/food_page/food_page_event.dart';
+import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/elderly/food/model/nutritions/calories.dart';
 import 'package:health_application/ui/elderly/food_log/bloc/food_log_bloc.dart';
 import 'package:health_application/ui/elderly/food_log/bloc/food_log_event.dart';
 import 'package:health_application/ui/elderly/food_log/bloc/food_log_state.dart';
 import 'package:health_application/ui/elderly/food_log/repository/meal_record_item.dart';
-import 'package:health_application/ui/elderly/food_log_detail/bloc/food_log_detail_bloc.dart';
 import 'package:health_application/ui/elderly/food_log_detail/food_log_detail_page.dart';
 import 'package:health_application/ui/elderly/food_search/food_search_page.dart';
 import 'package:health_application/ui/elderly/food_search/view/search_result_view.dart';
 import 'package:health_application/ui/extension/extension.dart';
-import 'package:health_application/ui/home_page/home_page.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
-
-import '../../home_page/bloc/home_page_bloc.dart';
 
 class FoodLogView extends StatelessWidget {
   @override
@@ -39,10 +32,24 @@ class FoodLogView extends StatelessWidget {
           actions: [],
         ),
         body: BlocListener<FoodLogBloc, FoodLogState>(
-          listener: (context, state) {
-            if (state.isSavedCompleted) {
-              Navigator.pop(context);
-              context.go(Routes.home);
+          listener: (context, state) async {
+            if (state.isSavedCompleted == IsSaveState.fail) {
+              final bool acceptClose = await showDialog(
+                  context: context,
+                  builder: (BuildContext context) => ErrorAlertWidget(
+                        title: 'เกิดข้อผิดพลาด',
+                        subTitle: "บันทึกข้อมูลไม่สำเร็จ\nกรุณาลองใหม่อีกครั้ง",
+                        btnName: 'ตกลง',
+                      )) as bool;
+
+              if (acceptClose) {
+                context.read<FoodLogBloc>().add(ResetStateOfSaved());
+              }
+            }
+
+            if (state.isSavedCompleted == IsSaveState.success) {
+              context.read<FoodLogBloc>().add(ResetStateOfSaved());
+              Navigator.pop(context, true);
             }
           },
           child: BlocBuilder<FoodLogBloc, FoodLogState>(
@@ -78,10 +85,7 @@ class FoodLogView extends StatelessWidget {
                                                           .fromSearch(
                                                               foodSearchItem),
                                                       mealType: state.mealType,
-                                                      onSubmitted: (food) {
-                                                        //TODO
-                                                        // foodLogContext.read<FoodLogBloc>().add(FoodLogListUpdated(newItem: food));
-                                                      },
+                                                      onSubmitted: (food) {},
                                                     )));
                                       },
                                       onItemTrailingIconTap: (selectedFood) {},
@@ -102,9 +106,7 @@ class FoodLogView extends StatelessWidget {
                                           state.foods[index].unit),
                                   trailingIcon:
                                       FoodListItemViewTrailingIcon.close,
-                                  onTap: () {
-                                    //TODO: handle on food selected
-                                  },
+                                  onTap: () {},
                                   onTrailingIconTap: () {
                                     context.read<FoodLogBloc>().add(
                                         FoodLogMealItemRemoved(index: index));
