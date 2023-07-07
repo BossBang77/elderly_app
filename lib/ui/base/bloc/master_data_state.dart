@@ -8,7 +8,8 @@ class MasterDataState extends Equatable {
       this.appointmentTime = const MasterData(),
       this.appointmentType = const MasterData(),
       this.medicationIntakeTime = const MasterData(),
-      this.notificationEveryHour = const MasterData()});
+      this.notificationEveryHour = const MasterData(),
+      this.foodType = const MasterData()});
   final MasterData congenitalDiseaseMaster;
   final MasterData allergiesMaster;
   final MasterData exerciseTypeMaster;
@@ -16,6 +17,7 @@ class MasterDataState extends Equatable {
   final MasterData appointmentType;
   final MasterData medicationIntakeTime;
   final MasterData notificationEveryHour;
+  final MasterData foodType;
 
   MasterDataState copyWith(
       {MasterData? congenitalDiseaseMaster,
@@ -24,7 +26,8 @@ class MasterDataState extends Equatable {
       MasterData? appointmentTime,
       MasterData? appointmentType,
       MasterData? medicationIntakeTime,
-      MasterData? notificationEveryHour}) {
+      MasterData? notificationEveryHour,
+      MasterData? foodType}) {
     return MasterDataState(
         congenitalDiseaseMaster:
             congenitalDiseaseMaster ?? this.congenitalDiseaseMaster,
@@ -34,7 +37,8 @@ class MasterDataState extends Equatable {
         appointmentType: appointmentType ?? this.appointmentType,
         medicationIntakeTime: medicationIntakeTime ?? this.medicationIntakeTime,
         notificationEveryHour:
-            notificationEveryHour ?? this.notificationEveryHour);
+            notificationEveryHour ?? this.notificationEveryHour,
+        foodType: foodType ?? this.foodType);
   }
 
   @override
@@ -45,7 +49,8 @@ class MasterDataState extends Equatable {
         appointmentTime,
         appointmentType,
         medicationIntakeTime,
-        notificationEveryHour
+        notificationEveryHour,
+        foodType
       ];
 }
 
@@ -59,4 +64,5 @@ class MasterCategory {
   String get appointmentType => 'appointment_type';
   String get medicationIntakeTime => 'medication_intake_time';
   String get notificationEveryHour => 'notification_every_hour';
+  String get foodType => 'food_type';
 }
