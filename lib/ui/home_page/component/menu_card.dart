@@ -16,7 +16,7 @@ Widget menuCard(BuildContext context,
       children: [
         Image.asset(
           background,
-          scale: 4,
+          scale: 3,
         ),
         Positioned(
           left: 15,
