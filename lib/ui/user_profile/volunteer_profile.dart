@@ -30,13 +30,18 @@ class VolunteerProfileWidget extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              CircleAvatar(
-                backgroundImage: ExactAssetImage(
-                    Gender.isWoman(user.profile.gender)
-                        ? 'assets/images/volunteer_woman.png'
-                        : 'assets/images/volunteer_men.png',
-                    scale: 3),
-                radius: 50,
+              Center(
+                child: user.profile.image.isNotEmpty
+                    ? CircleAvatar(
+                        radius: 50,
+                        backgroundImage:
+                            NetworkImage(user.profile.image, scale: 4),
+                      )
+                    : Image.asset(
+                        Gender.isWoman(user.profile.gender)
+                            ? 'assets/images/volunteer_woman.png'
+                            : 'assets/images/volunteer_men.png',
+                        scale: 3),
               ),
               const SizedBox(
                 height: 20,
@@ -50,7 +55,10 @@ class VolunteerProfileWidget extends StatelessWidget {
               ),
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/person_profile_icon.png',
-                onClick: () {},
+                onClick: () {
+                  context.go(Routes.elderlyProfileInformationView,
+                      extra: state.userProfile);
+                },
                 title: 'ข้อมูลส่วนตัว',
               ),
               CardListMenu(
