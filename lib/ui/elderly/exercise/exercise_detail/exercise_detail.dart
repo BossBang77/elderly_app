@@ -69,7 +69,7 @@ class ExerciseDetail extends StatelessWidget {
                   height: 20,
                 ),
                 textSubtitle2(currentDetail.description, color.black87, false,
-                    maxLine: 310),
+                    maxLine: 10),
                 const SizedBox(
                   height: 20,
                 ),
