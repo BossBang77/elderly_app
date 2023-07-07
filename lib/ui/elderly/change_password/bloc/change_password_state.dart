@@ -9,7 +9,8 @@ class ChangePasswordState extends Equatable {
       this.obscureNewPassword = true,
       this.obscureOldPassword = true,
       this.status = ChangePasswordStatus.initial,
-      this.isLoading = false});
+      this.isLoading = false,
+      this.oldPasswordWrong = false});
   final String oldPassword;
   final String newPassword;
   final String confirmPassword;
@@ -18,6 +19,7 @@ class ChangePasswordState extends Equatable {
   final bool obscureConfirmPassword;
   final ChangePasswordStatus status;
   final bool isLoading;
+  final bool oldPasswordWrong;
 
   ChangePasswordState copyWith(
       {String? oldPassword,
@@ -27,7 +29,8 @@ class ChangePasswordState extends Equatable {
       bool? obscureNewPassword,
       bool? obscureConfirmPassword,
       ChangePasswordStatus? status,
-      bool? isLoading}) {
+      bool? isLoading,
+      bool? oldPasswordWrong}) {
     return ChangePasswordState(
         oldPassword: oldPassword ?? this.oldPassword,
         newPassword: newPassword ?? this.newPassword,
@@ -37,7 +40,8 @@ class ChangePasswordState extends Equatable {
         obscureNewPassword: obscureNewPassword ?? this.obscureNewPassword,
         obscureOldPassword: obscureOldPassword ?? this.obscureOldPassword,
         status: status ?? this.status,
-        isLoading: isLoading ?? this.isLoading);
+        isLoading: isLoading ?? this.isLoading,
+        oldPasswordWrong: oldPasswordWrong ?? this.oldPasswordWrong);
   }
 
   @override
@@ -49,7 +53,8 @@ class ChangePasswordState extends Equatable {
         obscureNewPassword,
         obscureOldPassword,
         status,
-        isLoading
+        isLoading,
+        oldPasswordWrong
       ];
 }
 

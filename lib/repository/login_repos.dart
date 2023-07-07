@@ -127,18 +127,21 @@ class LoginRepository {
     return const Left(Failure(''));
   }
 
-  Future<Either<Failure, String>> changePassword(
+  Future<Either<Failure, int>> changePassword(
       RequestChangePassword body) async {
     try {
       final HttpResponse req =
           await _loginService.changePassword(body.toJson());
-      final Map<String, dynamic> data = req.data;
-      return Right('success');
+
+      return Right(req.response.statusCode ?? 200);
     } on DioError catch (error) {
-      if (error.response?.statusCode == StatusCode.notFound) {
+      int statusCode = error.response?.statusCode ?? 0;
+      if (statusCode == StatusCode.notFound) {
         return const Left(Failure(''));
-      } else if (error.response?.statusCode == StatusCode.failure) {
+      } else if (statusCode == StatusCode.failure) {
         return const Left(Failure(''));
+      } else if (statusCode == StatusCode.unauthorized) {
+        return Right(statusCode);
       }
     }
     return const Left(Failure(''));

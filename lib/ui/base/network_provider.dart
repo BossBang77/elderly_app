@@ -76,7 +76,8 @@ class ApiInterceptors extends QueuedInterceptor {
       // throw DeadlineExceededException(error.requestOptions);
 
       case DioErrorType.response:
-        if (error.response?.statusCode == 401) {
+        if (error.response?.statusCode == 401 &&
+            !ByPassAuth401().isByPassAuten401(error.requestOptions.path)) {
           var accessToken = await UserSecureStorage().getAccessToken();
           if (accessToken != '') {
             var res = await refreshToken();
@@ -202,5 +203,13 @@ class PlublicRequest {
     return url.contains(loginUrl) ||
         url.contains(registerUrl) ||
         url.contains(masterData);
+  }
+}
+
+class ByPassAuth401 {
+  static String get changePassword => '/api/v1/password/change-password';
+
+  bool isByPassAuten401(String url) {
+    return url.contains(changePassword);
   }
 }
