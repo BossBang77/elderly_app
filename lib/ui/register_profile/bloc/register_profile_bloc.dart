@@ -7,6 +7,7 @@ import 'package:health_application/ui/extension/string_extension.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 
 import '../../base/model/failure.dart';
+import '../bmi_profile/select_age.dart';
 
 part 'register_profile_event.dart';
 part 'register_profile_state.dart';
@@ -82,7 +83,11 @@ class RegisterProfileBloc
     }
 
     if (event is ResetRegisterModel) {
-      yield state.copyWith(registerModel: RegisterModel());
+      day = TextEditingController()..text = '';
+      month = TextEditingController()..text = '';
+      year = TextEditingController()..text = '';
+      yield state.copyWith(
+          registerModel: RegisterModel(), gender: Gender.initial);
     }
   }
 

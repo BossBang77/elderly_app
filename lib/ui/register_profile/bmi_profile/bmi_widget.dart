@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
+import 'package:health_application/ui/extension/string_extension.dart';
 import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
 import 'package:health_application/ui/register_profile/bmi_profile/select_age.dart';
 import 'package:health_application/ui/register_profile/bmi_profile/select_gender.dart';
@@ -24,9 +25,7 @@ class BMIWidget extends StatelessWidget {
         case BMIDetail.name:
           return SelectNameWidget(context, state);
         case BMIDetail.age:
-          return SelectDateOfBirth(
-            dateOfBirth: state.registerModel.profile.birthDate,
-          );
+          return SelectDateOfBirth();
         case BMIDetail.weightDetail:
           return SelectWeigthWidget(context, state);
         case BMIDetail.heightDetail:

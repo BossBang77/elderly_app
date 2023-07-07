@@ -12,9 +12,9 @@ import 'package:provider/provider.dart';
 
 import '../../base/widget/text_field_line.dart';
 
-TextEditingController _day = TextEditingController();
-TextEditingController _month = TextEditingController();
-TextEditingController _year = TextEditingController();
+TextEditingController day = TextEditingController();
+TextEditingController month = TextEditingController();
+TextEditingController year = TextEditingController();
 
 class SelectDateOfBirth extends StatelessWidget {
   SelectDateOfBirth({
@@ -46,7 +46,7 @@ class SelectDateOfBirth extends StatelessWidget {
                         child: Column(
                           children: [
                             TextFieldLine(
-                              controller: _day,
+                              controller: day,
                               textNumberType: true,
                               maxLength: 2,
                               hintText: 'วัน',
@@ -66,7 +66,7 @@ class SelectDateOfBirth extends StatelessWidget {
                         child: Column(
                           children: [
                             TextFieldLine(
-                              controller: _month,
+                              controller: month,
                               textNumberType: true,
                               maxLength: 2,
                               hintText: 'เดือน',
@@ -86,7 +86,7 @@ class SelectDateOfBirth extends StatelessWidget {
                         child: Column(
                           children: [
                             TextFieldLine(
-                              controller: _year,
+                              controller: year,
                               textNumberType: true,
                               maxLength: 4,
                               hintText: 'ปี',
@@ -112,10 +112,10 @@ class SelectDateOfBirth extends StatelessWidget {
                     btnName: 'ยืนยัน',
                     onClick: () async {
                       try {
-                        var year = (int.tryParse(_year.text) ?? 0) - 543;
-                        var month = _month.text.padLeft(2, '0');
-                        var days = _day.text.padLeft(2, '0');
-                        var fullDate = '$year-$month-$days';
+                        var years = (int.tryParse(year.text) ?? 0) - 543;
+                        var months = month.text.padLeft(2, '0');
+                        var days = day.text.padLeft(2, '0');
+                        var fullDate = '$years-$months-$days';
                         print(fullDate);
                         if (fullDate.isDate() &&
                             fullDate.parseTime().isBefore(DateTime.now())) {
