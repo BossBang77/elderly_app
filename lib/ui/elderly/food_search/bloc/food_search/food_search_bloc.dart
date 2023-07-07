@@ -68,8 +68,6 @@ class FoodSearchBloc extends Bloc<FoodSearchEvent, FoodSearchState> {
       _searchHistoryProvider.pushEntry(event.value);
     }
     List<String> recenSearchValues = _searchHistoryProvider.history;
-    print('search filter');
-    print(state.searchFilter);
     final request = FoodSearchRequest(
         keyword: event.value,
         limit: 20,
