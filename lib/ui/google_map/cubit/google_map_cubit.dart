@@ -19,7 +19,7 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
   double userLongtiPick = 0;
   String locationName = '';
 
-  initialState() async {
+  initialState({double? lat, double? lng, String? addressName}) async {
     emit(GoogleMapInitial());
     emit(LoadingMap());
     final Uint8List markerIcon =
@@ -28,14 +28,14 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
     apiKey = await rootBundle.loadString('assets/GoogleMapApiKey.text');
     print(apiKey);
     await _locations.getCurrentUserLocation();
-    double userLati = _locations.latitude;
-    double userLongti = _locations.longtitude;
+    double userLati = lat != null ? lat : _locations.latitude;
+    double userLongti = lng != null ? lng : _locations.longtitude;
     userLatiPick = userLati;
     userLongtiPick = userLongti;
     print(userLatiPick);
 
     Set<Marker> markers = {};
-    locationName = _locations.nameAddress;
+    locationName = addressName != null ? addressName : _locations.nameAddress;
     markers.add(Marker(
       markerId: MarkerId("Home"),
       position: LatLng(userLatiPick, userLongtiPick),

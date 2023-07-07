@@ -5,9 +5,10 @@ part 'elderly_exercise_model.g.dart';
 @JsonSerializable()
 class ElderlyExerciseModel {
   const ElderlyExerciseModel({
-    this.exerciseName = '',
-    this.time = '',
-    this.calories = '',
+    this.name = '',
+    this.code = '',
+    this.timePoint = 0,
+    this.burnCaloriePoint = 0,
     this.images = '',
   });
 
@@ -15,8 +16,9 @@ class ElderlyExerciseModel {
   factory ElderlyExerciseModel.fromJson(Map<String, dynamic> json) =>
       _$ElderlyExerciseModelFromJson(json);
 
-  final String exerciseName;
-  final String time;
-  final String calories;
+  final String name;
+  final String code;
+  final num timePoint;
+  final num burnCaloriePoint;
   final String images;
 }

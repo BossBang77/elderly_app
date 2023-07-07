@@ -91,6 +91,6 @@ const List<GraphModel> mockTimeExerciseMonth = [
 
 const List<ElderlyExerciseModel> mockExercise = [
   ElderlyExerciseModel(
-      exerciseName: 'Full body Workout', time: '25', calories: '450'),
-  ElderlyExerciseModel(exerciseName: 'วิ่ง', time: '40', calories: '250'),
+      name: 'Full body Workout', timePoint: 25, burnCaloriePoint: 450),
+  ElderlyExerciseModel(name: 'วิ่ง', timePoint: 40, burnCaloriePoint: 250),
 ];

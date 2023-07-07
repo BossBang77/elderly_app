@@ -23,3 +23,11 @@ class OnSelectDateChange extends HistoryExerciseEvent {
   const OnSelectDateChange({required this.date});
   final String date;
 }
+
+class GetHistoryExercise extends HistoryExerciseEvent {
+  const GetHistoryExercise();
+}
+
+class GetHistoryLogExercise extends HistoryExerciseEvent {
+  const GetHistoryLogExercise();
+}

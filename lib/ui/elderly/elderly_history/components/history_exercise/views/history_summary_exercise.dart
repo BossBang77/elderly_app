@@ -98,9 +98,7 @@ class HistorySummaryExerciseWidget extends StatelessWidget {
                 Container(
                   height: 300,
                   child: GraphWidget(
-                    data: state.currentRange == GraphRangeType.oneWeek
-                        ? mockExerciseWeek
-                        : mockExerciseMonth,
+                    data: state.exerciseData.burnCalories,
                     leftTitleRange: 100,
                     bottomTitleRange: 1,
                     rangeType: state.currentRange,
@@ -121,9 +119,7 @@ class HistorySummaryExerciseWidget extends StatelessWidget {
                 Container(
                   height: 300,
                   child: GraphWidget(
-                    data: state.currentRange == GraphRangeType.oneWeek
-                        ? mockTimeExerciseWeek
-                        : mockTimeExerciseMonth,
+                    data: state.exerciseData.timePoints,
                     leftTitleRange: 20,
                     bottomTitleRange: 1,
                     rangeType: state.currentRange,

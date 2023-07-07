@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_drinking/model/elderly_drinking_model.dart';
+import 'package:health_application/ui/elderly/water_intake/bloc/water_intake_bloc.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
@@ -38,31 +39,45 @@ class HistoryDrinkingBox extends StatelessWidget {
       child: Column(
         children: [
           if (waters.isNotEmpty) ...{
-            for (var item in waters) ...{
-              Row(
-                children: [
-                  Image.asset(
-                    getImageBottle(item.bottleSize),
-                    fit: BoxFit.contain,
-                    scale: 4,
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textSubtitle16W500(
-                          'ภาชนะ ${item.bottleSize} มล.', color.black87),
-                      textSubtitle15w400('${item.size} แก้ว', color.black87),
-                    ],
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-            },
+            ListView.builder(
+              itemCount: waters.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                var water = waters[index];
+                var bottle = volumnTypeList
+                    .firstWhere((el) => el.code == water.containerCode);
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          bottle.volumePic,
+                          fit: BoxFit.contain,
+                          scale: 4,
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textSubtitle16W500(
+                                'ภาชนะ ${bottle.volumeQuantity} มล.',
+                                color.black87),
+                            textSubtitle15w400(
+                                '${water.numberOfDrink.toString()} แก้ว',
+                                color.black87),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                  ],
+                );
+              },
+            ),
           } else ...{
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,

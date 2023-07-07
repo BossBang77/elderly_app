@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_application/ui/base/widget/image_notfound.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/model/elderly_exercise_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
@@ -29,11 +30,9 @@ class HistoryExerciseBox extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
-                    child: Image.asset(
-                      'assets/images/exercise_image.png',
-                      fit: BoxFit.contain,
-                      scale: 3,
-                    ),
+                    child: item.images.isNotEmpty
+                        ? Image.network(item.images)
+                        : ImageNotFound(),
                   ),
                   const SizedBox(
                     width: 20,
@@ -41,9 +40,9 @@ class HistoryExerciseBox extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      textSubtitle16W500(item.exerciseName, color.black87),
+                      textSubtitle16W500(item.name, color.black87),
                       textSubtitle15w400(
-                          '${item.time} นาที : ${item.calories} kcal ',
+                          '${item.timePoint} นาที : ${item.burnCaloriePoint} kcal ',
                           color.black87),
                     ],
                   )

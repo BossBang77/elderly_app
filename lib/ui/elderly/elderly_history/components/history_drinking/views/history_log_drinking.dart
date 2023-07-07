@@ -92,7 +92,7 @@ class HistoryLogDrinking extends StatelessWidget {
               height: 20,
             ),
             HistoryDrinkingBox(
-              waters: mockDrinking,
+              waters: state.drinkingLogData,
             ),
             const SizedBox(
               height: 50,
