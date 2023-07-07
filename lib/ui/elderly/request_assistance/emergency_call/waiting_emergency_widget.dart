@@ -29,67 +29,71 @@ class WaitingEmergencyWidget extends StatelessWidget {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  BackButtonWidget(
-                    onClick: () {
-                      context.go(Routes.home);
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              textSubtitle24W700(
-                  'กำลังขอ\nความช่วยเหลือฉุกเฉิน...', color.white,
-                  align: TextAlign.center),
-              textButton1(
-                  'จากรายชื่อผู้ติดต่อ, จิตอาสาที่อยู่บริเวณ\nใกล้เคียงและเจ้าหน้าที่เครือข่าย',
-                  color.white,
-                  align: TextAlign.center,
-                  maxLines: 2),
-              const SizedBox(
-                height: 20,
-              ),
-              Image.asset(
-                'assets/images/emergency_waiting_help.gif',
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: ButtonWhite(
-                  onClick: () async {
-                    final bool acceptClose = await showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AcceptTwoCondition(
-                              header: 'ปลอดภัยแล้ว',
-                              subtitle:
-                                  'กรุณากดยืนยัน\nเพื่อยืนยันการได้รับ\nความช่วยเหลือแล้ว',
-                            )) as bool;
-
-                    if (acceptClose) {
-                      context.read<RequestAssistanceBloc>().add(SubmitIsSafe());
-                    }
-                  },
-                  btnName: 'ฉันปลอดภัยแล้ว',
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  height: 50,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    BackButtonWidget(
+                      onClick: () {
+                        context.go(Routes.home);
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                textSubtitle24W700(
+                    'กำลังขอ\nความช่วยเหลือฉุกเฉิน...', color.white,
+                    align: TextAlign.center),
+                textButton1(
+                    'จากรายชื่อผู้ติดต่อ, จิตอาสาที่อยู่บริเวณ\nใกล้เคียงและเจ้าหน้าที่เครือข่าย',
+                    color.white,
+                    align: TextAlign.center,
+                    maxLines: 2),
+                const SizedBox(
+                  height: 20,
+                ),
+                Image.asset(
+                  'assets/images/emergency_waiting_help.gif',
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: ButtonWhite(
+                    onClick: () async {
+                      final bool acceptClose = await showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AcceptTwoCondition(
+                                header: 'ปลอดภัยแล้ว',
+                                subtitle:
+                                    'กรุณากดยืนยัน\nเพื่อยืนยันการได้รับ\nความช่วยเหลือแล้ว',
+                              )) as bool;
+
+                      if (acceptClose) {
+                        context
+                            .read<RequestAssistanceBloc>()
+                            .add(SubmitIsSafe());
+                      }
+                    },
+                    btnName: 'ฉันปลอดภัยแล้ว',
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
         ),
       ],

@@ -7,6 +7,7 @@ import 'package:health_application/ui/base/appoint_detail_card/appoint_detail_ca
 import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/button_dark_bule.dart';
+import 'package:health_application/ui/base/widget/space_widget.dart';
 import 'package:health_application/ui/elderly/personal_medication/personal_medication_page.dart';
 import 'package:health_application/ui/elderly/request_assistance/request_assistance_page.dart';
 import 'package:health_application/ui/elderly/search_volunteer/volunteer_page.dart';
@@ -339,27 +340,35 @@ class HomeWidget extends StatelessWidget {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                menuCard(
-                                  context,
-                                  background: 'assets/images/food.png',
-                                  title: 'อาหาร',
-                                  onClick: () {
-                                    context.read<HomePageBloc>().add(
-                                        ChangeMenu(menus: menuType.foodPage));
-                                  },
-                                  subTitle: 'บันทึกมื้ออาหาร',
-                                  icon: 'assets/images/food_icon.png',
+                                Expanded(
+                                  child: menuCard(
+                                    context,
+                                    background: 'assets/images/food.png',
+                                    title: 'อาหาร',
+                                    onClick: () {
+                                      context.read<HomePageBloc>().add(
+                                          ChangeMenu(menus: menuType.foodPage));
+                                    },
+                                    subTitle: 'บันทึกมื้ออาหาร',
+                                    icon: 'assets/images/food_icon.png',
+                                  ),
                                 ),
-                                menuCard(
-                                  context,
-                                  background: 'assets/images/exercise.png',
-                                  title: 'ออกกำลังกาย',
-                                  onClick: () {
-                                    context.read<HomePageBloc>().add(ChangeMenu(
-                                        menus: menuType.exercisePage));
-                                  },
-                                  subTitle: 'บันทึกการ\nออกกำลังกาย',
-                                  icon: 'assets/images/exercise_icon.png',
+                                SpaceWidget(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: menuCard(
+                                    context,
+                                    background: 'assets/images/exercise.png',
+                                    title: 'ออกกำลังกาย',
+                                    onClick: () {
+                                      context.read<HomePageBloc>().add(
+                                          ChangeMenu(
+                                              menus: menuType.exercisePage));
+                                    },
+                                    subTitle: 'บันทึกการ\nออกกำลังกาย',
+                                    icon: 'assets/images/exercise_icon.png',
+                                  ),
                                 )
                               ]),
                         ),
@@ -371,41 +380,61 @@ class HomeWidget extends StatelessWidget {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                menuCard(
-                                  context,
-                                  background: 'assets/images/water_intake.png',
-                                  title: 'ดื่มน้ำ',
-                                  onClick: () {
-                                    context.read<HomePageBloc>().add(ChangeMenu(
-                                        menus: menuType.drinkingPage));
-                                  },
-                                  subTitle: 'บันทึกการดื่มน้ำ',
-                                  icon: 'assets/images/water_intake_icon.png',
+                                Expanded(
+                                  child: menuCard(
+                                    context,
+                                    background:
+                                        'assets/images/water_intake.png',
+                                    title: 'ดื่มน้ำ',
+                                    onClick: () {
+                                      context.read<HomePageBloc>().add(
+                                          ChangeMenu(
+                                              menus: menuType.drinkingPage));
+                                    },
+                                    subTitle: 'บันทึกการดื่มน้ำ',
+                                    icon: 'assets/images/water_intake_icon.png',
+                                  ),
                                 ),
-                                menuCard(
-                                  context,
-                                  background: 'assets/images/medicine.png',
-                                  title: 'ยาประจำตัว',
-                                  onClick: () {
-                                    context.go(Routes.personalMedication);
-                                  },
-                                  subTitle: 'ตั้งค่าแจ้งเตือน\nการทานยา',
-                                  icon: 'assets/images/medicine_icon.png',
+                                SpaceWidget(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: menuCard(
+                                    context,
+                                    background: 'assets/images/medicine.png',
+                                    title: 'ยาประจำตัว',
+                                    onClick: () {
+                                      context.go(Routes.personalMedication);
+                                    },
+                                    subTitle: 'ตั้งค่าแจ้งเตือน\nการทานยา',
+                                    icon: 'assets/images/medicine_icon.png',
+                                  ),
                                 ),
                               ]),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        menuCard(
-                          context,
-                          background: 'assets/images/sos.png',
-                          title: 'ฉุกเฉิน',
-                          onClick: () {
-                            context.push(Routes.requestAssitance);
-                          },
-                          subTitle: 'ขอความช่วยเหลือ',
-                          icon: 'assets/images/sos_icon.png',
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: menuCard(
+                                context,
+                                background: 'assets/images/sos.png',
+                                title: 'ฉุกเฉิน',
+                                onClick: () {
+                                  context.push(Routes.requestAssitance);
+                                },
+                                subTitle: 'ขอความช่วยเหลือ',
+                                icon: 'assets/images/sos_icon.png',
+                              ),
+                            ),
+                            SpaceWidget(
+                              width: 10,
+                            ),
+                            Expanded(child: Container())
+                          ],
                         ),
                         const SizedBox(
                           height: 100,

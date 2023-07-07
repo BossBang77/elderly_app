@@ -99,8 +99,9 @@ class ChangePasswordPage extends StatelessWidget {
                               hintText: 'รหัสผ่าน',
                               errorText: 'รหัสผ่านปัจจุบันไม่ถูกต้อง',
                               setError: state.oldPassword != profile.password,
-                              autoValid: true,
-                              setErrorWithOuter: true,
+                              autoValid: state.oldPassword != profile.password,
+                              setErrorWithOuter:
+                                  state.oldPassword != profile.password,
                             ),
                             const SizedBox(
                               height: 20,
@@ -129,8 +130,10 @@ class ChangePasswordPage extends StatelessWidget {
                               hintText: 'รหัสผ่านใหม่',
                               setError:
                                   state.newPassword != state.confirmPassword,
-                              autoValid: true,
-                              setErrorWithOuter: true,
+                              autoValid:
+                                  state.newPassword != state.confirmPassword,
+                              setErrorWithOuter:
+                                  state.newPassword != state.confirmPassword,
                             ),
                             const SizedBox(
                               height: 20,
@@ -159,8 +162,10 @@ class ChangePasswordPage extends StatelessWidget {
                               hintText: 'ยืนยันรหัสผ่านใหม่',
                               setError:
                                   state.newPassword != state.confirmPassword,
-                              autoValid: true,
-                              setErrorWithOuter: true,
+                              autoValid:
+                                  state.newPassword != state.confirmPassword,
+                              setErrorWithOuter:
+                                  state.newPassword != state.confirmPassword,
                             ),
                             const SizedBox(
                               height: 20,

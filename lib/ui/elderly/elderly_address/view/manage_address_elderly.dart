@@ -1,49 +1,109 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:health_application/ui/base/dialog/accept_two_condition_dialog.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
+import 'package:health_application/ui/base/widget/error_alert.dart';
 import 'package:health_application/ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
+import 'package:health_application/ui/elderly/elderly_address/elderly_address_page.dart';
 import 'package:health_application/ui/elderly/elderly_address/model/location_model.dart';
 import 'package:health_application/ui/elderly/elderly_address/view/map_location.dart';
 import 'package:health_application/ui/google_map/googlemap.dart';
+import 'package:health_application/ui/google_map/locationsModel.dart';
+import 'package:health_application/ui/register_profile/model/addresses_detail.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 class ManageAddressElderly extends StatelessWidget {
-  const ManageAddressElderly({super.key, required this.type});
+  const ManageAddressElderly(
+      {super.key,
+      required this.type,
+      this.index = 0,
+      this.addressDes = const AddressDetailModel()});
 
   final ManageAddressType type;
+  final int index;
+  final AddressDetailModel addressDes;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: color.white,
-        appBar: appBar(
-            onBack: () {
-              Navigator.pop(context);
-            },
-            images: 'assets/images/exit_icon.png',
-            title:
-                type == ManageAddressType.add ? 'เพิ่มที่อยู่' : 'แก้ไขที่อยู่',
-            suffixAction: type == ManageAddressType.edit
-                ? InkWell(
-                    onTap: () async {},
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 14, 15, 0),
-                      child: textSubtitle16Blod('ลบออก', ColorTheme().Blue2),
-                    ),
-                  )
-                : const SizedBox()),
-        body: BlocConsumer<ElderlyAddressBloc, ElderlyAddressState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return Stack(
+    return BlocProvider(
+      create: (context) => ElderlyAddressBloc()
+        ..add(GetProfile())
+        ..add(LocationChange(
+            location: LocationModel(
+                latitude: addressDes.latitude,
+                longitude: addressDes.longitude,
+                locationName: addressDes.fullAddress))),
+      child: BlocConsumer<ElderlyAddressBloc, ElderlyAddressState>(
+        listener: (context, state) async {
+          if (state.addressState == ChangeAddressState.changeAddressFail) {
+            final bool acceptClose = await showDialog(
+                context: context,
+                builder: (BuildContext context) => ErrorAlertWidget(
+                      title: 'เกิดข้อผิดพลาด',
+                      subTitle: "บันทึกข้อมูลไม่สำเร็จ\nกรุณาลองใหม่อีกครั้ง",
+                      btnName: 'ตกลง',
+                    )) as bool;
+
+            if (acceptClose) {
+              context.read<ElderlyAddressBloc>().add(ResetState());
+            }
+          }
+          if (state.addressState == ChangeAddressState.changeAddressSuccess) {
+            context.read<ElderlyAddressBloc>().add(ResetState());
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ElderlyAddressPage()));
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: color.white,
+            appBar: appBar(
+                onBack: () {
+                  Navigator.pop(context);
+                },
+                images: 'assets/images/exit_icon.png',
+                title: type == ManageAddressType.add
+                    ? 'เพิ่มที่อยู่'
+                    : 'แก้ไขที่อยู่',
+                suffixAction: type == ManageAddressType.edit
+                    ? InkWell(
+                        onTap: () async {
+                          final bool acceptClose = await showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  AcceptTwoCondition(
+                                    header: 'ลบที่อยู่',
+                                    subtitle:
+                                        'คุณต้องการลบที่อยู่นี้ใช่หรือไม่',
+                                    btnAcceptName: "ใช่ ลบที่อยู่นี้",
+                                  )) as bool;
+
+                          if (acceptClose) {
+                            context.read<ElderlyAddressBloc>().add(
+                                onAcceptLocation(
+                                    type: ManageAddressType.delete,
+                                    index: index));
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 14, 15, 0),
+                          child:
+                              textSubtitle16Blod('ลบออก', ColorTheme().Blue2),
+                        ),
+                      )
+                    : const SizedBox()),
+            body: Stack(
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: MapLocation(
+                    latLng:
+                        type == ManageAddressType.edit ? state.location : null,
                     onAccept: (LocationModel locate) {
                       context
                           .read<ElderlyAddressBloc>()
@@ -88,10 +148,8 @@ class ManageAddressElderly extends StatelessWidget {
                             ButtonGradient(
                               btnName: "ยืนยัน",
                               onClick: () {
-                                context
-                                    .read<ElderlyAddressBloc>()
-                                    .add(onAcceptLocation());
-                                Navigator.pop(context);
+                                context.read<ElderlyAddressBloc>().add(
+                                    onAcceptLocation(type: type, index: index));
                               },
                             ),
                             SizedBox(
@@ -102,8 +160,10 @@ class ManageAddressElderly extends StatelessWidget {
                   ),
                 ),
               ],
-            );
-          },
-        ));
+            ),
+          );
+        },
+      ),
+    );
   }
 }
