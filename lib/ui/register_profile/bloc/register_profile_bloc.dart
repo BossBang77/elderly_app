@@ -20,6 +20,7 @@ class RegisterProfileBloc
       RegisterProfileEvent event) async* {
     if (event is SelectRole) {
       yield state.copyWith(roleType: event.roleType);
+      add(ResetRegisterModel());
     }
     if (event is ChangeProfileView) {
       yield state.copyWith(profileType: event.profileType);
