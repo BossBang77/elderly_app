@@ -154,7 +154,6 @@ class FoodFilterView extends StatelessWidget {
                               minVal: state.minimumCalories,
                             ),
                             FoodFilterTypeWidget(
-                              //TODO use list from api
                               values: [
                                 ...BlocProvider.of<MasterDataBloc>(context)
                                     .state
