@@ -4,12 +4,11 @@ import 'package:health_application/ui/elderly/food_search/model/response/food_se
 import 'package:health_application/ui/elderly/food_search/model/response/food_search_response.dart';
 
 class FoodSearchState extends Equatable {
-  const FoodSearchState({
-    this.searchValue = '',
-    this.searchResults = const[],
-    this.recentSearchValues = const[],
-    this.searchFilter = const {}
-  });
+  const FoodSearchState(
+      {this.searchValue = '',
+      this.searchResults = const [],
+      this.recentSearchValues = const [],
+      this.searchFilter = const {}});
 
   final String searchValue;
 
@@ -20,19 +19,18 @@ class FoodSearchState extends Equatable {
   final Map<String, dynamic> searchFilter;
 
   @override
-  List<Object?> get props => [searchValue, searchResults, recentSearchValues, searchFilter];
+  List<Object?> get props =>
+      [searchValue, searchResults, recentSearchValues, searchFilter];
 
-  FoodSearchState copyWith({
-    String? searchValue,
-    List<FoodSearchItem>? searchResults,
-    List<String>? recentSearchValues,
-    Map<String, dynamic>? searchFilter
-  }) {
+  FoodSearchState copyWith(
+      {String? searchValue,
+      List<FoodSearchItem>? searchResults,
+      List<String>? recentSearchValues,
+      Map<String, dynamic>? searchFilter}) {
     return FoodSearchState(
-      searchValue: searchValue ?? this.searchValue,
-      searchResults: searchResults ?? this.searchResults,
-      recentSearchValues: recentSearchValues ?? this.recentSearchValues,
-      searchFilter: searchFilter ?? this.searchFilter
-    );
+        searchValue: searchValue ?? this.searchValue,
+        searchResults: searchResults ?? this.searchResults,
+        recentSearchValues: recentSearchValues ?? this.recentSearchValues,
+        searchFilter: searchFilter ?? this.searchFilter);
   }
 }
