@@ -9,17 +9,20 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 import '../../ui-extensions/color.dart';
 
 class AcceptTwoCondition extends StatelessWidget {
-  const AcceptTwoCondition({
-    Key? key,
-    required this.header,
-    required this.subtitle,
-  }) : super(key: key);
+  const AcceptTwoCondition(
+      {Key? key,
+      required this.header,
+      required this.subtitle,
+      this.btnAcceptName})
+      : super(key: key);
 
   ///header
   final String header;
 
   ///subtitle
   final String subtitle;
+
+  final String? btnAcceptName;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +62,7 @@ class AcceptTwoCondition extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     ButtonGradient(
-                      btnName: 'ยืนยัน',
+                      btnName: btnAcceptName ?? 'ยืนยัน',
                       onClick: () {
                         Navigator.pop(context, true);
                       },

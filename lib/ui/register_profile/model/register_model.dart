@@ -1,3 +1,4 @@
+import 'package:health_application/ui/register_profile/model/addresses_detail.dart';
 import 'package:health_application/ui/register_profile/model/profile_register.dart';
 import 'package:health_application/ui/register_profile/model/sub_menu_model.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -13,7 +14,8 @@ class RegisterModel {
       this.password = '',
       this.username = '',
       this.profile = const ProfileRegisterModel(),
-      this.role = ''});
+      this.role = '',
+      this.addresses = const <AddressDetailModel>[]});
   //convert from json
   factory RegisterModel.fromJson(Map<String, dynamic> json) =>
       _$RegisterModelFromJson(json);
@@ -58,6 +60,11 @@ class RegisterModel {
   )
   final List<SubMenuModel> allergicFoods;
 
+  @JsonKey(
+    name: 'addresses',
+  )
+  final List<AddressDetailModel> addresses;
+
   RegisterModel copyWith(
           {String? role,
           String? username,
@@ -66,7 +73,8 @@ class RegisterModel {
           String? elderlyCareCode,
           ProfileRegisterModel? profile,
           List<SubMenuModel>? congenitalDisease,
-          List<SubMenuModel>? allergicFoods}) =>
+          List<SubMenuModel>? allergicFoods,
+          List<AddressDetailModel>? addresses}) =>
       RegisterModel(
           role: role ?? this.role,
           username: username ?? this.username,
@@ -75,7 +83,8 @@ class RegisterModel {
           elderlyCareCode: elderlyCareCode ?? this.elderlyCareCode,
           profile: profile ?? this.profile,
           congenitalDisease: congenitalDisease ?? this.congenitalDisease,
-          allergicFoods: allergicFoods ?? this.allergicFoods);
+          allergicFoods: allergicFoods ?? this.allergicFoods,
+          addresses: addresses ?? this.addresses);
 
   List<Object?> get props => <Object>[
         allergicFoods,
@@ -84,6 +93,7 @@ class RegisterModel {
         profile,
         username,
         role,
-        elderlyCareCode
+        elderlyCareCode,
+        addresses
       ];
 }

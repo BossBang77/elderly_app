@@ -13,10 +13,12 @@ class MapLocation extends StatelessWidget {
     super.key,
     required this.onAccept,
     this.enableSearch = true,
+    required this.latLng,
   });
 
   final Function(LocationModel) onAccept;
   final bool enableSearch;
+  final LocationModel? latLng;
 
   Completer<GoogleMapController> _controller = Completer();
   double userLati = 0;
