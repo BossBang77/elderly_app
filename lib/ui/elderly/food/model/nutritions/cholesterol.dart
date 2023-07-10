@@ -16,7 +16,7 @@ class Cholesterol implements Nutrient, NutrientWidgetImageProvider {
   final String backgroundImage = "assets/images/cholesterol_bg.png";
 
   @override
-  final NutrientUnit unit = UnitEnergy.kilocalories;
+  final NutrientUnit unit = UnitEnergy.milligram;
 
   const Cholesterol({required this.value});
 }

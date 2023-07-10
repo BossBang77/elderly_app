@@ -61,7 +61,7 @@ class ForgotPasswordPage extends StatelessWidget {
                       TextFieldWidget.enable(
                         text: '',
                         maxLength: 10,
-                        hintText: '081 234 5678',
+                        hintText: 'เบอร์มือถือของคุณ',
                       ),
                       const SizedBox(
                         height: 0,

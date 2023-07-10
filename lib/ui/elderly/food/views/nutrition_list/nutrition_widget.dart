@@ -18,7 +18,7 @@ class NutritionWidget extends StatelessWidget {
     final double spaceBetweenItem = 10;
     final double ratio = 148 / 126;
     final double itemWidth =
-        (width / displayableItem) - (1.8 * spaceBetweenItem);
+        (width / displayableItem) - (1.5 * spaceBetweenItem);
     final double itemHeight = itemWidth * ratio;
 
     return Container(
