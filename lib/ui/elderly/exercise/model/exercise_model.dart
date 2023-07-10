@@ -4,7 +4,11 @@ part 'exercise_model.g.dart';
 
 @JsonSerializable()
 class ExerciseModel {
-  const ExerciseModel({this.name = '', this.code = ''});
+  const ExerciseModel(
+      {this.name = '',
+      this.code = '',
+      this.timePoint = 0,
+      this.burnCaloriePoint = 0});
 
   ///convert from json
   factory ExerciseModel.fromJson(Map<String, dynamic> json) =>
@@ -13,11 +17,21 @@ class ExerciseModel {
 
   final String name;
   final String code;
+  final double timePoint;
+  final double burnCaloriePoint;
 
   ExerciseModel get empty => ExerciseModel();
 
-  ExerciseModel copyWith({String? name, String? code}) =>
-      ExerciseModel(name: name ?? this.name, code: code ?? this.code);
+  ExerciseModel copyWith(
+          {String? name,
+          String? code,
+          double? timePoint,
+          double? burnCaloriePoint}) =>
+      ExerciseModel(
+          name: name ?? this.name,
+          code: code ?? this.code,
+          timePoint: timePoint ?? this.timePoint,
+          burnCaloriePoint: burnCaloriePoint ?? this.burnCaloriePoint);
 
-  List<Object?> get props => <Object>[name, code];
+  List<Object?> get props => <Object>[name, code, timePoint, burnCaloriePoint];
 }

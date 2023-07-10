@@ -5,12 +5,14 @@ part 'search_res_model.g.dart';
 @JsonSerializable()
 class SearchResModel {
   const SearchResModel(
-      {this.burnCalorie = 0,
+      {this.burnCaloriePoint = 0,
       this.code = '',
       this.image = '',
       this.name = '',
-      this.time = 0,
-      this.id = ''});
+      this.timePoint = 0,
+      this.id = '',
+      this.burnCalorie = 0,
+      this.time = 0});
 
   ///convert from json
   factory SearchResModel.fromJson(Map<String, dynamic> json) =>
@@ -20,23 +22,35 @@ class SearchResModel {
   final String name;
   final String code;
   final String image;
-  final num time;
-  final num burnCalorie;
+  final double timePoint;
+  final double burnCaloriePoint;
+  final double time;
+  final double burnCalorie;
 
   SearchResModel copyWith(
           {String? name,
           String? code,
           String? image,
-          num? burnCalorie,
-          num? time,
+          double? burnCaloriePoint,
+          double? timePoint,
+          double? burnCalorie,
+          double? time,
           String? id}) =>
       SearchResModel(
           name: name ?? this.name,
           code: code ?? this.code,
           image: image ?? this.image,
-          burnCalorie: burnCalorie ?? this.burnCalorie,
-          time: time ?? this.time,
+          burnCaloriePoint: burnCaloriePoint ?? this.burnCaloriePoint,
+          timePoint: timePoint ?? this.timePoint,
           id: id ?? this.id);
 
-  List<Object?> get props => <Object>[name, code, image, burnCalorie];
+  List<Object?> get props => <Object>[
+        name,
+        code,
+        image,
+        burnCaloriePoint,
+        timePoint,
+        time,
+        burnCalorie
+      ];
 }

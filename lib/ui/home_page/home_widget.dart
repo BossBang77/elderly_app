@@ -28,7 +28,6 @@ class HomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<HomePageBloc>().fetchTDEEData();
     return Scaffold(
       backgroundColor: ColorTheme().BackgroundWhite,
       body: Column(

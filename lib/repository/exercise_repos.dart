@@ -85,10 +85,10 @@ class ExerciseRepository {
   }
 
   Future<Either<Failure, int>> saveExerciseDaily(
-      DailyActivityModel body) async {
+      List<DailyActivityModel> body) async {
     try {
       final HttpResponse req =
-          await _exerciseService.saveExerciseDaily(body.toJson());
+          await _exerciseService.saveExerciseDaily(json.encode(body));
       return Right(req.response.statusCode ?? 200);
     } on DioError catch (error) {
       if (error.response?.statusCode == StatusCode.notFound) {

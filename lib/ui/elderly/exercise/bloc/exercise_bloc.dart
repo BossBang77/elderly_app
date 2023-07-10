@@ -163,7 +163,7 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
           name: event.name,
           code: event.code);
 
-      var res = await _exerciseRepository.saveExerciseDaily(dailyMol);
+      var res = await _exerciseRepository.saveExerciseDaily([dailyMol]);
       yield* res.fold((Failure err) async* {
         yield state.copyWith(statusSubmit: StatusSubmit.saveExerciseDailyFail);
       }, (int res) async* {
