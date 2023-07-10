@@ -20,6 +20,7 @@ import 'package:health_application/ui/register_profile/register_profile_page.dar
 import 'package:health_application/ui/signIn_page/signIn_widget.dart';
 import 'package:health_application/ui/volunteer/request_assistance_detail/request_assitance_detail_page.dart';
 import 'package:health_application/ui/user_profile/profile_information/elderly_profile_information_view.dart';
+import 'package:health_application/ui/volunteer/volunteer_information/volunteer_information_page.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
 
 import '../elderly/appointment_detail/appointment_detail_page.dart';
@@ -186,6 +187,14 @@ final GoRouter appRouter =
         var userProfile = state.extra as RegisterModel;
         return ChangePasswordPage(profile: userProfile);
       }),
+  GoRoute(
+      path: Routes.volunteerInformation,
+      builder: (BuildContext context, GoRouterState state) {
+        var userProfile = state.extra as RegisterModel;
+        return VolunteerInformation(
+          profile: userProfile,
+        );
+      }),
 ]);
 
 class Routes {
@@ -238,4 +247,5 @@ class Routes {
       '/elderlyProfileInformationView';
 
   static const String changePassword = '/changePassword';
+  static const String volunteerInformation = '/volunteerInformation';
 }
