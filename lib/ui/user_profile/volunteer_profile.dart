@@ -41,7 +41,7 @@ class VolunteerProfileWidget extends StatelessWidget {
                         Gender.isWoman(user.profile.gender)
                             ? 'assets/images/volunteer_woman.png'
                             : 'assets/images/volunteer_men.png',
-                        scale: 3),
+                        scale: 15),
               ),
               const SizedBox(
                 height: 20,
@@ -56,7 +56,7 @@ class VolunteerProfileWidget extends StatelessWidget {
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/person_profile_icon.png',
                 onClick: () {
-                  context.go(Routes.elderlyProfileInformationView,
+                  context.push(Routes.elderlyProfileInformationView,
                       extra: state.userProfile);
                 },
                 title: 'ข้อมูลส่วนตัว',
@@ -64,7 +64,10 @@ class VolunteerProfileWidget extends StatelessWidget {
               CardListMenu(
                 img:
                     'assets/images/profile_menu_icon/take_care_profile_icon.png',
-                onClick: () {},
+                onClick: () {
+                  context.push(Routes.volunteerInformation,
+                      extra: state.userProfile);
+                },
                 title: 'ข้อมูลจิตอาสา',
               ),
               CardListMenu(

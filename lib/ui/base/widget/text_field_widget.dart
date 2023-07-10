@@ -274,13 +274,13 @@ class TextFieldWidget extends StatelessWidget {
                   ? color.Error.withOpacity(0.2)
                   : isEnabled
                       ? ColorTheme().GreyBackGround.withOpacity(0.03)
-                      : HexColor('#FBFBFB'),
+                      : ColorTheme().GreyBackGround,
               border: Border.all(
                   color: setErrorWithOuter
                       ? color.Error
                       : (isEnabled)
                           ? ColorTheme().GreyBorder
-                          : HexColor('#EFEFEF'),
+                          : ColorTheme().GreyBorder,
                   width: 1),
               borderRadius: BorderRadius.all(Radius.circular(15))),
           child: Center(

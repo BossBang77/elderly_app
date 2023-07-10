@@ -12,7 +12,8 @@ class ProfileRegisterModel {
       this.citizenId = '',
       this.birthDate = '',
       this.image = '',
-      this.isVerify = false});
+      this.isVerify = false,
+      this.experience = 0});
   //convert from json
   factory ProfileRegisterModel.fromJson(Map<String, dynamic> json) =>
       _$ProfileRegisterModelFromJson(json);
@@ -61,6 +62,7 @@ class ProfileRegisterModel {
     name: 'isVerify',
   )
   final bool isVerify;
+  final int experience;
 
   ProfileRegisterModel copyWith(
           {String? name,
@@ -71,7 +73,8 @@ class ProfileRegisterModel {
           String? citizenId,
           String? birthDate,
           String? image,
-          bool? isVerify}) =>
+          bool? isVerify,
+          int? experience}) =>
       ProfileRegisterModel(
           name: name ?? this.name,
           gender: gender ?? this.gender,
@@ -81,7 +84,8 @@ class ProfileRegisterModel {
           citizenId: citizenId ?? this.citizenId,
           birthDate: birthDate ?? this.birthDate,
           image: image ?? this.image,
-          isVerify: isVerify ?? this.isVerify);
+          isVerify: isVerify ?? this.isVerify,
+          experience: experience ?? this.experience);
 
   List<Object?> get props => <Object>[
         name,
@@ -92,6 +96,7 @@ class ProfileRegisterModel {
         citizenId,
         birthDate,
         image,
-        isVerify
+        isVerify,
+        experience
       ];
 }
