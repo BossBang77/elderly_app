@@ -208,8 +208,9 @@ class PlublicRequest {
 
 class ByPassAuth401 {
   static String get changePassword => '/api/v1/password/change-password';
+  static String get login => '/api/v1/authentication';
 
   bool isByPassAuten401(String url) {
-    return url.contains(changePassword);
+    return url.contains(changePassword) || url.contains(login);
   }
 }

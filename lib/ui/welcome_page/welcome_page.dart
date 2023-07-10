@@ -37,7 +37,8 @@ class WelcomePage extends StatelessWidget {
               textSubtitle2(
                   'Lorem ipsum dolor sit amet, consectetur \nadipiscing elit. Elit, ipsum sed diam amet, dui\n vitae libero viverra.',
                   ColorTheme().black87,
-                  true),
+                  true,
+                  maxLine: 4),
               const SizedBox(
                 height: 50,
               ),

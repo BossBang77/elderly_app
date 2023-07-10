@@ -10,53 +10,68 @@ import 'package:health_application/ui/elderly/food_filter/view/food_filter_calor
 import 'package:health_application/ui/elderly/food_filter/view/food_filter_type_widget.dart';
 import 'package:health_application/ui/elderly/food_filter/view/toggle_filter_item_selectable.dart';
 import 'package:health_application/ui/elderly/food_filter/view/toggle_filter_item_widget.dart';
+import 'package:health_application/ui/register_profile/model/sub_menu_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 
 class FoodFilterView extends StatelessWidget {
-  const FoodFilterView({
-    this.onFilterApplied,
-    this.isToggleItemSelectable = false
-  });
+  const FoodFilterView(
+      {this.onFilterApplied, this.isToggleItemSelectable = false});
 
   final Function()? onFilterApplied;
   final bool isToggleItemSelectable;
 
   @override
   Widget build(BuildContext context) {
+    List<SubMenuModel> allergicFoods = [
+      ...BlocProvider.of<UserProfileBloc>(context)
+          .state
+          .userProfile
+          .allergicFoods
+    ];
     List<Widget> toggleItems(FoodFilterState state) {
       if (isToggleItemSelectable) {
         return [
           ToggleFilterItemSelectableWidget(
             name: 'โรคประจำตัว',
-            description: state.selectedDisease.isEmpty ? 'ยังไม่ระบุ' :
-                state.selectedDisease.map((disease) => disease.name).join(', '),
+            description: state.selectedDisease.isEmpty
+                ? 'ยังไม่ระบุ'
+                : state.selectedDisease
+                    .map((disease) => disease.name)
+                    .join(', '),
             isChecked: state.isCongentialDeceaseSelected,
-            masterData: BlocProvider.of<MasterDataBloc>(context).state.congenitalDiseaseMaster,
+            masterData: BlocProvider.of<MasterDataBloc>(context)
+                .state
+                .congenitalDiseaseMaster,
             onChanged: (isChecked) {
               context.read<FoodFilterBloc>().add(
                   FoodFilterCongentialDeceaseToggled(
-                      isCongentialDeceaseSelected:
-                          isChecked));
+                      isCongentialDeceaseSelected: isChecked));
             },
             onSubmit: (data) {
-              context.read<FoodFilterBloc>().add(FoodFilterSetSelectedDisease(diseases: data));
+              context
+                  .read<FoodFilterBloc>()
+                  .add(FoodFilterSetSelectedDisease(diseases: data));
             },
             initialValue: state.selectedDisease,
           ),
           ToggleFilterItemSelectableWidget(
             name: 'แพ้อาหาร',
-            description: state.selectedFoodAllergy.isEmpty ? 'ยังไม่ระบุ' :
-              state.selectedFoodAllergy.map((food) => food.name).join(', '),
+            description: state.selectedFoodAllergy.isEmpty
+                ? 'ยังไม่ระบุ'
+                : state.selectedFoodAllergy.map((food) => food.name).join(', '),
             isChecked: state.isFoodAllergiesSelected,
-            masterData: BlocProvider.of<MasterDataBloc>(context).state.allergiesMaster,
+            masterData:
+                BlocProvider.of<MasterDataBloc>(context).state.allergiesMaster,
             onChanged: (isChecked) {
-              context.read<FoodFilterBloc>().add(
-                  FoodFilterFoodAllergiesToggled(
-                      isFoodAllergiesSelected: isChecked));
+              context.read<FoodFilterBloc>().add(FoodFilterFoodAllergiesToggled(
+                  isFoodAllergiesSelected: isChecked));
             },
             onSubmit: (data) {
-              context.read<FoodFilterBloc>().add(FoodFilterSetSelectedFoodAllergy(foodAllergy: data));
+              context
+                  .read<FoodFilterBloc>()
+                  .add(FoodFilterSetSelectedFoodAllergy(foodAllergy: data));
             },
             initialValue: state.selectedFoodAllergy,
           ),
@@ -71,24 +86,23 @@ class FoodFilterView extends StatelessWidget {
             onChanged: (isChecked) {
               context.read<FoodFilterBloc>().add(
                   FoodFilterCongentialDeceaseToggled(
-                      isCongentialDeceaseSelected:
-                          isChecked));
+                      isCongentialDeceaseSelected: isChecked));
             },
           ),
           ToggleFilterItemWidget(
             name: 'แพ้อาหาร',
-            description: 'นมวัว, แป้งสาลีและกลูเต็น ',
+            description:
+                allergicFoods.map((allergic) => allergic.name).join(', '),
             isChecked: state.isFoodAllergiesSelected,
             onChanged: (isChecked) {
-              context.read<FoodFilterBloc>().add(
-                  FoodFilterFoodAllergiesToggled(
-                      isFoodAllergiesSelected: isChecked));
+              context.read<FoodFilterBloc>().add(FoodFilterFoodAllergiesToggled(
+                  isFoodAllergiesSelected: isChecked,
+                  allergicFoods: (isChecked) ? allergicFoods : []));
             },
           ),
         ];
       }
     }
-
 
     return Scaffold(
       appBar: AppBar(
@@ -124,21 +138,29 @@ class FoodFilterView extends StatelessWidget {
                         padding: EdgeInsets.only(bottom: 34),
                         child: Column(
                           children: [
-                            Column(
-                              children: toggleItems(state)
-                            ),
+                            Column(children: toggleItems(state)),
                             FoodFilterCaloriesWidget(
                               onMinimumValueChange: (value) {
-                                context.read<FoodFilterBloc>().add(FoodFilterMinimumCaloriesTextFieldValueChanged(minimumCalories: value));
+                                context.read<FoodFilterBloc>().add(
+                                    FoodFilterMinimumCaloriesTextFieldValueChanged(
+                                        minimumCalories: value));
                               },
                               onMaximumValueChange: (value) {
-                                context.read<FoodFilterBloc>().add(FoodFilterMaximumCaloriesTextFieldValueChanged(maximumCalories: value));
+                                context.read<FoodFilterBloc>().add(
+                                    FoodFilterMaximumCaloriesTextFieldValueChanged(
+                                        maximumCalories: value));
                               },
+                              maxVal: state.maximumCalories,
+                              minVal: state.minimumCalories,
                             ),
-                            FoodFilterTypeWidget<String>(
-                              //TODO use list from api
-                              items: [],
-                              values: [],
+                            FoodFilterTypeWidget(
+                              values: [
+                                ...BlocProvider.of<MasterDataBloc>(context)
+                                    .state
+                                    .foodType
+                                    .data
+                                    .reversed
+                              ],
                               selectedFoodTypes: state.selectedTypes,
                               onFoodTypeSelected: (value) {
                                 context.read<FoodFilterBloc>().add(
@@ -164,8 +186,8 @@ class FoodFilterView extends StatelessWidget {
                                   context
                                       .read<FoodFilterBloc>()
                                       .add(FoodFilterSearchButtonTapped());
-                                  Navigator.pop(context, true);
                                   onFilterApplied?.call();
+                                  Navigator.pop(context, true);
                                 },
                               ),
                             ],

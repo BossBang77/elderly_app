@@ -7,7 +7,7 @@ abstract class FoodFilterEvent extends Equatable {
   @override
   List<Object> get props => [];
 
-  @override 
+  @override
   bool? get stringify => true;
 }
 
@@ -16,7 +16,8 @@ class FoodFilterSnapshotCreated extends FoodFilterEvent {}
 class FoodFilterStateRestored extends FoodFilterEvent {}
 
 class FoodFilterCongentialDeceaseToggled extends FoodFilterEvent {
-  const FoodFilterCongentialDeceaseToggled({required this.isCongentialDeceaseSelected});
+  const FoodFilterCongentialDeceaseToggled(
+      {required this.isCongentialDeceaseSelected});
 
   final bool isCongentialDeceaseSelected;
 
@@ -25,25 +26,27 @@ class FoodFilterCongentialDeceaseToggled extends FoodFilterEvent {
 }
 
 class FoodFilterFoodAllergiesToggled extends FoodFilterEvent {
-  const FoodFilterFoodAllergiesToggled({required this.isFoodAllergiesSelected});
+  const FoodFilterFoodAllergiesToggled(
+      {required this.isFoodAllergiesSelected, this.allergicFoods = const []});
 
   final bool isFoodAllergiesSelected;
-
+  final List<SubMenuModel> allergicFoods;
   @override
-  List<Object> get props => [isFoodAllergiesSelected];
+  List<Object> get props => [isFoodAllergiesSelected, allergicFoods];
 }
 
 class FoodFilterFoodTypeSelected extends FoodFilterEvent {
   const FoodFilterFoodTypeSelected({required this.foodTypes});
 
-  final String foodTypes;
+  final SubMenuModel foodTypes;
 
   @override
   List<Object> get props => [foodTypes];
 }
 
 class FoodFilterMinimumCaloriesTextFieldValueChanged extends FoodFilterEvent {
-  const FoodFilterMinimumCaloriesTextFieldValueChanged({required this.minimumCalories});
+  const FoodFilterMinimumCaloriesTextFieldValueChanged(
+      {required this.minimumCalories});
 
   final String minimumCalories;
 
@@ -52,7 +55,8 @@ class FoodFilterMinimumCaloriesTextFieldValueChanged extends FoodFilterEvent {
 }
 
 class FoodFilterMaximumCaloriesTextFieldValueChanged extends FoodFilterEvent {
-  const FoodFilterMaximumCaloriesTextFieldValueChanged({required this.maximumCalories});
+  const FoodFilterMaximumCaloriesTextFieldValueChanged(
+      {required this.maximumCalories});
 
   final String maximumCalories;
 
@@ -69,7 +73,7 @@ class FoodFilterSearchButtonTapped extends FoodFilterEvent {
 }
 
 class FoodFilterSetSelectedDisease extends FoodFilterEvent {
-  const FoodFilterSetSelectedDisease({this.diseases = const[]});
+  const FoodFilterSetSelectedDisease({this.diseases = const []});
   final List<SubMenuModel> diseases;
 
   @override
@@ -77,7 +81,7 @@ class FoodFilterSetSelectedDisease extends FoodFilterEvent {
 }
 
 class FoodFilterSetSelectedFoodAllergy extends FoodFilterEvent {
-  const FoodFilterSetSelectedFoodAllergy({this.foodAllergy = const[]});
+  const FoodFilterSetSelectedFoodAllergy({this.foodAllergy = const []});
   final List<SubMenuModel> foodAllergy;
 
   @override

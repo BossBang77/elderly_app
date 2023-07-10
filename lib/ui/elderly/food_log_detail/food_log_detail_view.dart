@@ -51,7 +51,8 @@ class FoodLogDetailView extends StatelessWidget {
                         ? Container(
                             decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    image: NetworkImage(state.food.image))),
+                                    image: NetworkImage(state.food.image),
+                                    fit: BoxFit.cover)),
                             height: 300,
                           )
                         : Container(
@@ -86,7 +87,9 @@ class FoodLogDetailView extends StatelessWidget {
                               children: [
                                 textH6(state.food.name, ColorTheme().black87,
                                     false),
-                                // textSubtitle16Blod(state.foodDetail.categories.join(','), ColorTheme().grey10),
+                                textSubtitle16Blod(
+                                    state.foodDetail.getTypeList(),
+                                    ColorTheme().greyText),
                                 SizedBox(height: 40),
                                 ListSection(
                                   sectionHeaderTitle: 'จำนวนหน่วยบริโภค :',
@@ -156,7 +159,6 @@ class FoodLogDetailView extends StatelessWidget {
                                     )
                                   ],
                                 ),
-
                                 ListSection(
                                   sectionHeaderTitle: 'คุณค่าทางโภชนาการ',
                                   children: [

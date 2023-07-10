@@ -4,84 +4,91 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 class FoodFilterCaloriesWidget extends StatelessWidget {
-  const FoodFilterCaloriesWidget({this.onMinimumValueChange, this.onMaximumValueChange});
+  const FoodFilterCaloriesWidget(
+      {this.onMinimumValueChange,
+      this.onMaximumValueChange,
+      required this.maxVal,
+      required this.minVal});
   final Function(String)? onMinimumValueChange;
   final Function(String)? onMaximumValueChange;
-  @override 
+  final String maxVal;
+  final String minVal;
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(bottom: 25, top: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              textBody1('แคลอรี่', ColorTheme().black87),
-              textBody2('ระบุแคลอรี่ที่ต้องการรับประทานต่อมื้อ', ColorTheme().black87, false),
-              SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: TextField(
-                      onChanged: (value) {
-                        onMinimumValueChange?.call(value);
-                      },
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
+            padding: EdgeInsets.only(bottom: 25, top: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                textBody1('แคลอรี่', ColorTheme().black87),
+                textBody2('ระบุแคลอรี่ที่ต้องการรับประทานต่อมื้อ',
+                    ColorTheme().black87, false),
+                SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        onChanged: (value) {
+                          onMinimumValueChange?.call(value);
+                        },
+                        controller: TextEditingController(text: minVal),
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: ColorTheme().GreyBackGround)
-                          ),
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  color: ColorTheme().GreyBackGround)),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: ColorTheme().GreyBackGround)
-                          ),
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  color: ColorTheme().GreyBackGround)),
                           disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: ColorTheme().GreyBackGround)
-                          ),
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  color: ColorTheme().GreyBackGround)),
                           suffixText: UnitEnergy.kilocalories.symbol,
                         ),
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: 7,
-                    height: 2,
-                    color: Colors.black,
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      onChanged: (value) {
-                        onMaximumValueChange?.call(value);
-                      },
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
+                    Container(
+                      width: 7,
+                      height: 2,
+                      color: Colors.black,
+                      margin: EdgeInsets.only(left: 20, right: 20),
+                    ),
+                    Expanded(
+                      child: TextField(
+                        onChanged: (value) {
+                          onMaximumValueChange?.call(value);
+                        },
+                        controller: TextEditingController(text: maxVal),
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: ColorTheme().GreyBackGround)
-                          ),
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  color: ColorTheme().GreyBackGround)),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: ColorTheme().GreyBackGround)
-                          ),
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  color: ColorTheme().GreyBackGround)),
                           disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: ColorTheme().GreyBackGround)
-                          ),
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  color: ColorTheme().GreyBackGround)),
                           suffixText: UnitEnergy.kilocalories.symbol,
                         ),
+                      ),
                     ),
-                  ),
-                  // TextField()
-                ],
-              ),
-            ],
-          )
-        ),
-        
+                    // TextField()
+                  ],
+                ),
+              ],
+            )),
         Container(height: 1, color: ColorTheme().GreyBorder)
       ],
     );
