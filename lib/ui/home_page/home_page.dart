@@ -221,12 +221,14 @@ class HomePage extends StatelessWidget {
 
         return Stack(
           children: [
-            if (state.role == RoleType.ROLE_USER_ELDERLY.name) ...{
-              _pageView(),
-              _bottomNavigationBar()
-            } else ...{
-              _volunteerPageView(),
-              _volunteerButtonNavagateBar()
+            if (!state.loading) ...{
+              if (state.role == RoleType.ROLE_USER_ELDERLY.name) ...{
+                _pageView(),
+                _bottomNavigationBar()
+              } else ...{
+                _volunteerPageView(),
+                _volunteerButtonNavagateBar()
+              },
             },
             if (state.loading) ...{Loader()}
           ],

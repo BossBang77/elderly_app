@@ -46,12 +46,5 @@ abstract class ExerciseService {
     "Accept": "application/json",
     "Content-Type": "application/json",
   })
-  Future<HttpResponse> saveExerciseRecord(@Body() String body);
-
-  @POST('/api/v1/exercise/activity')
-  @Headers(<String, dynamic>{
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-  })
   Future<HttpResponse> saveExerciseDaily(@Body() String body);
 }
