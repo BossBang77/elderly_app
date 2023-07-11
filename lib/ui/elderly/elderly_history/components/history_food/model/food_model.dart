@@ -21,6 +21,7 @@ class FoodModel {
   final String code;
   final String name;
   final String image;
-  final num calories;
   final num unit;
+  @JsonKey(name: 'calorie')
+  final num calories;
 }
