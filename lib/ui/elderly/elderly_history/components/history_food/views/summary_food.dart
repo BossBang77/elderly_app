@@ -4,7 +4,6 @@ import 'package:health_application/ui/elderly/elderly_history/components/history
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/common/item_constant.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/elderly_food_model.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/graph_model.dart';
-import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/mock_graph_data.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/views/graph_widget.dart';
 import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/register_profile/volunteer/views/address/dropdown_widget.dart';
@@ -115,7 +114,8 @@ class SummaryFoodWidget extends StatelessWidget {
                 Container(
                   height: 300,
                   child: GraphWidget(
-                    data: state.foodData.calories,
+                    data: GraphGenerate.generateGraphData(
+                        state.foodData.calories, state.currentRange),
                     leftTitleRange: 200,
                     bottomTitleRange: 1,
                     rangeType: state.currentRange,
@@ -144,7 +144,7 @@ class SummaryFoodWidget extends StatelessWidget {
                     onChanged: (value) {
                       var getCode =
                           selectNutrients.firstWhere((e) => e.desc == value);
-                      print('code = ${getCode.code}');
+
                       context
                           .read<HistoryFoodBloc>()
                           .add(onNutrientsChange(code: getCode.code));
@@ -157,8 +157,9 @@ class SummaryFoodWidget extends StatelessWidget {
                 Container(
                   height: 300,
                   child: GraphWidget(
-                    data:
+                    data: GraphGenerate.generateGraphData(
                         getNutrientsData(state.currentNutrient, state.foodData),
+                        state.currentRange),
                     leftTitleRange: 20,
                     bottomTitleRange: 1,
                     rangeType: state.currentRange,

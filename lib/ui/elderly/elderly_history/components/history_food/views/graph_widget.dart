@@ -45,6 +45,9 @@ class _GraphWidgetState extends State<GraphWidget> {
 
     double getMaxValue() {
       if (widget.data.isNotEmpty) {
+        if (widget.data.every((el) => el.value == 0)) {
+          return 100;
+        }
         GraphModel maxData =
             widget.data.reduce((a, b) => a.value > b.value ? a : b);
         int round = roundUp(maxData.value.ceil(), 50);
@@ -77,7 +80,8 @@ class _GraphWidgetState extends State<GraphWidget> {
         List<GraphModel> list) {
       List<GraphModel> newTradeList = [...list];
       // Sorting date
-      newTradeList.sort((a, b) => a.date.compareTo(b.date));
+      newTradeList.sort(
+          (a, b) => DateTime.parse(a.date).compareTo(DateTime.parse(b.date)));
       return newTradeList;
     }
 
@@ -90,16 +94,17 @@ class _GraphWidgetState extends State<GraphWidget> {
     Widget bottomTitleWidgets(double index, TitleMeta meta) {
       String text = '';
       if (widget.data.isNotEmpty) {
+        var newList = getNewListFromLastDateToCurrentDate(widget.data);
         if (widget.rangeType == GraphRangeType.oneWeek) {
-          var item = widget.data[index.toInt()];
+          var item = newList[index.toInt()];
           text = item.date.isNotEmpty
               ? DateTime.parse(item.date).toDisplayShortDate(locale: 'th')
               : '';
         } else {
-          var average = (widget.data.length / 2).ceil();
-          var listIndDisplay = [0, average, widget.data.length - 1];
+          var average = (newList.length / 2).ceil();
+          var listIndDisplay = [0, average, newList.length - 1];
           if (listIndDisplay.contains(index)) {
-            var item = widget.data[index.toInt()];
+            var item = newList[index.toInt()];
             text = item.date.isNotEmpty
                 ? DateTime.parse(item.date).toDisplayShortDate(locale: 'th')
                 : '';
