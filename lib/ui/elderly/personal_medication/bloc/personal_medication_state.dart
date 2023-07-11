@@ -67,13 +67,14 @@ enum TimeOfMedication {
   MORNING(title: 'เช้า', timeCode: 'MEDICATION_MORNING'),
   DAYTIME(title: 'กลางวัน', timeCode: 'MEDICATION_LUNCH'),
   EVENING(title: 'เย็น', timeCode: 'MEDICATION_EVENING'),
-  OTHER(title: 'อื่นๆ', timeCode: ''),
-  ;
+  OTHER(title: 'อื่นๆ', timeCode: '');
 
   const TimeOfMedication({required this.title, required this.timeCode});
   final String title;
   final String timeCode;
 }
+
+String get keyCodeTimeBeforeBed => 'MEDICATION_BEFORE_BEDTIME';
 
 enum SubmitState {
   initial(title: ''),
@@ -106,5 +107,6 @@ enum MedicationChange {
   removeTime,
   setTimeNoti,
   setDescription,
-  setRepeatNoti
+  setRepeatNoti,
+  setTimeBeforeBed
 }

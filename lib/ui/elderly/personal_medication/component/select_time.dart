@@ -54,91 +54,127 @@ class SelectTime extends StatelessWidget {
           return master.getKeyName(timeCode);
         }
 
-        return Column(
-          children: [
-            for (var item in TimeOfMedication.values)
-              Column(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      MedicationChange type = MedicationChange.addTime;
-                      if (checkIsSelect(item.name)) {
-                        type = MedicationChange.removeTime;
-                      }
-                      addEvent(
-                          context,
-                          ChangeDetailMedication(
-                              type: type, value: item.name, code: item.name));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(top: 10),
-                      padding: EdgeInsets.all(5),
-                      decoration: StyleBorder().greyDecoration(radius: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            constraints: BoxConstraints(minHeight: 50),
-                            child: Image.asset(
-                              checkIsSelect(item.name)
-                                  ? 'assets/images/check_box_check.png'
-                                  : 'assets/images/check_box_uncheck.png',
-                              scale: 4,
+        if (currentMedication.periodType == Period.BEFORRE_BED.name) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TitleHeaderWidget(
+                title: 'เวลาแจ้งเตือน',
+                isMandatory: true,
+              ),
+              DropdownWidget(
+                value:
+                    getNotiTimeDDL(Period.BEFORRE_BED.name).takeOrNullIfEmpty(),
+                items: getMasterList(TimeOfMedication.DAYTIME.name)
+                    .filterByCategoryName(keyCodeTimeBeforeBed)
+                    .toListKeyName(),
+                setErrorWithOuter: getNotiTimeDDL(Period.BEFORRE_BED.name)
+                        .takeOrNullIfEmpty() ==
+                    null,
+                onChanged: (value) {
+                  addEvent(
+                      context,
+                      ChangeDetailMedication(
+                          type: MedicationChange.setTimeNoti,
+                          value: getMasterList(TimeOfMedication.DAYTIME.name)
+                              .getKeyCode(value ?? ''),
+                          code: Period.BEFORRE_BED.name));
+                },
+                hint: 'ระบุเวลาแจ้งเตือน',
+              ),
+              SpaceWidget(
+                height: 20,
+              ),
+            ],
+          );
+        } else {
+          return Column(
+            children: [
+              for (var item in TimeOfMedication.values)
+                Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        MedicationChange type = MedicationChange.addTime;
+                        if (checkIsSelect(item.name)) {
+                          type = MedicationChange.removeTime;
+                        }
+                        addEvent(
+                            context,
+                            ChangeDetailMedication(
+                                type: type, value: item.name, code: item.name));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10),
+                        padding: EdgeInsets.all(5),
+                        decoration: StyleBorder().greyDecoration(radius: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              constraints: BoxConstraints(minHeight: 50),
+                              child: Image.asset(
+                                checkIsSelect(item.name)
+                                    ? 'assets/images/check_box_check.png'
+                                    : 'assets/images/check_box_uncheck.png',
+                                scale: 4,
+                              ),
                             ),
+                            SpaceWidget(
+                              width: 20,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: textH7(
+                                item.title,
+                                color.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SpaceWidget(
+                      height: 20,
+                    ),
+                    if (checkIsSelect(item.name))
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TitleHeaderWidget(
+                            title: 'เวลาแจ้งเตือน',
+                            isMandatory: true,
+                          ),
+                          DropdownWidget(
+                            value:
+                                getNotiTimeDDL(item.name).takeOrNullIfEmpty(),
+                            items: getMasterList(item.name)
+                                .filterByCategoryName(item.timeCode)
+                                .toListKeyName(),
+                            setErrorWithOuter:
+                                getNotiTimeDDL(item.name).takeOrNullIfEmpty() ==
+                                    null,
+                            onChanged: (value) {
+                              addEvent(
+                                  context,
+                                  ChangeDetailMedication(
+                                      type: MedicationChange.setTimeNoti,
+                                      value: getMasterList(item.name)
+                                          .getKeyCode(value ?? ''),
+                                      code: item.name));
+                            },
+                            hint: 'ระบุเวลาแจ้งเตือน',
                           ),
                           SpaceWidget(
-                            width: 20,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: textH7(
-                              item.title,
-                              color.black87,
-                            ),
+                            height: 20,
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  SpaceWidget(
-                    height: 20,
-                  ),
-                  if (checkIsSelect(item.name))
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TitleHeaderWidget(
-                          title: 'เวลาแจ้งเตือน',
-                          isMandatory: true,
-                        ),
-                        DropdownWidget(
-                          value: getNotiTimeDDL(item.name).takeOrNullIfEmpty(),
-                          items: getMasterList(item.name)
-                              .filterByCategoryName(item.timeCode)
-                              .toListKeyName(),
-                          setErrorWithOuter:
-                              getNotiTimeDDL(item.name).takeOrNullIfEmpty() ==
-                                  null,
-                          onChanged: (value) {
-                            addEvent(
-                                context,
-                                ChangeDetailMedication(
-                                    type: MedicationChange.setTimeNoti,
-                                    value: getMasterList(item.name)
-                                        .getKeyCode(value ?? ''),
-                                    code: item.name));
-                          },
-                          hint: 'ระบุเวลาแจ้งเตือน',
-                        ),
-                        SpaceWidget(
-                          height: 20,
-                        ),
-                      ],
-                    ),
-                ],
-              )
-          ],
-        );
+                  ],
+                )
+            ],
+          );
+        }
       },
     );
   }

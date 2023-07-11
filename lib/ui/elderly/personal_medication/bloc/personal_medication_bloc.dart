@@ -117,7 +117,15 @@ class PersonalMedicationBloc
         medicationDetail = medicationDetail.copyWith(dosage: event.value);
         break;
       case MedicationChange.peroid:
-        medicationDetail = medicationDetail.copyWith(periodType: event.value);
+        var periodTime = state.currentMedication.periodTimes;
+        if (event.value == Period.BEFORRE_BED.name) {
+          periodTime = [PeriodTimeModel(code: Period.BEFORRE_BED.name)];
+        } else if (state.currentMedication.periodType ==
+            Period.BEFORRE_BED.name) {
+          periodTime = [];
+        }
+        medicationDetail = medicationDetail.copyWith(
+            periodType: event.value, periodTimes: periodTime);
         break;
       case MedicationChange.setRepeatNoti:
         medicationDetail =
@@ -152,6 +160,18 @@ class PersonalMedicationBloc
               notificationTime: event.value,
             );
           }
+        }
+        medicationDetail = medicationDetail.copyWith(periodTimes: timePeroid);
+        break;
+      case MedicationChange.setTimeBeforeBed:
+        int index = timePeroid.indexWhere((time) => time.code == event.code);
+        if (index >= 0) {
+          var master = timePeroid[index];
+
+          timePeroid[index] = PeriodTimeModel(
+            code: master.code,
+            notificationTime: event.value,
+          );
         }
         medicationDetail = medicationDetail.copyWith(periodTimes: timePeroid);
         break;
@@ -202,6 +222,7 @@ String getTimeOfMedication(String _time) {
 }
 
 bool checkMandatory(MedicationDetailModel currentMedication) {
+  print(currentMedication.toJson());
   bool check = true;
   var current = currentMedication;
   var time = [...current.periodTimes];
