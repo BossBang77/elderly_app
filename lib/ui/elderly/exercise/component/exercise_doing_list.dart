@@ -43,7 +43,7 @@ Widget ExerciseDoingList(BuildContext context, SearchResListModel list) {
                             textSubtitle16Blod(
                                 recordList[i].name, color.black87),
                             textSubtitle15w400(
-                                '${recordList[i].time.toString()} นาที : ${recordList[i].burnCalorie}kcal',
+                                '${recordList[i].timePoint.toString()} นาที : ${recordList[i].burnCaloriePoint}kcal',
                                 color.black87)
                           ],
                         ),

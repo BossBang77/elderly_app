@@ -21,12 +21,12 @@ class Initstate extends HomePageEvent {
 }
 
 class TDEEDataFetched extends HomePageEvent {
-  const TDEEDataFetched({required this.response});
-  final TDEEResponse response;
+  const TDEEDataFetched();
 
   @override
-  List<Object> get props => [response];
+  List<Object> get props => [];
 }
+
 class ShowLoading extends HomePageEvent {
   const ShowLoading();
 }

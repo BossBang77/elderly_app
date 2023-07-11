@@ -159,36 +159,13 @@ class ExerciseDetail extends StatelessWidget {
                   Row(
                     children: [
                       Flexible(
-                          flex: 2,
                           child: ButtonGradient(
-                            btnName: 'เริ่มต้นออกกำลังกาย',
-                            onClick: () {
-                              if (!checkIsSaveRecord(state.recordList,
-                                  state.currentInformation.code)) {
-                                context.read<ExerciseBloc>().add(
-                                    SaveExerciseRecordBeforeExerise(
-                                        code: state.currentInformation.code,
-                                        name: state.currentInformation.name));
-                              }
-
-                              context.read<ExerciseBloc>().add(ChangeView(
-                                  exerciseView: ExerciseView.vdoExercise));
-                            },
-                          )),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      if (!checkIsSaveRecord(
-                          state.recordList, state.currentInformation.code))
-                        Flexible(
-                            child: ButtonBlueFade(
-                          btnName: 'บันทึก',
-                          onClick: () {
-                            context.read<ExerciseBloc>().add(SaveExerciseRecord(
-                                code: state.currentInformation.code,
-                                name: state.currentInformation.name));
-                          },
-                        ))
+                        btnName: 'เริ่มต้นออกกำลังกาย',
+                        onClick: () {
+                          context.read<ExerciseBloc>().add(ChangeView(
+                              exerciseView: ExerciseView.vdoExercise));
+                        },
+                      )),
                     ],
                   ),
                 const SizedBox(

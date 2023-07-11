@@ -85,10 +85,18 @@ class ExerciseRepository {
   }
 
   Future<Either<Failure, int>> saveExerciseDaily(
-      DailyActivityModel body) async {
+      DailyActivityModel daily) async {
     try {
+      var body = [
+        {
+          "name": daily.name,
+          "code": daily.code,
+          "timePoint": daily.timePoint,
+          "burnCaloriePoint": daily.burnCaloriePoint
+        }
+      ];
       final HttpResponse req =
-          await _exerciseService.saveExerciseDaily(body.toJson());
+          await _exerciseService.saveExerciseDaily(body.toString());
       return Right(req.response.statusCode ?? 200);
     } on DioError catch (error) {
       if (error.response?.statusCode == StatusCode.notFound) {
@@ -117,29 +125,6 @@ class ExerciseRepository {
         print('Error 500 $error');
         return const Left(Failure(''));
       }
-    }
-    return const Left(Failure(''));
-  }
-
-  Future<Either<Failure, String>> saveExerciseRecord(
-      List<ExerciseModel> body) async {
-    try {
-      var bodyReq = jsonEncode(body);
-      final HttpResponse req =
-          await _exerciseService.saveExerciseRecord(bodyReq);
-      if (req.response.statusCode == StatusCode.success) {
-        return Right('Success');
-      } else {
-        return Right(req.response.statusCode.toString());
-      }
-    } on DioError catch (error) {
-      if (error.response?.statusCode == StatusCode.notFound) {
-        return Left(Failure('Error 400 $error'));
-      } else if (error.response?.statusCode == StatusCode.failure) {
-        return Left(Failure('Error 500 $error'));
-      }
-    } catch (e) {
-      return Left(Failure(e.toString()));
     }
     return const Left(Failure(''));
   }

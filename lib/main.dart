@@ -54,9 +54,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MultiBlocProvider(
             providers: [
-              BlocProvider(
-                  create: (context) =>
-                      HomePageBloc(TDEERepository())..fetchTDEEData()),
+              BlocProvider(create: (context) => HomePageBloc(TDEERepository())),
               BlocProvider(create: (context) => ExerciseBloc()),
               BlocProvider(create: (context) => MasterDataBloc()),
               BlocProvider(create: (context) => WaterIntakeBloc()),
