@@ -113,7 +113,9 @@ class SelectTime extends StatelessWidget {
                         ),
                         DropdownWidget(
                           value: getNotiTimeDDL(item.name).takeOrNullIfEmpty(),
-                          items: getMasterList(item.name).toListKeyName(),
+                          items: getMasterList(item.name)
+                              .filterByCategoryName(item.timeCode)
+                              .toListKeyName(),
                           setErrorWithOuter:
                               getNotiTimeDDL(item.name).takeOrNullIfEmpty() ==
                                   null,

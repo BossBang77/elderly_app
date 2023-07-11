@@ -37,4 +37,18 @@ extension MasterDataExtension on List<MasterDataDetail> {
       return '';
     }
   }
+
+  List<MasterDataDetail> filterByCategoryName(String categoryName) {
+    List<MasterDataDetail> newList = [];
+    try {
+      this.forEach((element) {
+        if (element.categoryName == categoryName) {
+          newList.add(element);
+        }
+      });
+      return newList.isNotEmpty ? newList : this;
+    } catch (e) {
+      return this;
+    }
+  }
 }

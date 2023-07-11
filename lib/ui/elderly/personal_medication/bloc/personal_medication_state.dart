@@ -64,13 +64,15 @@ enum Period {
 }
 
 enum TimeOfMedication {
-  MORNING(title: 'เช้า'),
-  DAYTIME(title: 'กลางวัน'),
-  EVENING(title: 'ก่อนนอน'),
-  OTHER(title: 'อื่นๆ');
+  MORNING(title: 'เช้า', timeCode: 'MEDICATION_MORNING'),
+  DAYTIME(title: 'กลางวัน', timeCode: 'MEDICATION_LUNCH'),
+  EVENING(title: 'เย็น', timeCode: 'MEDICATION_EVENING'),
+  OTHER(title: 'อื่นๆ', timeCode: ''),
+  ;
 
-  const TimeOfMedication({required this.title});
+  const TimeOfMedication({required this.title, required this.timeCode});
   final String title;
+  final String timeCode;
 }
 
 enum SubmitState {
