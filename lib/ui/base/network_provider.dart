@@ -50,6 +50,8 @@ class ApiInterceptors extends QueuedInterceptor {
   @override
   Future<dynamic> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
+    print(options.path);
+    print(options.data);
     if (!PlublicRequest().isPlublicRequest(options.path)) {
       var accessToken = await UserSecureStorage().getAccessToken();
 
@@ -66,8 +68,15 @@ class ApiInterceptors extends QueuedInterceptor {
   }
 
   @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    print(response.data.toString());
+    super.onResponse(response, handler);
+  }
+
+  @override
   Future<dynamic> onError(
       DioError error, ErrorInterceptorHandler handler) async {
+    print(error.response);
     switch (error.type) {
       //TODO
       // case DioErrorType.connectTimeout:

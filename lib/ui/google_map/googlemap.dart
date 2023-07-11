@@ -14,6 +14,7 @@ import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 
 import '../base/routes.dart';
 import '../ui-extensions/color.dart';
+import 'component/search_location.dart';
 
 double userLatiPick = 0;
 double userLongtiPick = 0;
@@ -65,6 +66,7 @@ class GoogleMaps extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<GoogleMapCubit>().initialState();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: appBar(
           images: 'assets/images/exit_icon.png',
           onBack: () {
@@ -105,7 +107,7 @@ class GoogleMaps extends StatelessWidget {
     );
   }
 
-  Widget initState(BuildContext context, state) {
+  Widget initState(BuildContext context, GoogleMapState state) {
     return Stack(
       children: [
         (state is ShowGoogleMap)
@@ -138,6 +140,7 @@ class GoogleMaps extends StatelessWidget {
                     child: Container()),
               )
             : Container(),
+        if (state is ShowGoogleMap) SearchLocation(state: state),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
