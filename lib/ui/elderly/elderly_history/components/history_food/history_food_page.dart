@@ -24,7 +24,7 @@ class HistoryFoodPage extends StatelessWidget {
           title: 'บันทึกมื้ออาหาร'),
       body: SingleChildScrollView(
         child: BlocProvider(
-          create: (_) => HistoryFoodBloc()..add(InitialData()),
+          create: (_) => HistoryFoodBloc()..add(GetSummaryFood()),
           child: BlocConsumer<HistoryFoodBloc, HistoryFoodState>(
             listener: (BuildContext context, HistoryFoodState state) {
               // TODO: implement listener

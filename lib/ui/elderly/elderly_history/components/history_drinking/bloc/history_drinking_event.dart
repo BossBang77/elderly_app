@@ -31,7 +31,3 @@ class GetSummaryDrinkingWater extends HistoryDrinkingEvent {
 class GetLogDrinkingWater extends HistoryDrinkingEvent {
   const GetLogDrinkingWater();
 }
-
-class InitialData extends HistoryDrinkingEvent {
-  const InitialData();
-}

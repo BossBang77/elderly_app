@@ -17,14 +17,6 @@ class HistoryFoodBloc extends Bloc<HistoryFoodEvent, HistoryFoodState> {
     ElderlyHistoryRepository elderlyHistoryRepository =
         ElderlyHistoryRepository();
     on<HistoryFoodEvent>((event, emit) async {
-      if (event is InitialData) {
-        var now = DateTime.now();
-        var startDate =
-            DateTime.utc(now.year, now.month, now.day - 7).toDisplayApiFormat();
-        var endDate = DateTime.now().toDisplayApiFormat();
-        emit(state.copyWith(graphStartDate: startDate, graphEndDate: endDate));
-        add(GetSummaryFood());
-      }
       if (event is GetSummaryFood) {
         emit(state.copyWith(graphLoading: true));
         final response = await elderlyHistoryRepository.getSummaryFood(

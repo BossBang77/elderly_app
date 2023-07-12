@@ -17,14 +17,6 @@ class HistoryExerciseBloc
     ElderlyHistoryRepository elderlyHistoryRepository =
         ElderlyHistoryRepository();
     on<HistoryExerciseEvent>((event, emit) async {
-      if (event is InitialData) {
-        var now = DateTime.now();
-        var startDate =
-            DateTime.utc(now.year, now.month, now.day - 7).toDisplayApiFormat();
-        var endDate = DateTime.now().toDisplayApiFormat();
-        emit(state.copyWith(graphStartDate: startDate, graphEndDate: endDate));
-        add(GetHistoryExercise());
-      }
       if (event is OnTabChange) {
         var ind = event.tabIndex;
         if (ind == 0) {

@@ -17,14 +17,6 @@ class HistoryDrinkingBloc
     ElderlyHistoryRepository elderlyHistoryRepository =
         ElderlyHistoryRepository();
     on<HistoryDrinkingEvent>((event, emit) async {
-      if (event is InitialData) {
-        var now = DateTime.now();
-        var startDate =
-            DateTime.utc(now.year, now.month, now.day - 7).toDisplayApiFormat();
-        var endDate = DateTime.now().toDisplayApiFormat();
-        emit(state.copyWith(graphStartDate: startDate, graphEndDate: endDate));
-        add(GetSummaryDrinkingWater());
-      }
       if (event is GetSummaryDrinkingWater) {
         emit(state.copyWith(graphLoading: true));
         final response = await elderlyHistoryRepository.getSummaryDrinkingWater(

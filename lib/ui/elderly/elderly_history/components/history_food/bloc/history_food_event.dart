@@ -36,7 +36,3 @@ class onSelectDateChange extends HistoryFoodEvent {
   const onSelectDateChange({required this.date});
   final String date;
 }
-
-class InitialData extends HistoryFoodEvent {
-  const InitialData();
-}
