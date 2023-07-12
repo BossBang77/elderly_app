@@ -32,9 +32,6 @@ class Dosage extends StatelessWidget {
               text: currentMedication.dosage,
               maxLength: 100,
               hintText: 'ระบุขนาดและวิธีการใช้ยา',
-              autoValid: currentMedication.dosage.isEmpty,
-              setError: currentMedication.dosage.isEmpty,
-              setErrorWithOuter: currentMedication.dosage.isEmpty,
               onChanged: (value) {
                 addEvent(
                     context,
