@@ -95,8 +95,10 @@ class ExerciseRepository {
           "burnCaloriePoint": daily.burnCaloriePoint
         }
       ];
+
       final HttpResponse req =
-          await _exerciseService.saveExerciseDaily(body.toString());
+          await _exerciseService.saveExerciseDaily(jsonEncode(body));
+
       return Right(req.response.statusCode ?? 200);
     } on DioError catch (error) {
       if (error.response?.statusCode == StatusCode.notFound) {
