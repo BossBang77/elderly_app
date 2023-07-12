@@ -22,7 +22,7 @@ class HistoryExercisePage extends StatelessWidget {
           title: 'บันทึกการออกกำลังกาย'),
       body: SingleChildScrollView(
         child: BlocProvider(
-          create: (_) => HistoryExerciseBloc()..add(GetHistoryExercise()),
+          create: (_) => HistoryExerciseBloc()..add(InitialData()),
           child: BlocConsumer<HistoryExerciseBloc, HistoryExerciseState>(
             listener: (BuildContext context, HistoryExerciseState state) {
               // TODO: implement listener
