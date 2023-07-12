@@ -1,3 +1,4 @@
+import 'package:health_application/ui/base/master_address/model/address_detail.dart';
 import 'package:health_application/ui/base/model/master_data_detail.dart';
 
 extension MasterDataExtension on List<MasterDataDetail> {
@@ -34,6 +35,34 @@ extension MasterDataExtension on List<MasterDataDetail> {
           .keyName;
     } catch (e) {
       print(e);
+      return '';
+    }
+  }
+}
+
+extension MasterDataAddressExtension on List<AddressDetail> {
+  String getCodeByName(String name) {
+    try {
+      return this
+          .firstWhere(
+            (master) => master.name == name,
+            orElse: () => AddressDetail(),
+          )
+          .code;
+    } catch (err) {
+      return '';
+    }
+  }
+
+  String getZipCodeByName(String name) {
+    try {
+      return this
+          .firstWhere(
+            (master) => master.name == name,
+            orElse: () => AddressDetail(),
+          )
+          .zipcode;
+    } catch (err) {
       return '';
     }
   }

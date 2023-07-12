@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/base/master_address/model/address_detail.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/space_widget.dart';
+import 'package:health_application/ui/extension/master_data_extension.dart';
 import 'package:health_application/ui/register_profile/model/addresses_detail.dart';
 import 'package:health_application/ui/volunteer/volunteer_address/bloc/volunteer_address_bloc.dart';
 import 'package:health_application/ui/volunteer/volunteer_address/component/address_card.dart';
+
+import '../../../base/master_address/bloc/master_address_bloc.dart';
 
 class SummaryAddress extends StatelessWidget {
   const SummaryAddress({super.key});
@@ -20,6 +24,14 @@ class SummaryAddress extends StatelessWidget {
             getAddress(addressList, AddressType.CONTACT_ADDRESS);
         var registerAddress =
             getAddress(addressList, AddressType.REGISTER_ADDRESS);
+
+        void getMasterAddress(AddressDetailModel currentForm) {
+          context.read<MasterAddressBloc>().add(LoadInitialDistricSubDistrict(
+              districtTitle: currentForm.district,
+              provinceTitle: currentForm.province,
+              subDistrictTitle: currentForm.subDistrict));
+        }
+
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -31,6 +43,7 @@ class SummaryAddress extends StatelessWidget {
                 AddressCard(
                   type: AddressType.CONTACT_ADDRESS,
                   onTap: () {
+                    getMasterAddress(contactAddress ?? AddressDetailModel());
                     context.read<VolunteerAddressBloc>().add(EditOrAddForm(
                         profile: state.profile,
                         type: AddressType.CONTACT_ADDRESS));
@@ -44,6 +57,7 @@ class SummaryAddress extends StatelessWidget {
                 AddressCard(
                   type: AddressType.REGISTER_ADDRESS,
                   onTap: () {
+                    getMasterAddress(registerAddress ?? AddressDetailModel());
                     context.read<VolunteerAddressBloc>().add(EditOrAddForm(
                         profile: state.profile,
                         type: AddressType.REGISTER_ADDRESS));

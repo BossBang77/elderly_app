@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/dialog/success_dialog.dart';
+import 'package:health_application/ui/base/master_address/bloc/master_address_bloc.dart';
 import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/error_alert.dart';
@@ -12,6 +13,8 @@ import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 import 'package:health_application/ui/volunteer/volunteer_address/bloc/volunteer_address_bloc.dart';
 import 'package:health_application/ui/volunteer/volunteer_address/widget/fill_volunteer_address.dart';
 import 'package:health_application/ui/volunteer/volunteer_address/widget/summary_address.dart';
+
+import '../../base/master_address/model/address_detail.dart';
 
 class VolunteerAddressPage extends StatelessWidget {
   const VolunteerAddressPage({super.key, required this.profile});

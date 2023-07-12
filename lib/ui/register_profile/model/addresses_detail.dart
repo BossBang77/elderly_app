@@ -64,12 +64,12 @@ class AddressDetailModel {
     String floorPrefix = floor.isNotEmpty ? ' ชั้น ' : '';
     String mooPrefix = moo.isNotEmpty ? ' หมู่ ' : '';
     String buildVillageNamePrefix =
-        buildVillageName.isNotEmpty ? ' หมู่บ้าน ' : '';
-    String soiPrefix = soi.isNotEmpty ? ' ซอย ' : '';
-    String roadPrefix = road.isNotEmpty ? ' ถนน ' : '';
-    String subDistricPrefix = subDistrict.isNotEmpty ? ' ตำบล ' : '';
-    String districPrefix = district.isNotEmpty ? ' อำเภอ ' : '';
-    String provincePrefix = province.isNotEmpty ? ' อำเภอ ' : '';
+        buildVillageName.isNotEmpty ? ' หมู่บ้าน' : '';
+    String soiPrefix = soi.isNotEmpty ? ' ซอย' : '';
+    String roadPrefix = road.isNotEmpty ? ' ถนน' : '';
+    String subDistricPrefix = subDistrict.isNotEmpty ? ' ตำบล' : '';
+    String districPrefix = district.isNotEmpty ? ' อำเภอ' : '';
+    String provincePrefix = province.isNotEmpty ? ' จังหวัด' : '';
     return addressNoPrefix +
         addressNo +
         roomNoPrefix +
@@ -90,6 +90,7 @@ class AddressDetailModel {
         district +
         provincePrefix +
         province +
+        ' ' +
         postalCode +
         country;
   }

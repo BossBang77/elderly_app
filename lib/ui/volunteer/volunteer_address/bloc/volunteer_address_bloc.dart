@@ -76,7 +76,6 @@ class VolunteerAddressBloc
     bool selectSameRegister = state.selectSameRegister;
 
     switch (fillType) {
-      // TODO abount master data
       case TypeAddress.addressNo:
         currentForm = currentForm!.copyWith(addressNo: event.value);
         break;
@@ -84,6 +83,9 @@ class VolunteerAddressBloc
         currentForm = currentForm!.copyWith(buildVillageName: event.value);
         break;
       case TypeAddress.district:
+        currentForm = currentForm!
+            .copyWith(district: event.value, subDistrict: '', postalCode: '');
+        break;
 
       case TypeAddress.floor:
         currentForm = currentForm!.copyWith(floor: event.value);
@@ -92,7 +94,15 @@ class VolunteerAddressBloc
         currentForm = currentForm!.copyWith(moo: event.value);
         break;
       case TypeAddress.postalCode:
+        currentForm = currentForm!.copyWith(postalCode: event.value);
+        break;
       case TypeAddress.province:
+        currentForm = currentForm!.copyWith(
+            province: event.value,
+            district: '',
+            subDistrict: '',
+            postalCode: '');
+        break;
       case TypeAddress.road:
         currentForm = currentForm!.copyWith(road: event.value);
         break;
@@ -103,6 +113,9 @@ class VolunteerAddressBloc
         currentForm = currentForm!.copyWith(soi: event.value);
         break;
       case TypeAddress.subdistrict:
+        currentForm =
+            currentForm!.copyWith(subDistrict: event.value, postalCode: '');
+        break;
       case TypeAddress.selectSameRegister:
         AddressDetailModel registerAddress = event.value;
         if (selectSameRegister) {
@@ -138,4 +151,17 @@ AddressDetailModel? getAddress(
   } else {
     return searchAddress;
   }
+}
+
+bool checkMandatory(AddressDetailModel currentChange) {
+  bool check = true;
+  if (currentChange.addressNo.isEmpty ||
+      currentChange.province.isEmpty ||
+      currentChange.district.isEmpty ||
+      currentChange.subDistrict.isEmpty ||
+      currentChange.postalCode.isEmpty) {
+    check = false;
+  }
+
+  return check;
 }
