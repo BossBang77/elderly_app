@@ -55,6 +55,7 @@ class ElderlyAddressPage extends StatelessWidget {
                           // AddressItemBox()
                           ListView.builder(
                             itemCount: listAddress.length,
+                            physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return AddressItemBox(
@@ -76,6 +77,9 @@ class ElderlyAddressPage extends StatelessWidget {
                                         )));
                               },
                             ),
+                          ),
+                          const SizedBox(
+                            height: 30,
                           ),
                         ],
                       ),

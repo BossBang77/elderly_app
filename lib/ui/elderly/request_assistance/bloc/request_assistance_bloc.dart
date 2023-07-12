@@ -74,13 +74,10 @@ class RequestAssistanceBloc
       var res = await _emergencyRepository.updateEmergencyStatus(body);
       yield* res.fold((Failure err) async* {
         yield state.copyWith(
-            isLoading: false, statusSubmit: StatusSubmit.sendSafeSuccess);
+            isLoading: false, statusSubmit: StatusSubmit.sendSafeFail);
       }, (String res) async* {
-        AssistanceStatus status = AssistanceStatus.emergencyCall;
         yield state.copyWith(
-            isLoading: false,
-            assistanceStatus: status,
-            statusSubmit: StatusSubmit.sendSafeSuccess);
+            isLoading: false, statusSubmit: StatusSubmit.sendSafeSuccess);
       });
     }
 

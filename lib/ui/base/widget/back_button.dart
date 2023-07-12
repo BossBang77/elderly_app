@@ -15,9 +15,12 @@ class BackButtonWidget extends StatelessWidget {
         onTap: () {
           onClick!();
         },
-        child: Image.asset(
-          imgPath,
-          scale: 4,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(
+            imgPath,
+            scale: 4,
+          ),
         ));
   }
 }

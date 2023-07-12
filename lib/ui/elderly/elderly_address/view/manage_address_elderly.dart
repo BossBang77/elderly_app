@@ -15,6 +15,7 @@ import 'package:health_application/ui/google_map/locationsModel.dart';
 import 'package:health_application/ui/register_profile/model/addresses_detail.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 
 class ManageAddressElderly extends StatelessWidget {
   const ManageAddressElderly(
@@ -59,108 +60,111 @@ class ManageAddressElderly extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          return Scaffold(
-            backgroundColor: color.white,
-            appBar: appBar(
-                onBack: () {
-                  Navigator.pop(context);
-                },
-                images: 'assets/images/exit_icon.png',
-                title: type == ManageAddressType.add
-                    ? 'เพิ่มที่อยู่'
-                    : 'แก้ไขที่อยู่',
-                suffixAction: type == ManageAddressType.edit
-                    ? InkWell(
-                        onTap: () async {
-                          final bool acceptClose = await showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  AcceptTwoCondition(
-                                    header: 'ลบที่อยู่',
-                                    subtitle:
-                                        'คุณต้องการลบที่อยู่นี้ใช่หรือไม่',
-                                    btnAcceptName: "ใช่ ลบที่อยู่นี้",
-                                  )) as bool;
-
-                          if (acceptClose) {
-                            context.read<ElderlyAddressBloc>().add(
-                                onAcceptLocation(
-                                    type: ManageAddressType.delete,
-                                    index: index));
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 14, 15, 0),
-                          child:
-                              textSubtitle16Blod('ลบออก', ColorTheme().Blue2),
-                        ),
-                      )
-                    : const SizedBox()),
-            body: Stack(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: MapLocation(
-                    latLng:
-                        type == ManageAddressType.edit ? state.location : null,
-                    onAccept: (LocationModel locate) {
-                      context
-                          .read<ElderlyAddressBloc>()
-                          .add(LocationChange(location: locate));
+          return Stack(
+            children: [
+              Scaffold(
+                backgroundColor: color.white,
+                appBar: appBar(
+                    onBack: () {
+                      Navigator.pop(context);
                     },
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: 250.h,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        border: Border.all(color: color.GreyBorder)),
-                    padding: EdgeInsets.only(
-                        bottom: 12.0.h, top: 12.h, left: 12.w, right: 12.w),
-                    child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: textSubtitle16W500(
-                                'ที่อยู่ของคุณ',
-                                ColorTheme().black87,
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: textButton2(state.location.locationName,
-                                  ColorTheme().black87,
-                                  maxline: 2),
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            ButtonGradient(
-                              btnName: "ยืนยัน",
-                              onClick: () {
+                    images: 'assets/images/exit_icon.png',
+                    title: type == ManageAddressType.add
+                        ? 'เพิ่มที่อยู่'
+                        : 'แก้ไขที่อยู่',
+                    suffixAction: type == ManageAddressType.edit
+                        ? InkWell(
+                            onTap: () async {
+                              final bool acceptClose = await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AcceptTwoCondition(
+                                        header: 'ลบที่อยู่',
+                                        subtitle:
+                                            'คุณต้องการลบที่อยู่นี้ใช่หรือไม่',
+                                        btnAcceptName: "ใช่ ลบที่อยู่นี้",
+                                      )) as bool;
+
+                              if (acceptClose) {
                                 context.read<ElderlyAddressBloc>().add(
-                                    onAcceptLocation(type: type, index: index));
-                              },
+                                    onAcceptLocation(
+                                        type: ManageAddressType.delete,
+                                        index: index));
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 14, 15, 0),
+                              child: textSubtitle16Blod(
+                                  'ลบออก', ColorTheme().Blue2),
                             ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                          ],
-                        )),
-                  ),
+                          )
+                        : const SizedBox()),
+                body: Stack(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: MapLocation(
+                        latLng: type == ManageAddressType.edit
+                            ? state.location
+                            : null,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 250.h,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            border: Border.all(color: color.GreyBorder)),
+                        padding: EdgeInsets.only(
+                            bottom: 12.0.h, top: 12.h, left: 12.w, right: 12.w),
+                        child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: textSubtitle16W500(
+                                    'ที่อยู่ของคุณ',
+                                    ColorTheme().black87,
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: textButton2(
+                                      state.location.locationName,
+                                      ColorTheme().black87,
+                                      maxline: 2),
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                ButtonGradient(
+                                  btnName: "ยืนยัน",
+                                  onClick: () {
+                                    context.read<ElderlyAddressBloc>().add(
+                                        onAcceptLocation(
+                                            type: type, index: index));
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                              ],
+                            )),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              if (state.isLoading) Loader()
+            ],
           );
         },
       ),
