@@ -103,8 +103,7 @@ class ElderProfileWidget extends StatelessWidget {
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/home_profile_icon.png',
                 onClick: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ElderlyAddressPage()));
+                  context.go(Routes.elderlyAddress);
                 },
                 title: 'ที่อยู่ของคุณ',
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_application/ui/base/dialog/accept_two_condition_dialog.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
@@ -16,6 +17,8 @@ import 'package:health_application/ui/register_profile/model/addresses_detail.da
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
+
+import '../../../base/routes.dart';
 
 class ManageAddressElderly extends StatelessWidget {
   const ManageAddressElderly(
@@ -55,8 +58,7 @@ class ManageAddressElderly extends StatelessWidget {
           }
           if (state.addressState == ChangeAddressState.changeAddressSuccess) {
             context.read<ElderlyAddressBloc>().add(ResetState());
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ElderlyAddressPage()));
+            context.go(Routes.elderlyAddress);
           }
         },
         builder: (context, state) {
@@ -66,7 +68,7 @@ class ManageAddressElderly extends StatelessWidget {
                 backgroundColor: color.white,
                 appBar: appBar(
                     onBack: () {
-                      Navigator.pop(context);
+                      context.go(Routes.elderlyAddress);
                     },
                     images: 'assets/images/exit_icon.png',
                     title: type == ManageAddressType.add
