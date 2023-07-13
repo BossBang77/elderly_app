@@ -47,7 +47,7 @@ class IngredientsList extends StatelessWidget {
                         onMinusButtonTap?.call();
                       },
                       child: Image.asset(numberOfPlates > 1
-                          ? 'assets/images/ingredient_minus_icon.png'
+                          ? 'ingredient_minus_icon_active'
                           : 'assets/images/ingredient_minus_icon.png'),
                     )),
                 SizedBox(width: 12),
