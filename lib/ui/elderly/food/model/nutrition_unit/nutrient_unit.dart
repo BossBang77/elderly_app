@@ -6,8 +6,8 @@ abstract class NutrientUnit {
 }
 
 enum UnitMass implements NutrientUnit {
-  gram(name: "gram", symbol: "g"),
-  milligram(name: "milligram", symbol: "mg");
+  gram(name: "gram", symbol: "กรัม"),
+  milligram(name: "milligram", symbol: "มิลลิกรัม");
 
   final String name;
   final String symbol;
