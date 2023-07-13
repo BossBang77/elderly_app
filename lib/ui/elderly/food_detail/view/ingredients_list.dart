@@ -9,89 +9,87 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:collection/collection.dart';
 
-
 class IngredientsList extends StatelessWidget {
-  const IngredientsList({
-    this.numberOfPlates = 1, 
-    this.ingredients = const[],
-    this.onAddButtonTap,
-    this.onMinusButtonTap
-  });
+  const IngredientsList(
+      {this.numberOfPlates = 1,
+      this.ingredients = const [],
+      this.onAddButtonTap,
+      this.onMinusButtonTap});
 
   final int numberOfPlates;
   final List<FoodDetailIngredient> ingredients;
   final Function? onAddButtonTap;
   final Function? onMinusButtonTap;
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     final gridViewLayout = GridViewLayout(
-      context: context,
-      dataSource: ingredients,
-      spacing: 10,
-      numberOfItemsPerRow: 3,
-      padding: 32
-    );
+        context: context,
+        dataSource: ingredients,
+        spacing: 10,
+        numberOfItemsPerRow: 3,
+        padding: 32);
 
     return CollapsableSection(
-      sectionHeaderTitle: 'วัตถุดิบ',
-      iconImagePath: 'assets/images/nutrition_fact_icon.png',
-      child: Column(
-        children: [
-          Row(
-            children: [
-              textSubtitle2('สูตรสำหรับ ', ColorTheme().black87, false),
-              Spacer(),
-              SizedBox(
-                width: 25,
-                height: 25,
-                child: GestureDetector(
-                  onTap: () {
-                    onMinusButtonTap?.call();
-                  },
-                  child: Image.asset('assets/images/ingredient_minus_icon.png'),
-                )
-              ),      
-              SizedBox(width: 12),        
-              Container(
-                padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: ColorTheme().grey50),
-                  borderRadius: BorderRadius.circular(12)
+        sectionHeaderTitle: 'วัตถุดิบ',
+        iconImagePath: 'assets/images/material.png',
+        child: Column(
+          children: [
+            Row(
+              children: [
+                textSubtitle2('สูตรสำหรับ ', ColorTheme().black87, false),
+                Spacer(),
+                SizedBox(
+                    width: 25,
+                    height: 25,
+                    child: GestureDetector(
+                      onTap: () {
+                        onMinusButtonTap?.call();
+                      },
+                      child: Image.asset(numberOfPlates > 1
+                          ? 'assets/images/ingredient_minus_icon.png'
+                          : 'assets/images/ingredient_minus_icon.png'),
+                    )),
+                SizedBox(width: 12),
+                Container(
+                  padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: ColorTheme().grey50),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: textSubtitle2(
+                      '${numberOfPlates} ที่', ColorTheme().black87, false),
                 ),
-                child: textSubtitle2('${numberOfPlates} ที่', ColorTheme().black87, false),
-              ),
-              SizedBox(width: 12),
-              SizedBox(
-                width: 25,
-                height: 25,
-                child: GestureDetector(
-                  onTap: () {
-                    onAddButtonTap?.call();
-                  },
-                  child: Image.asset('assets/images/ingredient_add_icon.png'),
-                )
-              )
-            ],
-          ),
-          SizedBox(height: 16),
-          Container(
-            height: gridViewLayout.gridViewHeight,
-            child: CustomMultiChildLayout(
-              delegate: GridMultiChildLayoutDelegate(layout: gridViewLayout),
-              children: ingredients.mapIndexed((index, ingredient) => 
-              LayoutId(
-                id: index, 
-                child: IngredientWidget(
-                  ingredient: ingredient,
-                  width: gridViewLayout.gridItemWidth,
-                  height: gridViewLayout.heightForItemAt(index),
-                )
-              )).toList(),
+                SizedBox(width: 12),
+                SizedBox(
+                    width: 25,
+                    height: 25,
+                    child: GestureDetector(
+                      onTap: () {
+                        onAddButtonTap?.call();
+                      },
+                      child:
+                          Image.asset('assets/images/ingredient_add_icon.png'),
+                    ))
+              ],
             ),
-          )
-        ],
-      )
-    );
+            SizedBox(height: 16),
+            Container(
+              height: gridViewLayout.gridViewHeight,
+              child: CustomMultiChildLayout(
+                delegate: GridMultiChildLayoutDelegate(layout: gridViewLayout),
+                children: ingredients
+                    .mapIndexed((index, ingredient) => LayoutId(
+                        id: index,
+                        child: IngredientWidget(
+                          ingredient: ingredient,
+                          width: gridViewLayout.gridItemWidth,
+                          height: gridViewLayout.heightForItemAt(index),
+                          numberOfPlates: numberOfPlates,
+                        )))
+                    .toList(),
+              ),
+            )
+          ],
+        ));
   }
 }

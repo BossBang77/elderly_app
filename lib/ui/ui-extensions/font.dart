@@ -107,10 +107,11 @@ Widget textBody1(String text, Color color) {
       ));
 }
 
-Widget textBody2(String text, Color color, bool underline) {
+Widget textBody2(String text, Color color, bool underline, {int maxLine = 1}) {
   return Text(text,
       softWrap: true,
       overflow: TextOverflow.ellipsis,
+      maxLines: maxLine,
       style: TextStyle(
         color: color,
         fontSize: 14.sp,
