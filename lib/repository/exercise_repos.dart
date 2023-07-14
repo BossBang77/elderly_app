@@ -87,17 +87,8 @@ class ExerciseRepository {
   Future<Either<Failure, int>> saveExerciseDaily(
       DailyActivityModel daily) async {
     try {
-      var body = [
-        {
-          "name": daily.name,
-          "code": daily.code,
-          "timePoint": daily.timePoint,
-          "burnCaloriePoint": daily.burnCaloriePoint
-        }
-      ];
-
       final HttpResponse req =
-          await _exerciseService.saveExerciseDaily(jsonEncode(body));
+          await _exerciseService.saveExerciseDaily(daily.toJson());
 
       return Right(req.response.statusCode ?? 200);
     } on DioError catch (error) {
