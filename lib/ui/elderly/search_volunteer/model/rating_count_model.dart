@@ -7,7 +7,7 @@ class RatingCountModel {
   const RatingCountModel({this.rating = 0, this.count = 0});
 
   final int count;
-  final int rating;
+  final num rating;
 
   //convert from json
   factory RatingCountModel.fromJson(Map<String, dynamic> json) =>

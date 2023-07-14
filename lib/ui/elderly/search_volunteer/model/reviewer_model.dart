@@ -15,7 +15,7 @@ class ReviewerModel {
   final String created;
   final String name;
   final String description;
-  final int rating;
+  final num rating;
 
   //convert from json
   factory ReviewerModel.fromJson(Map<String, dynamic> json) =>
