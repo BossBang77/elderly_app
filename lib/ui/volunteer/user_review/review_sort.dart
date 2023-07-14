@@ -127,7 +127,7 @@ class ReviewSortWidget extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  StarRate(context, reviewerList[i].rating),
+                  StarRate(context, reviewerList[i].rating.toDouble()),
                   if (reviewerList[i].description.isNotEmpty)
                     Column(
                       children: [

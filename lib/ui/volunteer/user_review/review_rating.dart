@@ -33,7 +33,7 @@ class ReviewRatingWidget extends StatelessWidget {
           return percent;
         }
 
-        int getTotalTotal(int rate) {
+        int getTotal(int rate) {
           int total = 0;
 
           List<ReviewerModel> list = [];
@@ -66,23 +66,23 @@ class ReviewRatingWidget extends StatelessWidget {
                     RateingBar(context,
                         barpercent: getRatePercent(5),
                         starValue: 5,
-                        rateTotal: getTotalTotal(5)),
+                        rateTotal: getTotal(5)),
                     RateingBar(context,
                         barpercent: getRatePercent(4),
                         starValue: 4,
-                        rateTotal: getTotalTotal(4)),
+                        rateTotal: getTotal(4)),
                     RateingBar(context,
                         barpercent: getRatePercent(3),
                         starValue: 3,
-                        rateTotal: getTotalTotal(3)),
+                        rateTotal: getTotal(3)),
                     RateingBar(context,
                         barpercent: getRatePercent(2),
                         starValue: 2,
-                        rateTotal: getTotalTotal(2)),
+                        rateTotal: getTotal(2)),
                     RateingBar(context,
                         barpercent: getRatePercent(1),
                         starValue: 1,
-                        rateTotal: getTotalTotal(1))
+                        rateTotal: getTotal(1))
                   ],
                 ))
           ],

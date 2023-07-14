@@ -26,7 +26,9 @@ Widget SliderWidget(
 }
 
 Widget RateingBar(BuildContext context,
-    {required int starValue, required double barpercent, int rateTotal = 0}) {
+    {required double starValue,
+    required double barpercent,
+    int rateTotal = 0}) {
   return Row(
     children: [
       StarRate(context, starValue),

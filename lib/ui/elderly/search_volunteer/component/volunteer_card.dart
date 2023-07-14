@@ -17,7 +17,11 @@ Widget volunteerCard(BuildContext context, VolunteerDetailSearch item) {
               child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   child: item.image.isNotEmpty
-                      ? Image.network(item.image)
+                      ? Image.network(
+                          item.image,
+                          fit: BoxFit.cover,
+                          height: 75,
+                        )
                       : ImageNotFound()),
             ),
           ),
