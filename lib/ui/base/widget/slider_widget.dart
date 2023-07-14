@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_application/ui/base/widget/star_rateing.dart';
 
 import '../../ui-extensions/color.dart';
+import '../../ui-extensions/font.dart';
 import '../linear_percent_indicator/linear_percent_indicator.dart';
 
 Widget SliderWidget(
@@ -25,7 +26,7 @@ Widget SliderWidget(
 }
 
 Widget RateingBar(BuildContext context,
-    {required int starValue, required double barpercent}) {
+    {required int starValue, required double barpercent, int rateTotal = 0}) {
   return Row(
     children: [
       StarRate(context, starValue),
@@ -37,7 +38,8 @@ Widget RateingBar(BuildContext context,
           backgroundColor: color.grey50.withOpacity(0.2),
           barRadius: Radius.circular(10),
         ),
-      )
+      ),
+      text12(rateTotal.toString(), color.greyText)
     ],
   );
 }
