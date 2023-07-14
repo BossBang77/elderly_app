@@ -19,7 +19,6 @@ class ForgotPasswordBloc
     int _countDownTimer = 0;
 
     Future<void> _setTimer() async {
-      print('set timer');
       _countDownTimer = 30;
       add(RequestOtpTimerUpdated());
       _timer = Timer.periodic(Duration(seconds: 1), (timer) async {

@@ -60,8 +60,6 @@ class SignInPage extends StatelessWidget {
                 .add(ChangeSection(view: SectionView.resetPassword));
           }
 
-          if (forgotState.verifyStatus == VerifyStatus.fail) {}
-
           if (forgotState.submitResetPasswordStatus ==
               SubmitResetPasswordStatus.success) {
             showDialog(
