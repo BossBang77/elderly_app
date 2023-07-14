@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
 import 'package:health_application/ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
 import 'package:health_application/ui/elderly/change_password/change_password_page.dart';
+import 'package:health_application/ui/elderly/elderly_address/elderly_address_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_drinking/history_drinking_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/history_exercise_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/history_food_page.dart';
@@ -113,14 +114,6 @@ final GoRouter appRouter =
         );
       }),
   GoRoute(
-      path: Routes.manageAddressElderly,
-      builder: (BuildContext context, GoRouterState state) {
-        var type = state.extra as ManageAddressType;
-        return ManageAddressElderly(
-          type: type,
-        );
-      }),
-  GoRoute(
       path: Routes.exerciseWidget,
       builder: (BuildContext context, GoRouterState state) {
         return ExerciseWidget();
@@ -197,6 +190,18 @@ final GoRouter appRouter =
         );
       }),
   GoRoute(
+      path: Routes.elderlyAddress,
+      builder: (BuildContext context, GoRouterState state) {
+        return ElderlyAddressPage();
+      }),
+  GoRoute(
+      path: Routes.manageAddressElderly,
+      builder: (BuildContext context, GoRouterState state) {
+        var list = state.extra as List<dynamic>;
+        return ManageAddressElderly(
+            type: list[0], index: list[1], addressDes: list[2]);
+      }),
+  GoRoute(
       path: Routes.volunteerAddress,
       builder: (BuildContext context, GoRouterState state) {
         var userProfile = state.extra as RegisterModel;
@@ -257,5 +262,6 @@ class Routes {
 
   static const String changePassword = '/changePassword';
   static const String volunteerInformation = '/volunteerInformation';
+  static const String elderlyAddress = '/elderlyAddress';
   static const String volunteerAddress = '/volunteerAddress';
 }
