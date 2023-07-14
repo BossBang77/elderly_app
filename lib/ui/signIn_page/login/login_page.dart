@@ -13,6 +13,7 @@ import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
 import '../../base/widget/app_bar_widget.dart';
+import '../forgot_password/bloc/forgot_password_bloc.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key, required this.state});
@@ -105,6 +106,7 @@ class LoginPage extends StatelessWidget {
                     context
                         .read<SignInBloc>()
                         .add(ChangeSection(view: SectionView.forgotPassword));
+                    context.read<ForgotPasswordBloc>().add(InitialData());
                   },
                   child:
                       textButton1('ลืมรหัสผ่านหรือไม่?', ColorTheme().Primary),

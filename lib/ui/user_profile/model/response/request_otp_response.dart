@@ -3,7 +3,7 @@ part 'request_otp_response.g.dart';
 
 @JsonSerializable()
 class RequestOtpResponse {
-  const RequestOtpResponse({this.ref = '', this.token = ''});
+  const RequestOtpResponse({this.ref = 'tokl', this.token = ''});
   //convert from json
   factory RequestOtpResponse.fromJson(Map<String, dynamic> json) =>
       _$RequestOtpResponseFromJson(json);
