@@ -77,17 +77,17 @@ class DropdownWidget extends StatelessWidget {
           ? null
           : BoxDecoration(
               color: enable
-                  ? color.grey10.withOpacity(0.05)
-                  : ColorTheme().greyText,
+                  ? ColorTheme().GreyBackGround.withOpacity(0.03)
+                  : ColorTheme().GreyBackGround,
               border: Border.all(
-                  color: enable ? color.GreyBorder : ColorTheme().greyText,
+                  color: enable ? color.GreyBorder : color.GreyBorder,
                   width: 0.8),
               borderRadius: BorderRadius.all(Radius.circular(10))),
       child: DropdownButtonFormField<String>(
           value: value,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: validator,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
           decoration: enable
               ? InputDecoration(
                   contentPadding: contentPadding,

@@ -31,3 +31,7 @@ class GetHistoryExercise extends HistoryExerciseEvent {
 class GetHistoryLogExercise extends HistoryExerciseEvent {
   const GetHistoryLogExercise();
 }
+
+class InitialData extends HistoryExerciseEvent {
+  const InitialData();
+}

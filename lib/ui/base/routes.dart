@@ -21,6 +21,7 @@ import 'package:health_application/ui/register_profile/register_profile_page.dar
 import 'package:health_application/ui/signIn_page/signIn_widget.dart';
 import 'package:health_application/ui/volunteer/request_assistance_detail/request_assitance_detail_page.dart';
 import 'package:health_application/ui/user_profile/profile_information/elderly_profile_information_view.dart';
+import 'package:health_application/ui/volunteer/volunteer_address/volunteer_address_page.dart';
 import 'package:health_application/ui/volunteer/volunteer_information/volunteer_information_page.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
 
@@ -200,6 +201,14 @@ final GoRouter appRouter =
         return ManageAddressElderly(
             type: list[0], index: list[1], addressDes: list[2]);
       }),
+  GoRoute(
+      path: Routes.volunteerAddress,
+      builder: (BuildContext context, GoRouterState state) {
+        var userProfile = state.extra as RegisterModel;
+        return VolunteerAddressPage(
+          profile: userProfile,
+        );
+      }),
 ]);
 
 class Routes {
@@ -254,4 +263,5 @@ class Routes {
   static const String changePassword = '/changePassword';
   static const String volunteerInformation = '/volunteerInformation';
   static const String elderlyAddress = '/elderlyAddress';
+  static const String volunteerAddress = '/volunteerAddress';
 }
