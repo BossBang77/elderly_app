@@ -30,9 +30,32 @@ class ElderlyAddressBloc
       }
 
       if (event is LocationChange) {
+        emit(state.copyWith(isLoading: true));
         LocationModel locate = event.location;
-        emit(state.copyWith(
-            location: locate, addressState: ChangeAddressState.initial));
+
+        if (locate.latitude == 0 &&
+            locate.longitude == 0 &&
+            locate.locationName.isEmpty) {
+          Locations _location = Locations();
+          await _location.getCurrentUserLocation();
+          emit(state.copyWith(
+              isLoading: false,
+              location: LocationModel(
+                  latitude: _location.latitude,
+                  longitude: _location.longtitude,
+                  locationName: _location.nameAddress),
+              addressState: ChangeAddressState.initial));
+        } else {
+          var currentAddress = await Locations()
+              .getAddressDetailModel(LatLng(locate.latitude, locate.longitude));
+          emit(state.copyWith(
+              isLoading: false,
+              location: LocationModel(
+                  latitude: currentAddress.latitude,
+                  longitude: currentAddress.longitude,
+                  locationName: currentAddress.fullAddress),
+              addressState: ChangeAddressState.initial));
+        }
       }
       if (event is onAcceptLocation) {
         emit(state.copyWith(isLoading: true));

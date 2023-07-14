@@ -105,6 +105,7 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
         yield state.copyWith(
             statusSubmit: StatusSubmit.removeExerciseRecordSuccess);
         add(GetExerciseRecord());
+        add(GetExerciseDaily());
       });
     }
 

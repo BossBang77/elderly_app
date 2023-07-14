@@ -58,7 +58,6 @@ class HistorySummaryExerciseWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                            constraints: const BoxConstraints(maxHeight: 40),
                             padding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
                             child: textSubtitle16W500(
                                 getFrequencyName(frequency[index]),

@@ -157,9 +157,10 @@ class _FoodDetailView extends State<FoodDetailView> {
                                   padding: EdgeInsets.only(top: 16, bottom: 16),
                                   children: [
                                     textSubtitle2(state.food.description,
-                                        ColorTheme().black87, false),
+                                        ColorTheme().black87, false,
+                                        maxLine: 10),
                                     SizedBox(
-                                      height: 16,
+                                      height: 30,
                                     )
                                   ],
                                 ),

@@ -126,13 +126,19 @@ class FoodLogDetailView extends StatelessWidget {
                                               width: 57,
                                               height: 48,
                                               decoration: BoxDecoration(
-                                                  color: ColorTheme().grey10,
+                                                  color: state.consumeUnit > 1
+                                                      ? ColorTheme().blueText
+                                                      : ColorTheme().grey10,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10)),
                                               child: Center(
-                                                  child: textBody1('-',
-                                                      ColorTheme().grey50)),
+                                                  child: textBody1(
+                                                      '-',
+                                                      state.consumeUnit > 1
+                                                          ? color.white
+                                                          : ColorTheme()
+                                                              .grey50)),
                                             ),
                                           ),
                                           SizedBox(width: 16),

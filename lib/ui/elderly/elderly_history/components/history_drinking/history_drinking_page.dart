@@ -22,8 +22,7 @@ class HistoryDrinkingPage extends StatelessWidget {
           title: 'บันทึกการดื่มน้ำ'),
       body: SingleChildScrollView(
         child: BlocProvider(
-          create: (context) =>
-              HistoryDrinkingBloc()..add(GetSummaryDrinkingWater()),
+          create: (context) => HistoryDrinkingBloc()..add(InitialData()),
           child: BlocConsumer<HistoryDrinkingBloc, HistoryDrinkingState>(
             listener: (context, state) {
               // TODO: implement listener

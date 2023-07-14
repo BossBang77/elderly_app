@@ -107,10 +107,11 @@ Widget textBody1(String text, Color color) {
       ));
 }
 
-Widget textBody2(String text, Color color, bool underline) {
+Widget textBody2(String text, Color color, bool underline, {int maxLine = 1}) {
   return Text(text,
       softWrap: true,
       overflow: TextOverflow.ellipsis,
+      maxLines: maxLine,
       style: TextStyle(
         color: color,
         fontSize: 14.sp,
@@ -250,13 +251,15 @@ Widget textSubtitle16Blod(String text, Color color,
           fontWeight: FontWeight.w700));
 }
 
-Widget textSubtitle16W500(String text, Color color) {
+Widget textSubtitle16W500(String text, Color color, {bool underline = false}) {
   return Text(text,
       style: TextStyle(
           color: color,
           fontSize: 16.sp,
           fontFamily: fontFamily,
-          fontWeight: FontWeight.w500));
+          fontWeight: FontWeight.w500,
+          decoration:
+              (underline) ? TextDecoration.underline : TextDecoration.none));
 }
 
 Widget textSubtitle16W200(String text, Color color) {

@@ -55,17 +55,17 @@ class Locations {
         localeIdentifier: 'th');
     if (placemarks != null && placemarks.isNotEmpty) {
       Placemark place = placemarks.first;
-      String title =
-          '${place.name ?? ''}  ${place.subLocality} ${place.locality ?? ''} ${place.country ?? ''} ${place.postalCode ?? ''}';
 
       address = AddressDetailModel(
-        addressNo: place.name ?? '',
-        subDistrict: place.subLocality ?? '',
-        district: place.locality ?? '',
-        postalCode: place.postalCode ?? '',
-        country: place.country ?? '',
-        road: place.street ?? '',
-      );
+          addressNo: place.name ?? '',
+          subDistrict: place.locality ?? '',
+          district: place.subAdministrativeArea ?? '',
+          postalCode: place.postalCode ?? '',
+          country: place.country ?? '',
+          province: place.administrativeArea ?? '',
+          soi: place.thoroughfare ?? '',
+          longitude: latLng.longitude,
+          latitude: latLng.latitude);
     }
     return address;
   }

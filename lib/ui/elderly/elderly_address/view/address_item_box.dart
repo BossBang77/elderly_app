@@ -54,12 +54,8 @@ class AddressItemBox extends StatelessWidget {
                         lat: addressDes.latitude,
                         lng: addressDes.longitude,
                         addressName: addressDes.fullAddress);
-
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ManageAddressElderly(
-                            type: ManageAddressType.edit,
-                            index: index,
-                            addressDes: addressDes)));
+                    context.go(Routes.manageAddressElderly,
+                        extra: [ManageAddressType.edit, index, addressDes]);
                   },
                 )
               ],
