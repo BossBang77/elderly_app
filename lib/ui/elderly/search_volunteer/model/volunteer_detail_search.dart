@@ -15,7 +15,7 @@ class VolunteerDetailSearch {
   final String name;
   final String elderlyCareName;
   final String image;
-  final int rating;
+  final num rating;
 
   //convert from json
   factory VolunteerDetailSearch.fromJson(Map<String, dynamic> json) =>
@@ -26,7 +26,7 @@ class VolunteerDetailSearch {
           String? name,
           String? elderlyCareName,
           String? image,
-          int? rating}) =>
+          num? rating}) =>
       VolunteerDetailSearch(
           profileId: profileId ?? this.profileId,
           name: name ?? this.name,

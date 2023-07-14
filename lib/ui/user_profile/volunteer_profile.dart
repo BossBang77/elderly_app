@@ -80,7 +80,9 @@ class VolunteerProfileWidget extends StatelessWidget {
               ),
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/star_profile_icon.png',
-                onClick: () {},
+                onClick: () {
+                  context.go(Routes.userReview);
+                },
                 title: 'รีวิวจากผู้ใช้งาน',
               ),
               CardListMenu(

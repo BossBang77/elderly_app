@@ -11,6 +11,7 @@ import 'package:health_application/ui/home_page/home_page.dart';
 
 import '../../../base/widget/text_field_widget.dart';
 import '../../../ui-extensions/color.dart';
+import '../model/search_volunteer_model.dart';
 
 class SearchVolunteerWidget extends StatelessWidget {
   const SearchVolunteerWidget({super.key});
@@ -24,6 +25,9 @@ class SearchVolunteerWidget extends StatelessWidget {
           backgroundColor: color.whiteBackground,
           appBar: appBar(
               onBack: () {
+                context
+                    .read<SearchVolunteerBloc>()
+                    .add(SearchVolunteer(search: SearchVolunteerModel()));
                 context
                     .read<SearchVolunteerBloc>()
                     .add(Changeview(view: SearchVolunteerView.searchSummary));

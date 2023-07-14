@@ -59,6 +59,19 @@ class VolunteerDetailWidget extends StatelessWidget {
 
         var reviewerList = getReviewList();
 
+        int getTotal(int rate) {
+          int total = 0;
+
+          List<ReviewerModel> list = [];
+          reviewer.forEach((reviewer) {
+            if (reviewer.rating == rate) {
+              total++;
+            }
+          });
+
+          return total;
+        }
+
         return Scaffold(
           body: PageScroll(
             leading: InkWell(
@@ -75,10 +88,11 @@ class VolunteerDetailWidget extends StatelessWidget {
                 ),
               ),
             ),
+            bgColor: color.greybackground5,
             isNetWork: true,
             imgPath: volunteer.image,
             child: Container(
-              color: ColorTheme().BlueFade2.withOpacity(0.1),
+              color: color.greybackground5,
               child: Container(
                 width: sized.width,
                 padding: EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -274,19 +288,24 @@ class VolunteerDetailWidget extends StatelessWidget {
                                 children: [
                                   RateingBar(context,
                                       barpercent: getRatePercent(5),
-                                      starValue: 5),
+                                      starValue: 5,
+                                      rateTotal: getTotal(5)),
                                   RateingBar(context,
                                       barpercent: getRatePercent(4),
-                                      starValue: 4),
+                                      starValue: 4,
+                                      rateTotal: getTotal(4)),
                                   RateingBar(context,
                                       barpercent: getRatePercent(3),
-                                      starValue: 3),
+                                      starValue: 3,
+                                      rateTotal: getTotal(3)),
                                   RateingBar(context,
                                       barpercent: getRatePercent(2),
-                                      starValue: 2),
+                                      starValue: 2,
+                                      rateTotal: getTotal(2)),
                                   RateingBar(context,
                                       barpercent: getRatePercent(1),
-                                      starValue: 1)
+                                      starValue: 1,
+                                      rateTotal: getTotal(1))
                                 ],
                               ))
                         ],
@@ -385,11 +404,12 @@ class VolunteerDetailWidget extends StatelessWidget {
                                 textButton1(reviewerList[i].name.isNoData(),
                                     color.black87),
                                 textButton2(
-                                    ' ${reviewerList[i].created.parseTime().toDisplayFullBuddishDate(locale: 'th')}',
+                                    ' ${reviewerList[i].created.parseTime().toDisplayThailandDate()}',
                                     color.greyText),
                               ],
                             ),
-                            StarRate(context, 1),
+                            StarRate(
+                                context, reviewerList[i].rating.toDouble()),
                             textButton2(reviewerList[i].description.isNoData(),
                                 color.greyText),
                             Divider(),
