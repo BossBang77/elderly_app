@@ -13,6 +13,7 @@ import 'package:health_application/ui/elderly/exercise/exercise_widget.dart';
 import 'package:health_application/ui/elderly/food_detail/food_detail_page.dart';
 import 'package:health_application/ui/elderly/food_search/food_search_page.dart';
 import 'package:health_application/ui/extension/date_extension.dart';
+import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/home_page/component/appointment_item.dart';
 import 'package:health_application/ui/home_page/component/dialog/scan_error_dialog.dart';
 import 'package:health_application/ui/home_page/component/volunteer_menu.dart';
@@ -118,7 +119,11 @@ class VolunteerHomeWidget extends StatelessWidget {
                                       SizedBox(width: 16),
                                       Expanded(
                                           child: Text(
-                                        '3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร 3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร',
+                                        BlocProvider.of<UserProfileBloc>(
+                                                context)
+                                            .state
+                                            .fullAddress
+                                            .isNoData(),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontFamily: fontFamily,
@@ -131,7 +136,6 @@ class VolunteerHomeWidget extends StatelessWidget {
                                               'assets/images/volunteer_chevron_right.png',
                                               width: 20,
                                               height: 20))
-                                      // textSubtitle1('3000 ถ.พหลโยธิน แขวง จอมพล เขตจตุจักร ', ColorTheme().white)
                                     ],
                                   ),
                                 )
@@ -158,8 +162,8 @@ class VolunteerHomeWidget extends StatelessWidget {
                                 children: [
                                   VolunteerMenu(
                                     width:
-                                        MediaQuery.of(context).size.width / 2.4,
-                                    title: 'รายการอาหาร',
+                                        MediaQuery.of(context).size.width / 2.3,
+                                    title: 'รายการ\nอาหาร',
                                     image:
                                         'assets/images/volunteer_food_bg.png',
                                     onTap: () {
@@ -180,7 +184,7 @@ class VolunteerHomeWidget extends StatelessWidget {
                                                   )));
                                     },
                                   ),
-                                  SizedBox(width: 20),
+                                  SizedBox(width: 10),
                                   VolunteerMenu(
                                     onTap: () {
                                       context.go(Routes.exerciseWidget);
@@ -189,8 +193,8 @@ class VolunteerHomeWidget extends StatelessWidget {
                                           .add(Initial());
                                     },
                                     width:
-                                        MediaQuery.of(context).size.width / 2.4,
-                                    title: 'การออกกำลังกาย',
+                                        MediaQuery.of(context).size.width / 2.3,
+                                    title: 'การออก\nกำลังกาย',
                                     image:
                                         'assets/images/volunteer_exercise_bg.png',
                                   ),
