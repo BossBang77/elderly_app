@@ -59,11 +59,6 @@ class AppointmentListBloc
         excludeStatus: excludeStatus);
 
     final response = await _appointmentRepository.getAppointmentList(request);
-    response.fold((error) {
-      //TODO: handle failed response
-    }, (response) {
-      // add(AppointmentListFetch(appointments: response.data));
-    });
   }
 
   void _onAppointmentListFetched(
