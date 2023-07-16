@@ -69,7 +69,7 @@ class DateOfBirthWidget extends StatelessWidget {
                                     controller: _day,
                                     textNumberType: true,
                                     maxLength: 2,
-                                    hintText: 'วัน',
+                                    hintText: 'วว',
                                     onChange: ((value) {}),
                                   ),
                                   const SizedBox(
@@ -90,7 +90,7 @@ class DateOfBirthWidget extends StatelessWidget {
                                     controller: _month,
                                     textNumberType: true,
                                     maxLength: 2,
-                                    hintText: 'เดือน',
+                                    hintText: 'ดด',
                                     onChange: ((value) {}),
                                   ),
                                   const SizedBox(
@@ -111,7 +111,7 @@ class DateOfBirthWidget extends StatelessWidget {
                                     controller: _year,
                                     textNumberType: true,
                                     maxLength: 4,
-                                    hintText: 'ปี',
+                                    hintText: 'ปี(พ.ศ.)',
                                     onChange: ((value) {}),
                                   ),
                                   const SizedBox(
