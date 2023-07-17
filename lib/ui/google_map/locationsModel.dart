@@ -13,7 +13,7 @@ class Locations {
     try {
       LocationPermission permission;
       permission = await Geolocator.checkPermission();
-      print(permission.name);
+
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
@@ -55,15 +55,16 @@ class Locations {
         localeIdentifier: 'th');
     if (placemarks != null && placemarks.isNotEmpty) {
       Placemark place = placemarks.first;
-
       address = AddressDetailModel(
           addressNo: place.name ?? '',
-          subDistrict: place.locality ?? '',
+          subDistrict: place.subLocality ?? '',
           district: place.subAdministrativeArea ?? '',
           postalCode: place.postalCode ?? '',
           country: place.country ?? '',
           province: place.administrativeArea ?? '',
-          soi: place.thoroughfare ?? '',
+          soi: place.name!.contains(place.thoroughfare ?? '')
+              ? ''
+              : place.thoroughfare ?? '',
           longitude: latLng.longitude,
           latitude: latLng.latitude);
     }

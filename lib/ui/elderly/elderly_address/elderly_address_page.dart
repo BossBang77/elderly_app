@@ -29,6 +29,7 @@ class ElderlyAddressPage extends StatelessWidget {
           var listAddress = state.userProfile.addresses;
           return Scaffold(
             backgroundColor: color.white,
+            resizeToAvoidBottomInset: false,
             appBar: appBar(
                 onBack: () {
                   context.go(Routes.home);
@@ -53,7 +54,6 @@ class ElderlyAddressPage extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          // AddressItemBox()
                           ListView.builder(
                             itemCount: listAddress.length,
                             physics: const NeverScrollableScrollPhysics(),
@@ -65,7 +65,6 @@ class ElderlyAddressPage extends StatelessWidget {
                               );
                             },
                           ),
-
                           Center(
                             child: InkWell(
                               child:

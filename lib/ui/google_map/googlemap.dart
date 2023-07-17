@@ -125,22 +125,9 @@ class GoogleMaps extends StatelessWidget {
                 myLocationButtonEnabled: false,
                 mapType: MapType.normal,
                 markers: state.markers,
-                onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
-                },
               )
             : Container(),
-        (state is ShowGoogleMap)
-            ? Padding(
-                padding: EdgeInsets.only(
-                    bottom: 16.0.h, top: 16.h, left: 16.w, right: 16.w),
-                child: Align(
-                    alignment: Alignment.topCenter,
-                    //todo search
-                    child: Container()),
-              )
-            : Container(),
-        if (state is ShowGoogleMap) SearchLocation(state: state),
+        if (state is ShowGoogleMap) SearchLocation(),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -190,7 +177,7 @@ class GoogleMaps extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(bottom: 100.0.h),
             child: InkWell(
-              onTap: () {
+              onTap: () async {
                 context.read<GoogleMapCubit>().initialState();
               },
               child: Image.asset(
