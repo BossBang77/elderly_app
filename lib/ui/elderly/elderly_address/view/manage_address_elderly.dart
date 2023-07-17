@@ -108,11 +108,7 @@ class ManageAddressElderly extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       child: !state.isLoading
-                          ? MapLocation(
-                              latLng: type == ManageAddressType.edit
-                                  ? state.location
-                                  : null,
-                            )
+                          ? MapLocation(latLng: state.location)
                           : Container(),
                     ),
                     Align(

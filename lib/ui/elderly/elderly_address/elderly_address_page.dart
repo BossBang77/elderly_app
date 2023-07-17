@@ -13,6 +13,7 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 
 import '../../base/routes.dart';
+import '../../google_map/locationsModel.dart';
 
 class ElderlyAddressPage extends StatelessWidget {
   const ElderlyAddressPage({
@@ -69,7 +70,8 @@ class ElderlyAddressPage extends StatelessWidget {
                             child: InkWell(
                               child:
                                   textButton1('+ เพิ่มที่อยู่', color.Orange1),
-                              onTap: () {
+                              onTap: () async {
+                                await Locations().getCurrentUserLocation();
                                 context.read<GoogleMapCubit>().initialState();
                                 context.go(Routes.manageAddressElderly, extra: [
                                   ManageAddressType.add,
