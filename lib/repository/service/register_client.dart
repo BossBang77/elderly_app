@@ -19,4 +19,25 @@ abstract class RegisterService {
     "Content-Type": "application/json",
   })
   Future<HttpResponse> checkExisting(@Body() Map<String, dynamic> body);
+
+  @POST('/api/v1/password/reset-password-request')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> resetPasswordRequest(@Body() Map<String, dynamic> body);
+
+  @POST('/api/v1/password/reset-password-verify')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> resetPasswordVerify(@Body() Map<String, dynamic> body);
+
+  @POST('/api/v1/password/reset-password')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> resetPassword(@Body() Map<String, dynamic> body);
 }
