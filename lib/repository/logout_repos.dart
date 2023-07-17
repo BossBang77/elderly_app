@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/logout_client.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/base/model/status_code.dart';
 import 'package:retrofit/dio.dart';
 
@@ -10,14 +11,13 @@ import '../ui/base/network_provider.dart';
 class LogoutRepository {
   LogoutRepository();
 
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final LogoutService _logoutService =
       LogoutService(networkProvider.dioClient());
 
-  Future<Either<Failure,int>> sendLogout() async {
+  Future<Either<Failure, int>> sendLogout() async {
     try {
-      final HttpResponse req =
-          await _logoutService.sendLogout();
+      final HttpResponse req = await _logoutService.sendLogout();
       if (req.response.statusCode == StatusCode.success) {
         return Right(req.response.statusCode ?? StatusCode.success);
       }

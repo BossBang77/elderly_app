@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/request_otp_client.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:retrofit/dio.dart';
 import '../ui/base/model/failure.dart';
 import '../ui/base/model/status_code.dart';
@@ -12,7 +13,7 @@ import '../ui/user_profile/model/response/request_otp_response.dart';
 class RequestOtpRepository {
   RequestOtpRepository();
 
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final RequestOtpService _requestOtpService =
       RequestOtpService(networkProvider.dioClient());
 

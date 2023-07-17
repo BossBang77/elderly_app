@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/emergency_client.dart';
 import 'package:health_application/repository/service/login_client.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/elderly/request_assistance/model/reesponse/emergency_detail_model.dart';
 import 'package:health_application/ui/elderly/request_assistance/model/request/create_emergency_model.dart';
 
@@ -15,7 +16,7 @@ import '../ui/elderly/request_assistance/model/request/update_status_emergency_m
 class EmergencyRepository {
   EmergencyRepository();
 
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final EmergencyService _emergencyService =
       EmergencyService(networkProvider.dioClient());
 

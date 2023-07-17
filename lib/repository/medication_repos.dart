@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/elderly/personal_medication/model/master_medication_list.dart';
 import 'package:health_application/ui/elderly/request_assistance/model/request/create_emergency_model.dart';
 import 'package:retrofit/dio.dart';
@@ -13,7 +14,7 @@ import 'service/medication_client.dart';
 class MedicationRepository {
   MedicationRepository();
 
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final MedicationService _medicationService =
       MedicationService(networkProvider.dioClient());
 

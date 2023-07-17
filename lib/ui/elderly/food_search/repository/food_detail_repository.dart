@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/base/model/failure.dart';
 import 'package:health_application/ui/base/model/status_code.dart';
 import 'package:health_application/ui/base/network_provider.dart';
@@ -12,13 +13,16 @@ abstract class FoodDetailRepositoryProtocol {
 }
 
 class FoodDetailRepository implements FoodDetailRepositoryProtocol {
-  final NetworkProvider networkProvider = NetworkProvider();
-  late FoodDetailService _foodDetailService = FoodDetailService(networkProvider.dioClient());
-  
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
+  late FoodDetailService _foodDetailService =
+      FoodDetailService(networkProvider.dioClient());
+
   @override
-  Future<Either<Failure, FoodDetailResponse>> getFoodDetaiByCodel(String code) async {
+  Future<Either<Failure, FoodDetailResponse>> getFoodDetaiByCodel(
+      String code) async {
     try {
-      final HttpResponse response = await _foodDetailService.getFoodDetailByCode(code);
+      final HttpResponse response =
+          await _foodDetailService.getFoodDetailByCode(code);
       if (response.response.statusCode == StatusCode.success) {
         final foodSearchResponse = FoodDetailResponse.fromJson(response.data);
         return Right(foodSearchResponse);

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/login_client.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/elderly/change_password/model/request_change_password.dart';
 
 import 'package:retrofit/dio.dart';
@@ -17,7 +18,7 @@ import '../ui/signIn_page/model/sign_in_model.dart';
 class LoginRepository {
   LoginRepository();
 
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final LoginService _loginService =
       LoginService(networkProvider.dioClient());
 

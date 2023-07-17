@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/volunteer_home_client.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/base/model/failure.dart';
 import 'package:health_application/ui/base/model/status_code.dart';
 import 'package:health_application/ui/base/network_provider.dart';
@@ -9,7 +10,7 @@ import 'package:retrofit/dio.dart';
 
 class VolunteerHomeRepository {
   VolunteerHomeRepository();
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final VolunteerHomeService _volunteerHomeService =
       VolunteerHomeService(networkProvider.dioClient());
 

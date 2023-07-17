@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/base/model/failure.dart';
 import 'package:health_application/ui/base/model/status_code.dart';
 import 'package:health_application/ui/base/network_provider.dart';
@@ -12,8 +13,9 @@ abstract class TDEERepositoryProtocol {
 }
 
 class TDEERepository implements TDEERepositoryProtocol {
-  final NetworkProvider networkProvider = NetworkProvider();
-  late final GetTDEEService _getTDEEService = GetTDEEService(networkProvider.dioClient());
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
+  late final GetTDEEService _getTDEEService =
+      GetTDEEService(networkProvider.dioClient());
 
   @override
   Future<Either<Failure, TDEEResponse>> getTdee() async {

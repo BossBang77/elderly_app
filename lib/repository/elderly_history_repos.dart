@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/base/model/status_code.dart';
 import 'package:health_application/ui/base/network_provider.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_drinking/model/elderly_history_drinking_response.dart';
@@ -16,7 +17,7 @@ import 'service/elderly_history_client.dart';
 class ElderlyHistoryRepository {
   ElderlyHistoryRepository();
 
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final ELderlyHistoryService _elderlyHistoryService =
       ELderlyHistoryService(networkProvider.dioClient());
 

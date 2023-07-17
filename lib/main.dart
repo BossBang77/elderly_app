@@ -1,3 +1,4 @@
+import 'package:draggable_widget/draggable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,10 +13,12 @@ import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
 import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
 import 'package:health_application/ui/home_page/repository/tdee_repository.dart';
+import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/user_profile/bloc/user_profile_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:month_year_picker/month_year_picker.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'ui/base/app_config/app_config_dev.dart';
 import 'ui/base/app_config/conflig.dart';
 import 'ui/base/master_address/bloc/master_address_bloc.dart';
 import 'ui/base/token_expired/token_expired.dart';
@@ -107,10 +110,32 @@ class MyApp extends StatelessWidget {
                       builder: (BuildContext context, Widget? child) {
                         return Stack(children: <Widget>[
                           if (child != null) child,
-                          // GlobalLoaderOverlay(
-                          //     overlayColor: Colors.grey,
-                          //     overlayOpacity: 0.6,
-                          //     child: child),
+                          if (ConfigEnv.appConfig.envPath ==
+                              AppConfigDev().envPath)
+                            DraggableWidget(
+                              bottomMargin: 80,
+                              topMargin: 80,
+                              horizontalSpace: 20,
+                              shadowBorderRadius: 50,
+                              initialPosition: AnchoringPosition.bottomLeft,
+                              dragController: DragController(),
+                              child: GestureDetector(
+                                onTap: () {
+                                  networkProvider.alice.showInspector();
+                                },
+                                child: Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorTheme().blueFade3,
+                                    ),
+                                    child: Icon(
+                                      Icons.network_check,
+                                      color: ColorTheme().white,
+                                    )),
+                              ),
+                            ),
                         ]);
                       },
                     );

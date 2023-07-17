@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/logout_client.dart';
 import 'package:health_application/repository/service/register_client.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/signIn_page/forgot_password/model/request_submit_new_password.dart';
 import 'package:health_application/ui/signIn_page/forgot_password/model/verify_response.dart';
@@ -20,7 +21,7 @@ import '../ui/user_profile/model/response/request_otp_response.dart';
 class RegisterRepository {
   RegisterRepository();
 
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final RegisterService _registerService =
       RegisterService(networkProvider.dioClient());
 
