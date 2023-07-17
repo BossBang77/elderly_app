@@ -25,7 +25,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
       yield state.copyWith(menus: event.menus);
     }
     if (event is Initstate) {
-      yield state.copyWith(loading: true);
+      yield state.copyWith(loading: true, role: '');
       add(TDEEDataFetched());
       String role = await getRole();
       yield state.copyWith(role: role, loading: false);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/elderly/appointment/model/response/appointment.dart';
-import 'package:health_application/ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
 import 'package:health_application/ui/elderly/change_password/change_password_page.dart';
+import 'package:health_application/ui/elderly/elderly_address/elderly_address_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_drinking/history_drinking_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_exercise/history_exercise_page.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/history_food_page.dart';
@@ -20,9 +20,10 @@ import 'package:health_application/ui/register_profile/register_profile_page.dar
 import 'package:health_application/ui/signIn_page/signIn_widget.dart';
 import 'package:health_application/ui/volunteer/request_assistance_detail/request_assitance_detail_page.dart';
 import 'package:health_application/ui/user_profile/profile_information/elderly_profile_information_view.dart';
+import 'package:health_application/ui/volunteer/user_review/user_review_page.dart';
+import 'package:health_application/ui/volunteer/volunteer_address/volunteer_address_page.dart';
 import 'package:health_application/ui/volunteer/volunteer_information/volunteer_information_page.dart';
 import 'package:health_application/ui/welcome_page/welcome_page.dart';
-
 import '../elderly/appointment_detail/appointment_detail_page.dart';
 import '../elderly/elderly_address/view/manage_address_elderly.dart';
 import '../elderly/personal_medication/personal_medication_page.dart';
@@ -30,7 +31,6 @@ import '../elderly/qr_code_elderly/qr_code_elderly_page.dart';
 import '../elderly/search_volunteer/volunteer_page.dart';
 import '../register_profile/volunteer/model/elderly_profile_model.dart';
 import '../volunteer/search_elderly/search_elderly_page.dart';
-import '../register_profile/model/register_model.dart';
 
 final GoRouter appRouter =
     GoRouter(initialLocation: Routes.root, routes: <GoRoute>[
@@ -112,14 +112,6 @@ final GoRouter appRouter =
         );
       }),
   GoRoute(
-      path: Routes.manageAddressElderly,
-      builder: (BuildContext context, GoRouterState state) {
-        var type = state.extra as ManageAddressType;
-        return ManageAddressElderly(
-          type: type,
-        );
-      }),
-  GoRoute(
       path: Routes.exerciseWidget,
       builder: (BuildContext context, GoRouterState state) {
         return ExerciseWidget();
@@ -195,6 +187,31 @@ final GoRouter appRouter =
           profile: userProfile,
         );
       }),
+  GoRoute(
+      path: Routes.userReview,
+      builder: (BuildContext context, GoRouterState state) {
+        return UserReviewPage();
+      }),
+  GoRoute(
+      path: Routes.elderlyAddress,
+      builder: (BuildContext context, GoRouterState state) {
+        return ElderlyAddressPage();
+      }),
+  GoRoute(
+      path: Routes.manageAddressElderly,
+      builder: (BuildContext context, GoRouterState state) {
+        var list = state.extra as List<dynamic>;
+        return ManageAddressElderly(
+            type: list[0], index: list[1], addressDes: list[2]);
+      }),
+  GoRoute(
+      path: Routes.volunteerAddress,
+      builder: (BuildContext context, GoRouterState state) {
+        var userProfile = state.extra as RegisterModel;
+        return VolunteerAddressPage(
+          profile: userProfile,
+        );
+      }),
 ]);
 
 class Routes {
@@ -248,4 +265,7 @@ class Routes {
 
   static const String changePassword = '/changePassword';
   static const String volunteerInformation = '/volunteerInformation';
+  static const String userReview = '/userReview';
+  static const String elderlyAddress = '/elderlyAddress';
+  static const String volunteerAddress = '/volunteerAddress';
 }

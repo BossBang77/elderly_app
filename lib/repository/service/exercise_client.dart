@@ -46,5 +46,5 @@ abstract class ExerciseService {
     "Accept": "application/json",
     "Content-Type": "application/json",
   })
-  Future<HttpResponse> saveExerciseDaily(@Body() String body);
+  Future<HttpResponse> saveExerciseDaily(@Body() Map<String, dynamic> body);
 }

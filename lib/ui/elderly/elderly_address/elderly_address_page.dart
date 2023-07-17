@@ -6,6 +6,7 @@ import 'package:health_application/ui/elderly/elderly_address/bloc/elderly_addre
 import 'package:health_application/ui/elderly/elderly_address/view/address_item_box.dart';
 import 'package:health_application/ui/elderly/elderly_address/view/manage_address_elderly.dart';
 import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
+import 'package:health_application/ui/register_profile/model/addresses_detail.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
@@ -30,7 +31,7 @@ class ElderlyAddressPage extends StatelessWidget {
             backgroundColor: color.white,
             appBar: appBar(
                 onBack: () {
-                  context.push(Routes.home);
+                  context.go(Routes.home);
                 },
                 title: 'ที่อยู่ของคุณ'),
             body: Stack(
@@ -55,6 +56,7 @@ class ElderlyAddressPage extends StatelessWidget {
                           // AddressItemBox()
                           ListView.builder(
                             itemCount: listAddress.length,
+                            physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return AddressItemBox(
@@ -70,12 +72,16 @@ class ElderlyAddressPage extends StatelessWidget {
                                   textButton1('+ เพิ่มที่อยู่', color.Orange1),
                               onTap: () {
                                 context.read<GoogleMapCubit>().initialState();
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => ManageAddressElderly(
-                                          type: ManageAddressType.add,
-                                        )));
+                                context.go(Routes.manageAddressElderly, extra: [
+                                  ManageAddressType.add,
+                                  0,
+                                  AddressDetailModel()
+                                ]);
                               },
                             ),
+                          ),
+                          const SizedBox(
+                            height: 30,
                           ),
                         ],
                       ),

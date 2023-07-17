@@ -6,6 +6,7 @@ import 'package:health_application/ui/base/dialog/log_out_dialog.dart';
 import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
+import 'package:health_application/ui/base/widget/space_widget.dart';
 import 'package:health_application/ui/elderly/change_password/change_password_page.dart';
 import 'package:health_application/ui/elderly/elderly_address/elderly_address_page.dart';
 import 'package:health_application/ui/elderly/elderly_setting/elderly_setting_page.dart';
@@ -44,11 +45,14 @@ class ElderProfileWidget extends StatelessWidget {
             ),
           )),
       body: Padding(
-        padding: EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 90),
+        padding: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 90),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SpaceWidget(
+                height: 20,
+              ),
               Center(
                 child: user.profile.image.isNotEmpty
                     ? CircleAvatar(
@@ -103,8 +107,7 @@ class ElderProfileWidget extends StatelessWidget {
               CardListMenu(
                 img: 'assets/images/profile_menu_icon/home_profile_icon.png',
                 onClick: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ElderlyAddressPage()));
+                  context.go(Routes.elderlyAddress);
                 },
                 title: 'ที่อยู่ของคุณ',
               ),
