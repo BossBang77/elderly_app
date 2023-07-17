@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/master_data_client.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/base/master_address/model/address_detail_list.dart';
 import 'package:health_application/ui/base/model/master_data.dart';
 import 'package:retrofit/dio.dart';
@@ -11,7 +12,7 @@ import '../ui/base/network_provider.dart';
 class MasterDataRepository {
   MasterDataRepository();
 
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final MasterDataService _masterDataService =
       MasterDataService(networkProvider.dioClient());
 

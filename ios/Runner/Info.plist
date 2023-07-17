@@ -55,6 +55,16 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSAllowsArbitraryLoads</key>
+  	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to location userd function search volunteer near me.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access to location userd function search volunteer near me.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Elderly healt app need access camera used scan qr code and get uid search elderly detail </string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Elderly healt app need access to library use pick image profile of user</string>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
 </dict>

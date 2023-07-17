@@ -73,6 +73,7 @@ dependencies:
   flutter_google_places_hoc081098: ^1.0.0
   google_api_headers: ^1.1.1
   google_maps_webservice: ^0.0.19
+  draggable_widget: ^2.0.0
 
 dev_dependencies:
   build_runner:

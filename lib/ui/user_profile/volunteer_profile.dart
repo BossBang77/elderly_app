@@ -35,7 +35,7 @@ class VolunteerProfileWidget extends StatelessWidget {
                     ? CircleAvatar(
                         radius: 50,
                         backgroundImage:
-                            NetworkImage(user.profile.image, scale: 4),
+                            NetworkImage(user.profile.image, scale: 4)..evict(),
                       )
                     : Image.asset(
                         Gender.isWoman(user.profile.gender)

@@ -4,6 +4,7 @@ import 'package:chopper/chopper.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/exercise_client.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/elderly/exercise/model/daily_activity_req_model.dart';
 import 'package:health_application/ui/elderly/exercise/model/exercise_model.dart';
 import 'package:health_application/ui/elderly/exercise/model/exerise_daily_model.dart';
@@ -18,7 +19,7 @@ import '../ui/elderly/exercise/model/search_information.dart';
 class ExerciseRepository {
   ExerciseRepository();
 
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final ExerciseService _exerciseService =
       ExerciseService(networkProvider.dioClient());
 

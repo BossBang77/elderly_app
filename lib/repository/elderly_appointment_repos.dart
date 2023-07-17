@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/elderly_appointment_client.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/base/model/status_code.dart';
 import 'package:health_application/ui/base/network_provider.dart';
 import 'package:health_application/ui/elderly/search_volunteer/model/appointment/create_appointment.dart';
@@ -21,7 +22,7 @@ import '../ui/elderly/search_volunteer/model/volunteer_full_detail.dart';
 class ElderlyAppointmentRepository {
   ElderlyAppointmentRepository();
 
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final ElderlyAppointmentService _elderlyAppointmentService =
       ElderlyAppointmentService(networkProvider.dioClient());
 

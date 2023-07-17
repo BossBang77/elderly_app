@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:health_application/repository/service/volunteer_assistant.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
 import 'package:health_application/ui/volunteer/request_assistance_detail/model/assitance_model.dart';
 import 'package:health_application/ui/volunteer/request_assistance_detail/model/request_assitance_list.dart';
@@ -15,7 +16,7 @@ import '../ui/base/network_provider.dart';
 class VolunteerAssistanceRepository {
   VolunteerAssistanceRepository();
 
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final VolunteerAssistantService _assistantService =
       VolunteerAssistantService(networkProvider.dioClient());
 

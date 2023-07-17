@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/base/model/failure.dart';
 import 'package:health_application/ui/base/model/status_code.dart';
 import 'package:health_application/ui/base/network_provider.dart';
@@ -32,7 +33,7 @@ abstract class MealRecordRepositoryProtocol {
 }
 
 class MealRecordRepository implements MealRecordRepositoryProtocol {
-  final NetworkProvider networkProvider = NetworkProvider();
+  final NetworkProvider networkProvider = ConfigEnv.networkProvider;
   late final MealRecordService _mealRecordService =
       MealRecordService(networkProvider.dioClient());
 
