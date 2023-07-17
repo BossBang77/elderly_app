@@ -36,6 +36,7 @@ class ElderlyAddressBloc
           Locations _location = Locations();
           var res = await _location.getCurrentUserLocation().whenComplete(() {
             emit(state.copyWith(
+                isLoading: false,
                 location: LocationModel(
                     latitude: _location.latitude,
                     longitude: _location.longtitude,
