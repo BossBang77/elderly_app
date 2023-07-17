@@ -111,6 +111,7 @@ class SignInPage extends StatelessWidget {
 
         await UserSecureStorage().setUserData(loginRes);
         context.read<UserProfileBloc>()..add(GetUserProfile());
+        context.read<HomePageBloc>().add(Initstate());
         context.read<HomePageBloc>().add(ChangeMenu(menus: menuType.mainPage));
         context.go(Routes.home);
       } else if (state.signInStatus == SignInStatus.fail) {
