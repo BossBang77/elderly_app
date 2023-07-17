@@ -73,7 +73,6 @@ class ApiInterceptors extends QueuedInterceptor {
   @override
   Future<dynamic> onError(
       DioError error, ErrorInterceptorHandler handler) async {
-    print(error.response);
     switch (error.type) {
       //TODO
       // case DioErrorType.connectTimeout:
