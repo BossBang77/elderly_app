@@ -6,7 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_application/ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
 import 'package:health_application/ui/elderly/elderly_address/model/location_model.dart';
+import 'package:health_application/ui/google_map/component/search_location.dart';
 import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
+import 'package:health_application/ui/google_map/locationsModel.dart';
 
 class MapLocation extends StatelessWidget {
   MapLocation({
@@ -60,16 +62,36 @@ class MapLocation extends StatelessWidget {
                     markers: state.markers,
                   )
                 : Container(),
-            (state is ShowGoogleMap)
-                ? Padding(
-                    padding: EdgeInsets.only(
-                        bottom: 16.0.h, top: 16.h, left: 16.w, right: 16.w),
-                    child: Align(
-                        alignment: Alignment.topCenter,
-                        //todo search
-                        child: Container()),
-                  )
-                : Container(),
+            if (state is ShowGoogleMap)
+              SearchLocation(
+                valueChanged: (latlang) {
+                  context.read<ElderlyAddressBloc>().add(LocationChange(
+                      location: LocationModel(
+                          latitude: latlang.latitude,
+                          longitude: latlang.longitude)));
+                },
+              ),
+            Positioned(
+              top: MediaQuery.of(context).size.height / 2.1,
+              left: MediaQuery.of(context).size.width * 0.8,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 100.0.h),
+                child: InkWell(
+                  onTap: () async {
+                    context.read<GoogleMapCubit>().initialState();
+                    Locations _locations = Locations();
+                    await _locations.getCurrentUserLocation();
+                    context.read<ElderlyAddressBloc>().add(LocationChange(
+                        location: LocationModel(
+                            latitude: _locations.latitude,
+                            longitude: _locations.longtitude)));
+                  },
+                  child: Image.asset(
+                    "assets/images/mylocation.png",
+                  ),
+                ),
+              ),
+            ),
           ],
         );
       },

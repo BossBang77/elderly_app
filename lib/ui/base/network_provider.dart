@@ -66,6 +66,11 @@ class ApiInterceptors extends QueuedInterceptor {
   }
 
   @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    super.onResponse(response, handler);
+  }
+
+  @override
   Future<dynamic> onError(
       DioError error, ErrorInterceptorHandler handler) async {
     switch (error.type) {

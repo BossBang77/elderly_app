@@ -174,7 +174,7 @@ class PersonalInformation extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                GoRouter.of(context).go(Routes.googleMaps);
+                GoRouter.of(context).go(Routes.selectAddressAppointment);
               },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

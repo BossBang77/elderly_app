@@ -13,6 +13,7 @@ import 'package:health_application/ui/ui-extensions/font.dart';
 import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 
 import '../../base/routes.dart';
+import '../../google_map/locationsModel.dart';
 
 class ElderlyAddressPage extends StatelessWidget {
   const ElderlyAddressPage({
@@ -29,6 +30,7 @@ class ElderlyAddressPage extends StatelessWidget {
           var listAddress = state.userProfile.addresses;
           return Scaffold(
             backgroundColor: color.white,
+            resizeToAvoidBottomInset: false,
             appBar: appBar(
                 onBack: () {
                   context.go(Routes.home);
@@ -53,7 +55,6 @@ class ElderlyAddressPage extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          // AddressItemBox()
                           ListView.builder(
                             itemCount: listAddress.length,
                             physics: const NeverScrollableScrollPhysics(),
@@ -65,12 +66,12 @@ class ElderlyAddressPage extends StatelessWidget {
                               );
                             },
                           ),
-
                           Center(
                             child: InkWell(
                               child:
                                   textButton1('+ เพิ่มที่อยู่', color.Orange1),
-                              onTap: () {
+                              onTap: () async {
+                                await Locations().getCurrentUserLocation();
                                 context.read<GoogleMapCubit>().initialState();
                                 context.go(Routes.manageAddressElderly, extra: [
                                   ManageAddressType.add,

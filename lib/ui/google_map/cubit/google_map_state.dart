@@ -21,14 +21,19 @@ class ShowGoogleMap extends GoogleMapState {
   final String apiKey;
   final Set<Marker> markers;
   final String title;
+  final String locationSearch;
+  final List<Prediction> predictionList;
   ShowGoogleMap(
       {this.latitude = 0,
       this.longitude = 0,
       this.apiKey = "",
       this.markers = const {},
-      this.title = ''});
+      this.title = '',
+      this.locationSearch = '',
+      this.predictionList = const <Prediction>[]});
   @override
-  List<Object> get props => [latitude, longitude, title];
+  List<Object> get props =>
+      [latitude, longitude, title, locationSearch, predictionList];
 }
 
 class AcceptPositionState extends GoogleMapState {

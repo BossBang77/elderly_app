@@ -45,16 +45,17 @@ class AddressDetailModel {
 
   String get fullAddress {
     return addressNo +
-        roomNo +
-        floor +
-        moo +
-        buildVillageName +
         soi +
         road +
+        " " +
         subDistrict +
+        " " +
         district +
+        " " +
         province +
+        " " +
         postalCode +
+        " " +
         country;
   }
 
