@@ -37,6 +37,7 @@ class ManageAddressElderly extends StatelessWidget {
       create: (context) => ElderlyAddressBloc()
         ..add(GetProfile())
         ..add(LocationChange(
+            type: type,
             location: LocationModel(
                 latitude: addressDes.latitude,
                 longitude: addressDes.longitude,
@@ -106,11 +107,13 @@ class ManageAddressElderly extends StatelessWidget {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
-                      child: MapLocation(
-                        latLng: type == ManageAddressType.edit
-                            ? state.location
-                            : null,
-                      ),
+                      child: !state.isLoading
+                          ? MapLocation(
+                              latLng: type == ManageAddressType.edit
+                                  ? state.location
+                                  : null,
+                            )
+                          : Container(),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,

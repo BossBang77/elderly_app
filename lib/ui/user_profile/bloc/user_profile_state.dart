@@ -39,7 +39,7 @@ class UserProfileState extends Equatable {
       [userProfile, status, scanLoading, elderlyProfile, logoutStatus];
 }
 
-enum UserProfileStatus { initial, loading, success, fail }
+enum UserProfileStatus { initial, loading, success, fail, delSuccess, delFail }
 
 enum ScannerLoadStatus { loading, done }
 

@@ -8,9 +8,12 @@ class ElderlyAddressEvent extends Equatable {
 }
 
 class LocationChange extends ElderlyAddressEvent {
-  LocationChange({required this.location});
+  LocationChange({required this.location, this.type = ManageAddressType.edit});
 
   final LocationModel location;
+  final ManageAddressType type;
+  @override
+  List<Object> get props => [location, type];
 }
 
 class onAcceptLocation extends ElderlyAddressEvent {

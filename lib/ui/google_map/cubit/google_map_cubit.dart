@@ -42,6 +42,7 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
     double userLongti = lng != null ? lng : _locations.longtitude;
     userLatiPick = userLati;
     userLongtiPick = userLongti;
+    locationSearch = '';
     print(userLatiPick);
 
     Set<Marker> markers = {};
@@ -60,7 +61,8 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
         longitude: userLongtiPick,
         apiKey: apiKey,
         markers: markers,
-        title: _locations.nameAddress));
+        title: _locations.nameAddress,
+        locationSearch: locationSearch));
   }
 
   Future<void> pickLocation(double latitude, double longitude,
@@ -131,6 +133,17 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
           predictionList: [],
           locationSearch: locationSearch));
     }
+  }
+
+  Future<void> onChangeSearchText(String searchTxt) async {
+    emit(ShowGoogleMap(
+        latitude: userLatiPick,
+        longitude: userLongtiPick,
+        apiKey: apiKey,
+        markers: marker,
+        title: locationName,
+        predictionList: [],
+        locationSearch: searchTxt));
   }
 
   Future<void> placeAutoComplete(String query) async {

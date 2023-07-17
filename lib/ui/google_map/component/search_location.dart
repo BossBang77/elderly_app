@@ -47,8 +47,16 @@ class SearchLocation extends StatelessWidget {
                         maxLength: 100,
                         prefix: true,
                         imagePathPrefix: 'assets/images/search_icon.png',
+                        textInputAction: TextInputAction.search,
                         onChanged: (value) {
-                          context.read<GoogleMapCubit>().searchLocation(value);
+                          context
+                              .read<GoogleMapCubit>()
+                              .onChangeSearchText(value);
+                        },
+                        onFieldSubmitted: () {
+                          context
+                              .read<GoogleMapCubit>()
+                              .searchLocation(state.locationSearch);
                         },
                       ),
                     ),

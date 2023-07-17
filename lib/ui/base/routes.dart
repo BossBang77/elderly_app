@@ -11,6 +11,7 @@ import 'package:health_application/ui/elderly/exercise/exercise_widget.dart';
 import 'package:health_application/ui/elderly/food/model/food/meal.dart';
 import 'package:health_application/ui/elderly/food_log/food_log_page.dart';
 import 'package:health_application/ui/elderly/request_assistance/request_assistance_page.dart';
+import 'package:health_application/ui/elderly/search_volunteer/appoint_volunteer/select_address_appointment_page.dart';
 import 'package:health_application/ui/elderly/volunteer_appoint_summary/volunteer_appoint_summary_page.dart';
 import 'package:health_application/ui/elderly/elderly_setting/elderly_setting_page.dart';
 import 'package:health_application/ui/google_map/googlemap.dart';
@@ -212,6 +213,11 @@ final GoRouter appRouter =
           profile: userProfile,
         );
       }),
+  GoRoute(
+      path: Routes.selectAddressAppointment,
+      builder: (BuildContext context, GoRouterState state) {
+        return SelectAddressAppointmentPage();
+      }),
 ]);
 
 class Routes {
@@ -268,4 +274,5 @@ class Routes {
   static const String userReview = '/userReview';
   static const String elderlyAddress = '/elderlyAddress';
   static const String volunteerAddress = '/volunteerAddress';
+  static const String selectAddressAppointment = '/selectAddressAppointment';
 }

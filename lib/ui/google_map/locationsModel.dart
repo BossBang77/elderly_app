@@ -27,6 +27,7 @@ class Locations {
       );
       latitude = position.latitude;
       longtitude = position.longitude;
+
       nameAddress = await getAddress(LatLng(latitude, longtitude));
     } catch (e) {
       print(e);

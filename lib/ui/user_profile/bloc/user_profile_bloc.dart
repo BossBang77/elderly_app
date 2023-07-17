@@ -77,7 +77,19 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     if (event is GetDetail) {}
 
     if (event is IntitalLogoutStatus) {
-      yield state.copyWith(logoutStatus: LogoutStatus.initial);
+      yield state.copyWith(
+          logoutStatus: LogoutStatus.initial,
+          status: UserProfileStatus.initial);
+    }
+
+    if (event is UpdateProfile) {
+      var res = await _loginRepository.updatePfofile(event.profile);
+      yield* res.fold((l) async* {
+        yield state.copyWith(status: UserProfileStatus.delFail);
+      }, (r) async* {
+        yield state.copyWith(status: UserProfileStatus.delFail);
+        add(GetUserProfile());
+      });
     }
   }
 }

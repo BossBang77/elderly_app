@@ -29,7 +29,14 @@ class IntitalLogoutStatus extends UserProfileEvent {
   const IntitalLogoutStatus();
 }
 
-
 class UserProfileLoggedOut extends UserProfileEvent {}
 
 class UserProfileInitialLogoutState extends UserProfileEvent {}
+
+class UpdateProfile extends UserProfileEvent {
+  final RegisterModel profile;
+  const UpdateProfile({required this.profile});
+
+  @override
+  List<Object> get props => [profile];
+}
