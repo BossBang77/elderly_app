@@ -23,7 +23,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<HomePageBloc>().add(Initstate());
     return Scaffold(
         body: BlocConsumer<HomePageBloc, HomePageState>(
       listener: (context, state) {},
@@ -224,9 +223,15 @@ class HomePage extends StatelessWidget {
             if (state.role == RoleType.ROLE_USER_ELDERLY.name) ...{
               _pageView(),
               _bottomNavigationBar()
-            } else ...{
+            } else if (state.role == RoleType.ROLE_USER_VOLUNTEER.name) ...{
               _volunteerPageView(),
               _volunteerButtonNavagateBar()
+            } else ...{
+              Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                color: color.whiteBackground,
+              )
             },
             if (state.loading) ...{Loader()}
           ],

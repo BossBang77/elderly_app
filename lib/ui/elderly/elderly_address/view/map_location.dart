@@ -4,19 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:health_application/ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
 import 'package:health_application/ui/elderly/elderly_address/model/location_model.dart';
 import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
-import 'package:health_application/ui/google_map/locationsModel.dart';
 
 class MapLocation extends StatelessWidget {
   MapLocation({
     super.key,
-    required this.onAccept,
     this.enableSearch = true,
     required this.latLng,
   });
 
-  final Function(LocationModel) onAccept;
   final bool enableSearch;
   final LocationModel? latLng;
 
@@ -37,15 +35,7 @@ class MapLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GoogleMapCubit, GoogleMapState>(
-      listener: (context, state) {
-        if (state is AcceptPositionState) {
-          LocationModel model = LocationModel(
-              latitude: state.latitude,
-              longitude: state.longitude,
-              locationName: state.locationName);
-          onAccept.call(model);
-        }
-      },
+      listener: (context, state) {},
       builder: (context, GoogleMapState state) {
         return Stack(
           children: [
@@ -59,14 +49,15 @@ class MapLocation extends StatelessWidget {
                     tiltGesturesEnabled: false,
                     onTap: (latlang) {
                       _onAddMarkerButtonPressed(latlang, context, state);
+                      context.read<ElderlyAddressBloc>().add(LocationChange(
+                          location: LocationModel(
+                              latitude: latlang.latitude,
+                              longitude: latlang.longitude)));
                     },
                     myLocationEnabled: true,
                     myLocationButtonEnabled: false,
                     mapType: MapType.normal,
                     markers: state.markers,
-                    onMapCreated: (GoogleMapController controller) {
-                      _controller.complete(controller);
-                    },
                   )
                 : Container(),
             (state is ShowGoogleMap)

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../ui-extensions/color.dart';
 
-Widget StarRate(BuildContext context, int value) {
+Widget StarRate(BuildContext context, double value) {
   return Row(
     children: [
       for (int i = 0; i < 5; i++)

@@ -12,4 +12,27 @@ abstract class MasterDataService {
     "Content-Type": "application/json",
   })
   Future<HttpResponse> getMasterData(@Path() String category);
+
+  @GET('/api/v1/common/master/province')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> getMasterDataProvince();
+
+  @GET('/api/v1/common/master/district')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> getMasterDataDistrict(
+      @Query("provinceCode") String provinceCode);
+
+  @GET('/api/v1/common/master/sub-district')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> getMasterDataSubDistrict(
+      @Query("districtCode") String districtCode);
 }

@@ -68,14 +68,6 @@ class RemoveExerciseRecord extends ExerciseEvent {
   List<Object> get props => [id];
 }
 
-class SaveExerciseRecord extends ExerciseEvent {
-  final String name;
-  final String code;
-  const SaveExerciseRecord({required this.name, required this.code});
-  @override
-  List<Object> get props => [name, code];
-}
-
 class GetExerciseRecord extends ExerciseEvent {
   const GetExerciseRecord();
   @override
@@ -89,15 +81,6 @@ class SaveExerciseDaily extends ExerciseEvent {
   const SaveExerciseDaily(
       {required this.timePoint, required this.name, required this.code});
   List<Object> get props => [timePoint, name, code];
-}
-
-class SaveExerciseRecordBeforeExerise extends ExerciseEvent {
-  final String name;
-  final String code;
-  const SaveExerciseRecordBeforeExerise(
-      {required this.name, required this.code});
-  @override
-  List<Object> get props => [name, code];
 }
 
 class SubmitSearchKeyWord extends ExerciseEvent {

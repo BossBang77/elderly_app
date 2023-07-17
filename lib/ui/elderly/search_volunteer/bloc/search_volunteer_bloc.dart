@@ -67,7 +67,8 @@ class SearchVolunteerBloc
             status: SearchStatus.getDetailFail,
             isLoading: false);
       }, (VolunteerFullDetail res) async* {
-        var review = await _elderlyAppointmentRepository.searchReview(event.id);
+        var review = await _elderlyAppointmentRepository.searchReview(event.id,
+            limit: '10');
         yield* review.fold((Failure err) async* {
           yield state.copyWith(
               currentVolunteerDetail: res,

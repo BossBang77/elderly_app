@@ -12,66 +12,58 @@ Widget ExerciseDoingList(BuildContext context, SearchResListModel list) {
   return Column(
     children: [
       for (int i = 0; i < recordList.length; i++)
-        InkWell(
-          onTap: () {
-            context.read<ExerciseBloc>().add(SearchExInformation(
-                exCode: recordList[i].code,
-                statusViewExercise: StatusViewExercise.caseResume));
-          },
-          child: Container(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.network(
-                              recordList[i].image,
-                              width: 75,
-                              fit: BoxFit.cover,
-                            )),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textSubtitle16Blod(
-                                recordList[i].name, color.black87),
-                            textSubtitle15w400(
-                                '${recordList[i].time.toString()} นาที : ${recordList[i].burnCalorie}kcal',
-                                color.black87)
-                          ],
-                        ),
-                      ],
-                    ),
-                    InkWell(
-                      onTap: () {
-                        context
-                            .read<ExerciseBloc>()
-                            .add(RemoveExerciseRecord(id: recordList[i].id));
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: Image.asset(
-                          'assets/images/exit_icon.png',
-                          scale: 4,
-                        ),
+        Container(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.network(
+                            recordList[i].image,
+                            width: 75,
+                            fit: BoxFit.cover,
+                          )),
+                      const SizedBox(
+                        width: 20,
                       ),
-                    )
-                  ],
-                ),
-                Divider(
-                  color: color.grey50,
-                )
-              ],
-            ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textSubtitle16Blod(recordList[i].name, color.black87),
+                          textSubtitle15w400(
+                              '${recordList[i].timePoint.toString()} นาที : ${recordList[i].burnCaloriePoint}kcal',
+                              color.black87)
+                        ],
+                      ),
+                    ],
+                  ),
+                  InkWell(
+                    onTap: () {
+                      context
+                          .read<ExerciseBloc>()
+                          .add(RemoveExerciseRecord(id: recordList[i].id));
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Image.asset(
+                        'assets/images/exit_icon.png',
+                        scale: 4,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              Divider(
+                color: color.grey50,
+              )
+            ],
           ),
-        ),
+        )
     ],
   );
 }

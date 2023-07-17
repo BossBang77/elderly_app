@@ -71,14 +71,19 @@ class VolunteerProfileWidget extends StatelessWidget {
                 title: 'ข้อมูลจิตอาสา',
               ),
               CardListMenu(
-                img: 'assets/images/profile_menu_icon/star_profile_icon.png',
-                onClick: () {},
-                title: 'รีวิวจากผู้ใช้งาน',
+                img: 'assets/images/profile_menu_icon/home_profile_icon.png',
+                onClick: () {
+                  context.push(Routes.volunteerAddress,
+                      extra: state.userProfile);
+                },
+                title: 'ที่อยู่ของคุณ',
               ),
               CardListMenu(
-                img: 'assets/images/profile_menu_icon/home_profile_icon.png',
-                onClick: () {},
-                title: 'ที่อยู่ของคุณ',
+                img: 'assets/images/profile_menu_icon/star_profile_icon.png',
+                onClick: () {
+                  context.go(Routes.userReview);
+                },
+                title: 'รีวิวจากผู้ใช้งาน',
               ),
               CardListMenu(
                 img:

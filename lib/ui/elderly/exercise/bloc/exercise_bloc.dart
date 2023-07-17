@@ -105,6 +105,7 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
         yield state.copyWith(
             statusSubmit: StatusSubmit.removeExerciseRecordSuccess);
         add(GetExerciseRecord());
+        add(GetExerciseDaily());
       });
     }
 
@@ -114,42 +115,6 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
         yield state.copyWith(recordList: SearchResListModel());
       }, (SearchResListModel res) async* {
         yield state.copyWith(recordList: res);
-      });
-    }
-
-    if (event is SaveExerciseRecord) {
-      ExerciseModel newActivity =
-          ExerciseModel(name: event.name, code: event.code);
-      List<SearchResModel> reccordList = state.recordList.data;
-      List<ExerciseModel> bodyReq = [];
-      reccordList.forEach((recorded) {
-        bodyReq.add(ExerciseModel(code: recorded.code, name: recorded.name));
-      });
-      bodyReq.add(newActivity);
-      var res = await _exerciseRepository.saveExerciseRecord(bodyReq);
-      yield* res.fold((Failure err) async* {
-        yield state.copyWith(statusSubmit: StatusSubmit.saveRecordFail);
-      }, (String res) async* {
-        yield state.copyWith(
-          statusSubmit: StatusSubmit.saveRecordSuccess,
-        );
-      });
-    }
-
-    if (event is SaveExerciseRecordBeforeExerise) {
-      ExerciseModel newActivity =
-          ExerciseModel(name: event.name, code: event.code);
-      List<SearchResModel> reccordList = state.recordList.data;
-      List<ExerciseModel> bodyReq = [];
-      reccordList.forEach((recorded) {
-        bodyReq.add(ExerciseModel(code: recorded.code, name: recorded.name));
-      });
-      bodyReq.add(newActivity);
-      var res = await _exerciseRepository.saveExerciseRecord(bodyReq);
-      yield* res.fold((Failure err) async* {
-        yield state.copyWith(statusSubmit: StatusSubmit.saveRecordFail);
-      }, (String res) async* {
-        yield state.copyWith(exerciseView: ExerciseView.vdoExercise);
       });
     }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_application/ui/extension/extension.dart';
 import 'package:intl/intl.dart';
 
 ///extension for date
@@ -42,7 +43,7 @@ extension DateTimeExtension on DateTime {
         'ธ.ค.'
       ];
 
-      return '${day.toString().padLeft(2, '0')} ${monthList[month - 1]} ${year + 543}';
+      return '${day.toString().padLeft(2, '0')} ${monthList[month - 1]} ${(year + 543).toString().lastChars(2)}';
     } catch (e) {
       return '-';
     }
@@ -209,4 +210,10 @@ extension IsDateExtenstion on String {
       return false;
     }
   }
+}
+
+int daysBetween(DateTime from, DateTime to) {
+  from = DateTime(from.year, from.month, from.day);
+  to = DateTime(to.year, to.month, to.day);
+  return (to.difference(from).inHours / 24).round();
 }

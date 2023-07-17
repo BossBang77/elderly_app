@@ -28,7 +28,6 @@ class HomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<HomePageBloc>().fetchTDEEData();
     return Scaffold(
       backgroundColor: ColorTheme().BackgroundWhite,
       body: Column(
@@ -424,7 +423,7 @@ class HomeWidget extends StatelessWidget {
                                 background: 'assets/images/sos.png',
                                 title: 'ฉุกเฉิน',
                                 onClick: () {
-                                  context.push(Routes.requestAssitance);
+                                  context.go(Routes.requestAssitance);
                                 },
                                 subTitle: 'ขอความช่วยเหลือ',
                                 icon: 'assets/images/sos_icon.png',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_application/ui/base/widget/image_notfound.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/common/item_constant.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/food_model.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -55,19 +56,22 @@ class HistoryFoodBox extends StatelessWidget {
             for (var food in foods) ...{
               Row(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    // TODO: Display picture base64 or not ?
-                    child: Image.asset(
-                      food.image,
-                      fit: BoxFit.contain,
-                      scale: 3,
-                    ),
-                  ),
+                  food.image.isNotEmpty
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          child: Image.network(
+                            food.image,
+                            width: 75,
+                            height: 75,
+                            fit: BoxFit.contain,
+                          ),
+                        )
+                      : ImageNotFound(),
                   const SizedBox(
                     width: 20,
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       textSubtitle16W500(food.name, color.black87),
                       textSubtitle15w400(

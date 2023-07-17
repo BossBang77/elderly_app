@@ -22,7 +22,7 @@ class VolunteerFullDetail {
 
   final String name;
   final String image;
-  final int rating;
+  final num rating;
   final int age;
   final int experience;
   final int totalAppointmentComplated;
@@ -41,7 +41,7 @@ class VolunteerFullDetail {
   VolunteerFullDetail copyWith(
           {String? name,
           String? image,
-          int? rating,
+          num? rating,
           int? age,
           int? experience,
           int? totalAppointmentComplated,

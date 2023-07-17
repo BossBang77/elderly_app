@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_drinking/bloc/history_drinking_bloc.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_drinking/model/mock_drinking_data.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/common/item_constant.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/graph_model.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/views/graph_widget.dart';
 import 'package:health_application/ui/extension/extension.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
@@ -57,7 +58,6 @@ class HistorySummaryDrinking extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                            constraints: const BoxConstraints(maxHeight: 40),
                             padding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
                             child: textSubtitle16W500(
                                 getFrequencyName(frequency[index]),
@@ -98,7 +98,8 @@ class HistorySummaryDrinking extends StatelessWidget {
                 Container(
                   height: 300,
                   child: GraphWidget(
-                    data: state.drinkingData.amountToDrink,
+                    data: GraphGenerate.generateGraphData(
+                        state.drinkingData.amountToDrink, state.currentRange),
                     leftTitleRange: 400,
                     bottomTitleRange: 1,
                     rangeType: state.currentRange,

@@ -13,7 +13,11 @@ class RatingResModel {
       this.reviewers = const <ReviewerModel>[]});
 
   final int totals;
-  final int rating;
+  final num rating;
+
+  @JsonKey(
+    name: 'reviews',
+  )
   final List<ReviewerModel> reviewers;
   final List<RatingCountModel> ratingCount;
 

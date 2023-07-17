@@ -73,7 +73,7 @@ class ElderlyAppointmentRepository {
   }
 
   Future<Either<Failure, RatingResModel>> searchReview(String id,
-      {String limit = '30', String offset = '0'}) async {
+      {String limit = '100', String offset = '0'}) async {
     try {
       final HttpResponse req =
           await _elderlyAppointmentService.getReview(id, limit, offset);

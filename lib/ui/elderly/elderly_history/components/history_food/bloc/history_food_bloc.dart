@@ -6,6 +6,7 @@ import 'package:health_application/ui/elderly/elderly_history/components/history
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/elderly_history_food_response.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/elderly_log_food_model.dart';
 import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/elderly_log_food_response.dart';
+import 'package:health_application/ui/elderly/elderly_history/components/history_food/model/graph_model.dart';
 import 'package:health_application/ui/extension/extension.dart';
 
 part 'history_food_event.dart';
@@ -16,6 +17,14 @@ class HistoryFoodBloc extends Bloc<HistoryFoodEvent, HistoryFoodState> {
     ElderlyHistoryRepository elderlyHistoryRepository =
         ElderlyHistoryRepository();
     on<HistoryFoodEvent>((event, emit) async {
+      if (event is InitialData) {
+        var now = DateTime.now();
+        var startDate =
+            DateTime.utc(now.year, now.month, now.day - 7).toDisplayApiFormat();
+        var endDate = DateTime.now().toDisplayApiFormat();
+        emit(state.copyWith(graphStartDate: startDate, graphEndDate: endDate));
+        add(GetSummaryFood());
+      }
       if (event is GetSummaryFood) {
         emit(state.copyWith(graphLoading: true));
         final response = await elderlyHistoryRepository.getSummaryFood(
