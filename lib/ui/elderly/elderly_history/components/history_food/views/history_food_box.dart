@@ -66,7 +66,11 @@ class HistoryFoodBox extends StatelessWidget {
                             fit: BoxFit.contain,
                           ),
                         )
-                      : ImageNotFound(),
+                      : Container(
+                          width: 75,
+                          height: 75,
+                          child: ImageNotFound(),
+                        ),
                   const SizedBox(
                     width: 20,
                   ),

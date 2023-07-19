@@ -31,8 +31,16 @@ class HistoryExerciseBox extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     child: item.images.isNotEmpty
-                        ? Image.network(item.images)
-                        : ImageNotFound(),
+                        ? Image.network(
+                            item.images,
+                            width: 75,
+                            height: 75,
+                          )
+                        : Container(
+                            width: 75,
+                            height: 75,
+                            child: ImageNotFound(),
+                          ),
                   ),
                   const SizedBox(
                     width: 20,
