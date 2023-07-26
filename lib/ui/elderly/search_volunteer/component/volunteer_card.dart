@@ -21,6 +21,7 @@ Widget volunteerCard(BuildContext context, VolunteerDetailSearch item) {
                           item.image,
                           fit: BoxFit.cover,
                           height: 75,
+                          width: 75,
                         )
                       : ImageNotFound()),
             ),
