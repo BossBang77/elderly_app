@@ -7,11 +7,15 @@ class Locations {
   double latitude;
   double longtitude;
   String nameAddress;
-  Locations({this.latitude = 0, this.longtitude = 0, this.nameAddress = ''});
+  LocationPermission permission;
+  Locations(
+      {this.latitude = 0,
+      this.longtitude = 0,
+      this.nameAddress = '',
+      this.permission = LocationPermission.denied});
 
   Future<void> getCurrentUserLocation() async {
     try {
-      LocationPermission permission;
       permission = await Geolocator.checkPermission();
 
       if (permission == LocationPermission.denied) {
@@ -50,25 +54,28 @@ class Locations {
 
   Future<AddressDetailModel> getAddressDetailModel(LatLng latLng) async {
     AddressDetailModel address = AddressDetailModel();
-
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-        latLng.latitude, latLng.longitude,
-        localeIdentifier: 'th');
-    if (placemarks != null && placemarks.isNotEmpty) {
-      Placemark place = placemarks.first;
-      address = AddressDetailModel(
-          addressNo: place.name ?? '',
-          subDistrict: place.subLocality ?? '',
-          district: place.subAdministrativeArea ?? '',
-          postalCode: place.postalCode ?? '',
-          country: place.country ?? '',
-          province: place.administrativeArea ?? '',
-          soi: place.name!.contains(place.thoroughfare ?? '')
-              ? ''
-              : place.thoroughfare ?? '',
-          longitude: latLng.longitude,
-          latitude: latLng.latitude);
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          latLng.latitude, latLng.longitude,
+          localeIdentifier: 'th');
+      if (placemarks != null && placemarks.isNotEmpty) {
+        Placemark place = placemarks.first;
+        address = AddressDetailModel(
+            addressNo: place.name ?? '',
+            subDistrict: place.subLocality ?? '',
+            district: place.subAdministrativeArea ?? '',
+            postalCode: place.postalCode ?? '',
+            country: place.country ?? '',
+            province: place.administrativeArea ?? '',
+            soi: place.name!.contains(place.thoroughfare ?? '')
+                ? ''
+                : place.thoroughfare ?? '',
+            longitude: latLng.longitude,
+            latitude: latLng.latitude);
+      }
+      return address;
+    } catch (e) {
+      return address;
     }
-    return address;
   }
 }

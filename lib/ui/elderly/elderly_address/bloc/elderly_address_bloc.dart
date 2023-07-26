@@ -17,6 +17,7 @@ class ElderlyAddressBloc
     extends Bloc<ElderlyAddressEvent, ElderlyAddressState> {
   ElderlyAddressBloc() : super(ElderlyAddressInitial()) {
     LoginRepository _loginRepository = LoginRepository();
+    Locations _location = Locations();
     on<ElderlyAddressEvent>((event, emit) async {
       if (event is GetProfile) {
         emit(state.copyWith(isLoading: true));
@@ -33,7 +34,6 @@ class ElderlyAddressBloc
         emit(state.copyWith(isLoading: true));
         LocationModel locate = event.location;
         if (event.type == ManageAddressType.add) {
-          Locations _location = Locations();
           var res = await _location.getCurrentUserLocation().whenComplete(() {
             emit(state.copyWith(
                 isLoading: false,
@@ -44,7 +44,7 @@ class ElderlyAddressBloc
                 addressState: ChangeAddressState.initial));
           });
         } else {
-          var currentAddress = await Locations()
+          var currentAddress = await _location
               .getAddressDetailModel(LatLng(locate.latitude, locate.longitude));
           emit(state.copyWith(
               isLoading: false,
@@ -66,7 +66,7 @@ class ElderlyAddressBloc
           listAddress.add(currentAddress);
         } else if (event.type == ManageAddressType.edit) {
           listAddress[event.index] = currentAddress;
-        } else {
+        } else if (event.type == ManageAddressType.delete) {
           listAddress.removeAt(event.index);
         }
         profile = profile.copyWith(addresses: listAddress);

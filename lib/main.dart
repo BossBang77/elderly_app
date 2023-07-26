@@ -1,8 +1,10 @@
 import 'package:draggable_widget/draggable_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_application/ui/base/appoint_detail_card/bloc/appointment_card_bloc.dart';
 import 'package:health_application/ui/base/bloc/master_data_bloc.dart';
 import 'package:health_application/ui/base/cubit/expired_cubit.dart';
@@ -26,13 +28,22 @@ import 'ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
 import 'ui/elderly/exercise/bloc/exercise_bloc.dart';
 import 'ui/elderly/water_intake/bloc/water_intake_bloc.dart';
 import 'ui/home_page/bloc/home_page_bloc.dart';
+import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
+import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 
-void main() {
+void main() async {
   Bloc.observer = CounterObserver();
   AndroidOptions _getAndroidOptions() => const AndroidOptions(
         encryptedSharedPreferences: true,
       );
   final storage = FlutterSecureStorage(aOptions: _getAndroidOptions());
+  final GoogleMapsFlutterPlatform mapsImplementation =
+      GoogleMapsFlutterPlatform.instance;
+  if (mapsImplementation is GoogleMapsFlutterAndroid) {
+    WidgetsFlutterBinding.ensureInitialized();
+    mapsImplementation.useAndroidViewSurface = true;
+    await mapsImplementation.initializeWithRenderer(AndroidMapRenderer.latest);
+  }
   runApp(MyApp());
 }
 

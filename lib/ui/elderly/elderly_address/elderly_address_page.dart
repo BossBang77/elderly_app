@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/elderly_address/bloc/elderly_address_bloc.dart';
@@ -22,6 +23,7 @@ class ElderlyAddressPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Locations _locations = Locations();
     return BlocProvider(
       create: (context) => ElderlyAddressBloc()..add(GetProfile()),
       child: BlocConsumer<ElderlyAddressBloc, ElderlyAddressState>(
@@ -71,7 +73,15 @@ class ElderlyAddressPage extends StatelessWidget {
                               child:
                                   textButton1('+ เพิ่มที่อยู่', color.Orange1),
                               onTap: () async {
-                                await Locations().getCurrentUserLocation();
+                                var permission =
+                                    await Geolocator.checkPermission();
+                                if (permission == LocationPermission.denied ||
+                                    permission ==
+                                        LocationPermission.deniedForever) {
+                                  print('denine');
+                                  await _locations.getCurrentUserLocation();
+                                }
+
                                 context.read<GoogleMapCubit>().initialState();
                                 context.go(Routes.manageAddressElderly, extra: [
                                   ManageAddressType.add,

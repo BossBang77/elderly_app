@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,8 +11,9 @@ import 'package:health_application/ui/elderly/elderly_address/model/location_mod
 import 'package:health_application/ui/google_map/component/search_location.dart';
 import 'package:health_application/ui/google_map/cubit/google_map_cubit.dart';
 import 'package:health_application/ui/google_map/locationsModel.dart';
+import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 
-class MapLocation extends StatelessWidget {
+class MapLocation extends StatefulWidget {
   MapLocation({
     super.key,
     this.enableSearch = true,
@@ -20,10 +23,17 @@ class MapLocation extends StatelessWidget {
   final bool enableSearch;
   final LocationModel? latLng;
 
-  Completer<GoogleMapController> _controller = Completer();
+  @override
+  State<MapLocation> createState() => _MapLocationState();
+}
+
+class _MapLocationState extends State<MapLocation> {
   double userLati = 0;
+
   double userLongti = 0;
+
   double storeLati = 0;
+
   double storeLongti = 0;
 
   void _onAddMarkerButtonPressed(
@@ -31,13 +41,22 @@ class MapLocation extends StatelessWidget {
     context
         .read<GoogleMapCubit>()
         .pickLocation(latlang.latitude, latlang.longitude);
-    context.read<GoogleMapCubit>().acceptLocation();
   }
 
+  void _searchPicker(LatLng latLng) async {
+    _controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        bearing: 0,
+        target: latLng,
+        zoom: 15.0,
+      ),
+    ));
+  }
+
+  late GoogleMapController _controller;
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GoogleMapCubit, GoogleMapState>(
-      listener: (context, state) {},
+    return BlocBuilder<GoogleMapCubit, GoogleMapState>(
       builder: (context, GoogleMapState state) {
         return Stack(
           children: [
@@ -47,7 +66,6 @@ class MapLocation extends StatelessWidget {
                       target: LatLng(state.latitude, state.longitude),
                       zoom: 15,
                     ),
-                    compassEnabled: true,
                     tiltGesturesEnabled: false,
                     onTap: (latlang) {
                       _onAddMarkerButtonPressed(latlang, context, state);
@@ -55,12 +73,13 @@ class MapLocation extends StatelessWidget {
                           location: LocationModel(
                               latitude: latlang.latitude,
                               longitude: latlang.longitude)));
+                      _searchPicker(latlang);
                     },
-                    myLocationEnabled: true,
-                    myLocationButtonEnabled: false,
                     mapType: MapType.normal,
                     markers: state.markers,
-                  )
+                    onMapCreated: (GoogleMapController controller) {
+                      _controller = controller;
+                    })
                 : Container(),
             if (state is ShowGoogleMap)
               SearchLocation(
@@ -69,6 +88,7 @@ class MapLocation extends StatelessWidget {
                       location: LocationModel(
                           latitude: latlang.latitude,
                           longitude: latlang.longitude)));
+                  _searchPicker(LatLng(latlang.latitude, latlang.longitude));
                 },
               ),
             Positioned(
@@ -85,6 +105,8 @@ class MapLocation extends StatelessWidget {
                         location: LocationModel(
                             latitude: _locations.latitude,
                             longitude: _locations.longtitude)));
+                    _searchPicker(
+                        LatLng(_locations.latitude, _locations.longtitude));
                   },
                   child: Image.asset(
                     "assets/images/mylocation.png",

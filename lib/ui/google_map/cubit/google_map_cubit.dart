@@ -28,33 +28,31 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
   String locationSearch = '';
   List<Prediction> predictionList = [];
   Set<Marker> marker = const {};
+  BitmapDescriptor icon = BitmapDescriptor.defaultMarker;
 
   initialState({double? lat, double? lng, String? addressName}) async {
-    emit(GoogleMapInitial());
-    emit(LoadingMap());
-    final Uint8List markerIcon =
-        await getBytesFromAsset('assets/images/marker_icon.png', 100);
-
-    apiKey = await rootBundle.loadString('assets/GoogleMapApiKey.text');
-    print(apiKey);
+    apiKey = googleApiKey;
     await _locations.getCurrentUserLocation();
     double userLati = lat != null ? lat : _locations.latitude;
     double userLongti = lng != null ? lng : _locations.longtitude;
     userLatiPick = userLati;
     userLongtiPick = userLongti;
     locationSearch = '';
-    print(userLatiPick);
+    if (icon == BitmapDescriptor.defaultMarker) {
+      icon = await BitmapDescriptor.fromAssetImage(
+          ImageConfiguration(size: Size(48, 48)),
+          'assets/images/marker_icon.png');
+    }
 
     Set<Marker> markers = {};
     locationName = addressName != null ? addressName : _locations.nameAddress;
     markers.add(Marker(
-      markerId: MarkerId("Home"),
-      position: LatLng(userLatiPick, userLongtiPick),
-      infoWindow: InfoWindow(
-        title: _locations.nameAddress,
-      ),
-      icon: BitmapDescriptor.fromBytes(markerIcon),
-    ));
+        markerId: MarkerId(_locations.nameAddress),
+        position: LatLng(userLatiPick, userLongtiPick),
+        infoWindow: InfoWindow(
+          title: _locations.nameAddress,
+        ),
+        icon: icon));
     marker = markers;
     emit(ShowGoogleMap(
         latitude: userLatiPick,
@@ -62,14 +60,12 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
         apiKey: apiKey,
         markers: markers,
         title: _locations.nameAddress,
-        locationSearch: locationSearch));
+        locationSearch: locationSearch,
+        predictionList: []));
   }
 
   Future<void> pickLocation(double latitude, double longitude,
       {String searchValue = ''}) async {
-    emit(LoadingMap());
-    final Uint8List markerIcon =
-        await getBytesFromAsset('assets/images/marker_icon.png', 100);
     Set<Marker> markers = {};
     String title = await getAddress(LatLng(latitude, longitude));
     locationName = title;
@@ -80,12 +76,12 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
     }
 
     markers.add(Marker(
-      markerId: MarkerId("Home"),
+      markerId: MarkerId(title),
       position: LatLng(latitude, longitude),
       infoWindow: InfoWindow(
         title: title,
       ),
-      icon: BitmapDescriptor.fromBytes(markerIcon),
+      icon: icon,
     ));
     marker = markers;
     emit(ShowGoogleMap(

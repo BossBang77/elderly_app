@@ -26,13 +26,13 @@ class GoogleMaps extends StatelessWidget {
   GoogleMaps({Key? key, this.titleTxt = '', this.hintTxt = ''})
       : super(key: key);
 
-  Completer<GoogleMapController> _controller = Completer();
   double userLati = 0;
   double userLongti = 0;
   double storeLati = 0;
   double storeLongti = 0;
 
   Locations _locations = Locations();
+  late GoogleMapController _controller;
   void _onAddMarkerButtonPressed(
       LatLng latlang, BuildContext context, state) async {
     context
@@ -41,14 +41,23 @@ class GoogleMaps extends StatelessWidget {
   }
 
   void _currentLocation() async {
-    final GoogleMapController controller = await _controller.future;
     try {
       await _locations.getCurrentUserLocation();
     } on Exception {}
-    controller.animateCamera(CameraUpdate.newCameraPosition(
+    _controller.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(
         bearing: 0,
         target: LatLng(_locations.latitude, _locations.longtitude),
+        zoom: 15.0,
+      ),
+    ));
+  }
+
+  void _searchPicker(LatLng latLng) async {
+    _controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        bearing: 0,
+        target: latLng,
         zoom: 15.0,
       ),
     ));
@@ -120,14 +129,22 @@ class GoogleMaps extends StatelessWidget {
                 tiltGesturesEnabled: false,
                 onTap: (latlang) {
                   _onAddMarkerButtonPressed(latlang, context, state);
+                  _searchPicker(latlang);
                 },
                 myLocationEnabled: true,
                 myLocationButtonEnabled: false,
                 mapType: MapType.normal,
                 markers: state.markers,
-              )
+                onMapCreated: (GoogleMapController controller) {
+                  _controller = controller;
+                })
             : Container(),
-        if (state is ShowGoogleMap) SearchLocation(),
+        if (state is ShowGoogleMap)
+          SearchLocation(
+            valueChanged: (value) {
+              _searchPicker(value);
+            },
+          ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(

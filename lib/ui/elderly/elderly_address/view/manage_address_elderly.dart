@@ -104,13 +104,7 @@ class ManageAddressElderly extends StatelessWidget {
                         : const SizedBox()),
                 body: Stack(
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: !state.isLoading
-                          ? MapLocation(latLng: state.location)
-                          : Container(),
-                    ),
+                    Container(child: MapLocation(latLng: state.location)),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
