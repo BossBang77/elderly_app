@@ -21,6 +21,9 @@ class SearchExerciseModel {
   final String keyword;
   final int burnCalorieMin;
   final int burnCalorieMax;
+  @JsonKey(
+    name: 'types',
+  )
   final List<String> type;
   final int limit;
   final int offset;
