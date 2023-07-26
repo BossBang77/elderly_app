@@ -16,9 +16,10 @@ class ChangeView extends ExerciseEvent {
 
 class ExerciseVdoFinish extends ExerciseEvent {
   final String time;
-  const ExerciseVdoFinish({this.time = ''});
+  final int inSeconds;
+  const ExerciseVdoFinish({this.time = '', required this.inSeconds});
   @override
-  List<Object> get props => [time];
+  List<Object> get props => [time, inSeconds];
 }
 
 class SearchExercise extends ExerciseEvent {
@@ -76,11 +77,15 @@ class GetExerciseRecord extends ExerciseEvent {
 
 class SaveExerciseDaily extends ExerciseEvent {
   final String timePoint;
+  final int timePointInSec;
   final String name;
   final String code;
   const SaveExerciseDaily(
-      {required this.timePoint, required this.name, required this.code});
-  List<Object> get props => [timePoint, name, code];
+      {required this.timePoint,
+      required this.name,
+      required this.code,
+      required this.timePointInSec});
+  List<Object> get props => [timePoint, name, code, timePointInSec];
 }
 
 class SubmitSearchKeyWord extends ExerciseEvent {

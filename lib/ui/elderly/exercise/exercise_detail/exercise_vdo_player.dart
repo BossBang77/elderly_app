@@ -151,6 +151,7 @@ class _ExerciseVdoPlayerState extends State<ExerciseVdoPlayer> {
                                     // If the video is playing, pause it.
                                     _ytController.pause();
                                     var value = _ytController.value;
+                                    int inSeconds = value.position.inSeconds;
                                     String time = [
                                       value.position.inMinutes,
                                       value.position.inSeconds
@@ -161,9 +162,9 @@ class _ExerciseVdoPlayerState extends State<ExerciseVdoPlayer> {
                                             .padLeft(2, '0'))
                                         .join('.');
 
-                                    context
-                                        .read<ExerciseBloc>()
-                                        .add(ExerciseVdoFinish(time: time));
+                                    context.read<ExerciseBloc>().add(
+                                        ExerciseVdoFinish(
+                                            time: time, inSeconds: inSeconds));
                                   });
                                 },
                                 child: Image.asset(

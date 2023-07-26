@@ -89,10 +89,10 @@ class SummaryExerciseWidget extends StatelessWidget {
                               children: [
                                 Image.asset(
                                   'assets/images/burning_icon.png',
-                                  scale: 3,
+                                  scale: 4,
                                 ),
                                 const SizedBox(
-                                  width: 20,
+                                  width: 10,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,17 +113,17 @@ class SummaryExerciseWidget extends StatelessWidget {
                               children: [
                                 Image.asset(
                                   'assets/images/time_icon.png',
-                                  scale: 3,
+                                  scale: 4,
                                 ),
                                 const SizedBox(
-                                  width: 20,
+                                  width: 10,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     textButton1('ระยะเวลา', color.white),
                                     textSubtitle18Blod(
-                                        '${exerciseDaily.timePoint.toString()} นาที',
+                                        '${exerciseDaily.timePoint.toStringAsFixed(2)} นาที',
                                         color.white)
                                   ],
                                 )
@@ -161,7 +161,10 @@ class SummaryExerciseWidget extends StatelessWidget {
                 NotFoundExcerise()
               } else ...{
                 ExerciseDoingList(context, exerciseRecord)
-              }
+              },
+              const SizedBox(
+                height: 100,
+              ),
             ],
           ),
         ),

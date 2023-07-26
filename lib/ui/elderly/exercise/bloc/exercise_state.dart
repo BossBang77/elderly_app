@@ -14,7 +14,8 @@ class ExerciseState extends Equatable {
       this.statusView = StatusViewExercise.caseNew,
       this.role = '',
       this.loading = false,
-      this.recentlyList = const <String>[]});
+      this.recentlyList = const <String>[],
+      this.timeExerciseInSec = 0});
   final ExerciseView exerciseView;
   final String timeExercise;
   final SearchExerciseModel searchEx;
@@ -28,6 +29,7 @@ class ExerciseState extends Equatable {
   final String role;
   final bool loading;
   final List<String> recentlyList;
+  final int timeExerciseInSec;
 
   ExerciseState.initial(
       {this.exerciseView = ExerciseView.summary,
@@ -42,7 +44,8 @@ class ExerciseState extends Equatable {
       this.statusView = StatusViewExercise.caseNew,
       this.role = '',
       this.loading = false,
-      this.recentlyList = const <String>[]});
+      this.recentlyList = const <String>[],
+      this.timeExerciseInSec = 0});
 
   ExerciseState copyWith(
       {ExerciseView? exerciseView,
@@ -57,7 +60,8 @@ class ExerciseState extends Equatable {
       StatusViewExercise? statusView,
       String? role,
       bool? loading,
-      List<String>? recentlyList}) {
+      List<String>? recentlyList,
+      int? timeExerciseInSec}) {
     return ExerciseState(
         searchExSubmit: searchExSubmit ?? this.searchExSubmit,
         exerciseView: exerciseView ?? this.exerciseView,
@@ -71,7 +75,8 @@ class ExerciseState extends Equatable {
         statusView: statusView ?? this.statusView,
         role: role ?? this.role,
         loading: loading ?? this.loading,
-        recentlyList: recentlyList ?? this.recentlyList);
+        recentlyList: recentlyList ?? this.recentlyList,
+        timeExerciseInSec: timeExerciseInSec ?? this.timeExerciseInSec);
   }
 
   @override
@@ -88,7 +93,8 @@ class ExerciseState extends Equatable {
         statusView,
         role,
         loading,
-        recentlyList
+        recentlyList,
+        timeExerciseInSec
       ];
 }
 

@@ -82,8 +82,8 @@ class ExerciseCalculate extends StatelessWidget {
                         children: [
                           textH6('แคลอรี่ (kcal)', color.black87, true),
                           textH4(
-                              calBurnCalorie(
-                                      timeExercise, state.currentInformation)
+                              calBurnCalorie(state.timeExerciseInSec,
+                                      state.currentInformation)
                                   .toString(),
                               color.Primary),
                         ],
@@ -97,6 +97,7 @@ class ExerciseCalculate extends StatelessWidget {
                       onClick: () {
                         context.read<ExerciseBloc>().add(SaveExerciseDaily(
                             timePoint: timeExercise,
+                            timePointInSec: state.timeExerciseInSec,
                             code: state.currentInformation.code,
                             name: state.currentInformation.name));
                       },

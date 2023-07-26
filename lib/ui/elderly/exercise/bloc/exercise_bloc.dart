@@ -50,7 +50,9 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
 
     if (event is ExerciseVdoFinish) {
       yield state.copyWith(
-          timeExercise: event.time, exerciseView: ExerciseView.calculate);
+          timeExercise: event.time,
+          timeExerciseInSec: event.inSeconds,
+          exerciseView: ExerciseView.calculate);
     }
     if (event is SearchExercise) {
       yield state.copyWith(loading: true);
@@ -120,11 +122,11 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
 
     if (event is SaveExerciseDaily) {
       num burnCalorie =
-          calBurnCalorie(event.timePoint, state.currentInformation);
+          calBurnCalorie(event.timePointInSec, state.currentInformation);
 
       DailyActivityModel dailyMol = DailyActivityModel(
           burnCaloriePoint: burnCalorie,
-          timePoint: (double.tryParse(event.timePoint) ?? 0).ceil(),
+          timePoint: (double.tryParse(event.timePoint) ?? 0),
           name: event.name,
           code: event.code);
 
@@ -211,14 +213,17 @@ bool checkIsSaveRecord(SearchResListModel recordList, String code) {
   return isSelect.code.isNotEmpty;
 }
 
-int calBurnCalorie(
-    String timePointEx, SearchInformationModel currentInformation) {
-  int burnCalorie = 0;
-  int timePoint = (double.tryParse(timePointEx) ?? 0).ceil();
+double calBurnCalorie(
+    int timePointSec, SearchInformationModel currentInformation) {
+  double burnCalorie = 0;
+  int timePoint = timePointSec;
   var exCurrent = currentInformation;
   if (exCurrent.time != 0) {
     double oneMinBurn = (exCurrent.burnCalorie / exCurrent.time);
-    burnCalorie = (oneMinBurn * timePoint).ceil().toInt();
+    double oneSecBurn = oneMinBurn / 60;
+
+    double burnTotal = (oneSecBurn * timePoint);
+    burnCalorie = double.parse(burnTotal.toStringAsFixed(1));
   }
   return burnCalorie;
 }
