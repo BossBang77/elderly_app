@@ -10,6 +10,7 @@ import 'package:health_application/ui/elderly/food/model/food/meal.dart';
 import 'package:health_application/ui/elderly/food_log/model/request/meal_record_request.dart';
 import 'package:health_application/ui/elderly/food_log/model/request/meal_record_request_item.dart';
 import 'package:health_application/ui/elderly/food_log/model/response/meal_record_response.dart';
+import 'package:health_application/ui/elderly/food_log/model/response/summary_calorie.dart';
 import 'package:health_application/ui/elderly/food_log/repository/meal_record_item.dart';
 import 'package:health_application/ui/elderly/food_log/repository/meal_record_stream.dart';
 import 'package:health_application/ui/elderly/food_log/service/meal_record_service.dart';
@@ -42,6 +43,7 @@ class MealRecordRepository implements MealRecordRepositoryProtocol {
   MealRecordStreamProtocol lunch = MealRecordStream();
   MealRecordStreamProtocol snack = MealRecordStream();
   MealRecordStreamProtocol dinner = MealRecordStream();
+  SummaryCalorie summaryCalorie = const SummaryCalorie();
 
   MealRecordRepository._();
   static final instance = MealRecordRepository._();
@@ -76,6 +78,8 @@ class MealRecordRepository implements MealRecordRepositoryProtocol {
     dinner.updateItemList(response.data.dinner
         .map((meal) => MealRecordItem.fromResponse(meal))
         .toList());
+    summaryCalorie = response.data.summaryCalorie;
+
     MealType.values.forEach((mealType) {
       final stream = mealRecordStreamFor(mealType);
       stream.createSnapshot(stream.value);

@@ -102,8 +102,7 @@ class FoodLogView extends StatelessWidget {
                                   name: state.foods[index].name,
                                   image: state.foods[index].image,
                                   calories: Calories(
-                                      value: state.foods[index].calorie *
-                                          state.foods[index].unit),
+                                      value: state.foods[index].calorie),
                                   trailingIcon:
                                       FoodListItemViewTrailingIcon.close,
                                   onTap: () {},

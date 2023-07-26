@@ -148,6 +148,8 @@ class _FoodViewState extends State<FoodView> {
                                     children: state.meals
                                         .map<Widget>((meal) => MealLogWidget(
                                             meal: meal,
+                                            summaryCalorie:
+                                                state.summaryCalorie,
                                             onAddButtonTapped:
                                                 (mealType) async {
                                               meal.foods

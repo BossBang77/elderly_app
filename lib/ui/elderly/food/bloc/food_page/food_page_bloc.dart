@@ -10,6 +10,7 @@ import 'package:health_application/ui/elderly/food/model/nutritions/nutrient.dar
 import 'package:health_application/ui/elderly/food/model/nutritions/protein.dart';
 import 'package:health_application/ui/elderly/food/model/nutritions/sugar.dart';
 import 'package:health_application/ui/elderly/food_log/model/response/meal_record_response.dart';
+import 'package:health_application/ui/elderly/food_log/model/response/summary_calorie.dart';
 import 'package:health_application/ui/elderly/food_log/repository/meal_record_item.dart';
 import 'package:health_application/ui/elderly/food_log/repository/meal_record_repository.dart';
 
@@ -18,29 +19,9 @@ class FoodPageBloc extends Bloc<FoodPageEvent, FoodPageState> {
       : _mealRecordRepository = mealRecordRepository,
         super(FoodPageState()) {
     on<FoodPageMealRecordFetched>(_onMealRecordFetched);
-    on<FoodPageOnMealRecordUpdated>(_onMealRecordUpdated);
-
-    MealType.values.forEach((mealType) {
-      mealRecordRepository.mealRecordStreamFor(mealType).listen((event) =>
-          {add(FoodPageOnMealRecordUpdated(mealType: mealType, items: event))});
-    });
   }
 
   MealRecordRepositoryProtocol _mealRecordRepository;
-
-  void _onMealRecordUpdated(
-      FoodPageOnMealRecordUpdated event, Emitter<FoodPageState> emit) {
-    List<Meal> meals = List.from(state.meals);
-
-    int index =
-        state.meals.indexWhere((meal) => meal.mealType == event.mealType);
-    if (index >= 0) {
-      Meal meal = meals[index];
-      Meal newMeal = meal.copyWith(foods: event.items);
-      meals[index] = newMeal;
-      emit(state.copyWith(meals: List.from(meals)));
-    }
-  }
 
   void _onMealRecordFetched(
       FoodPageMealRecordFetched event, Emitter<FoodPageState> emit) async {
@@ -50,7 +31,11 @@ class FoodPageBloc extends Bloc<FoodPageEvent, FoodPageState> {
     }, (response) {
       List<Meal> newList = _mapListMealFromResponse(response);
       List<Nutrient> nutritionFact = _mapNutritionFactSummary(response);
-      emit(state.copyWith(meals: newList, nutrients: nutritionFact));
+
+      emit(state.copyWith(
+          meals: newList,
+          nutrients: nutritionFact,
+          summaryCalorie: response.data.summaryCalorie));
     });
   }
 
@@ -88,5 +73,17 @@ class FoodPageBloc extends Bloc<FoodPageEvent, FoodPageState> {
       Sugar(value: response.data.nutritionFactSummary.sugar),
       Cholesterol(value: response.data.nutritionFactSummary.cholesterol)
     ];
+  }
+}
+
+String getSummaryCalorie(SummaryCalorie summaryCalorie, String type) {
+  if (type == MealType.breakfast.name) {
+    return summaryCalorie.breakfast.toString();
+  } else if (type == MealType.lunch.name) {
+    return summaryCalorie.lunch.toString();
+  } else if (type == MealType.snack.name) {
+    return summaryCalorie.snack.toString();
+  } else {
+    return summaryCalorie.dinner.toString();
   }
 }
