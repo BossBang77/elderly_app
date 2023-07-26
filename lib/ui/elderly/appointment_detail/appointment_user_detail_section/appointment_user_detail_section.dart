@@ -6,12 +6,14 @@ import 'package:health_application/ui/elderly/appointment_detail/appointment_det
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
+import '../../../base/constant/gender_const.dart';
+
 class AppointmentUserDetailSection extends StatelessWidget {
   const AppointmentUserDetailSection({required this.appointment});
 
   final Appointment appointment;
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return Container(
       color: ColorTheme().white,
@@ -22,47 +24,46 @@ class AppointmentUserDetailSection extends StatelessWidget {
           textSubtitle1('ข้อมูลการดูแลผู้สูงอายุ', ColorTheme().black87),
           SizedBox(height: 32),
           AppointmentDetailItem(
-            title: 'ชื่อ', 
-            description: appointment.elderly.name, 
-            image: 'assets/images/person_blue.png'
-          ),
+              title: 'ชื่อ',
+              description: appointment.elderly.name,
+              image: 'assets/images/person_blue.png'),
           SizedBox(height: 24),
           AppointmentDetailItem(
-            title: 'เพศ/อายุ', 
-            description: '${appointment.elderly.gender} (${appointment.elderly.age} ปี)', 
-            image: 'assets/images/person_blue.png'
-          ),
+              title: 'เพศ/อายุ',
+              description:
+                  '${Gender.mapToTitle(appointment.elderly.gender)} (${appointment.elderly.age} ปี)',
+              image: 'assets/images/person_blue.png'),
           SizedBox(height: 24),
           AppointmentDetailItem(
-            title: 'เบอร์ติดต่อ', 
-            description: '${appointment.elderly.mobileNumber}', 
-            image: 'assets/images/phone_blue.png'
-          ),
+              title: 'เบอร์ติดต่อ',
+              description: '${appointment.elderly.mobileNumber}',
+              image: 'assets/images/phone_blue.png'),
           SizedBox(height: 24),
           AppointmentDetailItem(
-            title: 'โรคประจำตัว', 
-            description: appointment.elderly.congenitalDisease.map((disease) => disease.name).toList().join(', '),
-            // description: 'โรคความดันโลหิตสูง, โรคเบาหวาน,โรคภูมิคุ้มกันบกพร่อง , โรคอ้วน', 
-            image: 'assets/images/board_blue.png'
-          ),
+              title: 'โรคประจำตัว',
+              description: appointment.elderly.congenitalDisease
+                  .map((disease) => disease.name)
+                  .toList()
+                  .join(', '),
+              image: 'assets/images/board_blue.png'),
           SizedBox(height: 24),
           AppointmentDetailItem(
-            title: 'การแพ้อาหาร', 
-            description: appointment.elderly.allergicFoods.map((allergic) => allergic.name).toList().join(', '), 
-            image: 'assets/images/board_blue.png'
-          ),
+              title: 'การแพ้อาหาร',
+              description: appointment.elderly.allergicFoods
+                  .map((allergic) => allergic.name)
+                  .toList()
+                  .join(', '),
+              image: 'assets/images/board_blue.png'),
           SizedBox(height: 24),
           AppointmentDetailItem(
-            title: 'รายละเอียดเพิ่มเติมถึงจิตอาสา', 
-            description: appointment.note, 
-            image: 'assets/images/clock_blue.png'
-          ),
+              title: 'รายละเอียดเพิ่มเติมถึงจิตอาสา',
+              description: appointment.note,
+              image: 'assets/images/clock_blue.png'),
           SizedBox(height: 24),
           AppointmentDetailItem(
-            title: 'สถานที่นัดหมาย', 
-            description: appointment.addressFull,
-            image: 'assets/images/location_blue.png'
-          ),
+              title: 'สถานที่นัดหมาย',
+              description: appointment.addressFull,
+              image: 'assets/images/location_blue.png'),
         ],
       ),
     );
