@@ -17,9 +17,14 @@ class ElderlyFoodModel {
   factory ElderlyFoodModel.fromJson(Map<String, dynamic> json) =>
       _$ElderlyFoodModelFromJson(json);
 
+  @JsonKey(name: 'calories')
   final List<GraphModel> calories;
+  @JsonKey(name: 'sugars')
   final List<GraphModel> sugar;
+  @JsonKey(name: 'proteins')
   final List<GraphModel> protein;
+  @JsonKey(name: 'carbohydrates')
   final List<GraphModel> carb;
+  @JsonKey(name: 'fats')
   final List<GraphModel> fat;
 }
