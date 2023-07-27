@@ -21,9 +21,9 @@ class HistorySummaryExerciseWidget extends StatelessWidget {
     String getFrequencyName(GraphRangeType type) {
       switch (type) {
         case GraphRangeType.oneWeek:
-          return '1 สัปดาห์';
+          return 'สัปดาห์';
         case GraphRangeType.oneMonth:
-          return '1 เดือน';
+          return 'เดือน';
         default:
           return '';
       }
