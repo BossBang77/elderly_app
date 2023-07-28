@@ -13,14 +13,12 @@ class InitialForm extends VolunteerRegisterEvent {
 }
 
 class UpdateValue extends VolunteerRegisterEvent {
-  const UpdateValue({required this.type, required this.value});
+  const UpdateValue(
+      {required this.type, required this.value, this.otherVal = null});
 
   final FormFieldType type;
   final String value;
-}
-
-class ObscurePassword extends VolunteerRegisterEvent {
-  const ObscurePassword();
+  final dynamic otherVal;
 }
 
 class RegisterProfile extends VolunteerRegisterEvent {
@@ -29,4 +27,8 @@ class RegisterProfile extends VolunteerRegisterEvent {
 
 class DefaultStatus extends VolunteerRegisterEvent {
   const DefaultStatus();
+}
+
+class UploadDocument extends VolunteerRegisterEvent {
+  const UploadDocument();
 }

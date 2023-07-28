@@ -40,4 +40,12 @@ abstract class RegisterService {
     "Content-Type": "application/json",
   })
   Future<HttpResponse> resetPassword(@Body() Map<String, dynamic> body);
+
+  @PUT('/api/v1/user/{username}/document/{docType}/upload')
+  @Headers(<String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  })
+  Future<HttpResponse> uploadDocument(
+      @Body() FormData body, @Path() String username, @Path() String docType);
 }

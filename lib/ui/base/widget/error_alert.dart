@@ -55,7 +55,7 @@ class ErrorAlertWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  textSubtitle18Blod(title, ColorTheme().Error),
+                  textSubtitle18Blod(title, ColorTheme().black87),
                   const SizedBox(
                     height: 10,
                   ),

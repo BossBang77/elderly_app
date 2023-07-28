@@ -6,7 +6,8 @@ import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/button_gradient.dart';
 import 'package:health_application/ui/base/widget/text_field_widget.dart';
 import 'package:health_application/ui/register_profile/bloc/register_profile_bloc.dart';
-import 'package:health_application/ui/signIn_page/signIn_widget.dart';
+import 'package:health_application/ui/register_profile/volunteer/bloc/volunteer_register_bloc.dart';
+
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
 
@@ -140,6 +141,9 @@ class VolunteerPrivacyProfile extends StatelessWidget {
                   if (user.username.isNotEmpty &&
                       user.password.isNotEmpty &&
                       state.isNotExisting) {
+                    context
+                        .read<VolunteerRegisterBloc>()
+                        .add(InitialForm(data: state.registerModel));
                     context.read<RegisterProfileBloc>().add(ChangeProfileView(
                         profileType: ProfileType.personalInformation));
                   }

@@ -6,6 +6,7 @@ import 'package:health_application/repository/service/logout_client.dart';
 import 'package:health_application/repository/service/register_client.dart';
 import 'package:health_application/ui/base/app_config/conflig.dart';
 import 'package:health_application/ui/register_profile/model/register_model.dart';
+import 'package:health_application/ui/register_profile/volunteer/bloc/volunteer_register_bloc.dart';
 import 'package:health_application/ui/signIn_page/forgot_password/model/request_submit_new_password.dart';
 import 'package:health_application/ui/signIn_page/forgot_password/model/verify_response.dart';
 import 'package:retrofit/dio.dart';
@@ -129,6 +130,32 @@ class RegisterRepository {
         return const Left(Failure(''));
       } else if (error.response?.statusCode == StatusCode.failure) {
         print('Error 500 $error');
+        return const Left(Failure(''));
+      }
+    }
+    return const Left(Failure(''));
+  }
+
+  Future<Either<Failure, String>> uploadVolunteerDocument(
+      {String path = '', String type = '', String userName = ''}) async {
+    try {
+      if (path.isEmpty) {
+        return Right('Empty Path or Successed');
+      }
+      String fileName = path.split('/').last;
+      FormData formData = FormData.fromMap({
+        "file": await MultipartFile.fromFile(
+          path,
+          filename: fileName,
+        ),
+      });
+      final HttpResponse req =
+          await _registerService.uploadDocument(formData, userName, type);
+      return Right('success $type');
+    } on DioError catch (error) {
+      if (error.response?.statusCode == StatusCode.notFound) {
+        return const Left(Failure(''));
+      } else if (error.response?.statusCode == StatusCode.failure) {
         return const Left(Failure(''));
       }
     }

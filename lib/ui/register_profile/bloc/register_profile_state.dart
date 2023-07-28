@@ -10,6 +10,9 @@ enum ProfileType {
   foodAllergies,
   success,
   personalInformation,
+  workInformation,
+  address,
+  uploadDocument
 }
 
 enum BMIDetail { gender, name, age, weightDetail, heightDetail, summaryBMI }
