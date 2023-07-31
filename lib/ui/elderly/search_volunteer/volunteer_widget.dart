@@ -140,7 +140,7 @@ class VolunteerWidget extends StatelessWidget {
                                   children: [
                                     Container(
                                       width: sized.width * 0.9,
-                                      height: sized.height * 0.25,
+                                      height: sized.height * 0.2,
                                       child: ListView(
                                         scrollDirection: Axis.horizontal,
                                         children: <Widget>[

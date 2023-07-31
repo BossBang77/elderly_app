@@ -25,8 +25,10 @@ Widget lastVolunteer(BuildContext context,
                     ),
                     child: Image.network(
                       detail.volunteer.image,
-                      scale: 10,
+                      scale: 4,
                       fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: 120,
                     ))
                 : ClipRRect(
                     borderRadius: BorderRadius.only(
