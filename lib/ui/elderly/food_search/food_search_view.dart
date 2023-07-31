@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/base/widget/back_button.dart';
 import 'package:health_application/ui/elderly/food_filter/bloc/food_filter/food_filter_bloc.dart';
 import 'package:health_application/ui/elderly/food_filter/bloc/food_filter/food_filter_event.dart';
@@ -46,16 +47,11 @@ class _FoodSearchViewState extends State<FoodSearchView> {
     _focusNode.requestFocus();
 
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          shadowColor: ColorTheme().white,
-          backgroundColor: ColorTheme().white,
-          leading: BackButtonWidget(onClick: () {
-            Navigator.pop(context, true);
-          }),
-          actions: [],
-          title: textSubtitle2('อาหาร', ColorTheme().black87, false),
-        ),
+        appBar: appBar(
+            onBack: () {
+              Navigator.pop(context, true);
+            },
+            title: 'อาหาร'),
         body: MultiBlocListener(
             listeners: [
               BlocListener<FoodSearchBloc, FoodSearchState>(
@@ -79,6 +75,7 @@ class _FoodSearchViewState extends State<FoodSearchView> {
                             state.searchFilter.isNotEmpty,
                         controller: _searchTextController,
                         focusNode: _focusNode,
+                        hintText: 'ค้นหาอาหาร',
                         onChanged: (value) {
                           context.read<FoodSearchBloc>().add(
                               FoodSearchTextFieldValueChanged(value: value));
