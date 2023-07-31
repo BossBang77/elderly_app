@@ -11,6 +11,7 @@ import 'package:health_application/ui/elderly/appointment_detail/appointment_det
 import 'package:health_application/ui/elderly/appointment_detail/appointment_detail_page.dart';
 import 'package:health_application/ui/elderly/appointment_detail/appointment_status_section/appointment_status_section.dart';
 import 'package:health_application/ui/elderly/appointment_detail/page/appointment_page_approved.dart';
+import 'package:health_application/ui/home_page/bloc/home_page_bloc.dart';
 import 'package:health_application/ui/home_page/component/appointment_item.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 
@@ -73,7 +74,7 @@ class AppointmentListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(onBack: () {
-        Navigator.of(context).pop();
+        context.read<HomePageBloc>().add(ChangeMenu(menus: menuType.mainPage));
       }),
       backgroundColor: ColorTheme().white,
       body: SingleChildScrollView(
