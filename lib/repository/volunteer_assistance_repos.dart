@@ -28,10 +28,8 @@ class VolunteerAssistanceRepository {
       return Right(RequestAssitanceListModel.fromJson(data));
     } on DioError catch (error) {
       if (error.response?.statusCode == StatusCode.notFound) {
-        print('Error 400 $error');
         return const Left(Failure(''));
       } else if (error.response?.statusCode == StatusCode.failure) {
-        print('Error 500 $error');
         return const Left(Failure(''));
       }
     }

@@ -36,12 +36,16 @@ class EmergencyDetailCardBloc
     if (event is AcceptAssistance) {
       var requestList =
           await _assistanceRepository.submitAssistanct(event.submitMol);
-      print(event.submitMol.toJson());
+
       yield* requestList.fold((Failure err) async* {
         add(GetEmergencyList());
       }, (String res) async* {
         add(GetEmergencyList());
       });
     }
+  }
+
+  Future IntitalState() async {
+    add(GetEmergencyList());
   }
 }

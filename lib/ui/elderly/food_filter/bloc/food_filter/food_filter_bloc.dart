@@ -51,8 +51,8 @@ class FoodFilterBloc extends Bloc<FoodFilterEvent, FoodFilterState> {
   void _onFoodAllergiesToggled(
       FoodFilterFoodAllergiesToggled event, Emitter<FoodFilterState> emit) {
     emit(state.copyWith(
-        isFoodAllergiesSelected: event.isFoodAllergiesSelected,
-        selectedFoodAllergy: event.allergicFoods));
+      isFoodAllergiesSelected: event.isFoodAllergiesSelected,
+    ));
   }
 
   void _onFoodTypeSelected(

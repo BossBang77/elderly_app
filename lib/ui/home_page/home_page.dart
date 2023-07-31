@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_application/ui/base/appoint_detail_card/bloc/appointment_card_bloc.dart';
+import 'package:health_application/ui/base/emergency_detail_card/bloc/emergency_detail_card_bloc.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/elderly/appointment/appointment_list_page.dart';
 import 'package:health_application/ui/elderly/food/food_page.dart';
@@ -25,7 +27,15 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: BlocConsumer<HomePageBloc, HomePageState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state.role == RoleType.ROLE_USER_VOLUNTEER.name &&
+            state.menus == menuType.mainPage) {
+          context.read<EmergencyDetailCardBloc>().IntitalState();
+        } else if (state.role == RoleType.ROLE_USER_ELDERLY.name &&
+            state.menus == menuType.mainPage) {
+          context.read<AppointmentCardBloc>().IntitalState();
+        }
+      },
       builder: (BuildContext context, HomePageState state) {
         void changemenu(menuType menus) {
           context.read<HomePageBloc>().add(ChangeMenu(menus: menus));

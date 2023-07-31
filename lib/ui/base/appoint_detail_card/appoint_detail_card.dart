@@ -18,7 +18,6 @@ class AppointDetailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var sized = MediaQuery.of(context).size;
-    context.read<AppointmentCardBloc>().IntitalState();
 
     return BlocConsumer<AppointmentCardBloc, AppointmentCardState>(
       listener: (context, state) {
@@ -60,7 +59,6 @@ class AppointDetailCard extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
         child: Container(
-          margin: EdgeInsets.only(right: 20),
           padding: EdgeInsets.all(20),
           width: sized.width * 0.9,
           decoration: StyleBorder().blueDecoration(radius: 15),

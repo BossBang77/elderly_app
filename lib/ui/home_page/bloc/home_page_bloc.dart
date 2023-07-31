@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:health_application/ui/elderly/exercise/bloc/exercise_bloc.dart';
 import 'package:health_application/ui/home_page/model/tdee_model.dart';
 import 'package:health_application/ui/home_page/model/tdee_response.dart';
 import 'package:health_application/ui/home_page/repository/tdee_repository.dart';
@@ -20,14 +21,19 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
   Stream<HomePageState> mapEventToState(HomePageEvent event) async* {
     if (event is ChangeMenu) {
       if (event.menus == menuType.mainPage) {
-        add(TDEEDataFetched());
+        if (state.role == RoleType.ROLE_USER_ELDERLY.name) {
+          add(TDEEDataFetched());
+        }
       }
       yield state.copyWith(menus: event.menus);
     }
     if (event is Initstate) {
       yield state.copyWith(loading: true, role: '');
-      add(TDEEDataFetched());
+
       String role = await getRole();
+      if (role == RoleType.ROLE_USER_ELDERLY.name) {
+        add(TDEEDataFetched());
+      }
       yield state.copyWith(role: role, loading: false);
     }
     if (event is TDEEDataFetched) {

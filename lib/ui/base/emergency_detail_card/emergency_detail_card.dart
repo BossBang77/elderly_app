@@ -15,7 +15,7 @@ class EmergencyDetailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var sized = MediaQuery.of(context).size;
-    context.read<EmergencyDetailCardBloc>().add(GetEmergencyList());
+
     return BlocConsumer<EmergencyDetailCardBloc, EmergencyDetailCardState>(
       listener: (context, state) {
         // TODO: implement listener

@@ -19,25 +19,21 @@ class AppointmentCardBloc
   @override
   Stream<AppointmentCardState> mapEventToState(
       AppointmentCardEvent event) async* {
-    if (event is SetUID) {
-      yield state.copyWith(uid: event.uid);
-    }
     if (event is GetAppointList) {
+      String uid = await UserSecureStorage().getUID();
       var searchAppointList = await _elderlyAppointmentRepository.getAppointList(
-          elderlyProfileId: state.uid,
+          elderlyProfileId: uid,
           include:
               '${AppointStatus.CREATE.name},${AppointStatus.WAITING_TO_START.name},${AppointStatus.START.name}');
       yield* searchAppointList.fold((Failure err) async* {
-        yield state.copyWith(appointList: AppointList());
+        yield state.copyWith(appointList: AppointList(), uid: uid);
       }, (AppointList res) async* {
-        yield state.copyWith(appointList: res);
+        yield state.copyWith(appointList: res, uid: uid);
       });
     }
   }
 
   Future IntitalState() async {
-    String uid = await UserSecureStorage().getUID();
-    add(SetUID(uid: uid));
     add(GetAppointList());
   }
 }

@@ -87,9 +87,7 @@ class MyApp extends StatelessWidget {
                 create: (context) => TokenExpiredCubit(),
                 child: TokenExpiredWidget(),
               ),
-              BlocProvider(
-                  create: (context) =>
-                      EmergencyDetailCardBloc()..add(GetEmergencyList())),
+              BlocProvider(create: (context) => EmergencyDetailCardBloc()),
               BlocProvider(create: (context) => ElderlyAddressBloc()),
               BlocProvider(create: (context) => MasterAddressBloc()),
             ],

@@ -58,7 +58,7 @@ class MasterDataInitial extends MasterDataState {}
 
 class MasterCategory {
   String get congenitalDisease => 'congenitalDisease';
-  String get allergies => 'allergies';
+  String get allergies => 'food_ingredient';
   String get exerciseType => 'exercise_type';
   String get appointmentTime => 'appointment_time';
   String get appointmentType => 'appointment_type';

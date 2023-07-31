@@ -213,17 +213,15 @@ class VolunteerHomeWidget extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width,
                                 title: 'ค้นหาข้อมูลผู้สูงอายุ',
                                 image: 'assets/images/volunteer_elder_bg.png'),
-
                             const SizedBox(
                               height: 20,
                             ),
-
                             EmergencyDetailCard(),
                             SizedBox(height: 16),
                             Row(
                               children: [
                                 textSubtitle1(
-                                    'กานัดหมาย ', ColorTheme().black87),
+                                    'การนัดหมาย ', ColorTheme().black87),
                                 (state.appointments.isEmpty)
                                     ? Container()
                                     : textSubtitle1(
@@ -273,7 +271,6 @@ class VolunteerHomeWidget extends StatelessWidget {
                                               },
                                             )))
                                         .toList()),
-                            // AppointmentItem(appointment: Appointment()),
                             const SizedBox(
                               height: 10,
                             ),
