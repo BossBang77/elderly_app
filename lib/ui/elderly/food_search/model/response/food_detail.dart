@@ -13,7 +13,7 @@ class FoodDetail {
       this.name = '',
       this.image = '',
       this.description = '',
-      this.cookingTime = 0,
+      this.cookingTime = '',
       this.nutrition = const FoodDetailNutrition(),
       this.cookingMethods = const [],
       this.ingredients = const [],
@@ -22,7 +22,7 @@ class FoodDetail {
   final String name;
   final String image;
   final String description;
-  final double cookingTime;
+  final String cookingTime;
   final FoodDetailNutrition nutrition;
   final List<FoodDetailCookingMethod> cookingMethods;
   final List<FoodDetailIngredient> ingredients;

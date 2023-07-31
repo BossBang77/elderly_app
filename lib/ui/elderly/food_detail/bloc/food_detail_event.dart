@@ -19,3 +19,11 @@ class FoodDetailFetched extends FoodDetailEvent {
 class FoodDetailIngredientAddMorePlate extends FoodDetailEvent {}
 
 class FoodDetailIngredientRemovePlate extends FoodDetailEvent {}
+
+class LoadFoodDetail extends FoodDetailEvent {
+  final String foodCode;
+  LoadFoodDetail({this.foodCode = ''});
+
+  @override
+  List<Object?> get props => [foodCode];
+}

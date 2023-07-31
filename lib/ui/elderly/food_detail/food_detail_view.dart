@@ -17,6 +17,7 @@ import 'package:health_application/ui/elderly/food_search/model/response/food_de
 import 'package:health_application/ui/extension/string_extension.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
+import 'package:health_application/ui/ui-extensions/loaddingScreen.dart';
 
 class FoodDetailView extends StatefulWidget {
   @override
@@ -188,7 +189,8 @@ class _FoodDetailView extends State<FoodDetailView> {
                           )),
                         )),
                       ],
-                    ))
+                    )),
+                    if (state.isLoading) Loader()
                   ]))),
         ));
   }

@@ -7,52 +7,50 @@ import 'package:health_application/ui/elderly/food_search/repository/food_detail
 
 class FoodDetailBloc extends Bloc<FoodDetailEvent, FoodDetailState> {
   FoodDetailBloc(
-    String foodCode,
-    FoodDetailRepositoryProtocol foodDetailRepository
-  ): 
-  _foodCode = foodCode,
-  _foodDetailRepository = foodDetailRepository,
-  super(FoodDetailState()) {
+      String foodCode, FoodDetailRepositoryProtocol foodDetailRepository)
+      : _foodCode = foodCode,
+        _foodDetailRepository = foodDetailRepository,
+        super(FoodDetailState()) {
     on<FoodDetailFetched>(_onFoodDetailFetched);
     on<FoodDetailIngredientAddMorePlate>(_onIngredientAddMorePlate);
     on<FoodDetailIngredientRemovePlate>(_onIngredientRemovePlate);
-    _fetchFoodDetail();
+
+    on<LoadFoodDetail>(_fetchFoodDetail);
   }
 
   String _foodCode;
   FoodDetailRepositoryProtocol _foodDetailRepository;
 
-  void _fetchFoodDetail() async {
+  void _fetchFoodDetail(
+      LoadFoodDetail event, Emitter<FoodDetailState> emit) async {
+    emit(state.copyWith(isLoading: true));
     final response = await _foodDetailRepository.getFoodDetaiByCodel(_foodCode);
-    response.fold(
-      (error) {
-        //TODO: handle error
-      },
-      (response) {
-        add(FoodDetailFetched(foodDetail: response.data));
-      }
-    );
+    response.fold((error) {
+      emit(state.copyWith(food: FoodDetail(), isLoading: false));
+    }, (response) {
+      add(FoodDetailFetched(
+        foodDetail: response.data,
+      ));
+    });
   }
 
   void _onFoodDetailFetched(
-    FoodDetailFetched event,
-    Emitter<FoodDetailState> emit
-  ) {
-    emit(state.copyWith(food: event.foodDetail));
+      FoodDetailFetched event, Emitter<FoodDetailState> emit) {
+    emit(state.copyWith(food: event.foodDetail, isLoading: false));
   }
 
   void _onIngredientAddMorePlate(
-    FoodDetailIngredientAddMorePlate event,
-    Emitter<FoodDetailState> emit
-  ) {
-    emit(state.copyWith(ingredientNumberOfPlate: state.ingredientNumberOfPlate + 1));
+      FoodDetailIngredientAddMorePlate event, Emitter<FoodDetailState> emit) {
+    emit(state.copyWith(
+        ingredientNumberOfPlate: state.ingredientNumberOfPlate + 1));
   }
 
   void _onIngredientRemovePlate(
-    FoodDetailIngredientRemovePlate event,
-    Emitter<FoodDetailState> emit
-  ) {
-    if (state.ingredientNumberOfPlate == 1) { return; } 
-    emit(state.copyWith(ingredientNumberOfPlate: state.ingredientNumberOfPlate - 1));
+      FoodDetailIngredientRemovePlate event, Emitter<FoodDetailState> emit) {
+    if (state.ingredientNumberOfPlate == 1) {
+      return;
+    }
+    emit(state.copyWith(
+        ingredientNumberOfPlate: state.ingredientNumberOfPlate - 1));
   }
 }

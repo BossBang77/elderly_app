@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:health_application/ui/base/widget/image_notfound.dart';
 import 'package:health_application/ui/elderly/food/model/food/food_method.dart';
 import 'package:health_application/ui/elderly/food_detail/view/collapsable_section.dart';
 import 'package:health_application/ui/elderly/food_search/model/response/food_detail_cooking_method.dart';
@@ -30,6 +31,14 @@ class MethodList extends StatelessWidget {
                               width: 75,
                               height: 140,
                               fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image.asset(
+                                  'assets/images/img_notfound.png',
+                                  width: 75,
+                                  height: 140,
+                                  fit: BoxFit.cover,
+                                );
+                              },
                             )),
                         SizedBox(height: 16),
                         textSubtitle1(

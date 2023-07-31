@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:health_application/ui/elderly/food/model/food/ingredient.dart';
 import 'package:health_application/ui/elderly/food_detail/view/collapsable_section.dart';
-import 'package:health_application/ui/elderly/food_detail/view/grid_view_layout.dart';
 import 'package:health_application/ui/elderly/food_detail/view/ingredient_widget.dart';
-import 'package:health_application/ui/elderly/food_detail/view/multichild_layout_delegate.dart';
 import 'package:health_application/ui/elderly/food_search/model/response/food_detail_ingredient.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
 import 'package:health_application/ui/ui-extensions/font.dart';
-import 'package:collection/collection.dart';
 
 class IngredientsList extends StatelessWidget {
   const IngredientsList(
@@ -23,13 +19,6 @@ class IngredientsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gridViewLayout = GridViewLayout(
-        context: context,
-        dataSource: ingredients,
-        spacing: 10,
-        numberOfItemsPerRow: 3,
-        padding: 32);
-
     return CollapsableSection(
         sectionHeaderTitle: 'วัตถุดิบ',
         iconImagePath: 'assets/images/material.png',
@@ -72,21 +61,21 @@ class IngredientsList extends StatelessWidget {
                     ))
               ],
             ),
-            SizedBox(height: 16),
             Container(
-              height: gridViewLayout.gridViewHeight,
-              child: CustomMultiChildLayout(
-                delegate: GridMultiChildLayoutDelegate(layout: gridViewLayout),
-                children: ingredients
-                    .mapIndexed((index, ingredient) => LayoutId(
-                        id: index,
-                        child: IngredientWidget(
-                          ingredient: ingredient,
-                          width: gridViewLayout.gridItemWidth,
-                          height: gridViewLayout.heightForItemAt(index),
-                          numberOfPlates: numberOfPlates,
-                        )))
-                    .toList(),
+              child: GridView.count(
+                padding: EdgeInsets.only(top: 20),
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                mainAxisSpacing: 2,
+                crossAxisSpacing: 1,
+                crossAxisCount: 3,
+                childAspectRatio: 0.8,
+                children: List.generate(ingredients.length, (index) {
+                  return IngredientWidget(
+                    ingredient: ingredients[index],
+                    numberOfPlates: numberOfPlates,
+                  );
+                }),
               ),
             )
           ],
