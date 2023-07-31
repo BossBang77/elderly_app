@@ -54,7 +54,9 @@ class AppointmentRepository implements AppointmentRepositoryProtocol {
             request.includeStatus,
             request.elderlyProfileId,
             request.volunteerProfileId,
-            request.excludeStatus),
+            request.excludeStatus,
+            request.startDate,
+            request.endDate),
         decodeWith: (data) {
           var dataFromJson = AppointmentListResponse.fromJson(data).data;
           var completedList = dataFromJson

@@ -14,13 +14,14 @@ abstract class AppointmentService {
     "Content-Type": "application/json",
   })
   Future<HttpResponse> getAppointmentList(
-    @Query("limit") int limit,
-    @Query("offset") int offset,
-    @Query("includeStatus") String? includeStatus,
-    @Query("elderlyProfileId") String? elderlyProfileId,
-    @Query("volunteerProfileId") String? volunteerProfileId,
-    @Query("excludeStatus") String? excludeStatus
-  );
+      @Query("limit") int limit,
+      @Query("offset") int offset,
+      @Query("includeStatus") String? includeStatus,
+      @Query("elderlyProfileId") String? elderlyProfileId,
+      @Query("volunteerProfileId") String? volunteerProfileId,
+      @Query("excludeStatus") String? excludeStatus,
+      @Query("startDate") String? startDate,
+      @Query("endDate") String? endDate);
 
   @GET('/api/v1/appointment/get-appointment/{id}')
   @Headers(<String, dynamic>{
@@ -34,5 +35,6 @@ abstract class AppointmentService {
     "Accept": "application/json",
     "Content-Type": "application/json",
   })
-  Future<HttpResponse> updateAppointmentStatus(@Body() Map<String, dynamic> body);
+  Future<HttpResponse> updateAppointmentStatus(
+      @Body() Map<String, dynamic> body);
 }

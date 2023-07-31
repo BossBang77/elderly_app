@@ -5,12 +5,12 @@ import 'package:health_application/ui/elderly/appointment/segmented_control.dart
 import 'package:health_application/ui/elderly/appointment_detail/appointment_status_section/appointment_status_section.dart';
 
 class AppointmentListState extends Equatable {
-  const AppointmentListState({
-    required this.type,
-    this.offset = 0,
-    this.appointments = const[],
-  this.completedAppointments = const[],
-  });
+  const AppointmentListState(
+      {required this.type,
+      this.offset = 0,
+      this.appointments = const [],
+      this.completedAppointments = const [],
+      this.currentMonth = ''});
 
   final List<Appointment> appointments;
   final List<Appointment> completedAppointments;
@@ -18,21 +18,24 @@ class AppointmentListState extends Equatable {
 
   final int limit = 20;
   final int offset;
-  
-  @override
-  List<Object?> get props => [appointments, completedAppointments, type, offset];
+  final String currentMonth;
 
-  AppointmentListState copyWith({
-    List<Appointment>? appointments,
-    List<Appointment>? completedAppointments,
-    AppointmentListType? type,
-    int? offset
-  }) {
+  @override
+  List<Object?> get props =>
+      [appointments, completedAppointments, type, offset, currentMonth];
+
+  AppointmentListState copyWith(
+      {List<Appointment>? appointments,
+      List<Appointment>? completedAppointments,
+      AppointmentListType? type,
+      int? offset,
+      String? currentMonth}) {
     return AppointmentListState(
-      appointments: appointments ?? this.appointments,
-      completedAppointments: completedAppointments ?? this.completedAppointments,
-      type: type ?? this.type,
-      offset: offset ?? this.offset
-    );
+        appointments: appointments ?? this.appointments,
+        completedAppointments:
+            completedAppointments ?? this.completedAppointments,
+        type: type ?? this.type,
+        offset: offset ?? this.offset,
+        currentMonth: currentMonth ?? this.currentMonth);
   }
 }

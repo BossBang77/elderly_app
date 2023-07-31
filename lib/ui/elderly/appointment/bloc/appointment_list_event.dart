@@ -7,9 +7,9 @@ abstract class AppointmentListEvent extends Equatable {
 }
 
 class AppointmentListFetch extends AppointmentListEvent {
-  const AppointmentListFetch({this.appointments = const[]});
+  const AppointmentListFetch({this.appointments = const []});
   final List<Appointment> appointments;
-  
+
   @override
   List<Object?> get props => [appointments];
 }
@@ -27,25 +27,29 @@ class AppointmentSelectListType extends AppointmentListEvent {
   const AppointmentSelectListType({required this.type});
 
   final AppointmentListType type;
-  
+
   @override
   List<Object?> get props => [type];
 }
 
 class AppointmentListUpdate extends AppointmentListEvent {
-  const AppointmentListUpdate({
-    this.completedList = const[],
-    this.incompleteList = const[],
-    required this.type
-  });
+  const AppointmentListUpdate(
+      {this.completedList = const [],
+      this.incompleteList = const [],
+      required this.type});
 
   final List<Appointment> completedList;
   final List<Appointment> incompleteList;
   final AppointmentListType type;
 
   @override
-  List<Object?> get props => [
-    completedList,
-    incompleteList
-  ];
+  List<Object?> get props => [completedList, incompleteList];
+}
+
+class SelectFilterMonth extends AppointmentListEvent {
+  final String selectDate;
+  const SelectFilterMonth({this.selectDate = ''});
+  @override
+  // TODO: implement props
+  List<Object?> get props => [selectDate];
 }

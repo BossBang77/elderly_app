@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_application/ui/base/user_secure_storage.dart';
 import 'package:health_application/ui/elderly/appointment/bloc/appointment_list_event.dart';
@@ -10,6 +11,8 @@ import 'package:health_application/ui/elderly/appointment/model/response/appoint
 import 'package:health_application/ui/elderly/appointment/repository/appointment_repository.dart';
 import 'package:health_application/ui/elderly/appointment/segmented_control.dart';
 import 'package:health_application/ui/elderly/appointment_detail/appointment_status_section/appointment_status_section.dart';
+import 'package:health_application/ui/extension/extension.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 
 class AppointmentListBloc
     extends Bloc<AppointmentListEvent, AppointmentListState> {
@@ -20,6 +23,7 @@ class AppointmentListBloc
     on<AppointmentApproved>(_onAppointmentApproved);
     on<AppointmentSelectListType>(_onAppointmentSelectListType);
     on<AppointmentListUpdate>(_onAppointmentListUpdate);
+    on<SelectFilterMonth>(_onSelectMonth);
 
     _incomplteListSubscriber = _appointmentRepository
         .incompletedListController.stream
@@ -48,15 +52,26 @@ class AppointmentListBloc
       {String? elderlyProfileId,
       String? volunteerProfileId,
       String? includeStatus,
-      String? excludeStatus}) async {
+      String? excludeStatus,
+      String month = ''}) async {
     String volunteerProfileId = await UserSecureStorage().getUID();
+
+    var selectMonth = month.isNotEmpty ? month.parseTime() : DateTime.now();
+
+    String startDate =
+        DateTime(selectMonth.year, selectMonth.month, 1).toApiFormatDate();
+    String endDate =
+        DateTime(selectMonth.year, selectMonth.month + 1, 0).toApiFormatDate();
+
     final request = AppointmentListRequest(
         limit: state.limit,
         offset: state.offset,
         elderlyProfileId: elderlyProfileId,
         volunteerProfileId: volunteerProfileId,
         includeStatus: includeStatus,
-        excludeStatus: excludeStatus);
+        excludeStatus: excludeStatus,
+        startDate: startDate,
+        endDate: endDate);
 
     final response = await _appointmentRepository.getAppointmentList(request);
   }
@@ -101,5 +116,10 @@ class AppointmentListBloc
     } else {
       emit(state.copyWith(appointments: event.incompleteList));
     }
+  }
+
+  void _onSelectMonth(
+      SelectFilterMonth event, Emitter<AppointmentListState> emit) {
+    emit(state.copyWith(currentMonth: event.selectDate));
   }
 }
