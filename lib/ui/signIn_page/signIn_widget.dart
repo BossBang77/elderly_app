@@ -114,7 +114,7 @@ class SignInPage extends StatelessWidget {
         context.read<HomePageBloc>().add(Initstate());
         context.read<HomePageBloc>().add(ChangeMenu(menus: menuType.mainPage));
         context.go(Routes.home);
-      } else if (state.signInStatus == SignInStatus.fail) {
+      } else if (state.signInStatus == SignInStatus.loginFail) {
         final bool acceptClose = await showDialog(
             context: context,
             builder: (BuildContext context) => ErrorAlertWidget(

@@ -2,7 +2,14 @@ part of 'sign_in_bloc.dart';
 
 enum SectionView { login, forgotPassword, vertifyOTP, resetPassword }
 
-enum SignInStatus { initial, loading, success, fail }
+enum SignInStatus {
+  initial,
+  mandatoryWrong,
+  userNotfound,
+  wrongPassword,
+  loginFail,
+  success
+}
 
 class SignInState extends Equatable {
   const SignInState(

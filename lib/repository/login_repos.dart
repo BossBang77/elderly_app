@@ -22,7 +22,7 @@ class LoginRepository {
   late final LoginService _loginService =
       LoginService(networkProvider.dioClient());
 
-  Future<Either<Failure, LoginModel>> login(SignInModel body) async {
+  Future<Either<int, LoginModel>> login(SignInModel body) async {
     try {
       final HttpResponse req = await _loginService.login(body.toJson());
 
@@ -31,11 +31,11 @@ class LoginRepository {
         return Right(LoginModel.fromJson(data['data']));
       }
     } on DioError catch (error) {
-      return const Left(Failure(''));
+      return Left(error.response!.statusCode ?? 0);
     } catch (e) {
-      return const Left(Failure(''));
+      return const Left(0);
     }
-    return const Left(Failure(''));
+    return const Left(0);
   }
 
   Future<Either<Failure, LoginModel>> refreshToken(String token) async {

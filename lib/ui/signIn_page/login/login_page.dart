@@ -22,6 +22,14 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _signIn = state.signIn;
+    bool usernameEmpty = (state.signInStatus == SignInStatus.mandatoryWrong &&
+        state.signIn.username.isEmpty);
+    bool usernameValidate =
+        (usernameEmpty) || (state.signInStatus == SignInStatus.userNotfound);
+    bool passwordEmpty = (state.signInStatus == SignInStatus.mandatoryWrong &&
+        state.signIn.password.isEmpty);
+    bool passwordValidate =
+        (passwordEmpty) || (state.signInStatus == SignInStatus.wrongPassword);
     return Scaffold(
       appBar: appBar(onBack: () {
         context.go(Routes.root);
@@ -56,6 +64,12 @@ class LoginPage extends StatelessWidget {
                   text: _signIn.username,
                   maxLength: 10,
                   hintText: 'เบอร์มือถือของคุณ',
+                  errorText: state.signInStatus == SignInStatus.userNotfound
+                      ? 'ไม่พบเบอร์มือถือผู้ใช้งานในระบบ'
+                      : 'กรุณากรอกข้อมูลให้ครบถ้วน',
+                  autoValid: usernameValidate,
+                  setError: usernameValidate,
+                  setErrorWithOuter: usernameValidate,
                   onChanged: (value) {
                     context
                         .read<SignInBloc>()
@@ -79,6 +93,12 @@ class LoginPage extends StatelessWidget {
                   imagePath: 'assets/images/obseure_password.png',
                   maxLength: 50,
                   hintText: 'รหัสผ่าน',
+                  errorText: state.signInStatus == SignInStatus.wrongPassword
+                      ? 'รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง'
+                      : 'กรุณากรอกข้อมูลให้ครบถ้วน',
+                  autoValid: passwordValidate,
+                  setError: passwordValidate,
+                  setErrorWithOuter: passwordValidate,
                   onChanged: (value) {
                     context
                         .read<SignInBloc>()
@@ -91,10 +111,7 @@ class LoginPage extends StatelessWidget {
                 ButtonGradient(
                   btnName: 'เข้าสู่ระบบ',
                   onClick: () {
-                    if (_signIn.username.isNotEmpty &&
-                        _signIn.password.isNotEmpty) {
-                      context.read<SignInBloc>().add(SubmitLogin());
-                    }
+                    context.read<SignInBloc>().add(SubmitLogin());
                   },
                 ),
                 const SizedBox(
