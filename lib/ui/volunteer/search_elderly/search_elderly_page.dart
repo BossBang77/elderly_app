@@ -131,12 +131,6 @@ class ElderlySearchDetailPage extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            carddetail(
-                                img:
-                                    'assets/images/elderly_detail_exercise.png',
-                                title: 'การออกกำลังกาย',
-                                detail:
-                                    'ออกกำลังกาย หรือเล่นกีฬา แบบเบาๆ 1-3 วันต่อสัปดาห์')
                           ],
                         )),
                     const SizedBox(
