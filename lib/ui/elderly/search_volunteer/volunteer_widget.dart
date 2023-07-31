@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:health_application/ui/base/appoint_detail_card/appoint_detail_card.dart';
 import 'package:health_application/ui/base/routes.dart';
 import 'package:health_application/ui/base/widget/app_bar_widget.dart';
 import 'package:health_application/ui/elderly/search_volunteer/bloc/search_volunteer_bloc.dart';
 import 'package:health_application/ui/elderly/search_volunteer/component/last_volunteer.dart';
-import 'package:health_application/ui/elderly/search_volunteer/component/near_volunteer.dart';
 import 'package:health_application/ui/elderly/search_volunteer/component/volunteer_card.dart';
-import 'package:health_application/ui/elderly/search_volunteer/filter/filter_volunteer.dart';
-import 'package:health_application/ui/google_map/googlemap.dart';
-import 'package:health_application/ui/home_page/home_page.dart';
-import 'package:health_application/ui/register_profile/register_profile_page.dart';
+import 'package:health_application/ui/elderly/search_volunteer/model/appointment_detail/appointment_detail.dart';
 import 'package:health_application/ui/ui-extensions/color.dart';
-
 import '../../base/appoint_detail_card/bloc/appointment_card_bloc.dart';
-import '../../google_map/cubit/google_map_cubit.dart';
 import '../../ui-extensions/font.dart';
 
 class VolunteerWidget extends StatelessWidget {
@@ -27,6 +18,14 @@ class VolunteerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var sized = MediaQuery.of(context).size;
+
+    List<AppointmentDetail> removeDuplicateVolunteer(
+        List<AppointmentDetail> master) {
+      final ids =
+          master.map((masterMol) => masterMol.volunteer.profileId).toSet();
+      master.retainWhere((d) => ids.remove(d.volunteer.profileId));
+      return master;
+    }
 
     return Scaffold(
       appBar: appBar(
@@ -37,7 +36,9 @@ class VolunteerWidget extends StatelessWidget {
           title: 'เรียกจิตอาสา'),
       body: BlocBuilder<SearchVolunteerBloc, SearchVolunteerState>(
         builder: (context, state) {
-          var lastest = state.lastestAppointList.data;
+          var lastest =
+              removeDuplicateVolunteer([...state.lastestAppointList.data]);
+
           return Container(
             width: sized.width,
             child: SingleChildScrollView(
