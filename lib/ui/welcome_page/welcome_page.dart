@@ -32,13 +32,11 @@ class WelcomePage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-
-              /// TODO real text
               textSubtitle2(
-                  'Lorem ipsum dolor sit amet, consectetur \nadipiscing elit. Elit, ipsum sed diam amet, dui\n vitae libero viverra.',
+                  'แอพพลิเคชั่นสำหรับการดูแลผู้สูงอายุ \n ที่สามารถตั้งค่าการดูแลสุขภาพได้ \n เช่น บันทึกมื้ออาหาร, บันทึกการออกกำลังกาย, \n บันทึกการดื่มน้ำ  อีกทั้งยังสามารถนัดหมายจิตอาสา\nเพื่อมาดูแลผู้สูงอายุในเครือข่ายได้',
                   ColorTheme().black87,
                   true,
-                  maxLine: 4),
+                  maxLine: 5),
               const SizedBox(
                 height: 50,
               ),
