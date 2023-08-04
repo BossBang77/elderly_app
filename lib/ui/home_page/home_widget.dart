@@ -172,8 +172,7 @@ class HomeWidget extends StatelessWidget {
                                                               .eatingCalorieLimit -
                                                           state.tdeeModel
                                                               .eatingCalorieRemaining)
-                                                      .floor()
-                                                      .toString(),
+                                                      .toStringAsFixed(2),
                                                   ColorTheme().Primary),
                                               textSubtitle18Blod(' kcal',
                                                   ColorTheme().black87),
@@ -198,8 +197,7 @@ class HomeWidget extends StatelessWidget {
                                             children: [
                                               textSubtitle24(
                                                   state.tdeeModel.burnCalorie
-                                                      .floor()
-                                                      .toString(),
+                                                      .toStringAsFixed(2),
                                                   ColorTheme().Primary),
                                               textSubtitle18Blod(' kcal',
                                                   ColorTheme().black87),

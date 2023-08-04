@@ -99,7 +99,7 @@ class SummaryExerciseWidget extends StatelessWidget {
                                   children: [
                                     textButton1('เผาผลาญ ', color.white),
                                     textSubtitle18Blod(
-                                        '${exerciseDaily.burnCaloriePoint.toString()} kcal',
+                                        '${exerciseDaily.burnCaloriePoint.toStringAsFixed(2)} kcal',
                                         color.white)
                                   ],
                                 )
